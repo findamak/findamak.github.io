@@ -32,21 +32,21 @@
       "symbol": "NDX",
       "name": "NASDAQ 100",
       "price": 24533.582,
-      "change": 0,
+      "change": -1.73,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 5093.8999,
+      "price": 5094.1001,
       "change": -1.42,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 84.54,
-      "change": -0.62,
+      "price": 84.495,
+      "change": -0.67,
       "type": "commodity"
     },
     {
@@ -57,5 +57,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-13T07:26:06.542239"
+  "lastUpdated": "2026-03-13T07:27:05.531212"
 }
