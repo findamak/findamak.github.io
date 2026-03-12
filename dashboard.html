@@ -511,122 +511,40 @@
         // Initial X feed fetch
         fetchXFeed();
 
-        // Stock Prices - using Financial Modeling Prep API (free tier)
-        const STOCKS = [
-            { symbol: 'IREN', name: 'Iris Energy', type: 'stock' },
-            { symbol: 'CIFR', name: 'Cipher Mining', type: 'stock' },
-            { symbol: 'STRC', name: 'Sarcos Tech', type: 'stock' },
-            { symbol: 'SPX', name: 'S&P 500', type: 'index' },
-            { symbol: 'NDX', name: 'NASDAQ 100', type: 'index' },
-            { symbol: 'GOLD', name: 'Gold/oz', type: 'commodity' },
-            { symbol: 'SILVER', name: 'Silver/oz', type: 'commodity' },
-            { symbol: 'USDAUD', name: 'USD/AUD', type: 'forex' }
-        ];
-
+        // Stock Prices - fetch from pre-generated JSON (updated by cron)
         async function fetchStockPrices() {
             const container = document.getElementById('stock-grid');
             
             try {
-                // Fetch each stock individually from multiple sources
-                const promises = STOCKS.map(async (stock) => {
-                    try {
-                        // Try FMP API for stocks
-                        if (stock.type === 'stock' || stock.type === 'index') {
-                            const response = await fetch(`https://financialmodelingprep.com/api/v3/quote/${stock.symbol}?apikey=demo`);
-                            if (response.ok) {
-                                const data = await response.json();
-                                if (data && data.length > 0) {
-                                    const quote = data[0];
-                                    return {
-                                        symbol: stock.symbol,
-                                        name: stock.name,
-                                        price: quote.price,
-                                        change: quote.changesPercentage
-                                    };
-                                }
-                            }
-                        }
-                        
-                        // Try CoinGecko for commodities
-                        if (stock.symbol === 'GOLD') {
-                            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=gold&vs_currencies=usd&include_24hr_change=true');
-                            const data = await response.json();
-                            if (data.gold) {
-                                return {
-                                    symbol: stock.symbol,
-                                    name: stock.name,
-                                    price: data.gold.usd,
-                                    change: data.gold.usd_24h_change
-                                };
-                            }
-                        }
-                        
-                        if (stock.symbol === 'SILVER') {
-                            const response = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=silver&vs_currencies=usd&include_24hr_change=true');
-                            const data = await response.json();
-                            if (data.silver) {
-                                return {
-                                    symbol: stock.symbol,
-                                    name: stock.name,
-                                    price: data.silver.usd,
-                                    change: data.silver.usd_24h_change
-                                };
-                            }
-                        }
-                        
-                        // Forex via exchangerate-api
-                        if (stock.symbol === 'USDAUD') {
-                            const response = await fetch('https://api.exchangerate-api.com/v4/latest/USD');
-                            const data = await response.json();
-                            if (data.rates && data.rates.AUD) {
-                                return {
-                                    symbol: stock.symbol,
-                                    name: stock.name,
-                                    price: data.rates.AUD,
-                                    change: 0 // No change data from this API
-                                };
-                            }
-                        }
-                        
-                        return null;
-                    } catch (e) {
-                        console.warn(`Failed to fetch ${stock.symbol}:`, e);
-                        return null;
-                    }
-                });
+                const response = await fetch('stock-prices.json');
+                if (!response.ok) throw new Error('Failed to load stock prices');
+                const data = await response.json();
                 
-                const results = await Promise.all(promises);
                 container.innerHTML = '';
                 
-                results.forEach(result => {
-                    if (!result) return;
-                    
+                data.prices.forEach(stock => {
                     const card = document.createElement('div');
                     card.className = 'stock-card';
                     
-                    const priceText = result.price ? '$' + result.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 }) : '--';
+                    const priceText = stock.price ? '$' + stock.price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 4 }) : '--';
                     let changeText = '--';
                     let changeClass = '';
                     
-                    if (result.change !== null && result.change !== undefined) {
-                        const isPositive = result.change >= 0;
-                        changeText = `${isPositive ? '↑' : '↓'} ${Math.abs(result.change).toFixed(2)}%`;
+                    if (stock.change !== null && stock.change !== undefined) {
+                        const isPositive = stock.change >= 0;
+                        changeText = `${isPositive ? '↑' : '↓'} ${Math.abs(stock.change).toFixed(2)}%`;
                         changeClass = `stock-change ${isPositive ? 'positive' : 'negative'}`;
                     }
                     
                     card.innerHTML = `
-                        <div class="stock-symbol">${result.symbol}</div>
-                        <div class="stock-name">${result.name}</div>
+                        <div class="stock-symbol">${stock.symbol}</div>
+                        <div class="stock-name">${stock.name}</div>
                         <div class="stock-price">${priceText}</div>
                         <div class="${changeClass}">${changeText}</div>
                     `;
                     
                     container.appendChild(card);
                 });
-                
-                if (container.children.length === 0) {
-                    container.innerHTML = '<div class="x-feed-error">Failed to load stock prices</div>';
-                }
 
             } catch (error) {
                 console.error('Error fetching stock prices:', error);
