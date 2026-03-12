@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Dashboard</title>
+    <style>
+        :root {
+            --bg-primary: #0d1117;
+            --bg-secondary: #161b22;
+            --bg-card: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --accent-btc: #f7931a;
+            --accent-eth: #627eea;
+            --border: #30363d;
+            --success: #3fb950;
+            --danger: #f85149;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+        }
+
+        .price-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .price-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .price-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+        }
+
+        .price-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .crypto-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+        }
+
+        .crypto-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .crypto-symbol {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+            text-transform: uppercase;
+        }
+
+        .price-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .price-change {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+
+        .price-change.positive {
+            background: rgba(63, 185, 80, 0.15);
+            color: var(--success);
+        }
+
+        .price-change.negative {
+            background: rgba(248, 81, 73, 0.15);
+            color: var(--danger);
+        }
+
+        .loading {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .error {
+            color: var(--danger);
+            font-size: 0.875rem;
+        }
+
+        /* Placeholder for future content */
+        .content-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .content-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🚀 Crypto Dashboard</h1>
+            <p class="last-updated">Last updated: <span id="lastUpdated">--</span></p>
+        </header>
+
+        <div class="price-grid">
+            <!-- Bitcoin Card -->
+            <div class="price-card">
+                <div class="price-header">
+                    <img src="https://assets.coingecko.com/coins/images/1/small/bitcoin.png" alt="Bitcoin" class="crypto-icon">
+                    <div>
+                        <div class="crypto-name">Bitcoin</div>
+                        <div class="crypto-symbol">BTC</div>
+                    </div>
+                </div>
+                <div class="price-value" id="btc-price">
+                    <span class="loading">Loading...</span>
+                </div>
+                <div class="price-change" id="btc-change">
+                    --
+                </div>
+            </div>
+
+            <!-- Ethereum Card -->
+            <div class="price-card">
+                <div class="price-header">
+                    <img src="https://assets.coingecko.com/coins/images/279/small/ethereum.png" alt="Ethereum" class="crypto-icon">
+                    <div>
+                        <div class="crypto-name">Ethereum</div>
+                        <div class="crypto-symbol">ETH</div>
+                    </div>
+                </div>
+                <div class="price-value" id="eth-price">
+                    <span class="loading">Loading...</span>
+                </div>
+                <div class="price-change" id="eth-change">
+                    --
+                </div>
+            </div>
+        </div>
+
+        <!-- Future content area -->
+        <div class="content-section">
+            <h2>Coming Soon</h2>
+            <p style="color: var(--text-secondary);">More dashboard features will be added here.</p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum&vs_currencies=usd&include_24hr_change=true';
+
+        async function fetchPrices() {
+            try {
+                const response = await fetch(API_URL);
+                if (!response.ok) throw new Error('API request failed');
+                const data = await response.json();
+
+                updatePriceCard('btc', data.bitcoin);
+                updatePriceCard('eth', data.ethereum);
+
+                document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString('en-AU', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                });
+            } catch (error) {
+                console.error('Error fetching prices:', error);
+                document.getElementById('btc-price').innerHTML = '<span class="error">Failed to load</span>';
+                document.getElementById('eth-price').innerHTML = '<span class="error">Failed to load</span>';
+            }
+        }
+
+        function updatePriceCard(crypto, data) {
+            const priceEl = document.getElementById(`${crypto}-price`);
+            const changeEl = document.getElementById(`${crypto}-change`);
+
+            const price = data.usd.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'USD',
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+            });
+
+            const change = data.usd_24h_change.toFixed(2);
+            const isPositive = data.usd_24h_change >= 0;
+
+            priceEl.textContent = price;
+            changeEl.className = `price-change ${isPositive ? 'positive' : 'negative'}`;
+            changeEl.innerHTML = `${isPositive ? '↑' : '↓'} ${change}%`;
+        }
+
+        // Initial fetch
+        fetchPrices();
+
+        // Update every minute
+        setInterval(fetchPrices, 60000);
+    </script>
+</body>
+</html>
