@@ -24,7 +24,7 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 6672.5801,
+      "price": 6672.5898,
       "change": -1.52,
       "type": "index"
     },
@@ -38,15 +38,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 5102.5,
-      "change": -1.26,
+      "price": 5099.2002,
+      "change": -1.32,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 84.825,
-      "change": -0.28,
+      "price": 84.75,
+      "change": -0.37,
       "type": "commodity"
     },
     {
@@ -57,5 +57,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-13T07:03:05.662704"
+  "lastUpdated": "2026-03-13T07:04:05.773768"
 }
