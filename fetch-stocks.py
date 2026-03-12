@@ -73,6 +73,9 @@ def fetch_prices():
 
 def main():
     """Main entry point"""
+    import subprocess
+    import os
+    
     print(f"Fetching stock prices at {datetime.now().isoformat()}")
     
     prices = fetch_prices()
@@ -89,6 +92,24 @@ def main():
     
     print(f"\n✓ Saved to {output_file}")
     print(f"  Total tickers: {len(prices)}")
+    
+    # Commit and push to GitHub
+    print("\nPushing to GitHub...")
+    os.chdir('/home/amak/findamak.github.io')
+    
+    try:
+        # Check if there are changes
+        result = subprocess.run(['git', 'status', '--porcelain'], capture_output=True, text=True)
+        if result.stdout.strip():
+            # There are changes to commit
+            subprocess.run(['git', 'add', 'stock-prices.json'], check=True)
+            subprocess.run(['git', 'commit', '-m', f'Update stock prices at {datetime.now().strftime("%Y-%m-%d %H:%M")}'], check=True)
+            subprocess.run(['git', 'push'], check=True)
+            print("✓ Pushed to GitHub")
+        else:
+            print("  No changes to commit")
+    except subprocess.CalledProcessError as e:
+        print(f"✗ Git error: {e}")
 
 if __name__ == '__main__':
     main()
