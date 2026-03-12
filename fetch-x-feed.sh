@@ -62,3 +62,17 @@ jq -n --argjson tweets "$all_tweets" --arg updated "$(date -Iseconds)" '{
 echo "✓ X feed updated: $(date)"
 echo "  Found $(echo "$all_tweets" | jq 'length') tweets"
 echo "  Output: $OUTPUT_FILE"
+
+# Commit and push to GitHub
+echo "Pushing to GitHub..."
+cd /home/amak/findamak.github.io
+
+# Check if there are changes
+if ! git diff --quiet x-feed.json; then
+    git add x-feed.json
+    git commit -m "Update X feed at $(date '+%Y-%m-%d %H:%M')"
+    git push
+    echo "✓ Pushed to GitHub"
+else
+    echo "  No changes to commit"
+fi
