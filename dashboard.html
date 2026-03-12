@@ -516,7 +516,8 @@
             const container = document.getElementById('stock-grid');
             
             try {
-                const response = await fetch('stock-prices.json');
+                // Add cache-busting timestamp to force fresh fetch
+                const response = await fetch('stock-prices.json?t=' + Date.now());
                 if (!response.ok) throw new Error('Failed to load stock prices');
                 const data = await response.json();
                 
@@ -554,6 +555,9 @@
 
         // Initial stock fetch
         fetchStockPrices();
+        
+        // Auto-refresh stock prices every 60 seconds
+        setInterval(fetchStockPrices, 60000);
     </script>
 </body>
 </html>
