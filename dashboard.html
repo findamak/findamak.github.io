@@ -124,6 +124,60 @@
             color: var(--danger);
         }
 
+        /* Stock Cards */
+        .stock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stock-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .stock-card:hover {
+            transform: translateY(-2px);
+            border-color: var(--text-secondary);
+        }
+
+        .stock-symbol {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stock-name {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .stock-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .stock-change {
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .stock-change.positive {
+            color: var(--success);
+        }
+
+        .stock-change.negative {
+            color: var(--danger);
+        }
+
         .loading {
             color: var(--text-secondary);
             font-style: italic;
@@ -256,7 +310,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>🚀 Crypto Dashboard</h1>
+            <h1>📊 Dashboard</h1>
             <p class="last-updated">Last updated: <span id="lastUpdated">--</span></p>
         </header>
 
@@ -294,6 +348,12 @@
                     --
                 </div>
             </div>
+        </div>
+
+        <!-- Stock Prices Section -->
+        <h2 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary);">📈 Stock & Commodity Prices</h2>
+        <div class="stock-grid" id="stock-grid">
+            <!-- Stock cards will be inserted here by JavaScript -->
         </div>
 
         <!-- X Feed Section -->
@@ -450,6 +510,74 @@
 
         // Initial X feed fetch
         fetchXFeed();
+
+        // Stock Prices
+        const STOCKS = [
+            { symbol: 'IREN', name: 'Iris Energy', apiId: 'iris-energy' },
+            { symbol: 'CIFR', name: 'Cipher Mining', apiId: 'cipher-mining' },
+            { symbol: 'STRC', name: 'Sarcos Technology', apiId: null }, // May need manual lookup
+            { symbol: 'SPX', name: 'S&P 500', apiId: 's-p-500' },
+            { symbol: 'GPIX', name: 'Gold Price Index', apiId: null }, // Use GOLD instead
+            { symbol: 'NDX', name: 'NASDAQ 100', apiId: 'nasdaq-100' },
+            { symbol: 'GOLD', name: 'Gold Ounce', apiId: 'gold' },
+            { symbol: 'SILVER', name: 'Silver Ounce', apiId: 'silver' },
+            { symbol: 'USDAUD', name: 'USD/AUD', apiId: 'usd-aud' }
+        ];
+
+        async function fetchStockPrices() {
+            const container = document.getElementById('stock-grid');
+            
+            // Build CoinGecko API URL for available assets
+            const coinGeckoIds = STOCKS.filter(s => s.apiId).map(s => s.apiId).join(',');
+            
+            try {
+                const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coinGeckoIds}&vs_currencies=usd,aud&include_24hr_change=true`);
+                if (!response.ok) throw new Error('Stock API request failed');
+                const data = await response.json();
+
+                container.innerHTML = '';
+
+                STOCKS.forEach(stock => {
+                    const card = document.createElement('div');
+                    card.className = 'stock-card';
+                    
+                    let priceText = '--';
+                    let changeText = '--';
+                    let changeClass = '';
+
+                    if (stock.apiId && data[stock.apiId]) {
+                        const stockData = data[stock.apiId];
+                        const price = stockData.usd || stockData.aud || 0;
+                        const change = stockData.usd_24h_change || stockData.aud_24h_change || 0;
+                        
+                        priceText = '$' + price.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                        const isPositive = change >= 0;
+                        changeText = `${isPositive ? '↑' : '↓'} ${Math.abs(change).toFixed(2)}%`;
+                        changeClass = `stock-change ${isPositive ? 'positive' : 'negative'}`;
+                    } else if (stock.symbol === 'STRC') {
+                        // Sarcos - placeholder
+                        priceText = 'N/A';
+                        changeText = 'Check manually';
+                    }
+
+                    card.innerHTML = `
+                        <div class="stock-symbol">${stock.symbol}</div>
+                        <div class="stock-name">${stock.name}</div>
+                        <div class="stock-price">${priceText}</div>
+                        <div class="${changeClass}">${changeText}</div>
+                    `;
+
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error('Error fetching stock prices:', error);
+                container.innerHTML = '<div class="x-feed-error">Failed to load stock prices</div>';
+            }
+        }
+
+        // Initial stock fetch
+        fetchStockPrices();
     </script>
 </body>
 </html>
