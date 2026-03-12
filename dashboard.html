@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto Dashboard</title>
+    <title>Dashboard</title>
     <style>
         :root {
             --bg-primary: #0d1117;
@@ -134,8 +134,8 @@
             font-size: 0.875rem;
         }
 
-        /* Placeholder for future content */
-        .content-section {
+        /* X Feed Section */
+        .x-feed-section {
             background: var(--bg-secondary);
             border: 1px solid var(--border);
             border-radius: 12px;
@@ -143,10 +143,113 @@
             margin-top: 2rem;
         }
 
-        .content-section h2 {
+        .x-feed-section h2 {
             font-size: 1.5rem;
-            margin-bottom: 1rem;
+            margin-bottom: 0.5rem;
             color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .x-feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .x-feed-updated {
+            color: var(--text-secondary);
+            font-size: 0.875rem;
+        }
+
+        .x-feed-grid {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .x-tweet-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        .x-tweet-card:hover {
+            border-color: var(--text-secondary);
+        }
+
+        .x-tweet-header {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .x-user-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--bg-secondary);
+        }
+
+        .x-user-info {
+            flex: 1;
+        }
+
+        .x-user-name {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        .x-user-handle {
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+        }
+
+        .x-tweet-time {
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+
+        .x-tweet-text {
+            color: var(--text-primary);
+            line-height: 1.5;
+            font-size: 0.95rem;
+            word-wrap: break-word;
+        }
+
+        .x-tweet-link {
+            display: inline-block;
+            margin-top: 0.75rem;
+            color: var(--accent-eth);
+            text-decoration: none;
+            font-size: 0.85rem;
+        }
+
+        .x-tweet-link:hover {
+            text-decoration: underline;
+        }
+
+        .x-feed-loading {
+            color: var(--text-secondary);
+            font-style: italic;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .x-feed-error {
+            color: var(--danger);
+            padding: 1rem;
+            background: rgba(248, 81, 73, 0.1);
+            border-radius: 8px;
+            margin-top: 1rem;
         }
     </style>
 </head>
@@ -193,10 +296,15 @@
             </div>
         </div>
 
-        <!-- Future content area -->
-        <div class="content-section">
-            <h2>Coming Soon</h2>
-            <p style="color: var(--text-secondary);">More dashboard features will be added here.</p>
+        <!-- X Feed Section -->
+        <div class="x-feed-section">
+            <div class="x-feed-header">
+                <h2>🐦 X Feed</h2>
+                <span class="x-feed-updated">Last updated: <span id="xFeedUpdated">--</span></span>
+            </div>
+            <div class="x-feed-grid" id="x-feed-container">
+                <div class="x-feed-loading">Loading recent posts...</div>
+            </div>
         </div>
     </div>
 
@@ -248,6 +356,100 @@
 
         // Update every minute
         setInterval(fetchPrices, 60000);
+
+        // X Feed
+        const X_FEED_URL = 'x-feed.json';
+
+        async function fetchXFeed() {
+            try {
+                const response = await fetch(X_FEED_URL);
+                if (!response.ok) throw new Error('Failed to load X feed');
+                const data = await response.json();
+
+                const container = document.getElementById('x-feed-container');
+                const updatedEl = document.getElementById('xFeedUpdated');
+
+                // Update timestamp
+                if (data.lastUpdated) {
+                    updatedEl.textContent = new Date(data.lastUpdated).toLocaleString('en-AU', {
+                        dateStyle: 'medium',
+                        timeStyle: 'short'
+                    });
+                }
+
+                // Clear loading message
+                container.innerHTML = '';
+
+                if (!data.tweets || data.tweets.length === 0) {
+                    container.innerHTML = '<div class="x-feed-loading">No recent posts found. Feed updates daily at 6am.</div>';
+                    return;
+                }
+
+                // Filter tweets from last 24 hours
+                const now = new Date();
+                const twentyFourHoursAgo = new Date(now.getTime() - 24 * 60 * 60 * 1000);
+
+                const recentTweets = data.tweets.filter(tweet => {
+                    const tweetDate = new Date(tweet.pubDate);
+                    return tweetDate >= twentyFourHoursAgo;
+                });
+
+                if (recentTweets.length === 0) {
+                    container.innerHTML = '<div class="x-feed-loading">No posts from the last 24 hours.</div>';
+                    return;
+                }
+
+                // Sort by date (newest first)
+                recentTweets.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+
+                // Render tweets
+                recentTweets.forEach(tweet => {
+                    const card = document.createElement('div');
+                    card.className = 'x-tweet-card';
+
+                    const tweetDate = new Date(tweet.pubDate);
+                    const timeAgo = getTimeAgo(tweetDate);
+
+                    card.innerHTML = `
+                        <div class="x-tweet-header">
+                            <img src="https://github.com/${tweet.user}.png" alt="${tweet.user}" class="x-user-avatar" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%2321262d%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%238b949e%22 font-size=%2240%22>${tweet.user.charAt(0).toUpperCase()}</text></svg>'">
+                            <div class="x-user-info">
+                                <div class="x-user-name">${tweet.user}</div>
+                                <div class="x-user-handle">@${tweet.user}</div>
+                            </div>
+                            <div class="x-tweet-time">${timeAgo}</div>
+                        </div>
+                        <div class="x-tweet-text">${escapeHtml(tweet.title)}</div>
+                        <a href="${tweet.link}" target="_blank" rel="noopener" class="x-tweet-link">View on X →</a>
+                    `;
+
+                    container.appendChild(card);
+                });
+
+            } catch (error) {
+                console.error('Error fetching X feed:', error);
+                document.getElementById('x-feed-container').innerHTML = 
+                    '<div class="x-feed-error">Failed to load X feed. The feed updates daily at 6am.</div>';
+            }
+        }
+
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            
+            if (seconds < 60) return 'Just now';
+            if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
+            return `${Math.floor(seconds / 86400)}d ago`;
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        // Initial X feed fetch
+        fetchXFeed();
     </script>
 </body>
 </html>
