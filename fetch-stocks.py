@@ -12,7 +12,7 @@ from datetime import datetime
 TICKERS = {
     'IREN': {'name': 'Iris Energy', 'type': 'stock'},
     'CIFR': {'name': 'Cipher Mining', 'type': 'stock'},
-    'STRC': {'name': 'Sarcos Tech', 'type': 'stock'},
+    'STRC': {'name': 'Strategy STRC', 'type': 'stock'},
     '^GSPC': {'symbol': 'SPX', 'name': 'S&P 500', 'type': 'index'},
     '^NDX': {'symbol': 'NDX', 'name': 'NASDAQ 100', 'type': 'index'},
     'GC=F': {'symbol': 'GOLD', 'name': 'Gold/oz', 'type': 'commodity'},
