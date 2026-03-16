@@ -720,22 +720,22 @@
                 const btcHoldings = data.totalHoldingsBTC || 0;
                 document.getElementById('etf-total-btc').textContent = btcHoldings.toLocaleString('en-US') + ' BTC';
 
-                // Flows
+                // Flows (in BTC)
                 const flows = data.flows || {};
                 
                 const flow1d = flows['1day'] || 0;
                 const flow1dEl = document.getElementById('etf-flow-1d');
-                flow1dEl.textContent = (flow1d >= 0 ? '+' : '') + '$' + (flow1d / 1e6).toFixed(0) + 'M';
+                flow1dEl.textContent = (flow1d >= 0 ? '+' : '') + flow1d.toLocaleString('en-US') + ' BTC';
                 flow1dEl.className = 'flow-value ' + (flow1d >= 0 ? 'positive' : 'negative');
 
                 const flow7d = flows['7day'] || 0;
                 const flow7dEl = document.getElementById('etf-flow-7d');
-                flow7dEl.textContent = (flow7d >= 0 ? '+' : '') + '$' + (flow7d / 1e6).toFixed(0) + 'M';
+                flow7dEl.textContent = (flow7d >= 0 ? '+' : '') + flow7d.toLocaleString('en-US') + ' BTC';
                 flow7dEl.className = 'flow-value ' + (flow7d >= 0 ? 'positive' : 'negative');
 
                 const flow30d = flows['30day'] || 0;
                 const flow30dEl = document.getElementById('etf-flow-30d');
-                flow30dEl.textContent = (flow30d >= 0 ? '+' : '') + '$' + (flow30d / 1e6).toFixed(0) + 'M';
+                flow30dEl.textContent = (flow30d >= 0 ? '+' : '') + flow30d.toLocaleString('en-US') + ' BTC';
                 flow30dEl.className = 'flow-value ' + (flow30d >= 0 ? 'positive' : 'negative');
 
                 // History
@@ -755,7 +755,7 @@
                             <tr>
                                 <td>${date}</td>
                                 <td>${(day.totalBTC || 0).toLocaleString('en-US')} BTC</td>
-                                <td class="${flowClass}">${flowSign}$${(dailyFlow / 1e6).toFixed(0)}M</td>
+                                <td class="${flowClass}">${flowSign}${dailyFlow.toLocaleString('en-US')} BTC</td>
                             </tr>
                         `;
                     }).join('');

@@ -64,7 +64,7 @@ def parse_html_content(html):
                 data['totalHoldingsBTC'] = int(btc_match.group(1).replace(',', ''))
                 break
     
-    # Extract flows by looking for specific labels
+    # Extract flows by looking for specific labels - extract BTC amounts
     flow_labels = {
         '1day': '1-Day Net Flows',
         '7day': '7-Day Net Flows',
@@ -79,12 +79,12 @@ def parse_html_content(html):
             if parent:
                 # Look for the value in the parent or sibling elements
                 text = parent.get_text() if hasattr(parent, 'get_text') else str(label_element)
-                # Match patterns like +$181M, -$45M, +$181.5M, etc.
-                flow_match = re.search(r'([+-]?)\$?([\d,]+(?:\.\d+)?)\s*(?:M|million)', text, re.IGNORECASE)
+                # Match BTC patterns like +181 BTC, -45 BTC, +2,555 BTC, etc.
+                flow_match = re.search(r'([+-]?)\s*(\d{1,3}(?:,\d{3})*(?:\.\d+)?)\s*BTC', text, re.IGNORECASE)
                 if flow_match:
                     sign = -1 if flow_match.group(1) == '-' else 1
                     value = float(flow_match.group(2).replace(',', ''))
-                    data['flows'][key] = sign * int(value * 1e6)  # Convert M to actual
+                    data['flows'][key] = sign * int(value)  # Store as BTC amount
     
     # Extract 7-day history from table
     # Look for table with date columns
@@ -116,13 +116,13 @@ def parse_html_content(html):
                     btc_match = re.search(r'(\d{1,3}(?:,\d{3})*)', btc_cell)
                     total_btc = int(btc_match.group(1).replace(',', '')) if btc_match else None
                     
-                    # Extract daily flow from third or fourth column
+                    # Extract daily flow from third column (BTC amount)
                     flow_cell = cells[2].get_text(strip=True) if len(cells) > 2 else ""
-                    flow_match = re.search(r'([+-]?)\$?([\d,]+(?:\.\d+)?)\s*(?:M|million)?', flow_cell, re.IGNORECASE)
+                    flow_match = re.search(r'([+-]?)\s*(\d{1,3}(?:,\d{3})*(?:\.\d+)?)\s*BTC', flow_cell, re.IGNORECASE)
                     daily_flow = None
                     if flow_match:
                         sign = -1 if flow_match.group(1) == '-' else 1
-                        daily_flow = sign * float(flow_match.group(2).replace(',', '')) * 1e6
+                        daily_flow = sign * int(float(flow_match.group(2).replace(',', '')))
                     
                     if date_str and total_btc:
                         history_data.append({
