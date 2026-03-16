@@ -178,6 +178,109 @@
             color: var(--danger);
         }
 
+        /* ETF Section */
+        .etf-section {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .etf-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .etf-summary {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .etf-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+        }
+
+        .etf-card-title {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .etf-card-value {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .etf-flows {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .flow-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .flow-period {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .flow-value {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+
+        .flow-value.positive {
+            color: var(--success);
+        }
+
+        .flow-value.negative {
+            color: var(--danger);
+        }
+
+        .etf-history h3 {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        .history-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        .history-table th,
+        .history-table td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .history-table th {
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .history-table td {
+            color: var(--text-primary);
+        }
+
         .loading {
             color: var(--text-secondary);
             font-style: italic;
@@ -354,6 +457,53 @@
         <h2 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary);">📈 Stock & Commodity Prices</h2>
         <div class="stock-grid" id="stock-grid">
             <!-- Stock cards will be inserted here by JavaScript -->
+        </div>
+
+        <!-- Bitcoin ETF Section -->
+        <div class="etf-section">
+            <h2>₿ Bitcoin ETF Holdings Report</h2>
+            <div class="etf-summary" id="etf-summary">
+                <div class="etf-card">
+                    <div class="etf-card-title">Total BTC Holdings</div>
+                    <div class="etf-card-value" id="etf-total-btc">Loading...</div>
+                </div>
+                <div class="etf-card">
+                    <div class="etf-card-title">Total AUM</div>
+                    <div class="etf-card-value" id="etf-total-aum">Loading...</div>
+                </div>
+            </div>
+            
+            <div class="etf-flows" id="etf-flows">
+                <div class="flow-card">
+                    <div class="flow-period">1-Day Flow</div>
+                    <div class="flow-value" id="etf-flow-1d">Loading...</div>
+                </div>
+                <div class="flow-card">
+                    <div class="flow-period">7-Day Flow</div>
+                    <div class="flow-value" id="etf-flow-7d">Loading...</div>
+                </div>
+                <div class="flow-card">
+                    <div class="flow-period">30-Day Flow</div>
+                    <div class="flow-value" id="etf-flow-30d">Loading...</div>
+                </div>
+            </div>
+            
+            <div class="etf-history">
+                <h3>📅 7-Day History</h3>
+                <table class="history-table">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Total BTC</th>
+                            <th>Total AUM</th>
+                            <th>Daily Flow</th>
+                        </tr>
+                    </thead>
+                    <tbody id="etf-history-body">
+                        <tr><td colspan="4" style="text-align:center;padding:2rem;">Loading history...</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
 
         <!-- X Feed Section -->
@@ -558,6 +708,79 @@
         
         // Auto-refresh stock prices every 60 seconds
         setInterval(fetchStockPrices, 60000);
+
+        // Bitcoin ETF Holdings
+        async function fetchETFData() {
+            try {
+                const response = await fetch('etf-data.json?t=' + Date.now());
+                if (!response.ok) throw new Error('Failed to load ETF data');
+                const data = await response.json();
+
+                if (data.error) {
+                    document.getElementById('etf-summary').innerHTML = '<div class="x-feed-error">' + data.error + '</div>';
+                    return;
+                }
+
+                // Total BTC Holdings
+                const btcHoldings = data.totalHoldingsBTC || 0;
+                document.getElementById('etf-total-btc').textContent = btcHoldings.toLocaleString('en-US') + ' BTC';
+
+                // Total AUM
+                const aum = data.totalAUM || 0;
+                document.getElementById('etf-total-aum').textContent = '$' + (aum / 1e9).toFixed(1) + 'B';
+
+                // Flows
+                const flows = data.flows || {};
+                
+                const flow1d = flows['1day'] || 0;
+                const flow1dEl = document.getElementById('etf-flow-1d');
+                flow1dEl.textContent = (flow1d >= 0 ? '+' : '') + '$' + (flow1d / 1e6).toFixed(0) + 'M';
+                flow1dEl.className = 'flow-value ' + (flow1d >= 0 ? 'positive' : 'negative');
+
+                const flow7d = flows['7day'] || 0;
+                const flow7dEl = document.getElementById('etf-flow-7d');
+                flow7dEl.textContent = (flow7d >= 0 ? '+' : '') + '$' + (flow7d / 1e6).toFixed(0) + 'M';
+                flow7dEl.className = 'flow-value ' + (flow7d >= 0 ? 'positive' : 'negative');
+
+                const flow30d = flows['30day'] || 0;
+                const flow30dEl = document.getElementById('etf-flow-30d');
+                flow30dEl.textContent = (flow30d >= 0 ? '+' : '') + '$' + (flow30d / 1e6).toFixed(0) + 'M';
+                flow30dEl.className = 'flow-value ' + (flow30d >= 0 ? 'positive' : 'negative');
+
+                // History
+                const history = data.history || [];
+                const historyBody = document.getElementById('etf-history-body');
+                
+                if (history.length === 0) {
+                    historyBody.innerHTML = '<tr><td colspan="4" style="text-align:center;padding:2rem;">No history available</td></tr>';
+                } else {
+                    historyBody.innerHTML = history.map(day => {
+                        const date = new Date(day.date).toLocaleDateString('en-AU', { weekday: 'short', month: 'short', day: 'numeric' });
+                        const dailyFlow = day.dailyFlow || 0;
+                        const flowClass = dailyFlow >= 0 ? 'positive' : 'negative';
+                        const flowSign = dailyFlow >= 0 ? '+' : '';
+                        
+                        return `
+                            <tr>
+                                <td>${date}</td>
+                                <td>${(day.totalBTC || 0).toLocaleString('en-US')} BTC</td>
+                                <td>$${((day.totalAUM || 0) / 1e9).toFixed(1)}B</td>
+                                <td class="${flowClass}">${flowSign}$${(dailyFlow / 1e6).toFixed(0)}M</td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
+
+            } catch (error) {
+                console.error('Error fetching ETF data:', error);
+                document.getElementById('etf-summary').innerHTML = '<div class="x-feed-error">Failed to load ETF data. Updates daily at 6am.</div>';
+                document.getElementById('etf-flows').style.display = 'none';
+                document.querySelector('.etf-history').style.display = 'none';
+            }
+        }
+
+        // Initial ETF fetch
+        fetchETFData();
     </script>
 </body>
 </html>
