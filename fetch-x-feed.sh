@@ -2,7 +2,10 @@
 
 # Fetch X (Twitter) feeds using bird CLI
 # Run daily at 6am via cron
-# Uses credentials from ~/twitter.token
+# Uses credentials from /home/amak/twitter.token
+
+# Set PATH for cron environment
+export PATH="/home/amak/.npm-global/bin:/usr/local/bin:/usr/bin:/bin"
 
 X_USERS=(
     "fundstrat"
@@ -18,13 +21,14 @@ X_USERS=(
 )
 
 OUTPUT_FILE="/home/amak/findamak.github.io/x-feed.json"
+TOKEN_FILE="/home/amak/twitter.token"
 
 # Load credentials from token file
-if [ ! -f ~/twitter.token ]; then
-    echo "Error: ~/twitter.token not found" >&2
+if [ ! -f "$TOKEN_FILE" ]; then
+    echo "Error: $TOKEN_FILE not found" >&2
     exit 1
 fi
-source ~/twitter.token
+source "$TOKEN_FILE"
 
 # Build JSON using jq
 all_tweets="[]"
