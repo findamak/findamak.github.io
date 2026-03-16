@@ -30,45 +30,47 @@ if [ ! -f "$TOKEN_FILE" ]; then
 fi
 source "$TOKEN_FILE"
 
-# Build JSON using jq
-all_tweets="[]"
+# Collect tweets to temp files, then combine
+cutoff=$(date -d '24 hours ago' -Iseconds 2>/dev/null || date -v-24H -Iseconds 2>/dev/null)
+TWEETS_DIR=$(mktemp -d)
 
+idx=0
 for user in "${X_USERS[@]}"; do
     echo "Fetching @${user}..." >&2
     
-    # Fetch tweets (50 per user to avoid rate limits, should cover 24h for most accounts)
-    tweets=$(bird user-tweets "@${user}" -n 50 \
+    # Fetch and filter tweets for this user, save to temp file
+    result=$(bird user-tweets "@${user}" -n 20 \
         --auth-token "$auth_token" \
         --ct0 "$ct0" \
-        --json 2>/dev/null)
+        --json 2>&1)
     
-    if [ -z "$tweets" ] || [ "$tweets" = "[]" ]; then
-        echo "  No tweets found for $user" >&2
-        continue
+    # Check for rate limit or errors
+    if echo "$result" | grep -q "Rate limit"; then
+        echo "  ⚠️ Rate limited, skipping..." >&2
+        echo "[]" > "$TWEETS_DIR/$idx.json"
+    else
+        echo "$result" | jq --arg user "$user" --arg cutoff "$cutoff" '
+            .tweets // [] | [.[] | select((.createdAt // "") >= $cutoff) | {
+                user: $user,
+                title: (.text // ""),
+                link: ("https://x.com/" + $user + "/status/" + (.id // "")),
+                pubDate: (.createdAt // "")
+            }]
+        ' > "$TWEETS_DIR/$idx.json" 2>/dev/null || echo "[]" > "$TWEETS_DIR/$idx.json"
     fi
     
-    # Filter to last 24 hours and transform
-    cutoff=$(date -d '24 hours ago' -Iseconds 2>/dev/null || date -v-24H -Iseconds 2>/dev/null)
-    user_tweets=$(echo "$tweets" | jq --arg user "$user" --arg cutoff "$cutoff" '
-        .tweets // [] | [.[] | select((.createdAt // "") >= $cutoff) | {
-            user: $user,
-            title: (.text // ""),
-            link: ("https://x.com/" + $user + "/status/" + (.id // "")),
-            pubDate: (.createdAt // "")
-        }]
-    ')
-    
-    # Append to all_tweets
-    all_tweets=$(echo "$all_tweets" "$user_tweets" | jq -s 'add')
-    
-    sleep 2
+    idx=$((idx + 1))
+    sleep 3  # Longer delay to avoid rate limits
 done
 
-# Create final JSON with timestamp
-jq -n --argjson tweets "$all_tweets" --arg updated "$(date -Iseconds)" '{
-    tweets: $tweets,
-    lastUpdated: $updated
-}' > "$OUTPUT_FILE"
+# Combine all temp files
+jq -s 'add | {tweets: ., lastUpdated: "'"$(date -Iseconds)"'"}' "$TWEETS_DIR"/*.json > "$OUTPUT_FILE" 2>/dev/null || echo '{"tweets":[],"lastUpdated":"'$(date -Iseconds)'"}' > "$OUTPUT_FILE"
+
+# Cleanup
+rm -rf "$TWEETS_DIR"
+
+# Count tweets
+tweet_count=$(jq '.tweets | length' "$OUTPUT_FILE" 2>/dev/null || echo "0")
 
 echo "✓ X feed updated: $(date)"
 echo "  Found $(echo "$all_tweets" | jq 'length') tweets"
