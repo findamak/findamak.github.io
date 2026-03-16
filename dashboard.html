@@ -615,6 +615,9 @@
                     const tweetDate = new Date(tweet.pubDate);
                     const timeAgo = getTimeAgo(tweetDate);
 
+                    const formattedDate = tweetDate.toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' });
+                    const formattedTime = tweetDate.toLocaleTimeString('en-AU', { hour: '2-digit', minute: '2-digit' });
+
                     card.innerHTML = `
                         <div class="x-tweet-header">
                             <img src="https://github.com/${tweet.user}.png" alt="${tweet.user}" class="x-user-avatar" onerror="this.src='data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect fill=%22%2321262d%22 width=%22100%22 height=%22100%22/><text x=%2250%22 y=%2255%22 text-anchor=%22middle%22 fill=%22%238b949e%22 font-size=%2240%22>${tweet.user.charAt(0).toUpperCase()}</text></svg>'">
@@ -622,7 +625,10 @@
                                 <div class="x-user-name">${tweet.user}</div>
                                 <div class="x-user-handle">@${tweet.user}</div>
                             </div>
-                            <div class="x-tweet-time">${timeAgo}</div>
+                            <div class="x-tweet-time">
+                                <div>${timeAgo}</div>
+                                <div style="font-size: 0.7rem; opacity: 0.7; margin-top: 0.25rem;">${formattedDate} ${formattedTime}</div>
+                            </div>
                         </div>
                         <div class="x-tweet-text">${escapeHtml(tweet.title)}</div>
                         <a href="${tweet.link}" target="_blank" rel="noopener" class="x-tweet-link">View on X →</a>
