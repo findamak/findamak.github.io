@@ -32,8 +32,8 @@ all_tweets="[]"
 for user in "${X_USERS[@]}"; do
     echo "Fetching @${user}..." >&2
     
-    # Fetch tweets using bird CLI
-    tweets=$(bird user-tweets "@${user}" -n 10 \
+    # Fetch more tweets (200) to ensure we capture 24h window
+    tweets=$(bird user-tweets "@${user}" -n 200 \
         --auth-token "$auth_token" \
         --ct0 "$ct0" \
         --json 2>/dev/null)
@@ -43,8 +43,9 @@ for user in "${X_USERS[@]}"; do
         continue
     fi
     
-    # Transform and add to collection
-    user_tweets=$(echo "$tweets" | jq --arg user "$user" '[.[] | {
+    # Filter to last 24 hours and transform
+    cutoff=$(date -d '24 hours ago' -Iseconds 2>/dev/null || date -v-24H -Iseconds 2>/dev/null)
+    user_tweets=$(echo "$tweets" | jq --arg user "$user" --arg cutoff "$cutoff" '[.[] | select(.createdAt >= $cutoff) | {
         user: $user,
         title: (.text // ""),
         link: ("https://x.com/" + $user + "/status/" + (.id // "")),
