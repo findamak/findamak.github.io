@@ -146,8 +146,20 @@ def parse_html_content(html):
     
     return data
 
+def load_existing_history(output_file):
+    """Load existing history from JSON file"""
+    try:
+        with open(output_file, 'r') as f:
+            data = json.load(f)
+            return data.get('history', [])
+    except:
+        return []
+
+
 def main():
     """Main entry point"""
+    output_file = '/home/amak/findamak.github.io/etf-data.json'
+    
     print(f"Fetching ETF data at {datetime.now().isoformat()}")
     
     html = fetch_etf_data()
@@ -160,12 +172,30 @@ def main():
             'lastUpdated': datetime.now().isoformat()
         }
     
+    # Build history from daily data collection
+    existing_history = load_existing_history(output_file)
+    today = datetime.now().strftime('%Y-%m-%d')
+    
+    # Create today's history entry
+    today_entry = {
+        'date': today,
+        'totalBTC': data.get('totalHoldingsBTC'),
+        'dailyFlow': data['flows'].get('1day')
+    }
+    
+    # Filter out any existing entry for today (avoid duplicates)
+    existing_history = [h for h in existing_history if h.get('date') != today]
+    
+    # Add today's entry and keep last 7 days
+    history = [today_entry] + existing_history
+    data['history'] = history[:7]
+    
     # Write to JSON file
-    output_file = '/home/amak/findamak.github.io/etf-data.json'
     with open(output_file, 'w') as f:
         json.dump(data, f, indent=2)
     
     print(f"\n✓ Saved to {output_file}")
+    print(f"  History entries: {len(data['history'])}")
     
     # Commit and push to GitHub
     print("\nPushing to GitHub...")
