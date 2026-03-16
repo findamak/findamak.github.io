@@ -22,20 +22,18 @@
       "type": "stock"
     },
     {
-      "symbol": "IBTC",
+      "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'currentTradingPeriod'"
+      "price": 10.49,
+      "change": 4.17,
+      "type": "stock"
     },
     {
-      "symbol": "VBTC",
+      "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'currentTradingPeriod'"
+      "price": 21.31,
+      "change": 3.75,
+      "type": "stock"
     },
     {
       "symbol": "SPX",
@@ -54,24 +52,24 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 5018.7002,
+      "price": 5019.2998,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 80.245,
+      "price": 80.23,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4277,
-      "change": 1.0,
+      "price": 1.4272,
+      "change": 0.97,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-16T16:00:11.785859"
+  "lastUpdated": "2026-03-16T16:03:43.840197"
 }
