@@ -31,7 +31,7 @@ fi
 source "$TOKEN_FILE"
 
 # Collect tweets to temp files, then combine
-cutoff=$(date -d '24 hours ago' -Iseconds 2>/dev/null || date -v-24H -Iseconds 2>/dev/null)
+cutoff=$(date -d '24 hours ago' +%s 2>/dev/null || date -v-24H +%s 2>/dev/null)
 TWEETS_DIR=$(mktemp -d)
 
 idx=0
@@ -42,20 +42,24 @@ for user in "${X_USERS[@]}"; do
     result=$(bird user-tweets "@${user}" -n 20 \
         --auth-token "$auth_token" \
         --ct0 "$ct0" \
-        --json 2>&1)
+        --json 2>/dev/null)
     
     # Check for rate limit or errors
     if echo "$result" | grep -q "Rate limit"; then
         echo "  ⚠️ Rate limited, skipping..." >&2
         echo "[]" > "$TWEETS_DIR/$idx.json"
     else
-        echo "$result" | jq --arg user "$user" --arg cutoff "$cutoff" '
-            .tweets // [] | [.[] | select((.createdAt // "") >= $cutoff) | {
-                user: $user,
-                title: (.text // ""),
-                link: ("https://x.com/" + $user + "/status/" + (.id // "")),
-                pubDate: (.createdAt // "")
-            }]
+        echo "$result" | jq --arg user "$user" --argjson cutoff "$cutoff" '
+            [.[] | 
+                # Parse createdAt: "Mon Mar 16 18:37:57 +0000 2026" -> epoch
+                (.createdAt | strptime("%a %b %d %H:%M:%S %z %Y") | mktime) as $tweetTime |
+                select($tweetTime >= $cutoff) | {
+                    user: $user,
+                    title: (.text // ""),
+                    link: ("https://x.com/" + $user + "/status/" + (.id // "")),
+                    pubDate: (.createdAt // "")
+                }
+            ]
         ' > "$TWEETS_DIR/$idx.json" 2>/dev/null || echo "[]" > "$TWEETS_DIR/$idx.json"
     fi
     
@@ -73,7 +77,7 @@ rm -rf "$TWEETS_DIR"
 tweet_count=$(jq '.tweets | length' "$OUTPUT_FILE" 2>/dev/null || echo "0")
 
 echo "✓ X feed updated: $(date)"
-echo "  Found $(echo "$all_tweets" | jq 'length') tweets"
+echo "  Found $tweet_count tweets"
 echo "  Output: $OUTPUT_FILE"
 
 # Commit and push to GitHub
