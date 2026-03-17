@@ -57,7 +57,8 @@ for user in "${X_USERS[@]}"; do
                     user: $user,
                     title: (.text // ""),
                     link: ("https://x.com/" + $user + "/status/" + (.id // "")),
-                    pubDate: (.createdAt // "")
+                    pubDate: ($tweetTime | strftime("%Y-%m-%dT%H:%M:%SZ")),
+                    pubDateRaw: (.createdAt // "")
                 }
             ]
         ' > "$TWEETS_DIR/$idx.json" 2>/dev/null || echo "[]" > "$TWEETS_DIR/$idx.json"
@@ -67,8 +68,13 @@ for user in "${X_USERS[@]}"; do
     sleep 3  # Longer delay to avoid rate limits
 done
 
-# Combine all temp files
-jq -s 'add | {tweets: ., lastUpdated: "'"$(date -Iseconds)"'"}' "$TWEETS_DIR"/*.json > "$OUTPUT_FILE" 2>/dev/null || echo '{"tweets":[],"lastUpdated":"'$(date -Iseconds)'"}' > "$OUTPUT_FILE"
+# Combine all temp files and sort newest-first across all users
+jq -s '
+  add
+  | sort_by((.pubDate | strptime("%Y-%m-%dT%H:%M:%SZ") | mktime))
+  | reverse
+  | {tweets: ., lastUpdated: "'"$(date -Iseconds)"'"}
+' "$TWEETS_DIR"/*.json > "$OUTPUT_FILE" 2>/dev/null || echo '{"tweets":[],"lastUpdated":"'$(date -Iseconds)'"}' > "$OUTPUT_FILE"
 
 # Cleanup
 rm -rf "$TWEETS_DIR"
