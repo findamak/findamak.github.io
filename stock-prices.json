@@ -24,8 +24,8 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 10.44,
-      "change": 0,
+      "price": 10.41,
+      "change": -0.29,
       "type": "stock"
     },
     {
@@ -52,15 +52,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 5005.3999,
-      "change": 0.23,
+      "price": 5002.2002,
+      "change": 0.16,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 79.075,
-      "change": -1.48,
+      "price": 79.11,
+      "change": -1.44,
       "type": "commodity"
     },
     {
@@ -71,5 +71,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-18T10:00:08.973835"
+  "lastUpdated": "2026-03-18T10:05:08.908437"
 }
