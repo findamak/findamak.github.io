@@ -3,15 +3,15 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 42.42,
-      "change": -1.26,
+      "price": 42.355,
+      "change": -1.41,
       "type": "stock"
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 14.77,
-      "change": -2.12,
+      "price": 14.735,
+      "change": -2.35,
       "type": "stock"
     },
     {
@@ -38,38 +38,38 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 6639.4102,
-      "change": -1.14,
+      "price": 6634.48,
+      "change": -1.22,
       "type": "index"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 24509.5469,
-      "change": -1.09,
+      "price": 24486.6875,
+      "change": -1.19,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4850.5,
-      "change": -3.01,
+      "price": 4853.5,
+      "change": -2.95,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 76.07,
-      "change": -4.35,
+      "price": 76.27,
+      "change": -4.1,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4187,
-      "change": 0.28,
+      "price": 1.4189,
+      "change": 0.3,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-19T06:35:08.407348"
+  "lastUpdated": "2026-03-19T06:40:08.228139"
 }
