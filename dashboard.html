@@ -124,6 +124,12 @@
             color: var(--danger);
         }
 
+        .price-updated {
+            margin-top: 0.55rem;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+        }
+
         .price-with-dial {
             display: flex;
             justify-content: space-between;
@@ -509,6 +515,7 @@
                 <div class="price-change" id="btc-change">
                     --
                 </div>
+                <div class="price-updated" id="btc-updated">Updated: --</div>
             </div>
 
             <!-- Ethereum Card -->
@@ -536,6 +543,7 @@
                 <div class="price-change" id="eth-change">
                     --
                 </div>
+                <div class="price-updated" id="eth-updated">Updated: --</div>
             </div>
         </div>
 
@@ -608,10 +616,12 @@
                 if (!response.ok) throw new Error('API request failed');
                 const data = await response.json();
 
-                updatePriceCard('btc', data.bitcoin);
-                updatePriceCard('eth', data.ethereum);
+                const now = new Date();
 
-                document.getElementById('lastUpdated').textContent = new Date().toLocaleTimeString('en-AU', {
+                updatePriceCard('btc', data.bitcoin, now);
+                updatePriceCard('eth', data.ethereum, now);
+
+                document.getElementById('lastUpdated').textContent = now.toLocaleTimeString('en-AU', {
                     hour: '2-digit',
                     minute: '2-digit',
                     second: '2-digit'
@@ -623,9 +633,10 @@
             }
         }
 
-        function updatePriceCard(crypto, data) {
+        function updatePriceCard(crypto, data, updatedAt = new Date()) {
             const priceEl = document.getElementById(`${crypto}-price`);
             const changeEl = document.getElementById(`${crypto}-change`);
+            const updatedEl = document.getElementById(`${crypto}-updated`);
 
             const price = data.usd.toLocaleString('en-US', {
                 style: 'currency',
@@ -640,6 +651,17 @@
             priceEl.textContent = price;
             changeEl.className = `price-change ${isPositive ? 'positive' : 'negative'}`;
             changeEl.innerHTML = `${isPositive ? '↑' : '↓'} ${change}%`;
+
+            if (updatedEl) {
+                updatedEl.textContent = `Updated: ${updatedAt.toLocaleDateString('en-AU', {
+                    day: 'numeric',
+                    month: 'short'
+                })} ${updatedAt.toLocaleTimeString('en-AU', {
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    second: '2-digit'
+                })}`;
+            }
         }
 
         const FEAR_GREED_URL = 'fear-greed.json';
