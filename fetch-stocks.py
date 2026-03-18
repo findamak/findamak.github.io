@@ -19,6 +19,8 @@ TICKERS = {
     '^NDX': {'symbol': 'NDX', 'name': 'NASDAQ 100', 'type': 'index'},
     'GC=F': {'symbol': 'GOLD', 'name': 'Gold/oz', 'type': 'commodity'},
     'SI=F': {'symbol': 'SILVER', 'name': 'Silver/oz', 'type': 'commodity'},
+    'BZ=F': {'symbol': 'BZ', 'name': 'Brent Crude', 'type': 'commodity'},
+    'CL=F': {'symbol': 'CL', 'name': 'WTI Crude', 'type': 'commodity'},
     'AUDUSD=X': {'symbol': 'USDAUD', 'name': 'USD/AUD', 'type': 'forex'},
 }
 
