@@ -1,43 +1,17 @@
 #!/usr/bin/env python3
 import json
 import re
+import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
 
 OUTPUT_FILE = Path('/home/amak/findamak.github.io/fear-greed.json')
-COINS = {
-    'bitcoin': 'btc',
-    'ethereum': 'eth',
+SOURCES = {
+    'btc': 'https://nitter.net/BitcoinFear/rss',
+    'eth': 'https://nitter.net/EthereumFear/rss',
 }
-
-
-def fetch_cfgi(symbol: str):
-    url = f'https://www.cfgi.io/{symbol}-fear-greed-index/'
-    resp = requests.get(url, timeout=20)
-    resp.raise_for_status()
-    html = resp.text
-
-    # Value for "Now"
-    value_match = re.search(r'Now</h5>[\s\S]{0,700}?value__score[^>]*>(\d+)<', html, re.IGNORECASE)
-    label_match = re.search(r'Now</h5>[\s\S]{0,700}?value__label[^>]*>([^<]+)<', html, re.IGNORECASE)
-
-    if not value_match:
-        # fallback to first visible score in page
-        value_match = re.search(r'value__score[^>]*>(\d+)<', html, re.IGNORECASE)
-
-    if not value_match:
-        raise ValueError(f'Could not parse CFGI value for {symbol}')
-
-    value = int(value_match.group(1))
-    label = label_match.group(1).strip() if label_match else classify(value)
-
-    return {
-        'value': value,
-        'classification': label,
-        'source': url,
-    }
 
 
 def classify(value: int) -> str:
@@ -52,16 +26,70 @@ def classify(value: int) -> str:
     return 'Extreme Greed'
 
 
+def extract_value(text: str) -> int:
+    # Examples:
+    # "Bitcoin Fear and Greed Index is 26 ~ Fear"
+    # "Ethereum Fear and Greed Index is 49 - Neutral"
+    match = re.search(r'Fear\s+and\s+Greed\s+Index\s+is\s+(\d{1,3})', text, re.IGNORECASE)
+    if not match:
+        raise ValueError(f'Could not parse fear/greed value from text: {text[:120]!r}')
+
+    value = int(match.group(1))
+    if value < 0 or value > 100:
+        raise ValueError(f'Parsed value out of range: {value}')
+
+    return value
+
+
+def fetch_from_rss(symbol: str):
+    url = SOURCES[symbol]
+    resp = requests.get(url, timeout=20, headers={'User-Agent': 'Mozilla/5.0'})
+    resp.raise_for_status()
+
+    root = ET.fromstring(resp.text)
+    channel = root.find('channel')
+    if channel is None:
+        raise ValueError(f'Invalid RSS format for {symbol}')
+
+    item = channel.find('item')
+    if item is None:
+        raise ValueError(f'No RSS items found for {symbol}')
+
+    title = item.findtext('title') or ''
+    description = item.findtext('description') or ''
+    link = item.findtext('link') or ''
+    pub_date = item.findtext('pubDate') or ''
+
+    source_text = title if title.strip() else description
+    value = extract_value(source_text)
+
+    classification_match = re.search(
+        r'Fear\s+and\s+Greed\s+Index\s+is\s+\d{1,3}\s*[~\-—]?\s*([A-Za-z ]+)',
+        source_text,
+        re.IGNORECASE,
+    )
+    classification = classification_match.group(1).strip() if classification_match else classify(value)
+
+    return {
+        'value': value,
+        'classification': classification,
+        'source': url,
+        'sourcePost': link,
+        'sourcePublishedAt': pub_date,
+    }
+
+
 def main():
     result = {
         'lastUpdated': datetime.now(timezone.utc).isoformat(),
-        'indices': {}
+        'indices': {
+            'btc': fetch_from_rss('btc'),
+            'eth': fetch_from_rss('eth'),
+        },
     }
 
-    for full_name, short in COINS.items():
-        result['indices'][short] = fetch_cfgi(full_name)
-
     OUTPUT_FILE.write_text(json.dumps(result, indent=2) + '\n', encoding='utf-8')
+
     print(f'✓ Fear & Greed updated: {datetime.now().strftime("%a %d %b %Y %H:%M:%S %Z") or "local"}')
     print(f'  Output: {OUTPUT_FILE}')
     print(f"  BTC: {result['indices']['btc']['value']} ({result['indices']['btc']['classification']})")
