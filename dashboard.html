@@ -124,6 +124,56 @@
             color: var(--danger);
         }
 
+        .price-with-dial {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .fg-dial-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 96px;
+        }
+
+        .fg-dial {
+            --dial-color: #8b949e;
+            --dial-value: 50;
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            background: conic-gradient(var(--dial-color) calc(var(--dial-value) * 1%), #30363d 0);
+            display: grid;
+            place-items: center;
+            position: relative;
+        }
+
+        .fg-dial::before {
+            content: '';
+            position: absolute;
+            inset: 8px;
+            border-radius: 50%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+        }
+
+        .fg-dial-value {
+            position: relative;
+            z-index: 1;
+            font-size: 1rem;
+            font-weight: 700;
+        }
+
+        .fg-dial-label {
+            margin-top: 0.3rem;
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            text-align: center;
+        }
+
         /* Stock Cards */
         .stock-grid {
             display: grid;
@@ -427,8 +477,16 @@
                         <div class="crypto-symbol">BTC</div>
                     </div>
                 </div>
-                <div class="price-value" id="btc-price">
-                    <span class="loading">Loading...</span>
+                <div class="price-with-dial">
+                    <div class="price-value" id="btc-price">
+                        <span class="loading">Loading...</span>
+                    </div>
+                    <div class="fg-dial-wrap">
+                        <div class="fg-dial" id="btc-fg-dial" style="--dial-value: 0; --dial-color: #8b949e;">
+                            <span class="fg-dial-value" id="btc-fg-value">--</span>
+                        </div>
+                        <div class="fg-dial-label" id="btc-fg-label">Fear & Greed</div>
+                    </div>
                 </div>
                 <div class="price-change" id="btc-change">
                     --
@@ -444,8 +502,16 @@
                         <div class="crypto-symbol">ETH</div>
                     </div>
                 </div>
-                <div class="price-value" id="eth-price">
-                    <span class="loading">Loading...</span>
+                <div class="price-with-dial">
+                    <div class="price-value" id="eth-price">
+                        <span class="loading">Loading...</span>
+                    </div>
+                    <div class="fg-dial-wrap">
+                        <div class="fg-dial" id="eth-fg-dial" style="--dial-value: 0; --dial-color: #8b949e;">
+                            <span class="fg-dial-value" id="eth-fg-value">--</span>
+                        </div>
+                        <div class="fg-dial-label" id="eth-fg-label">Fear & Greed</div>
+                    </div>
                 </div>
                 <div class="price-change" id="eth-change">
                     --
@@ -556,8 +622,52 @@
             changeEl.innerHTML = `${isPositive ? '↑' : '↓'} ${change}%`;
         }
 
+        const FEAR_GREED_URL = 'fear-greed.json';
+
+        function getFearGreedColor(value) {
+            if (value <= 24) return '#f85149';
+            if (value <= 44) return '#ff7b72';
+            if (value <= 55) return '#d29922';
+            if (value <= 74) return '#3fb950';
+            return '#2ea043';
+        }
+
+        function updateFearGreedDial(symbol, entry) {
+            const dial = document.getElementById(`${symbol}-fg-dial`);
+            const valueEl = document.getElementById(`${symbol}-fg-value`);
+            const labelEl = document.getElementById(`${symbol}-fg-label`);
+
+            if (!dial || !valueEl || !labelEl || !entry || typeof entry.value !== 'number') {
+                return;
+            }
+
+            const value = Math.max(0, Math.min(100, entry.value));
+            const color = getFearGreedColor(value);
+
+            dial.style.setProperty('--dial-value', value);
+            dial.style.setProperty('--dial-color', color);
+            valueEl.textContent = value;
+            labelEl.textContent = `${entry.classification || 'Fear & Greed'}`;
+        }
+
+        async function fetchFearGreedData() {
+            try {
+                const response = await fetch(FEAR_GREED_URL + '?t=' + Date.now());
+                if (!response.ok) throw new Error('Failed to load fear & greed data');
+                const data = await response.json();
+
+                if (data.indices) {
+                    updateFearGreedDial('btc', data.indices.btc);
+                    updateFearGreedDial('eth', data.indices.eth);
+                }
+            } catch (error) {
+                console.error('Error fetching fear & greed data:', error);
+            }
+        }
+
         // Initial fetch
         fetchPrices();
+        fetchFearGreedData();
 
         // Update every minute
         setInterval(fetchPrices, 60000);

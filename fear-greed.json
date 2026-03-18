@@ -1,0 +1,15 @@
+{
+  "lastUpdated": "2026-03-18T01:40:43.285981+00:00",
+  "indices": {
+    "btc": {
+      "value": 58,
+      "classification": "Neutral",
+      "source": "https://www.cfgi.io/bitcoin-fear-greed-index/"
+    },
+    "eth": {
+      "value": 62,
+      "classification": "Greed",
+      "source": "https://www.cfgi.io/ethereum-fear-greed-index/"
+    }
+  }
+}
