@@ -556,6 +556,7 @@
         <!-- Bitcoin ETF Section -->
         <div class="etf-section">
             <h2>₿ Bitcoin ETF Holdings Report</h2>
+            <p class="last-updated" style="margin-top: 0; margin-bottom: 1rem;">Updated: <span id="etfUpdated">--</span></p>
             <div class="etf-summary" id="etf-summary">
                 <div class="etf-card">
                     <div class="etf-card-title">Total BTC Holdings</div>
@@ -905,6 +906,27 @@
                     return;
                 }
 
+                const etfUpdatedEl = document.getElementById('etfUpdated');
+                if (etfUpdatedEl) {
+                    if (data.lastUpdated) {
+                        const updated = new Date(data.lastUpdated);
+                        etfUpdatedEl.textContent = `${updated.toLocaleDateString('en-AU', {
+                            day: 'numeric',
+                            month: 'short'
+                        })} ${updated.toLocaleTimeString('en-AU', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        })}`;
+                    } else {
+                        etfUpdatedEl.textContent = new Date().toLocaleTimeString('en-AU', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        });
+                    }
+                }
+
                 // Total BTC Holdings
                 const btcHoldings = data.totalHoldingsBTC || 0;
                 document.getElementById('etf-total-btc').textContent = btcHoldings.toLocaleString('en-US') + ' BTC';
@@ -952,6 +974,8 @@
 
             } catch (error) {
                 console.error('Error fetching ETF data:', error);
+                const etfUpdatedEl = document.getElementById('etfUpdated');
+                if (etfUpdatedEl) etfUpdatedEl.textContent = 'Failed to load';
                 document.getElementById('etf-summary').innerHTML = '<div class="x-feed-error">Failed to load ETF data. Updates daily at 6am.</div>';
                 document.getElementById('etf-flows').style.display = 'none';
                 document.querySelector('.etf-history').style.display = 'none';
