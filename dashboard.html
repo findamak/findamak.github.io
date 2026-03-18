@@ -167,11 +167,27 @@
             font-weight: 700;
         }
 
-        .fg-dial-label {
-            margin-top: 0.3rem;
+        .fg-dial-title {
+            margin-top: 0.35rem;
             font-size: 0.72rem;
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .fg-dial-label {
+            margin-top: 0.15rem;
+            font-size: 0.7rem;
             color: var(--text-secondary);
             text-align: center;
+        }
+
+        .fg-dial-updated {
+            margin-top: 0.15rem;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+            text-align: center;
+            opacity: 0.9;
         }
 
         /* Stock Cards */
@@ -485,7 +501,9 @@
                         <div class="fg-dial" id="btc-fg-dial" style="--dial-value: 0; --dial-color: #8b949e;">
                             <span class="fg-dial-value" id="btc-fg-value">--</span>
                         </div>
-                        <div class="fg-dial-label" id="btc-fg-label">Fear & Greed</div>
+                        <div class="fg-dial-title">BTC Fear & Greed</div>
+                        <div class="fg-dial-label" id="btc-fg-label">--</div>
+                        <div class="fg-dial-updated" id="btc-fg-updated">Updated: --</div>
                     </div>
                 </div>
                 <div class="price-change" id="btc-change">
@@ -510,7 +528,9 @@
                         <div class="fg-dial" id="eth-fg-dial" style="--dial-value: 0; --dial-color: #8b949e;">
                             <span class="fg-dial-value" id="eth-fg-value">--</span>
                         </div>
-                        <div class="fg-dial-label" id="eth-fg-label">Fear & Greed</div>
+                        <div class="fg-dial-title">ETH Fear & Greed</div>
+                        <div class="fg-dial-label" id="eth-fg-label">--</div>
+                        <div class="fg-dial-updated" id="eth-fg-updated">Updated: --</div>
                     </div>
                 </div>
                 <div class="price-change" id="eth-change">
@@ -632,12 +652,13 @@
             return '#2ea043';
         }
 
-        function updateFearGreedDial(symbol, entry) {
+        function updateFearGreedDial(symbol, entry, lastUpdated) {
             const dial = document.getElementById(`${symbol}-fg-dial`);
             const valueEl = document.getElementById(`${symbol}-fg-value`);
             const labelEl = document.getElementById(`${symbol}-fg-label`);
+            const updatedEl = document.getElementById(`${symbol}-fg-updated`);
 
-            if (!dial || !valueEl || !labelEl || !entry || typeof entry.value !== 'number') {
+            if (!dial || !valueEl || !labelEl || !updatedEl || !entry || typeof entry.value !== 'number') {
                 return;
             }
 
@@ -648,6 +669,17 @@
             dial.style.setProperty('--dial-color', color);
             valueEl.textContent = value;
             labelEl.textContent = `${entry.classification || 'Fear & Greed'}`;
+
+            if (lastUpdated) {
+                const updated = new Date(lastUpdated);
+                updatedEl.textContent = `Updated: ${updated.toLocaleDateString('en-AU', {
+                    day: 'numeric',
+                    month: 'short'
+                })} ${updated.toLocaleTimeString('en-AU', {
+                    hour: '2-digit',
+                    minute: '2-digit'
+                })}`;
+            }
         }
 
         async function fetchFearGreedData() {
@@ -657,8 +689,8 @@
                 const data = await response.json();
 
                 if (data.indices) {
-                    updateFearGreedDial('btc', data.indices.btc);
-                    updateFearGreedDial('eth', data.indices.eth);
+                    updateFearGreedDial('btc', data.indices.btc, data.lastUpdated);
+                    updateFearGreedDial('eth', data.indices.eth, data.lastUpdated);
                 }
             } catch (error) {
                 console.error('Error fetching fear & greed data:', error);
