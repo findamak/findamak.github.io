@@ -486,7 +486,6 @@
     <div class="container">
         <header>
             <h1>📊 Finance Dashboard</h1>
-            <p class="last-updated">Last updated: <span id="lastUpdated">--</span></p>
         </header>
 
         <div class="price-grid">
@@ -622,11 +621,7 @@
                 updatePriceCard('btc', data.bitcoin, now);
                 updatePriceCard('eth', data.ethereum, now);
 
-                document.getElementById('lastUpdated').textContent = now.toLocaleTimeString('en-AU', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                });
+                // Header-level "Last updated" removed; per-card timestamps are shown instead.
             } catch (error) {
                 console.error('Error fetching prices:', error);
                 document.getElementById('btc-price').innerHTML = '<span class="error">Failed to load</span>';
