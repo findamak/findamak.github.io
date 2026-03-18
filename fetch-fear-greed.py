@@ -1,13 +1,15 @@
 #!/usr/bin/env python3
 import json
 import re
+import subprocess
 import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from pathlib import Path
 
 import requests
 
-OUTPUT_FILE = Path('/home/amak/findamak.github.io/fear-greed.json')
+REPO_DIR = Path('/home/amak/findamak.github.io')
+OUTPUT_FILE = REPO_DIR / 'fear-greed.json'
 SOURCES = {
     'btc': 'https://nitter.net/BitcoinFear/rss',
     'eth': 'https://nitter.net/EthereumFear/rss',
@@ -79,6 +81,41 @@ def fetch_from_rss(symbol: str):
     }
 
 
+def run_git(*args: str) -> str:
+    result = subprocess.run(
+        ['git', *args],
+        cwd=REPO_DIR,
+        text=True,
+        capture_output=True,
+        check=True,
+    )
+    return result.stdout.strip()
+
+
+def commit_and_push_if_changed() -> bool:
+    status = run_git('status', '--porcelain', '--', OUTPUT_FILE.name)
+    if not status:
+        print('No fear-greed.json changes to commit.')
+        return False
+
+    run_git('add', OUTPUT_FILE.name)
+
+    ts = datetime.now().strftime('%Y-%m-%d %H:%M')
+    run_git('commit', '-m', f'Update Fear & Greed at {ts}')
+
+    push = subprocess.run(
+        ['git', 'push'],
+        cwd=REPO_DIR,
+        text=True,
+        capture_output=True,
+    )
+    if push.returncode != 0:
+        raise RuntimeError(f'git push failed: {push.stderr.strip() or push.stdout.strip()}')
+
+    print('✓ Pushed to GitHub')
+    return True
+
+
 def main():
     result = {
         'lastUpdated': datetime.now(timezone.utc).isoformat(),
@@ -94,6 +131,9 @@ def main():
     print(f'  Output: {OUTPUT_FILE}')
     print(f"  BTC: {result['indices']['btc']['value']} ({result['indices']['btc']['classification']})")
     print(f"  ETH: {result['indices']['eth']['value']} ({result['indices']['eth']['classification']})")
+
+    print('Pushing to GitHub...')
+    commit_and_push_if_changed()
 
 
 if __name__ == '__main__':
