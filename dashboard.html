@@ -696,7 +696,8 @@
                     month: 'short'
                 })} ${updated.toLocaleTimeString('en-AU', {
                     hour: '2-digit',
-                    minute: '2-digit'
+                    minute: '2-digit',
+                    second: '2-digit'
                 })}`;
             }
         }
@@ -722,6 +723,9 @@
 
         // Update every minute
         setInterval(fetchPrices, 60000);
+
+        // Refresh Fear & Greed data periodically (file updates hourly via cron)
+        setInterval(fetchFearGreedData, 300000);
 
         // X Feed
         const X_FEED_URL = 'x-feed.json';
