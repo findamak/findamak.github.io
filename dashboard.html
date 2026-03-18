@@ -548,7 +548,8 @@
         </div>
 
         <!-- Stock Prices Section -->
-        <h2 style="font-size: 1.25rem; margin-bottom: 1rem; color: var(--text-primary);">📈 Stock & Commodity Prices</h2>
+        <h2 style="font-size: 1.25rem; margin-bottom: 0.35rem; color: var(--text-primary);">📈 Stock & Commodity Prices</h2>
+        <p class="last-updated" style="margin-top: 0; margin-bottom: 1rem;">Updated: <span id="stockUpdated">--</span></p>
         <div class="stock-grid" id="stock-grid">
             <!-- Stock cards will be inserted here by JavaScript -->
         </div>
@@ -836,6 +837,27 @@
                 if (!response.ok) throw new Error('Failed to load stock prices');
                 const data = await response.json();
                 
+                const stockUpdatedEl = document.getElementById('stockUpdated');
+                if (stockUpdatedEl) {
+                    if (data.lastUpdated) {
+                        const updated = new Date(data.lastUpdated);
+                        stockUpdatedEl.textContent = `${updated.toLocaleDateString('en-AU', {
+                            day: 'numeric',
+                            month: 'short'
+                        })} ${updated.toLocaleTimeString('en-AU', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        })}`;
+                    } else {
+                        stockUpdatedEl.textContent = new Date().toLocaleTimeString('en-AU', {
+                            hour: '2-digit',
+                            minute: '2-digit',
+                            second: '2-digit'
+                        });
+                    }
+                }
+
                 container.innerHTML = '';
                 
                 data.prices.forEach(stock => {
@@ -864,6 +886,8 @@
 
             } catch (error) {
                 console.error('Error fetching stock prices:', error);
+                const stockUpdatedEl = document.getElementById('stockUpdated');
+                if (stockUpdatedEl) stockUpdatedEl.textContent = 'Failed to load';
                 container.innerHTML = '<div class="x-feed-error">Failed to load stock prices</div>';
             }
         }
