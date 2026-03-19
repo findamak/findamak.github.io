@@ -18,6 +18,7 @@ X_USERS=(
     "MarkNewtonCMT"
     "RyanDetrick"
     "MarioNawfal"
+    "TechCharts"
 )
 
 OUTPUT_FILE="/home/amak/findamak.github.io/x-feed.json"
