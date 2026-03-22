@@ -24,15 +24,15 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 9.71,
-      "change": -2.51,
+      "price": 9.66,
+      "change": -3.01,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 19.8,
-      "change": 0,
+      "price": 19.7,
+      "change": -3.1,
       "type": "stock"
     },
     {
@@ -52,8 +52,8 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4494.8999,
-      "change": -1.65,
+      "price": 4492.7998,
+      "change": -1.7,
       "type": "commodity"
     },
     {
@@ -66,15 +66,15 @@
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 106.52,
-      "change": -5.05,
+      "price": 106.45,
+      "change": -5.12,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 97.98,
-      "change": -0.35,
+      "price": 97.95,
+      "change": -0.38,
       "type": "commodity"
     },
     {
@@ -85,5 +85,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-23T10:20:08.677053"
+  "lastUpdated": "2026-03-23T10:25:08.220519"
 }
