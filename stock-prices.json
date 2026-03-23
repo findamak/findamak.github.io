@@ -3,15 +3,15 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 41.5,
-      "change": 0.51,
+      "price": 41.26,
+      "change": -0.07,
       "type": "stock"
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 14.735,
-      "change": 5.17,
+      "price": 14.7,
+      "change": 4.93,
       "type": "stock"
     },
     {
@@ -38,52 +38,52 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 6601.3799,
+      "price": 6601.4702,
       "change": 1.46,
       "type": "index"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 24238.3457,
-      "change": 1.42,
+      "price": 24234.6875,
+      "change": 1.41,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4422.6001,
+      "price": 4416.1001,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 69.74,
+      "price": 69.76,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 99.11,
+      "price": 99.67,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 87.68,
+      "price": 87.94,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4272,
-      "change": 1.05,
+      "price": 1.4268,
+      "change": 1.03,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-24T05:25:09.028695"
+  "lastUpdated": "2026-03-24T05:30:09.545623"
 }
