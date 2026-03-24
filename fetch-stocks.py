@@ -12,6 +12,9 @@ from datetime import datetime
 TICKERS = {
     'IREN': {'name': 'Iris Energy', 'type': 'stock'},
     'CIFR': {'name': 'Cipher Mining', 'type': 'stock'},
+    'XLE': {'name': 'Energy ETF', 'type': 'stock'},
+    'SMH': {'name': 'Semi ETF', 'type': 'stock'},
+    'GLW': {'name': 'Corning Inc', 'type': 'stock'},
     'STRC': {'name': 'Strategy STRC', 'type': 'stock'},
     'IBTC.XA': {'name': 'Monochrome Bitcoin ETF', 'type': 'stock'},
     'VBTC.AX': {'name': 'Vaneck Bitcoin ETF', 'type': 'stock'},
@@ -21,7 +24,7 @@ TICKERS = {
     'SI=F': {'symbol': 'SILVER', 'name': 'Silver/oz', 'type': 'commodity'},
     'BZ=F': {'symbol': 'BZ', 'name': 'Brent Crude', 'type': 'commodity'},
     'CL=F': {'symbol': 'CL', 'name': 'WTI Crude', 'type': 'commodity'},
-    'AUDUSD=X': {'symbol': 'USDAUD', 'name': 'USD/AUD', 'type': 'forex'},
+    'AUDUSD=X': {'symbol': 'USDAUD', 'name': 'USD/AUD', 'type': 'forex'}
 }
 
 def fetch_prices():
