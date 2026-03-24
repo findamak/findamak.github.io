@@ -15,6 +15,27 @@
       "type": "stock"
     },
     {
+      "symbol": "XLE",
+      "name": "Energy ETF",
+      "price": 60.84,
+      "change": 2.03,
+      "type": "stock"
+    },
+    {
+      "symbol": "SMH",
+      "name": "Semi ETF",
+      "price": 394.59,
+      "change": 0.83,
+      "type": "stock"
+    },
+    {
+      "symbol": "GLW",
+      "name": "Corning Inc",
+      "price": 142.01,
+      "change": 8.43,
+      "type": "stock"
+    },
+    {
       "symbol": "STRC",
       "name": "Strategy STRC",
       "price": 99.95,
@@ -52,38 +73,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4481.1001,
-      "change": 1.75,
+      "price": 4468.2002,
+      "change": 1.46,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 71.66,
-      "change": 3.78,
+      "price": 71.59,
+      "change": 3.68,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 100.23,
-      "change": 0.29,
+      "price": 100.13,
+      "change": 0.19,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 89.01,
-      "change": 1.0,
+      "price": 88.92,
+      "change": 0.9,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4295,
-      "change": 0.18,
+      "price": 1.4298,
+      "change": 0.2,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-25T09:35:09.818742"
+  "lastUpdated": "2026-03-25T09:40:11.523818"
 }
