@@ -3,8 +3,8 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 40.85,
-      "change": -0.66,
+      "price": 40.81,
+      "change": -0.75,
       "type": "stock"
     },
     {
@@ -17,22 +17,22 @@
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 60.64,
-      "change": -0.33,
+      "price": 60.67,
+      "change": -0.28,
       "type": "stock"
     },
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": 399.37,
-      "change": 1.21,
+      "price": 399.48,
+      "change": 1.24,
       "type": "stock"
     },
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 146.91,
-      "change": 3.45,
+      "price": 146.955,
+      "change": 3.48,
       "type": "stock"
     },
     {
@@ -59,52 +59,52 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 6606.1401,
-      "change": 0.76,
+      "price": 6607.6201,
+      "change": 0.78,
       "type": "index"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 24219.5039,
-      "change": 0.9,
+      "price": 24225.1328,
+      "change": 0.93,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4544.1001,
-      "change": 3.29,
+      "price": 4550.7002,
+      "change": 3.44,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 72.635,
-      "change": 4.85,
+      "price": 72.65,
+      "change": 4.87,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 97.07,
-      "change": -7.1,
+      "price": 97.16,
+      "change": -7.02,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 90.6,
-      "change": -1.89,
+      "price": 90.76,
+      "change": -1.72,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4357,
-      "change": 0.58,
+      "price": 1.4354,
+      "change": 0.56,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-26T04:30:10.227726"
+  "lastUpdated": "2026-03-26T04:35:11.486363"
 }
