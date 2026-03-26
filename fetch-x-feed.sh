@@ -17,7 +17,6 @@ X_USERS=(
     "_Checkmatey_"
     "MarkNewtonCMT"
     "RyanDetrick"
-    "MarioNawfal"
     "TechCharts"
 )
 
