@@ -12,12 +12,14 @@ X_USERS=(
     "mikealfred"
     "KobeissiLetter"
     "jvisserlabs"
-    "MelMattison1"
+    #"MelMattison1"
+    "TimmerFidelity"
     "NoLimitGains"
     "_Checkmatey_"
     "MarkNewtonCMT"
-    "RyanDetrick"
+    #"RyanDetrick"
     "TechCharts"
+    "PeterLBrandt"
 )
 
 OUTPUT_FILE="/home/amak/findamak.github.io/x-feed.json"
