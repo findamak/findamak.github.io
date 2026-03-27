@@ -64,6 +64,13 @@
       "type": "stock"
     },
     {
+      "symbol": "STRC",
+      "name": "Strategy STRC",
+      "price": 99.97,
+      "change": 0.03,
+      "type": "stock"
+    },
+    {
       "symbol": "XLE",
       "name": "Energy ETF",
       "price": 61.52,
@@ -85,13 +92,6 @@
       "type": "stock"
     },
     {
-      "symbol": "STRC",
-      "name": "Strategy STRC",
-      "price": 99.97,
-      "change": 0.03,
-      "type": "stock"
-    },
-    {
       "symbol": "SPX",
       "name": "S&P 500",
       "price": 6477.1602,
@@ -108,38 +108,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4425.0,
-      "change": -2.74,
+      "price": 4424.3999,
+      "change": -2.76,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 68.745,
-      "change": -5.0,
+      "price": 68.735,
+      "change": -5.01,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 100.55,
-      "change": -1.63,
+      "price": 100.42,
+      "change": -1.76,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 93.37,
-      "change": 3.38,
+      "price": 93.28,
+      "change": 3.28,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4506,
-      "change": 0.71,
+      "price": 1.4504,
+      "change": 0.69,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-27T13:50:11.821084"
+  "lastUpdated": "2026-03-27T13:55:14.590013"
 }
