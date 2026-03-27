@@ -101,45 +101,45 @@
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 23586.9902,
+      "price": 23586.9941,
       "change": -2.38,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4458.5,
-      "change": 1.9,
+      "price": 4454.0,
+      "change": 1.79,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 69.73,
-      "change": 3.04,
+      "price": 69.915,
+      "change": 3.32,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 101.45,
-      "change": -6.07,
+      "price": 101.59,
+      "change": -5.94,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 93.89,
-      "change": -0.62,
+      "price": 93.95,
+      "change": -0.56,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4485,
-      "change": 0.56,
+      "price": 1.4489,
+      "change": 0.59,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-03-27T17:30:14.562960"
+  "lastUpdated": "2026-03-27T17:35:14.722141"
 }
