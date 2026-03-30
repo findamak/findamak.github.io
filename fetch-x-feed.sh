@@ -20,6 +20,7 @@ X_USERS=(
     #"RyanDetrick"
     "TechCharts"
     "PeterLBrandt"
+    "LynAldenContact"
 )
 
 OUTPUT_FILE="/home/amak/findamak.github.io/x-feed.json"
