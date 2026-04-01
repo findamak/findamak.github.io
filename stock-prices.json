@@ -3,15 +3,15 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 34.77,
-      "change": 1.43,
+      "price": 34.7128,
+      "change": 1.26,
       "type": "stock"
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 13.265,
-      "change": 3.07,
+      "price": 13.2,
+      "change": 2.56,
       "type": "stock"
     },
     {
@@ -31,22 +31,22 @@
     {
       "symbol": "QQQI",
       "name": "Neos Nasdaq 100 Income ETF",
-      "price": 50.12,
-      "change": 0.87,
+      "price": 50.1385,
+      "change": 0.9,
       "type": "stock"
     },
     {
       "symbol": "GPIX",
       "name": "Goldman Sachs Income ETF",
-      "price": 49.985,
-      "change": -0.11,
+      "price": 49.95,
+      "change": -0.18,
       "type": "stock"
     },
     {
       "symbol": "VEA",
       "name": "Vanguard FTSE Developed markets ETF",
-      "price": 64.985,
-      "change": 1.41,
+      "price": 65.0099,
+      "change": 1.45,
       "type": "stock"
     },
     {
@@ -59,78 +59,78 @@
     {
       "symbol": "VWO",
       "name": "Vanguard Emerging markets ETF",
-      "price": 54.2097,
-      "change": 0.3,
+      "price": 54.2301,
+      "change": 0.33,
       "type": "stock"
     },
     {
       "symbol": "STRC",
       "name": "Strategy STRC",
-      "price": 99.99,
+      "price": 99.985,
       "change": -0.03,
       "type": "stock"
     },
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 59.21,
-      "change": -3.35,
+      "price": 58.8947,
+      "change": -3.86,
       "type": "stock"
     },
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": 393.18,
-      "change": 2.55,
+      "price": 393.86,
+      "change": 2.73,
       "type": "stock"
     },
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 143.63,
-      "change": 5.63,
+      "price": 144.045,
+      "change": 5.94,
       "type": "stock"
     },
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 6573.0601,
+      "price": 6573.21,
       "change": 0.68,
       "type": "index"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 23980.8789,
-      "change": 1.01,
+      "price": 23993.5977,
+      "change": 1.07,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4762.3999,
-      "change": 2.47,
+      "price": 4774.1001,
+      "change": 2.72,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 74.73,
-      "change": 0.05,
+      "price": 75.035,
+      "change": 0.46,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 101.17,
-      "change": -14.52,
+      "price": 101.15,
+      "change": -14.53,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 98.99,
-      "change": -2.36,
+      "price": 99.04,
+      "change": -2.31,
       "type": "commodity"
     },
     {
@@ -141,5 +141,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-04-02T01:10:29.369233"
+  "lastUpdated": "2026-04-02T01:15:29.584838"
 }
