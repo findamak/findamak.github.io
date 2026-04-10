@@ -108,29 +108,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4782.7998,
-      "change": -0.2,
+      "price": 4780.1001,
+      "change": -0.25,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 75.91,
-      "change": -0.48,
+      "price": 75.8,
+      "change": -0.63,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 96.65,
-      "change": 0.76,
+      "price": 96.81,
+      "change": 0.93,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 98.39,
-      "change": 0.53,
+      "price": 98.48,
+      "change": 0.62,
       "type": "commodity"
     },
     {
@@ -141,5 +141,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-04-10T16:20:14.179984"
+  "lastUpdated": "2026-04-10T16:25:14.420992"
 }
