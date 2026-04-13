@@ -73,8 +73,8 @@
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 57.13,
-      "change": 0.33,
+      "price": 57.11,
+      "change": 0.3,
       "type": "stock"
     },
     {
@@ -108,28 +108,28 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4765.3999,
+      "price": 4765.0,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 75.645,
+      "price": 75.61,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 98.35,
+      "price": 98.16,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 98.11,
+      "price": 97.94,
       "change": 0,
       "type": "commodity"
     },
@@ -141,5 +141,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-04-14T06:30:12.628124"
+  "lastUpdated": "2026-04-14T06:35:13.076607"
 }
