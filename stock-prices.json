@@ -45,15 +45,15 @@
     {
       "symbol": "VEA",
       "name": "Vanguard FTSE Developed markets ETF",
-      "price": 68.635,
-      "change": -0.09,
+      "price": 68.63,
+      "change": -0.1,
       "type": "stock"
     },
     {
       "symbol": "VEU",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 80.515,
-      "change": 0.03,
+      "price": 80.51,
+      "change": 0.02,
       "type": "stock"
     },
     {
@@ -108,29 +108,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4813.3999,
-      "change": 0.28,
+      "price": 4812.0,
+      "change": 0.25,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 78.675,
-      "change": -1.03,
+      "price": 78.655,
+      "change": -1.05,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 98.18,
-      "change": 3.42,
+      "price": 98.2,
+      "change": 3.44,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 90.12,
-      "change": -1.28,
+      "price": 90.06,
+      "change": -1.35,
       "type": "commodity"
     },
     {
@@ -141,5 +141,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-04-17T06:15:13.719000"
+  "lastUpdated": "2026-04-17T06:20:13.399373"
 }
