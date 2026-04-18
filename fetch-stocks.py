@@ -14,6 +14,8 @@ TICKERS = {
     'CIFR': {'name': 'Cipher Mining', 'type': 'stock'},
     'IBTC.XA': {'name': 'Monochrome Bitcoin ETF', 'type': 'stock'},
     'VBTC.AX': {'name': 'Vaneck Bitcoin ETF', 'type': 'stock'},
+    'TAO22974-USD': {'name': 'Bittensor USD', 'type': 'stock'},
+    'CC37263-USD': {'name': 'Canton Network USD', 'type': 'stock'},
     'QQQI': {'name': 'Neos Nasdaq 100 Income ETF', 'type': 'stock'},
     'GPIX': {'name': 'Goldman Sachs Income ETF', 'type': 'stock'},
     'VEA': {'name': 'Vanguard FTSE Developed markets ETF', 'type': 'stock'},
