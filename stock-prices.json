@@ -24,14 +24,14 @@
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 22.06,
-      "change": -0.32,
+      "price": 22.0,
+      "change": -0.59,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 245.41,
+      "price": 245.82,
       "change": 0,
       "type": "stock"
     },
@@ -122,38 +122,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4683.7998,
-      "change": -0.45,
+      "price": 4690.0,
+      "change": -0.32,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 74.85,
-      "change": -0.81,
+      "price": 75.0,
+      "change": -0.62,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 105.88,
-      "change": 0.77,
+      "price": 105.72,
+      "change": 0.62,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 96.32,
-      "change": 0.49,
+      "price": 96.17,
+      "change": 0.33,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4033,
-      "change": 0.45,
+      "price": 1.4036,
+      "change": 0.46,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-04-24T14:55:14.814906"
+  "lastUpdated": "2026-04-24T15:00:15.032180"
 }
