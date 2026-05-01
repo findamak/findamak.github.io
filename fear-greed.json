@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-05-01T00:00:05.918247+00:00",
+  "lastUpdated": "2026-05-01T01:00:00.852813+00:00",
   "indices": {
     "btc": {
-      "value": 29,
+      "value": 26,
       "classification": "Fear",
       "source": "https://nitter.net/BitcoinFear/rss",
-      "sourcePost": "https://nitter.net/BitcoinFear/status/2049964535428083902#m",
-      "sourcePublishedAt": "Thu, 30 Apr 2026 21:30:06 GMT"
+      "sourcePost": "https://nitter.net/BitcoinFear/status/2050009835324801323#m",
+      "sourcePublishedAt": "Fri, 01 May 2026 00:30:06 GMT"
     },
     "eth": {
-      "value": 38,
-      "classification": "Neutral",
+      "value": 37,
+      "classification": "Fear",
       "source": "https://nitter.net/EthereumFear/rss",
-      "sourcePost": "https://nitter.net/EthereumFear/status/2049919246436651149#m",
-      "sourcePublishedAt": "Thu, 30 Apr 2026 18:30:08 GMT"
+      "sourcePost": "https://nitter.net/EthereumFear/status/2050002308625318287#m",
+      "sourcePublishedAt": "Fri, 01 May 2026 00:00:12 GMT"
     }
   }
 }
