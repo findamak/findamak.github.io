@@ -31,15 +31,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 286.59,
-      "change": -0.98,
+      "price": 286.1,
+      "change": -1.15,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.1481,
-      "change": 0.19,
+      "change": 0.23,
       "type": "stock"
     },
     {
@@ -101,10 +101,9 @@
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'NoneType' object is not subscriptable"
+      "price": 159.96,
+      "change": 1.07,
+      "type": "stock"
     },
     {
       "symbol": "SPX",
@@ -123,14 +122,14 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4530.7002,
+      "price": 4530.0,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 73.13,
+      "price": 73.125,
       "change": 0,
       "type": "commodity"
     },
@@ -144,7 +143,7 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 104.95,
+      "price": 104.9,
       "change": 0,
       "type": "commodity"
     },
@@ -156,5 +155,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-05-05T09:35:23.818379"
+  "lastUpdated": "2026-05-05T09:40:12.802050"
 }
