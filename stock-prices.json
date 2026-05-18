@@ -38,15 +38,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 260.16,
-      "change": -1.2,
+      "price": 260.05,
+      "change": -1.24,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1514,
-      "change": -1.82,
+      "price": 0.1511,
+      "change": -2.01,
       "type": "stock"
     },
     {
@@ -129,28 +129,28 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4568.6001,
+      "price": 4568.1001,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 77.97,
+      "price": 77.94,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 108.59,
+      "price": 108.66,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 101.72,
+      "price": 101.86,
       "change": 0,
       "type": "commodity"
     },
@@ -162,5 +162,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-05-19T06:40:14.788358"
+  "lastUpdated": "2026-05-19T06:45:15.643907"
 }
