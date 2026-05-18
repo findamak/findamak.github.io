@@ -38,15 +38,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 259.4,
-      "change": -1.49,
+      "price": 259.9,
+      "change": -1.3,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.1515,
-      "change": -1.76,
+      "change": -1.78,
       "type": "stock"
     },
     {
@@ -73,15 +73,15 @@
     {
       "symbol": "VEU",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 81.46,
-      "change": 0.56,
+      "price": 81.47,
+      "change": 0.57,
       "type": "stock"
     },
     {
       "symbol": "VWO",
       "name": "Vanguard Emerging markets ETF",
-      "price": 58.485,
-      "change": 0.08,
+      "price": 58.48,
+      "change": 0.07,
       "type": "stock"
     },
     {
@@ -94,8 +94,8 @@
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 60.55,
-      "change": 1.87,
+      "price": 60.58,
+      "change": 1.92,
       "type": "stock"
     },
     {
@@ -108,8 +108,8 @@
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 178.59,
-      "change": -6.89,
+      "price": 178.55,
+      "change": -6.91,
       "type": "stock"
     },
     {
@@ -129,28 +129,28 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4563.5,
+      "price": 4563.6001,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 77.755,
+      "price": 77.785,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 109.11,
+      "price": 109.0,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 101.96,
+      "price": 101.95,
       "change": 0,
       "type": "commodity"
     },
@@ -162,5 +162,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-05-19T06:10:14.330912"
+  "lastUpdated": "2026-05-19T06:15:14.706721"
 }
