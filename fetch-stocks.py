@@ -12,6 +12,7 @@ from datetime import datetime
 TICKERS = {
     'IREN': {'name': 'Iris Energy', 'type': 'stock'},
     'CIFR': {'name': 'Cipher Mining', 'type': 'stock'},
+    'BTCI': {'name': 'Neos Bitcoin High Income ETF', 'type': 'stock'},
     'IBTC.XA': {'name': 'Monochrome Bitcoin ETF', 'type': 'stock'},
     'VBTC.AX': {'name': 'Vaneck Bitcoin ETF', 'type': 'stock'},
     'TAO22974-USD': {'name': 'Bittensor USD', 'type': 'stock'},
