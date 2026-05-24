@@ -38,15 +38,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 279.55,
-      "change": 0.03,
+      "price": 279.2,
+      "change": -0.1,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1646,
-      "change": 2.1,
+      "price": 0.1643,
+      "change": 1.91,
       "type": "stock"
     },
     {
@@ -136,7 +136,7 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4523.2,
+      "price": 4523.2002,
       "change": 0,
       "type": "commodity"
     },
@@ -169,5 +169,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-05-24T17:45:15.533739"
+  "lastUpdated": "2026-05-24T17:50:17.366777"
 }
