@@ -24,21 +24,21 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 10.6,
-      "change": -1.4,
+      "price": 10.65,
+      "change": -0.93,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 21.66,
-      "change": -1.1,
+      "price": 21.65,
+      "change": -1.14,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 274.8,
+      "price": 275.16,
       "change": 0,
       "type": "stock"
     },
@@ -52,29 +52,29 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.12,
-      "change": 0.45,
+      "price": 108.15,
+      "change": 0.47,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 116.99,
-      "change": 0.98,
+      "price": 117.0,
+      "change": 0.99,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 69.99,
-      "change": 0.42,
+      "price": 70.0,
+      "change": 0.43,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.39,
-      "change": 0.92,
+      "price": 61.41,
+      "change": 0.95,
       "type": "stock"
     },
     {
@@ -136,15 +136,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4521.0,
-      "change": 0,
+      "price": 4523.2002,
+      "change": 0.05,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 75.893,
-      "change": 0,
+      "price": 76.199,
+      "change": 0.4,
       "type": "commodity"
     },
     {
@@ -164,10 +164,10 @@
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.3942,
-      "change": -0.34,
+      "price": 1.3945,
+      "change": -0.32,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-05-25T12:10:18.694646"
+  "lastUpdated": "2026-05-25T12:15:19.889220"
 }
