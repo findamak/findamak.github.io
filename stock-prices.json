@@ -38,14 +38,14 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 275.76,
+      "price": 274.5,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1648,
+      "price": 0.1644,
       "change": 0,
       "type": "stock"
     },
@@ -59,22 +59,22 @@
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 117.35,
-      "change": 0.3,
+      "price": 117.34,
+      "change": 0.29,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 69.97,
-      "change": -0.24,
+      "price": 69.945,
+      "change": -0.28,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.19,
-      "change": -0.5,
+      "price": 61.18,
+      "change": -0.52,
       "type": "stock"
     },
     {
@@ -136,38 +136,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4533.2002,
-      "change": 0.27,
+      "price": 4521.0,
+      "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 76.845,
-      "change": 1.25,
+      "price": 76.82,
+      "change": 1.22,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 95.0,
-      "change": -8.25,
+      "price": 95.02,
+      "change": -8.23,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 91.59,
-      "change": -5.19,
+      "price": 91.58,
+      "change": -5.2,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.3948,
-      "change": -0.17,
+      "price": 1.3944,
+      "change": -0.2,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-05-26T13:05:17.126984"
+  "lastUpdated": "2026-05-26T13:10:16.896808"
 }
