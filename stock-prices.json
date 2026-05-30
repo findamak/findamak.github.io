@@ -38,14 +38,14 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 250.65,
+      "price": 250.8,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1564,
+      "price": 0.1563,
       "change": 0,
       "type": "stock"
     },
@@ -115,10 +115,9 @@
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'Response' object is not subscriptable"
+      "price": 181.16,
+      "change": -0.84,
+      "type": "stock"
     },
     {
       "symbol": "SPX",
@@ -170,5 +169,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-05-30T16:05:15.733090"
+  "lastUpdated": "2026-05-30T16:10:17.685051"
 }
