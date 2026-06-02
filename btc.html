@@ -227,6 +227,16 @@
     .pill.bullish { background: var(--green); }
     .pill.bearish { background: var(--red); }
 
+    .note {
+      color: var(--muted);
+      font-family: 'Montserrat', sans-serif;
+      font-size: 0.9rem;
+      margin: 16px 0 0;
+    }
+
+    .positive { color: var(--green); }
+    .negative { color: var(--red); }
+
     .error {
       padding: 18px;
       border-radius: 16px;
@@ -313,6 +323,31 @@
           <tbody id="crossTable"></tbody>
         </table>
       </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>$1,000 strategy comparison</h2>
+          <p id="backtestSummary">Loading strategy comparison…</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Strategy</th>
+              <th>Starting position</th>
+              <th>Trades</th>
+              <th>Ending position</th>
+              <th>Final value</th>
+              <th>Return multiple</th>
+            </tr>
+          </thead>
+          <tbody id="backtestTable"></tbody>
+        </table>
+      </div>
+      <p class="note" id="backtestAssumptions"></p>
     </section>
   </main>
 
@@ -438,6 +473,66 @@
       `).join('');
     }
 
+    function renderBacktestTable(data) {
+      const initialUsd = 1000;
+      const first = data.series[0];
+      const latest = data.series[data.series.length - 1];
+      const initialBtc = initialUsd / first.close;
+
+      const holdValue = initialBtc * latest.close;
+      let btc = initialBtc;
+      let usd = 0;
+      let position = 'btc';
+      let trades = 0;
+
+      data.crosses
+        .slice()
+        .sort((a, b) => a.date.localeCompare(b.date))
+        .forEach(cross => {
+          if (cross.direction === 'bearish' && position === 'btc') {
+            usd = btc * cross.close;
+            btc = 0;
+            position = 'usd';
+            trades += 1;
+          } else if (cross.direction === 'bullish' && position === 'usd') {
+            btc = usd / cross.close;
+            usd = 0;
+            position = 'btc';
+            trades += 1;
+          }
+        });
+
+      const strategyValue = position === 'btc' ? btc * latest.close : usd;
+      const difference = strategyValue - holdValue;
+      const winner = difference >= 0 ? 'EMA crossover strategy' : 'buy and hold';
+      const differenceClass = difference >= 0 ? 'positive' : 'negative';
+      const comparisonPct = Math.abs(difference / holdValue) * 100;
+      const endingPosition = position === 'btc'
+        ? `${btc.toFixed(4)} BTC`
+        : `${preciseCurrency.format(usd)} cash`;
+
+      document.getElementById('backtestSummary').innerHTML = `${winner} leads by <span class="${differenceClass}">${preciseCurrency.format(Math.abs(difference))}</span> (${comparisonPct.toFixed(1)}% vs buy and hold) through ${formatDate(latest.date)}.`;
+      document.getElementById('backtestTable').innerHTML = `
+        <tr>
+          <td>Buy and hold</td>
+          <td>${initialBtc.toFixed(4)} BTC bought at ${preciseCurrency.format(first.close)}</td>
+          <td>0</td>
+          <td>${initialBtc.toFixed(4)} BTC</td>
+          <td>${preciseCurrency.format(holdValue)}</td>
+          <td>${(holdValue / initialUsd).toLocaleString('en-US', { maximumFractionDigits: 1 })}x</td>
+        </tr>
+        <tr>
+          <td>Sell bearish / buy bullish EMA crosses</td>
+          <td>${initialBtc.toFixed(4)} BTC bought at ${preciseCurrency.format(first.close)}</td>
+          <td>${trades}</td>
+          <td>${endingPosition}</td>
+          <td>${preciseCurrency.format(strategyValue)}</td>
+          <td>${(strategyValue / initialUsd).toLocaleString('en-US', { maximumFractionDigits: 1 })}x</td>
+        </tr>
+      `;
+      document.getElementById('backtestAssumptions').textContent = `Assumptions: start with $1,000 USD on ${formatDate(first.date)}, trade all-in/all-out at the crossover day's Bitstamp daily close, and ignore fees, spreads, slippage, and tax. This is informational only, not financial advice.`;
+    }
+
     async function init() {
       try {
         const response = await fetch('data/btcusd.json', { cache: 'no-store' });
@@ -446,6 +541,7 @@
         renderSummary(data);
         renderChart(data);
         renderCrossTable(data);
+        renderBacktestTable(data);
       } catch (error) {
         setError(`Could not load BTCUSD EMA data: ${error.message}`);
       }
