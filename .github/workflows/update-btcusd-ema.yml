@@ -1,9 +1,8 @@
 name: Update BTCUSD EMA Data
 
 on:
-  schedule:
-    # Run after the Yahoo Finance UTC BTC daily candle should be closed.
-    - cron: "30 1 * * *"
+  # Local cron on /home/amak now performs the daily update. Keep this workflow
+  # as a manual fallback for one-off refreshes from GitHub Actions.
   workflow_dispatch:
 
 permissions:
