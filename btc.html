@@ -475,8 +475,10 @@
 
     function renderBacktestTable(data) {
       const initialUsd = 1000;
+      const taxRate = 0.225;
       const first = data.series[0];
       const latest = data.series[data.series.length - 1];
+      const sortedCrosses = data.crosses.slice().sort((a, b) => a.date.localeCompare(b.date));
       const initialBtc = initialUsd / first.close;
 
       const holdValue = initialBtc * latest.close;
@@ -485,33 +487,73 @@
       let position = 'btc';
       let trades = 0;
 
-      data.crosses
-        .slice()
-        .sort((a, b) => a.date.localeCompare(b.date))
-        .forEach(cross => {
-          if (cross.direction === 'bearish' && position === 'btc') {
-            usd = btc * cross.close;
-            btc = 0;
-            position = 'usd';
-            trades += 1;
-          } else if (cross.direction === 'bullish' && position === 'usd') {
-            btc = usd / cross.close;
-            usd = 0;
-            position = 'btc';
-            trades += 1;
-          }
-        });
+      sortedCrosses.forEach(cross => {
+        if (cross.direction === 'bearish' && position === 'btc') {
+          usd = btc * cross.close;
+          btc = 0;
+          position = 'usd';
+          trades += 1;
+        } else if (cross.direction === 'bullish' && position === 'usd') {
+          btc = usd / cross.close;
+          usd = 0;
+          position = 'btc';
+          trades += 1;
+        }
+      });
 
       const strategyValue = position === 'btc' ? btc * latest.close : usd;
-      const difference = strategyValue - holdValue;
-      const winner = difference >= 0 ? 'EMA crossover strategy' : 'buy and hold';
-      const differenceClass = difference >= 0 ? 'positive' : 'negative';
-      const comparisonPct = Math.abs(difference / holdValue) * 100;
       const endingPosition = position === 'btc'
         ? `${btc.toFixed(4)} BTC`
         : `${preciseCurrency.format(usd)} cash`;
 
-      document.getElementById('backtestSummary').innerHTML = `${winner} leads by <span class="${differenceClass}">${preciseCurrency.format(Math.abs(difference))}</span> (${comparisonPct.toFixed(1)}% vs buy and hold) through ${formatDate(latest.date)}.`;
+      let taxedBtc = initialBtc;
+      let taxedUsd = 0;
+      let taxedBasis = initialUsd;
+      let lossCarryForward = 0;
+      let taxPaid = 0;
+      let taxedPosition = 'btc';
+      let taxedTrades = 0;
+
+      sortedCrosses.forEach(cross => {
+        if (cross.direction === 'bearish' && taxedPosition === 'btc') {
+          const proceeds = taxedBtc * cross.close;
+          const realizedGain = proceeds - taxedBasis;
+          let tax = 0;
+
+          if (realizedGain > 0) {
+            const lossUsed = Math.min(lossCarryForward, realizedGain);
+            const taxableGain = realizedGain - lossUsed;
+            lossCarryForward -= lossUsed;
+            tax = taxableGain * taxRate;
+            taxPaid += tax;
+          } else {
+            lossCarryForward += Math.abs(realizedGain);
+          }
+
+          taxedUsd = proceeds - tax;
+          taxedBtc = 0;
+          taxedBasis = 0;
+          taxedPosition = 'usd';
+          taxedTrades += 1;
+        } else if (cross.direction === 'bullish' && taxedPosition === 'usd') {
+          taxedBtc = taxedUsd / cross.close;
+          taxedBasis = taxedUsd;
+          taxedUsd = 0;
+          taxedPosition = 'btc';
+          taxedTrades += 1;
+        }
+      });
+
+      const taxedStrategyValue = taxedPosition === 'btc' ? taxedBtc * latest.close : taxedUsd;
+      const taxedEndingPosition = taxedPosition === 'btc'
+        ? `${taxedBtc.toFixed(4)} BTC`
+        : `${preciseCurrency.format(taxedUsd)} cash`;
+      const difference = strategyValue - holdValue;
+      const winner = difference >= 0 ? 'EMA crossover strategy' : 'buy and hold';
+      const differenceClass = difference >= 0 ? 'positive' : 'negative';
+      const comparisonPct = Math.abs(difference / holdValue) * 100;
+
+      document.getElementById('backtestSummary').innerHTML = `${winner} leads by <span class="${differenceClass}">${preciseCurrency.format(Math.abs(difference))}</span> (${comparisonPct.toFixed(1)}% vs buy and hold) before tax through ${formatDate(latest.date)}.`;
       document.getElementById('backtestTable').innerHTML = `
         <tr>
           <td>Buy and hold</td>
@@ -529,8 +571,16 @@
           <td>${preciseCurrency.format(strategyValue)}</td>
           <td>${(strategyValue / initialUsd).toLocaleString('en-US', { maximumFractionDigits: 1 })}x</td>
         </tr>
+        <tr>
+          <td>EMA crosses with 22.5% tax</td>
+          <td>${initialBtc.toFixed(4)} BTC bought at ${preciseCurrency.format(first.close)}</td>
+          <td>${taxedTrades}</td>
+          <td>${taxedEndingPosition}</td>
+          <td>${preciseCurrency.format(taxedStrategyValue)}</td>
+          <td>${(taxedStrategyValue / initialUsd).toLocaleString('en-US', { maximumFractionDigits: 1 })}x</td>
+        </tr>
       `;
-      document.getElementById('backtestAssumptions').textContent = `Assumptions: start with $1,000 USD on ${formatDate(first.date)}, trade all-in/all-out at the crossover day's Bitstamp daily close, and ignore fees, spreads, slippage, and tax. This is informational only, not financial advice.`;
+      document.getElementById('backtestAssumptions').textContent = `Assumptions: start with $1,000 USD on ${formatDate(first.date)}, trade all-in/all-out at the crossover day's Bitstamp daily close, and ignore fees, spreads, and slippage. The tax row applies 22.5% tax on profitable sells, carries losses forward to offset later gains, and paid ${preciseCurrency.format(taxPaid)} in tax in this simulation. This is informational only, not tax or financial advice.`;
     }
 
     async function init() {
