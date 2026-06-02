@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate BTC-USD 20-day/200-day EMA data for btc.html.
+"""Generate BTC/USD 20-day/200-day EMA data for btc.html.
 
-Downloads daily BTC-USD candles from Yahoo Finance, computes the 20d and
-200d exponential moving averages, detects historical crosses, and writes a
-static JSON payload for GitHub Pages.
+Downloads daily BTC/USD candles from Bitstamp, computes the 20d and 200d
+exponential moving averages, detects historical crosses, and writes a static
+JSON payload for GitHub Pages.
 """
 
 from __future__ import annotations
@@ -12,12 +12,18 @@ import json
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
+from urllib.parse import urlencode
+from urllib.request import urlopen
 
 import pandas as pd
-import yfinance as yf
 
-TICKER = "BTC-USD"
+SYMBOL = "BTC/USD"
+SOURCE = "Bitstamp"
 OUTPUT_PATH = Path(__file__).resolve().parents[1] / "data" / "btcusd.json"
+BITSTAMP_OHLC_URL = "https://www.bitstamp.net/api/v2/ohlc/btcusd/"
+DAY_SECONDS = 86_400
+API_LIMIT = 1000
+START_TS = int(datetime(2012, 1, 1, tzinfo=timezone.utc).timestamp())
 
 
 def _round(value: Any, digits: int = 2) -> float | None:
@@ -27,28 +33,58 @@ def _round(value: Any, digits: int = 2) -> float | None:
     return round(float(value), digits)
 
 
-def download_history() -> pd.DataFrame:
-    """Download max available BTC-USD daily history from Yahoo Finance."""
-    df = yf.download(
-        TICKER,
-        period="max",
-        interval="1d",
-        auto_adjust=False,
-        progress=False,
-        threads=False,
+def _fetch_bitstamp_page(start_ts: int) -> list[dict[str, str]]:
+    """Fetch one page of daily Bitstamp BTC/USD OHLC data."""
+    params = urlencode(
+        {
+            "step": DAY_SECONDS,
+            "limit": API_LIMIT,
+            "start": start_ts,
+        }
     )
+    with urlopen(f"{BITSTAMP_OHLC_URL}?{params}", timeout=30) as response:
+        payload = json.load(response)
 
-    if df.empty:
-        raise RuntimeError(f"No data returned for {TICKER}")
+    return payload.get("data", {}).get("ohlc", [])
 
-    # yfinance may return a MultiIndex depending on version/options.
-    if isinstance(df.columns, pd.MultiIndex):
-        df.columns = [col[0] for col in df.columns]
 
-    df = df.reset_index()
-    df["Date"] = pd.to_datetime(df["Date"]).dt.date
-    df = df.rename(columns={"Date": "date", "Close": "close"})
-    df = df[["date", "close"]].dropna().sort_values("date")
+def download_history() -> pd.DataFrame:
+    """Download all available daily BTC/USD history from Bitstamp."""
+    end_ts = int(datetime.now(timezone.utc).timestamp())
+    start_ts = START_TS
+    rows: list[dict[str, str]] = []
+    seen_timestamps: set[int] = set()
+
+    while start_ts <= end_ts:
+        page = _fetch_bitstamp_page(start_ts)
+        if not page:
+            # Move forward one page in case the requested early range has no rows.
+            start_ts += API_LIMIT * DAY_SECONDS
+            continue
+
+        for row in page:
+            ts = int(row["timestamp"])
+            if ts not in seen_timestamps:
+                rows.append(row)
+                seen_timestamps.add(ts)
+
+        last_ts = int(page[-1]["timestamp"])
+        next_start = last_ts + DAY_SECONDS
+        if next_start <= start_ts:
+            break
+        start_ts = next_start
+
+        if len(page) < API_LIMIT:
+            break
+
+    if not rows:
+        raise RuntimeError("No Bitstamp BTC/USD OHLC data returned")
+
+    df = pd.DataFrame(rows)
+    df["timestamp"] = pd.to_numeric(df["timestamp"], errors="raise")
+    df["close"] = pd.to_numeric(df["close"], errors="raise")
+    df["date"] = pd.to_datetime(df["timestamp"], unit="s", utc=True).dt.date
+    df = df[["date", "close"]].dropna().drop_duplicates(subset=["date"]).sort_values("date")
 
     return df
 
@@ -91,9 +127,9 @@ def compute_payload(df: pd.DataFrame) -> dict[str, Any]:
     current_trend = "bullish" if latest["ema20"] >= latest["ema200"] else "bearish"
 
     return {
-        "symbol": TICKER,
+        "symbol": SYMBOL,
         "name": "Bitcoin / USD",
-        "source": "Yahoo Finance",
+        "source": SOURCE,
         "updated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "latest": {
             "date": latest["date"].isoformat(),
@@ -116,6 +152,7 @@ def main() -> None:
 
     print(
         f"Wrote {OUTPUT_PATH} with {len(payload['series'])} daily bars "
+        f"from {payload['series'][0]['date']} to {payload['series'][-1]['date']} "
         f"and {len(payload['crosses'])} EMA crosses."
     )
 

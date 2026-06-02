@@ -255,13 +255,13 @@
   <header>
     <nav class="nav">
       <a href="/">← Home</a>
-      <a href="https://finance.yahoo.com/quote/BTC-USD/" rel="noopener" target="_blank">Yahoo Finance BTC-USD</a>
+      <a href="https://www.bitstamp.net/markets/btc/usd/" rel="noopener" target="_blank">Bitstamp BTC/USD</a>
     </nav>
 
     <div class="hero">
       <div>
         <h1>BTCUSD 20d / 200d EMA Crosses</h1>
-        <p class="subtitle">Daily Bitcoin closing price from Yahoo Finance, with 20-day and 200-day exponential moving averages. The chart marks historical bullish and bearish EMA crosses; the table lists every detected cross.</p>
+        <p class="subtitle">Daily Bitcoin closing price from Bitstamp, with 20-day and 200-day exponential moving averages. The chart marks historical bullish and bearish EMA crosses; the table lists every detected cross.</p>
       </div>
 
       <aside class="card summary-card" aria-label="Latest BTCUSD EMA summary">
@@ -317,7 +317,7 @@
   </main>
 
   <footer>
-    Data source: Yahoo Finance ticker BTC-USD. This page is informational only, not financial advice.
+    Data source: Bitstamp BTC/USD daily OHLC. This page is informational only, not financial advice.
   </footer>
 
   <script>
@@ -426,7 +426,7 @@
 
     function renderCrossTable(data) {
       const sorted = [...data.crosses].sort((a, b) => b.date.localeCompare(a.date));
-      document.getElementById('crossCount').textContent = `${sorted.length} historical crosses detected since Yahoo Finance BTC-USD history began.`;
+      document.getElementById('crossCount').textContent = `${sorted.length} historical crosses detected since Bitstamp BTC/USD history began.`;
       document.getElementById('crossTable').innerHTML = sorted.map(cross => `
         <tr>
           <td>${formatDate(cross.date)}</td>
