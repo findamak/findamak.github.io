@@ -31,14 +31,14 @@
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 19.95,
-      "change": -2.92,
+      "price": 19.88,
+      "change": -3.26,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 247.5,
+      "price": 246.92,
       "change": 0,
       "type": "stock"
     },
@@ -52,29 +52,29 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 107.93,
-      "change": -0.72,
+      "price": 107.9,
+      "change": -0.75,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 117.3,
-      "change": -0.57,
+      "price": 117.12,
+      "change": -0.72,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 70.42,
-      "change": -0.11,
+      "price": 70.43,
+      "change": -0.1,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 62.38,
-      "change": -0.35,
+      "price": 62.39,
+      "change": -0.34,
       "type": "stock"
     },
     {
@@ -136,28 +136,28 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4509.7998,
+      "price": 4504.6001,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 75.63,
+      "price": 75.41,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 94.44,
+      "price": 94.76,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 91.72,
+      "price": 91.86,
       "change": 0,
       "type": "commodity"
     },
@@ -169,5 +169,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-02T11:55:17.602876"
+  "lastUpdated": "2026-06-02T12:00:16.614842"
 }
