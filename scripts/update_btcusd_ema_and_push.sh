@@ -7,6 +7,7 @@ set -euo pipefail
 REPO_DIR="/home/amak/findamak.github.io"
 PYTHON="/usr/bin/python3"
 LOCK_FILE="/tmp/findamak-btcusd-ema-update.lock"
+NOTIFIED_CROSS_STATE="/home/amak/scripts/btcusd-ema-notified-cross.json"
 
 export HOME="/home/amak"
 export PATH="/usr/local/bin:/usr/bin:/bin:/home/amak/.local/bin"
@@ -27,8 +28,8 @@ git pull --ff-only
 # Generate the static JSON payload.
 "${PYTHON}" scripts/update_btcusd_ema.py
 
-# Commit only the generated data file. If Yahoo returns identical market data but
-# updated_at changed, this still records that the cron job completed successfully.
+# Commit only the generated data file. If Bitstamp returns identical market data
+# but updated_at changed, this still records that the cron job completed successfully.
 git add data/btcusd.json
 
 if git diff --cached --quiet; then
@@ -39,6 +40,14 @@ else
   git commit -m "Update BTCUSD EMA data"
   git push
   echo "$(date -Is) pushed BTCUSD EMA data update"
+fi
+
+# Send an email only when the newest EMA crossover is newer than the most recent
+# successfully notified crossover. Notification failure is logged but does not
+# block the data update or GitHub Pages deploy; because state is updated only
+# after a successful email, the next cron run will retry failed notifications.
+if ! "${PYTHON}" scripts/notify_btcusd_crossover.py data/btcusd.json "${NOTIFIED_CROSS_STATE}"; then
+  echo "$(date -Is) warning: BTCUSD crossover email notification failed" >&2
 fi
 
 echo "$(date -Is) finished BTCUSD EMA update"
