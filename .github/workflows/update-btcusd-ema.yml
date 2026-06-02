@@ -1,0 +1,37 @@
+name: Update BTCUSD EMA Data
+
+on:
+  schedule:
+    # Run after the Yahoo Finance UTC BTC daily candle should be closed.
+    - cron: "30 1 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out site
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: python -m pip install --upgrade pandas yfinance
+
+      - name: Generate BTCUSD EMA data
+        run: python scripts/update_btcusd_ema.py
+
+      - name: Commit updated data
+        run: |
+          git config user.name "btc-ema-bot"
+          git config user.email "btc-ema-bot@users.noreply.github.com"
+          git add data/btcusd.json
+          git diff --cached --quiet || git commit -m "Update BTCUSD EMA data"
+          git push

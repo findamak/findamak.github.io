@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="BTCUSD 20-day and 200-day EMA cross history">
+  <title>BTCUSD 20d / 200d EMA Crosses</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    :root {
+      --bg: #f4fbf9;
+      --card: #ffffff;
+      --ink: #243230;
+      --muted: #65716f;
+      --teal: #11999e;
+      --light-teal: #66bfbf;
+      --orange: #f59e0b;
+      --blue: #2563eb;
+      --green: #16a34a;
+      --red: #dc2626;
+      --border: #d9ece8;
+      --shadow: 0 18px 50px rgba(17, 153, 158, 0.14);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: 'Merriweather', serif;
+      background: radial-gradient(circle at top left, #d9fbf4 0, var(--bg) 34rem, #ffffff 100%);
+      line-height: 1.7;
+    }
+
+    header, main, footer {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+
+    header {
+      padding: 56px 0 28px;
+    }
+
+    .nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 44px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .nav a {
+      color: var(--teal);
+      text-decoration: none;
+      font-weight: 700;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+
+    h1, h2, h3 {
+      font-family: 'Montserrat', sans-serif;
+      line-height: 1.15;
+      margin: 0;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 6vw, 5.1rem);
+      letter-spacing: -0.06em;
+      color: var(--teal);
+      max-width: 850px;
+    }
+
+    .subtitle {
+      color: var(--muted);
+      max-width: 760px;
+      font-size: 1.05rem;
+      margin: 22px 0 0;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.88);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+    }
+
+    .summary-card {
+      padding: 24px;
+      display: grid;
+      gap: 14px;
+      align-content: center;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid #edf5f3;
+      padding-bottom: 12px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .summary-item:last-child {
+      border-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .label { color: var(--muted); }
+    .value { font-weight: 800; text-align: right; }
+    .trend-bullish { color: var(--green); }
+    .trend-bearish { color: var(--red); }
+
+    section {
+      margin: 28px 0;
+    }
+
+    .section-card {
+      padding: clamp(18px, 3vw, 30px);
+    }
+
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    .section-heading p {
+      margin: 6px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+    }
+
+    #chart {
+      height: 560px;
+      width: 100%;
+    }
+
+    .legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px 18px;
+      margin-top: 14px;
+      font-family: 'Montserrat', sans-serif;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .legend span::before {
+      content: '';
+      display: inline-block;
+      width: 11px;
+      height: 11px;
+      border-radius: 999px;
+      margin-right: 7px;
+      vertical-align: -1px;
+      background: var(--legend-color);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+      font-family: 'Montserrat', sans-serif;
+      background: #fff;
+    }
+
+    th, td {
+      padding: 14px 16px;
+      text-align: right;
+      border-bottom: 1px solid #edf5f3;
+      white-space: nowrap;
+    }
+
+    th:first-child, td:first-child,
+    th:nth-child(2), td:nth-child(2) {
+      text-align: left;
+    }
+
+    th {
+      color: var(--muted);
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      background: #f8fcfb;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 999px;
+      padding: 4px 10px;
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.82rem;
+      text-transform: capitalize;
+    }
+
+    .pill.bullish { background: var(--green); }
+    .pill.bearish { background: var(--red); }
+
+    .error {
+      padding: 18px;
+      border-radius: 16px;
+      background: #fff1f2;
+      color: #9f1239;
+      border: 1px solid #fecdd3;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    footer {
+      padding: 30px 0 46px;
+      color: var(--muted);
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    @media (max-width: 820px) {
+      .hero { grid-template-columns: 1fr; }
+      .nav { align-items: flex-start; flex-direction: column; }
+      #chart { height: 420px; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav class="nav">
+      <a href="/">← Allan Mak</a>
+      <a href="https://finance.yahoo.com/quote/BTC-USD/" rel="noopener" target="_blank">Yahoo Finance BTC-USD</a>
+    </nav>
+
+    <div class="hero">
+      <div>
+        <h1>BTCUSD 20d / 200d EMA Crosses</h1>
+        <p class="subtitle">Daily Bitcoin closing price from Yahoo Finance, with 20-day and 200-day exponential moving averages. The chart marks historical bullish and bearish EMA crosses; the table lists every detected cross.</p>
+      </div>
+
+      <aside class="card summary-card" aria-label="Latest BTCUSD EMA summary">
+        <div class="summary-item"><span class="label">Status</span><span class="value" id="status">Loading…</span></div>
+        <div class="summary-item"><span class="label">Latest close</span><span class="value" id="latestClose">—</span></div>
+        <div class="summary-item"><span class="label">20d EMA</span><span class="value" id="latestEma20">—</span></div>
+        <div class="summary-item"><span class="label">200d EMA</span><span class="value" id="latestEma200">—</span></div>
+        <div class="summary-item"><span class="label">Last updated</span><span class="value" id="lastUpdated">—</span></div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>EMA chart</h2>
+          <p>Close price, 20d EMA, 200d EMA, and cross markers.</p>
+        </div>
+      </div>
+      <div id="chart" role="img" aria-label="BTCUSD close, 20 day EMA, and 200 day EMA chart"></div>
+      <div class="legend" aria-label="Chart legend">
+        <span style="--legend-color: var(--teal)">Close</span>
+        <span style="--legend-color: var(--orange)">20d EMA</span>
+        <span style="--legend-color: var(--blue)">200d EMA</span>
+        <span style="--legend-color: var(--green)">Bullish cross</span>
+        <span style="--legend-color: var(--red)">Bearish cross</span>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Historical crosses</h2>
+          <p id="crossCount">Loading cross history…</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>Direction</th>
+              <th>Close</th>
+              <th>20d EMA</th>
+              <th>200d EMA</th>
+            </tr>
+          </thead>
+          <tbody id="crossTable"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Data source: Yahoo Finance ticker BTC-USD. This page is informational only, not financial advice.
+  </footer>
+
+  <script>
+    const currency = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      maximumFractionDigits: 0
+    });
+
+    const preciseCurrency = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+
+    function formatDate(dateString) {
+      return new Date(`${dateString}T00:00:00Z`).toLocaleDateString('en-AU', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        timeZone: 'UTC'
+      });
+    }
+
+    function formatUpdated(timestamp) {
+      return new Date(timestamp).toLocaleString('en-AU', {
+        year: 'numeric',
+        month: 'short',
+        day: 'numeric',
+        hour: '2-digit',
+        minute: '2-digit'
+      });
+    }
+
+    function setError(message) {
+      document.getElementById('status').textContent = 'Error';
+      document.querySelector('main').insertAdjacentHTML('afterbegin', `<div class="error">${message}</div>`);
+    }
+
+    function renderSummary(data) {
+      const latest = data.latest;
+      const status = document.getElementById('status');
+      status.textContent = `${latest.trend} as of ${formatDate(latest.date)}`;
+      status.classList.add(latest.trend === 'bullish' ? 'trend-bullish' : 'trend-bearish');
+      document.getElementById('latestClose').textContent = preciseCurrency.format(latest.close);
+      document.getElementById('latestEma20').textContent = preciseCurrency.format(latest.ema20);
+      document.getElementById('latestEma200').textContent = preciseCurrency.format(latest.ema200);
+      document.getElementById('lastUpdated').textContent = formatUpdated(data.updated_at);
+    }
+
+    function renderChart(data) {
+      const chartContainer = document.getElementById('chart');
+      const chart = LightweightCharts.createChart(chartContainer, {
+        layout: {
+          background: { color: '#ffffff' },
+          textColor: '#40514e',
+          fontFamily: 'Montserrat, sans-serif'
+        },
+        grid: {
+          vertLines: { color: '#eef6f4' },
+          horzLines: { color: '#eef6f4' }
+        },
+        rightPriceScale: { borderColor: '#d9ece8' },
+        timeScale: { borderColor: '#d9ece8', timeVisible: false },
+        crosshair: { mode: LightweightCharts.CrosshairMode.Normal }
+      });
+
+      const closeSeries = chart.addLineSeries({
+        title: 'Close',
+        color: '#11999e',
+        lineWidth: 2,
+        priceFormat: { type: 'price', precision: 0, minMove: 1 }
+      });
+      const ema20Series = chart.addLineSeries({
+        title: '20d EMA',
+        color: '#f59e0b',
+        lineWidth: 2,
+        priceFormat: { type: 'price', precision: 0, minMove: 1 }
+      });
+      const ema200Series = chart.addLineSeries({
+        title: '200d EMA',
+        color: '#2563eb',
+        lineWidth: 2,
+        priceFormat: { type: 'price', precision: 0, minMove: 1 }
+      });
+
+      closeSeries.setData(data.series.map(row => ({ time: row.date, value: row.close })));
+      ema20Series.setData(data.series.map(row => ({ time: row.date, value: row.ema20 })));
+      ema200Series.setData(data.series.map(row => ({ time: row.date, value: row.ema200 })));
+
+      closeSeries.setMarkers(data.crosses.map(cross => ({
+        time: cross.date,
+        position: cross.direction === 'bullish' ? 'belowBar' : 'aboveBar',
+        color: cross.direction === 'bullish' ? '#16a34a' : '#dc2626',
+        shape: cross.direction === 'bullish' ? 'arrowUp' : 'arrowDown',
+        text: cross.direction === 'bullish' ? 'Bullish cross' : 'Bearish cross'
+      })));
+
+      chart.timeScale().fitContent();
+
+      const resize = () => chart.applyOptions({ width: chartContainer.clientWidth });
+      window.addEventListener('resize', resize);
+      resize();
+    }
+
+    function renderCrossTable(data) {
+      const sorted = [...data.crosses].sort((a, b) => b.date.localeCompare(a.date));
+      document.getElementById('crossCount').textContent = `${sorted.length} historical crosses detected since Yahoo Finance BTC-USD history began.`;
+      document.getElementById('crossTable').innerHTML = sorted.map(cross => `
+        <tr>
+          <td>${formatDate(cross.date)}</td>
+          <td><span class="pill ${cross.direction}">${cross.direction}</span></td>
+          <td>${currency.format(cross.close)}</td>
+          <td>${currency.format(cross.ema20)}</td>
+          <td>${currency.format(cross.ema200)}</td>
+        </tr>
+      `).join('');
+    }
+
+    async function init() {
+      try {
+        const response = await fetch('data/btcusd.json', { cache: 'no-store' });
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        renderSummary(data);
+        renderChart(data);
+        renderCrossTable(data);
+      } catch (error) {
+        setError(`Could not load BTCUSD EMA data: ${error.message}`);
+      }
+    }
+
+    init();
+  </script>
+</body>
+</html>
