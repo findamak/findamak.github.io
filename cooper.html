@@ -155,228 +155,309 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
   </footer>
 
   <script>
-    const pageId = "cooper";
-    const exercises = [
-  {
-    "type": "choice",
-    "title": "Alphabet Explorer",
-    "question": "Which letter comes after C?",
-    "prompt": "Sing the alphabet quietly: A, B, C...",
-    "options": [
-      "A",
-      "B",
-      "D",
-      "Z"
-    ],
-    "answer": "D"
-  },
-  {
-    "type": "choice",
-    "title": "Tiny Addition",
-    "question": "What is 2 + 3?",
-    "prompt": "Use your fingers: two fingers plus three more.",
-    "options": [
-      "4",
-      "5",
-      "6",
-      "7"
-    ],
-    "answer": "5"
-  },
-  {
-    "type": "choice",
-    "title": "Beginning Sounds",
-    "question": "Which word starts with the same sound as Cooper?",
-    "prompt": "Listen for the hard C sound.",
-    "options": [
-      "Cake",
-      "Dog",
-      "Moon",
-      "Sun"
-    ],
-    "answer": "Cake"
-  },
-  {
-    "type": "choice",
-    "title": "Big Shape Hunt",
-    "question": "Which shape is round with no corners?",
-    "prompt": "Think of a wheel or a ball.",
-    "options": [
-      "Square",
-      "Triangle",
-      "Circle",
-      "Star"
-    ],
-    "answer": "Circle"
-  },
-  {
-    "type": "input",
-    "title": "Count Backwards",
-    "question": "What number comes before 10?",
-    "prompt": "Count backwards: 10, ...",
-    "answer": [
-      "9",
-      "nine"
-    ]
-  },
-  {
-    "type": "choice",
-    "title": "Healthy Choices",
-    "question": "Which one is a fruit?",
-    "prompt": "Fruit grows on plants or trees.",
-    "options": [
-      "Apple",
-      "Shoe",
-      "Chair",
-      "Pencil"
-    ],
-    "answer": "Apple"
-  },
-  {
-    "type": "choice",
-    "title": "Pattern Builder",
-    "question": "What comes next? 🐶 🐱 🐶 🐱 🐶",
-    "prompt": "Look for the repeating animal pattern.",
-    "options": [
-      "🐶",
-      "🐱",
-      "🐭",
-      "🐰"
-    ],
-    "answer": "🐱"
-  },
-  {
-    "type": "input",
-    "title": "Simple Word",
-    "question": "Finish the word: D O __",
-    "prompt": "It is a pet that barks.",
-    "answer": [
-      "g",
-      "G"
-    ]
-  },
-  {
-    "type": "choice",
-    "title": "Story Thinking",
-    "question": "Sam put on boots and a raincoat. What is the weather probably like?",
-    "prompt": "Look for clues in what Sam is wearing.",
-    "options": [
-      "Rainy",
-      "Snowy",
-      "Very hot",
-      "Inside"
-    ],
-    "answer": "Rainy"
-  },
-  {
-    "type": "choice",
-    "title": "Kindness Practice",
-    "question": "Your friend cannot open a lunchbox. What could you do?",
-    "prompt": "Choose the helpful answer.",
-    "options": [
-      "Laugh",
-      "Help them or get an adult",
-      "Hide it",
-      "Walk away"
-    ],
-    "answer": "Help them or get an adult"
-  }
-];
+    var pageId = "cooper";
+        var exercises = [
+      {
+        "type": "choice",
+        "title": "Alphabet Explorer",
+        "question": "Which letter comes after C?",
+        "prompt": "Sing the alphabet quietly: A, B, C...",
+        "options": [
+          "A",
+          "B",
+          "D",
+          "Z"
+        ],
+        "answer": "D"
+      },
+      {
+        "type": "choice",
+        "title": "Tiny Addition",
+        "question": "What is 2 + 3?",
+        "prompt": "Use your fingers: two fingers plus three more.",
+        "options": [
+          "4",
+          "5",
+          "6",
+          "7"
+        ],
+        "answer": "5"
+      },
+      {
+        "type": "choice",
+        "title": "Beginning Sounds",
+        "question": "Which word starts with the same sound as Cooper?",
+        "prompt": "Listen for the hard C sound.",
+        "options": [
+          "Cake",
+          "Dog",
+          "Moon",
+          "Sun"
+        ],
+        "answer": "Cake"
+      },
+      {
+        "type": "choice",
+        "title": "Big Shape Hunt",
+        "question": "Which shape is round with no corners?",
+        "prompt": "Think of a wheel or a ball.",
+        "options": [
+          "Square",
+          "Triangle",
+          "Circle",
+          "Star"
+        ],
+        "answer": "Circle"
+      },
+      {
+        "type": "input",
+        "title": "Count Backwards",
+        "question": "What number comes before 10?",
+        "prompt": "Count backwards: 10, ...",
+        "answer": [
+          "9",
+          "nine"
+        ]
+      },
+      {
+        "type": "choice",
+        "title": "Healthy Choices",
+        "question": "Which one is a fruit?",
+        "prompt": "Fruit grows on plants or trees.",
+        "options": [
+          "Apple",
+          "Shoe",
+          "Chair",
+          "Pencil"
+        ],
+        "answer": "Apple"
+      },
+      {
+        "type": "choice",
+        "title": "Pattern Builder",
+        "question": "What comes next? 🐶 🐱 🐶 🐱 🐶",
+        "prompt": "Look for the repeating animal pattern.",
+        "options": [
+          "🐶",
+          "🐱",
+          "🐭",
+          "🐰"
+        ],
+        "answer": "🐱"
+      },
+      {
+        "type": "input",
+        "title": "Simple Word",
+        "question": "Finish the word: D O __",
+        "prompt": "It is a pet that barks.",
+        "answer": [
+          "g",
+          "G"
+        ]
+      },
+      {
+        "type": "choice",
+        "title": "Story Thinking",
+        "question": "Sam put on boots and a raincoat. What is the weather probably like?",
+        "prompt": "Look for clues in what Sam is wearing.",
+        "options": [
+          "Rainy",
+          "Snowy",
+          "Very hot",
+          "Inside"
+        ],
+        "answer": "Rainy"
+      },
+      {
+        "type": "choice",
+        "title": "Kindness Practice",
+        "question": "Your friend cannot open a lunchbox. What could you do?",
+        "prompt": "Choose the helpful answer.",
+        "options": [
+          "Laugh",
+          "Help them or get an adult",
+          "Hide it",
+          "Walk away"
+        ],
+        "answer": "Help them or get an adult"
+      }
+    ];
   </script>
   <script>
-const scoreKey = `${pageId}-learning-score`;
-const answered = new Set(JSON.parse(localStorage.getItem(scoreKey) || '[]'));
-const grid = document.querySelector('#exerciseGrid');
-const scoreNow = document.querySelector('#scoreNow');
-const scoreTotal = document.querySelector('#scoreTotal');
-const progressBar = document.querySelector('#progressBar');
-scoreTotal.textContent = exercises.length;
+(function () {
+  var storageKey = pageId + '-learning-score';
+  var answered = [];
+  var grid = document.getElementById('exerciseGrid');
+  var scoreNow = document.getElementById('scoreNow');
+  var scoreTotal = document.getElementById('scoreTotal');
+  var progressBar = document.getElementById('progressBar');
 
-function normalise(value) {
-  return String(value).trim().toLowerCase().replace(/[.!?]/g, '').replace(/\s+/g, ' ');
-}
-
-function saveProgress() {
-  localStorage.setItem(scoreKey, JSON.stringify([...answered]));
-  scoreNow.textContent = answered.size;
-  progressBar.style.width = `${Math.round((answered.size / exercises.length) * 100)}%`;
-}
-
-function markAnswered(index, ok, feedbackEl) {
-  if (ok) {
-    answered.add(index);
-    feedbackEl.textContent = 'Correct — brilliant work! ✨';
-    feedbackEl.className = 'feedback good';
-  } else {
-    feedbackEl.textContent = 'Not quite. Try again — learning loves practice. 💪';
-    feedbackEl.className = 'feedback bad';
+  function storageGet(key) {
+    try { return window.localStorage ? window.localStorage.getItem(key) : null; }
+    catch (e) { return null; }
   }
-  saveProgress();
-}
 
-function renderExercise(ex, index) {
-  const card = document.createElement('article');
-  card.className = 'card';
-  card.innerHTML = `
-    <h2>${index + 1}. ${ex.title}</h2>
-    <div class="question">${ex.question}</div>
-    <p class="prompt">${ex.prompt || ''}</p>
-    <div class="feedback" aria-live="polite">${answered.has(index) ? 'Already completed — nice!' : ''}</div>
-  `;
-  const feedback = card.querySelector('.feedback');
-  if (answered.has(index)) feedback.className = 'feedback good';
+  function storageSet(key, value) {
+    try { if (window.localStorage) { window.localStorage.setItem(key, value); } }
+    catch (e) {}
+  }
 
-  if (ex.type === 'choice') {
-    const options = document.createElement('div');
-    options.className = 'options';
-    ex.options.forEach(option => {
-      const btn = document.createElement('button');
-      btn.className = 'option';
-      btn.type = 'button';
-      btn.textContent = option;
-      btn.addEventListener('click', () => {
-        const ok = normalise(option) === normalise(ex.answer);
-        btn.classList.add(ok ? 'correct' : 'wrong');
-        if (ok) {
-          [...options.querySelectorAll('button')].forEach(b => b.disabled = true);
+  function storageRemove(key) {
+    try { if (window.localStorage) { window.localStorage.removeItem(key); } }
+    catch (e) {}
+  }
+
+  function loadAnswered() {
+    var raw = storageGet(storageKey);
+    if (!raw) { return []; }
+    try {
+      var parsed = JSON.parse(raw);
+      return Object.prototype.toString.call(parsed) === '[object Array]' ? parsed : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function hasAnswered(index) {
+    for (var i = 0; i < answered.length; i += 1) {
+      if (String(answered[i]) === String(index)) { return true; }
+    }
+    return false;
+  }
+
+  function addAnswered(index) {
+    if (!hasAnswered(index)) { answered.push(index); }
+  }
+
+  function normalise(value) {
+    return String(value).replace(/^\s+|\s+$/g, '').toLowerCase().replace(/[.!?]/g, '').replace(/\s+/g, ' ');
+  }
+
+  function setClass(el, className) {
+    el.className = className;
+  }
+
+  function setText(el, text) {
+    if ('textContent' in el) { el.textContent = text; }
+    else { el.innerText = text; }
+  }
+
+  function saveProgress() {
+    storageSet(storageKey, JSON.stringify(answered));
+    setText(scoreNow, answered.length);
+    progressBar.style.width = Math.round((answered.length / exercises.length) * 100) + '%';
+  }
+
+  function markAnswered(index, ok, feedbackEl) {
+    if (ok) {
+      addAnswered(index);
+      setText(feedbackEl, 'Correct — brilliant work! ✨');
+      setClass(feedbackEl, 'feedback good');
+    } else {
+      setText(feedbackEl, 'Not quite. Try again — learning loves practice. 💪');
+      setClass(feedbackEl, 'feedback bad');
+    }
+    saveProgress();
+  }
+
+  function makeEl(tag, className) {
+    var el = document.createElement(tag);
+    if (className) { el.className = className; }
+    return el;
+  }
+
+  function renderExercise(ex, index) {
+    var card = makeEl('article', 'card');
+    var title = makeEl('h2');
+    var question = makeEl('div', 'question');
+    var prompt = makeEl('p', 'prompt');
+    var feedback = makeEl('div', 'feedback');
+
+    setText(title, (index + 1) + '. ' + ex.title);
+    setText(question, ex.question);
+    setText(prompt, ex.prompt || '');
+    feedback.setAttribute('aria-live', 'polite');
+
+    if (hasAnswered(index)) {
+      setText(feedback, 'Already completed — nice!');
+      setClass(feedback, 'feedback good');
+    }
+
+    card.appendChild(title);
+    card.appendChild(question);
+    card.appendChild(prompt);
+    card.appendChild(feedback);
+
+    if (ex.type === 'choice') {
+      var options = makeEl('div', 'options');
+      for (var i = 0; i < ex.options.length; i += 1) {
+        (function (optionText) {
+          var btn = makeEl('button', 'option');
+          btn.type = 'button';
+          setText(btn, optionText);
+          btn.onclick = function () {
+            var ok = normalise(optionText) === normalise(ex.answer);
+            setClass(btn, ok ? 'option correct' : 'option wrong');
+            if (ok) {
+              var buttons = options.getElementsByTagName('button');
+              for (var b = 0; b < buttons.length; b += 1) { buttons[b].disabled = true; }
+            }
+            markAnswered(index, ok, feedback);
+          };
+          options.appendChild(btn);
+        }(ex.options[i]));
+      }
+      card.appendChild(options);
+    } else {
+      var row = makeEl('div', 'answer-row');
+      var input = document.createElement('input');
+      var check = makeEl('button', 'check');
+      input.type = 'text';
+      input.autocomplete = 'off';
+      input.placeholder = 'Type your answer';
+      check.type = 'button';
+      setText(check, 'Check');
+
+      function validate() {
+        var answers = Object.prototype.toString.call(ex.answer) === '[object Array]' ? ex.answer : [ex.answer];
+        var ok = false;
+        for (var a = 0; a < answers.length; a += 1) {
+          if (normalise(answers[a]) === normalise(input.value)) { ok = true; break; }
         }
         markAnswered(index, ok, feedback);
-      });
-      options.appendChild(btn);
-    });
-    card.appendChild(options);
-  } else {
-    const row = document.createElement('div');
-    row.className = 'answer-row';
-    const input = document.createElement('input');
-    input.type = 'text';
-    input.autocomplete = 'off';
-    input.placeholder = 'Type your answer';
-    const check = document.createElement('button');
-    check.className = 'check';
-    check.type = 'button';
-    check.textContent = 'Check';
-    const validate = () => {
-      const answers = Array.isArray(ex.answer) ? ex.answer : [ex.answer];
-      const ok = answers.map(normalise).includes(normalise(input.value));
-      markAnswered(index, ok, feedback);
-      if (ok) { input.disabled = true; check.disabled = true; }
-    };
-    check.addEventListener('click', validate);
-    input.addEventListener('keydown', event => { if (event.key === 'Enter') validate(); });
-    row.append(input, check);
-    card.appendChild(row);
-  }
-  return card;
-}
+        if (ok) { input.disabled = true; check.disabled = true; }
+      }
 
-exercises.forEach((ex, index) => grid.appendChild(renderExercise(ex, index)));
-saveProgress();
-document.querySelector('#resetProgress').addEventListener('click', () => {
-  answered.clear();
-  localStorage.removeItem(scoreKey);
-  location.reload();
-});
-</script>
+      check.onclick = validate;
+      input.onkeydown = function (event) {
+        event = event || window.event;
+        var key = event.key || event.keyCode;
+        if (key === 'Enter' || key === 13) { validate(); }
+      };
+      row.appendChild(input);
+      row.appendChild(check);
+      card.appendChild(row);
+    }
+    return card;
+  }
+
+  if (!grid || !scoreNow || !scoreTotal || !progressBar || !exercises || !exercises.length) { return; }
+  answered = loadAnswered();
+  setText(scoreTotal, exercises.length);
+  for (var i = 0; i < exercises.length; i += 1) {
+    grid.appendChild(renderExercise(exercises[i], i));
+  }
+  saveProgress();
+
+  var reset = document.getElementById('resetProgress');
+  if (reset) {
+    reset.onclick = function () {
+      answered = [];
+      storageRemove(storageKey);
+      if (window.location && window.location.reload) { window.location.reload(); }
+    };
+  }
+}());
+  </script>
 </body>
 </html>
