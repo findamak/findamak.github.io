@@ -108,7 +108,35 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
   .reset { width: 100%; }
   .answer-row { flex-direction: column; }
 }
-</style>
+
+/* Legacy iPad fallback: old Safari/Chrome ignore CSS variables, color-mix, and CSS grid. */
+body {
+  color: #f8fbff;
+  background-color: #07111f;
+}
+a { color: #f8fbff; }
+.header { background: #07111f; border-bottom: 1px solid rgba(255,255,255,.16); }
+.nav-links a { color: #d6def0; }
+.kicker, .stat, .panel, .card, .reset, .option, .answer-row input {
+  background: #132238;
+  border: 1px solid rgba(255,255,255,.22);
+  color: #f8fbff;
+}
+.subtitle, .prompt, .progress-label, .footer { color: #d6def0; }
+.badge, .check { background: #38d9c6; color: #07111f; }
+.progress { background: #22324a; border: 1px solid rgba(255,255,255,.22); }
+.progress span { background: #38d9c6; }
+.exercises { display: block; }
+.card { display: block; margin: 18px; min-height: 0; }
+.options { display: block; margin-top: 14px; }
+.option { display: block; width: 100%; margin: 10px 0; text-align: left; }
+.answer-row { display: block; }
+.answer-row input, .check { display: block; width: 100%; margin: 10px 0; }
+.option.correct { border-color: #51e38a; background: #16472c; color: #ffffff; }
+.option.wrong { border-color: #ff6b8a; background: #4a1e2b; color: #ffffff; }
+.feedback.good { color: #51e38a; }
+.feedback.bad { color: #ff8aa2; }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#exerciseGrid">Skip to exercises</a>
@@ -131,7 +159,7 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
     <div class="stats" aria-label="Page summary">
       <div class="stat"><strong>10</strong><span>activities</span></div>
       <div class="stat"><strong>8</strong><span>years old</span></div>
-      <div class="stat"><strong>∞</strong><span>tries allowed</span></div>
+      <div class="stat"><strong>10</strong><span>tries allowed</span></div>
     </div>
   </section>
 
@@ -157,126 +185,129 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
   <script>
     var pageId = "chiara";
         var exercises = [
-      {
-        "type": "input",
-        "title": "Quick Maths",
-        "question": "What is 7 × 6?",
-        "prompt": "Think of 7 groups of 6.",
-        "answer": [
-          "42",
-          "forty two",
-          "forty-two"
-        ]
-      },
-      {
-        "type": "choice",
-        "title": "Vocabulary Builder",
-        "question": "Which word means “very happy”?",
-        "prompt": "Pick the closest meaning.",
-        "options": [
-          "Furious",
-          "Delighted",
-          "Tiny",
-          "Ancient"
-        ],
-        "answer": "Delighted"
-      },
-      {
-        "type": "input",
-        "title": "Spelling Sprint",
-        "question": "Unscramble this word: N E I C S C E",
-        "prompt": "It is a school subject about the world and how things work.",
-        "answer": "science"
-      },
-      {
-        "type": "choice",
-        "title": "Science Explorer",
-        "question": "Which planet is known as the Red Planet?",
-        "prompt": "It is named after the Roman god of war.",
-        "options": [
-          "Venus",
-          "Mars",
-          "Jupiter",
-          "Saturn"
-        ],
-        "answer": "Mars"
-      },
-      {
-        "type": "choice",
-        "title": "Map Skills",
-        "question": "Which direction is opposite to north?",
-        "prompt": "Use a compass in your mind.",
-        "options": [
-          "East",
-          "South",
-          "West",
-          "North-east"
-        ],
-        "answer": "South"
-      },
-      {
-        "type": "input",
-        "title": "Time Challenge",
-        "question": "If it is 3:15 now, what time will it be in 30 minutes?",
-        "prompt": "Add half an hour.",
-        "answer": [
-          "3:45",
-          "3.45",
-          "three forty five",
-          "quarter to four"
-        ]
-      },
-      {
-        "type": "choice",
-        "title": "Money Maths",
-        "question": "You have $2.00. You buy a snack for $1.35. How much change do you get?",
-        "prompt": "Subtract $1.35 from $2.00.",
-        "options": [
-          "$0.45",
-          "$0.55",
-          "$0.65",
-          "$0.75"
-        ],
-        "answer": "$0.65"
-      },
-      {
-        "type": "choice",
-        "title": "Fraction Finder",
-        "question": "Which fraction is the same as one half?",
-        "prompt": "Equivalent means equal value.",
-        "options": [
-          "1/3",
-          "2/4",
-          "3/5",
-          "4/6"
-        ],
-        "answer": "2/4"
-      },
-      {
-        "type": "choice",
-        "title": "Reading Detective",
-        "question": "Read: “Mia packed an umbrella because the clouds were dark.” What did Mia think might happen?",
-        "prompt": "Use the clue about the clouds.",
-        "options": [
-          "It might rain",
-          "It might snow",
-          "It might be sunny",
-          "It might be windy inside"
-        ],
-        "answer": "It might rain"
-      },
-      {
-        "type": "input",
-        "title": "Logic Ladder",
-        "question": "What comes next? 3, 6, 9, 12, __",
-        "prompt": "Look at how much the numbers grow each time.",
-        "answer": [
-          "15",
-          "fifteen"
-        ]
-      }
-    ];
-  </script>
+  {
+    "type": "input",
+    "title": "Quick Maths",
+    "question": "What is 7 x 6?",
+    "prompt": "Think of 7 groups of 6.",
+    "answer": [
+      "42",
+      "forty two",
+      "forty-two"
+    ],
+    "options": []
+  },
+  {
+    "type": "choice",
+    "title": "Vocabulary Builder",
+    "question": "Which word means \"very happy\"?",
+    "prompt": "Pick the closest meaning.",
+    "options": [
+      "Furious",
+      "Delighted",
+      "Tiny",
+      "Ancient"
+    ],
+    "answer": "Delighted"
+  },
+  {
+    "type": "input",
+    "title": "Spelling Sprint",
+    "question": "Unscramble this word: N E I C S C E",
+    "prompt": "It is a school subject about the world and how things work.",
+    "answer": "science",
+    "options": []
+  },
+  {
+    "type": "choice",
+    "title": "Science Explorer",
+    "question": "Which planet is known as the Red Planet?",
+    "prompt": "It is named after the Roman god of war.",
+    "options": [
+      "Venus",
+      "Mars",
+      "Jupiter",
+      "Saturn"
+    ],
+    "answer": "Mars"
+  },
+  {
+    "type": "choice",
+    "title": "Map Skills",
+    "question": "Which direction is opposite to north?",
+    "prompt": "Use a compass in your mind.",
+    "options": [
+      "East",
+      "South",
+      "West",
+      "North-east"
+    ],
+    "answer": "South"
+  },
+  {
+    "type": "input",
+    "title": "Time Challenge",
+    "question": "If it is 3:15 now, what time will it be in 30 minutes?",
+    "prompt": "Add half an hour.",
+    "answer": [
+      "3:45",
+      "3.45",
+      "three forty five",
+      "quarter to four"
+    ],
+    "options": []
+  },
+  {
+    "type": "choice",
+    "title": "Money Maths",
+    "question": "You have $2.00. You buy a snack for $1.35. How much change do you get?",
+    "prompt": "Subtract $1.35 from $2.00.",
+    "options": [
+      "$0.45",
+      "$0.55",
+      "$0.65",
+      "$0.75"
+    ],
+    "answer": "$0.65"
+  },
+  {
+    "type": "choice",
+    "title": "Fraction Finder",
+    "question": "Which fraction is the same as one half?",
+    "prompt": "Equivalent means equal value.",
+    "options": [
+      "1/3",
+      "2/4",
+      "3/5",
+      "4/6"
+    ],
+    "answer": "2/4"
+  },
+  {
+    "type": "choice",
+    "title": "Reading Detective",
+    "question": "Read: \"Mia packed an umbrella because the clouds were dark.\" What did Mia think might happen?",
+    "prompt": "Use the clue about the clouds.",
+    "options": [
+      "It might rain",
+      "It might snow",
+      "It might be sunny",
+      "It might be windy inside"
+    ],
+    "answer": "It might rain"
+  },
+  {
+    "type": "input",
+    "title": "Logic Ladder",
+    "question": "What comes next? 3, 6, 9, 12, __",
+    "prompt": "Look at how much the numbers grow each time.",
+    "answer": [
+      "15",
+      "fifteen"
+    ],
+    "options": []
+  }
+];</script>
   <script>
 (function () {
   var storageKey = pageId + '-learning-score';
@@ -345,10 +376,10 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
   function markAnswered(index, ok, feedbackEl) {
     if (ok) {
       addAnswered(index);
-      setText(feedbackEl, 'Correct — brilliant work! ✨');
+      setText(feedbackEl, 'Correct - brilliant work!');
       setClass(feedbackEl, 'feedback good');
     } else {
-      setText(feedbackEl, 'Not quite. Try again — learning loves practice. 💪');
+      setText(feedbackEl, 'Not quite. Try again - learning loves practice.');
       setClass(feedbackEl, 'feedback bad');
     }
     saveProgress();
@@ -373,7 +404,7 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
     feedback.setAttribute('aria-live', 'polite');
 
     if (hasAnswered(index)) {
-      setText(feedback, 'Already completed — nice!');
+      setText(feedback, 'Already completed - nice!');
       setClass(feedback, 'feedback good');
     }
 

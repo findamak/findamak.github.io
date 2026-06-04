@@ -108,7 +108,35 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
   .reset { width: 100%; }
   .answer-row { flex-direction: column; }
 }
-</style>
+
+/* Legacy iPad fallback: old Safari/Chrome ignore CSS variables, color-mix, and CSS grid. */
+body {
+  color: #f8fbff;
+  background-color: #07111f;
+}
+a { color: #f8fbff; }
+.header { background: #07111f; border-bottom: 1px solid rgba(255,255,255,.16); }
+.nav-links a { color: #d6def0; }
+.kicker, .stat, .panel, .card, .reset, .option, .answer-row input {
+  background: #132238;
+  border: 1px solid rgba(255,255,255,.22);
+  color: #f8fbff;
+}
+.subtitle, .prompt, .progress-label, .footer { color: #d6def0; }
+.badge, .check { background: #38d9c6; color: #07111f; }
+.progress { background: #22324a; border: 1px solid rgba(255,255,255,.22); }
+.progress span { background: #38d9c6; }
+.exercises { display: block; }
+.card { display: block; margin: 18px; min-height: 0; }
+.options { display: block; margin-top: 14px; }
+.option { display: block; width: 100%; margin: 10px 0; text-align: left; }
+.answer-row { display: block; }
+.answer-row input, .check { display: block; width: 100%; margin: 10px 0; }
+.option.correct { border-color: #51e38a; background: #16472c; color: #ffffff; }
+.option.wrong { border-color: #ff6b8a; background: #4a1e2b; color: #ffffff; }
+.feedback.good { color: #51e38a; }
+.feedback.bad { color: #ff8aa2; }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#exerciseGrid">Skip to exercises</a>
@@ -131,7 +159,7 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
     <div class="stats" aria-label="Page summary">
       <div class="stat"><strong>10</strong><span>activities</span></div>
       <div class="stat"><strong>5</strong><span>years old</span></div>
-      <div class="stat"><strong>∞</strong><span>tries allowed</span></div>
+      <div class="stat"><strong>10</strong><span>tries allowed</span></div>
     </div>
   </section>
 
@@ -157,132 +185,131 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
   <script>
     var pageId = "cooper";
         var exercises = [
-      {
-        "type": "choice",
-        "title": "Alphabet Explorer",
-        "question": "Which letter comes after C?",
-        "prompt": "Sing the alphabet quietly: A, B, C...",
-        "options": [
-          "A",
-          "B",
-          "D",
-          "Z"
-        ],
-        "answer": "D"
-      },
-      {
-        "type": "choice",
-        "title": "Tiny Addition",
-        "question": "What is 2 + 3?",
-        "prompt": "Use your fingers: two fingers plus three more.",
-        "options": [
-          "4",
-          "5",
-          "6",
-          "7"
-        ],
-        "answer": "5"
-      },
-      {
-        "type": "choice",
-        "title": "Beginning Sounds",
-        "question": "Which word starts with the same sound as Cooper?",
-        "prompt": "Listen for the hard C sound.",
-        "options": [
-          "Cake",
-          "Dog",
-          "Moon",
-          "Sun"
-        ],
-        "answer": "Cake"
-      },
-      {
-        "type": "choice",
-        "title": "Big Shape Hunt",
-        "question": "Which shape is round with no corners?",
-        "prompt": "Think of a wheel or a ball.",
-        "options": [
-          "Square",
-          "Triangle",
-          "Circle",
-          "Star"
-        ],
-        "answer": "Circle"
-      },
-      {
-        "type": "input",
-        "title": "Count Backwards",
-        "question": "What number comes before 10?",
-        "prompt": "Count backwards: 10, ...",
-        "answer": [
-          "9",
-          "nine"
-        ]
-      },
-      {
-        "type": "choice",
-        "title": "Healthy Choices",
-        "question": "Which one is a fruit?",
-        "prompt": "Fruit grows on plants or trees.",
-        "options": [
-          "Apple",
-          "Shoe",
-          "Chair",
-          "Pencil"
-        ],
-        "answer": "Apple"
-      },
-      {
-        "type": "choice",
-        "title": "Pattern Builder",
-        "question": "What comes next? 🐶 🐱 🐶 🐱 🐶",
-        "prompt": "Look for the repeating animal pattern.",
-        "options": [
-          "🐶",
-          "🐱",
-          "🐭",
-          "🐰"
-        ],
-        "answer": "🐱"
-      },
-      {
-        "type": "input",
-        "title": "Simple Word",
-        "question": "Finish the word: D O __",
-        "prompt": "It is a pet that barks.",
-        "answer": [
-          "g",
-          "G"
-        ]
-      },
-      {
-        "type": "choice",
-        "title": "Story Thinking",
-        "question": "Sam put on boots and a raincoat. What is the weather probably like?",
-        "prompt": "Look for clues in what Sam is wearing.",
-        "options": [
-          "Rainy",
-          "Snowy",
-          "Very hot",
-          "Inside"
-        ],
-        "answer": "Rainy"
-      },
-      {
-        "type": "choice",
-        "title": "Kindness Practice",
-        "question": "Your friend cannot open a lunchbox. What could you do?",
-        "prompt": "Choose the helpful answer.",
-        "options": [
-          "Laugh",
-          "Help them or get an adult",
-          "Hide it",
-          "Walk away"
-        ],
-        "answer": "Help them or get an adult"
-      }
-    ];
-  </script>
+  {
+    "type": "choice",
+    "title": "Alphabet Explorer",
+    "question": "Which letter comes after C?",
+    "prompt": "Sing the alphabet quietly: A, B, C...",
+    "options": [
+      "A",
+      "B",
+      "D",
+      "Z"
+    ],
+    "answer": "D"
+  },
+  {
+    "type": "choice",
+    "title": "Tiny Addition",
+    "question": "What is 2 + 3?",
+    "prompt": "Use your fingers: two fingers plus three more.",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": "5"
+  },
+  {
+    "type": "choice",
+    "title": "Beginning Sounds",
+    "question": "Which word starts with the same sound as Cooper?",
+    "prompt": "Listen for the hard C sound.",
+    "options": [
+      "Cake",
+      "Dog",
+      "Moon",
+      "Sun"
+    ],
+    "answer": "Cake"
+  },
+  {
+    "type": "choice",
+    "title": "Big Shape Hunt",
+    "question": "Which shape is round with no corners?",
+    "prompt": "Think of a wheel or a ball.",
+    "options": [
+      "Square",
+      "Triangle",
+      "Circle",
+      "Star"
+    ],
+    "answer": "Circle"
+  },
+  {
+    "type": "input",
+    "title": "Count Backwards",
+    "question": "What number comes before 10?",
+    "prompt": "Count backwards: 10, ...",
+    "answer": [
+      "9",
+      "nine"
+    ]
+  },
+  {
+    "type": "choice",
+    "title": "Healthy Choices",
+    "question": "Which one is a fruit?",
+    "prompt": "Fruit grows on plants or trees.",
+    "options": [
+      "Apple",
+      "Shoe",
+      "Chair",
+      "Pencil"
+    ],
+    "answer": "Apple"
+  },
+  {
+    "type": "choice",
+    "title": "Pattern Builder",
+    "question": "What comes next? dog, cat, dog, cat, dog",
+    "prompt": "Look for the repeating animal pattern.",
+    "options": [
+      "dog",
+      "cat",
+      "mouse",
+      "rabbit"
+    ],
+    "answer": "cat"
+  },
+  {
+    "type": "input",
+    "title": "Simple Word",
+    "question": "Finish the word: D O __",
+    "prompt": "It is a pet that barks.",
+    "answer": [
+      "g",
+      "G"
+    ]
+  },
+  {
+    "type": "choice",
+    "title": "Story Thinking",
+    "question": "Sam put on boots and a raincoat. What is the weather probably like?",
+    "prompt": "Look for clues in what Sam is wearing.",
+    "options": [
+      "Rainy",
+      "Snowy",
+      "Very hot",
+      "Inside"
+    ],
+    "answer": "Rainy"
+  },
+  {
+    "type": "choice",
+    "title": "Kindness Practice",
+    "question": "Your friend cannot open a lunchbox. What could you do?",
+    "prompt": "Choose the helpful answer.",
+    "options": [
+      "Laugh",
+      "Help them or get an adult",
+      "Hide it",
+      "Walk away"
+    ],
+    "answer": "Help them or get an adult"
+  }
+];</script>
   <script>
 (function () {
   var storageKey = pageId + '-learning-score';
@@ -351,10 +378,10 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
   function markAnswered(index, ok, feedbackEl) {
     if (ok) {
       addAnswered(index);
-      setText(feedbackEl, 'Correct — brilliant work! ✨');
+      setText(feedbackEl, 'Correct - brilliant work!');
       setClass(feedbackEl, 'feedback good');
     } else {
-      setText(feedbackEl, 'Not quite. Try again — learning loves practice. 💪');
+      setText(feedbackEl, 'Not quite. Try again - learning loves practice.');
       setClass(feedbackEl, 'feedback bad');
     }
     saveProgress();
@@ -379,7 +406,7 @@ h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16p
     feedback.setAttribute('aria-live', 'polite');
 
     if (hasAnswered(index)) {
-      setText(feedback, 'Already completed — nice!');
+      setText(feedback, 'Already completed - nice!');
       setClass(feedback, 'feedback good');
     }
 
