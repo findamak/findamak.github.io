@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">Abstract illuminated mountain and network paths</title>
+  <desc id="desc">A modern dark-mode illustration of a glowing mountain horizon with connected paths, representing leadership, technology, and progress.</desc>
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#151735"/>
+      <stop offset="0.48" stop-color="#070910"/>
+      <stop offset="1" stop-color="#041917"/>
+    </linearGradient>
+    <radialGradient id="sun" cx="50%" cy="68%" r="42%">
+      <stop offset="0" stop-color="#f7c66f" stop-opacity="0.85"/>
+      <stop offset="0.2" stop-color="#7c83ff" stop-opacity="0.38"/>
+      <stop offset="0.55" stop-color="#38d9c6" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#06070a" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ridgeA" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7c83ff" stop-opacity="0.92"/>
+      <stop offset="0.52" stop-color="#1c2446" stop-opacity="0.98"/>
+      <stop offset="1" stop-color="#07100f"/>
+    </linearGradient>
+    <linearGradient id="ridgeB" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#38d9c6" stop-opacity="0.85"/>
+      <stop offset="0.55" stop-color="#111827" stop-opacity="0.98"/>
+      <stop offset="1" stop-color="#05060a"/>
+    </linearGradient>
+    <linearGradient id="path" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#38d9c6"/>
+      <stop offset="0.45" stop-color="#7c83ff"/>
+      <stop offset="1" stop-color="#f7c66f"/>
+    </linearGradient>
+    <filter id="glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 0.49  0 1 0 0 0.51  0 0 1 0 1  0 0 0 0.75 0" result="colored"/>
+      <feMerge>
+        <feMergeNode in="colored"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="150%">
+      <feDropShadow dx="0" dy="22" stdDeviation="18" flood-color="#000" flood-opacity="0.45"/>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M 48 0 L 0 0 0 48" fill="none" stroke="#ffffff" stroke-opacity="0.045" stroke-width="1"/>
+    </pattern>
+  </defs>
+
+  <rect width="960" height="540" rx="42" fill="url(#sky)"/>
+  <rect width="960" height="540" rx="42" fill="url(#grid)" opacity="0.9"/>
+  <rect width="960" height="540" rx="42" fill="url(#sun)"/>
+
+  <g opacity="0.65">
+    <circle cx="148" cy="112" r="2" fill="#f5f7fb"/>
+    <circle cx="234" cy="82" r="1.4" fill="#a8b0c2"/>
+    <circle cx="771" cy="118" r="1.7" fill="#f5f7fb"/>
+    <circle cx="826" cy="202" r="1.2" fill="#a8b0c2"/>
+    <circle cx="525" cy="74" r="1.3" fill="#f5f7fb"/>
+    <circle cx="398" cy="153" r="1" fill="#a8b0c2"/>
+  </g>
+
+  <g filter="url(#softShadow)">
+    <path d="M56 414 L214 236 L319 344 L438 184 L584 376 L686 268 L904 414 Z" fill="url(#ridgeA)" opacity="0.96"/>
+    <path d="M56 414 L214 236 L252 276 L180 330 L126 414 Z" fill="#cdd3ff" opacity="0.16"/>
+    <path d="M438 184 L506 276 L468 254 L400 334 L351 414 L250 414 Z" fill="#f5f7fb" opacity="0.13"/>
+    <path d="M686 268 L746 320 L705 308 L642 382 L600 414 L526 414 Z" fill="#baf8f0" opacity="0.12"/>
+    <path d="M0 432 L126 330 L266 402 L384 306 L515 414 L634 342 L768 404 L960 300 L960 540 L0 540 Z" fill="url(#ridgeB)" opacity="0.98"/>
+  </g>
+
+  <g fill="none" stroke="url(#path)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+    <path d="M108 420 C196 376 244 392 318 344 C410 284 448 250 523 302 C603 358 642 356 716 316 C786 278 838 258 900 222" opacity="0.84"/>
+    <path d="M214 236 C278 288 322 314 384 306 C442 299 486 278 548 314 C618 354 668 350 746 320" opacity="0.58"/>
+    <path d="M320 446 C390 398 440 388 512 410 C586 433 632 412 704 370" opacity="0.5"/>
+  </g>
+
+  <g filter="url(#glow)">
+    <circle cx="108" cy="420" r="6" fill="#38d9c6"/>
+    <circle cx="318" cy="344" r="7" fill="#7c83ff"/>
+    <circle cx="438" cy="184" r="6" fill="#f7c66f"/>
+    <circle cx="523" cy="302" r="5" fill="#38d9c6"/>
+    <circle cx="686" cy="268" r="6" fill="#7c83ff"/>
+    <circle cx="900" cy="222" r="5" fill="#f7c66f"/>
+    <circle cx="704" cy="370" r="5" fill="#38d9c6"/>
+  </g>
+
+  <g opacity="0.44" fill="none" stroke="#ffffff" stroke-opacity="0.4">
+    <path d="M80 452 H880"/>
+    <path d="M118 476 H842" stroke-opacity="0.22"/>
+  </g>
+</svg>
