@@ -38,43 +38,43 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 217.67,
+      "price": 216.67,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1522,
+      "price": 0.152,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 107.64,
-      "change": -1.61,
+      "price": 107.65,
+      "change": -1.6,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 117.38,
-      "change": -1.14,
+      "price": 117.4,
+      "change": -1.12,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 70.39,
-      "change": -0.55,
+      "price": 70.4,
+      "change": -0.54,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 62.81,
-      "change": -0.4,
+      "price": 62.82,
+      "change": -0.38,
       "type": "stock"
     },
     {
@@ -136,29 +136,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4490.8999,
-      "change": 0.04,
+      "price": 4496.0,
+      "change": 0.15,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 73.395,
-      "change": -2.54,
+      "price": 73.59,
+      "change": -2.29,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 96.61,
-      "change": 0.64,
+      "price": 96.63,
+      "change": 0.66,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 94.88,
-      "change": 1.19,
+      "price": 94.91,
+      "change": 1.23,
       "type": "commodity"
     },
     {
@@ -169,5 +169,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-04T12:55:17.308971"
+  "lastUpdated": "2026-06-04T13:00:16.329194"
 }
