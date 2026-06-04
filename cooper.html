@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Interactive learning exercises for Cooper, age 5.">
+  <title>Cooper Learning Lab</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+:root {
+  --bg: #07111f;
+  --card: rgba(255,255,255,.08);
+  --card-strong: rgba(255,255,255,.13);
+  --text: #f8fbff;
+  --muted: #b8c4d8;
+  --accent: #55e6a5;
+  --accent2: #7c83ff;
+  --warm: #ffd166;
+  --good: #51e38a;
+  --bad: #ff6b8a;
+  --border: rgba(255,255,255,.16);
+  --shadow: 0 24px 70px rgba(0,0,0,.35);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  color: var(--text);
+  background:
+    radial-gradient(circle at 12% 8%, color-mix(in srgb, var(--accent) 30%, transparent), transparent 28rem),
+    radial-gradient(circle at 84% 14%, color-mix(in srgb, var(--accent2) 24%, transparent), transparent 26rem),
+    radial-gradient(circle at 50% 100%, rgba(255,209,102,.12), transparent 34rem),
+    var(--bg);
+}
+a { color: inherit; }
+.skip-link { position: absolute; left: -999px; top: 8px; background: #fff; color: #111; padding: 8px 12px; border-radius: 10px; }
+.skip-link:focus { left: 8px; z-index: 99; }
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  backdrop-filter: blur(18px);
+  background: rgba(7,17,31,.75);
+  border-bottom: 1px solid var(--border);
+}
+.nav {
+  width: min(1120px, calc(100% - 32px));
+  min-height: 68px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  flex-wrap: wrap;
+  padding: 12px 0;
+}
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 800; letter-spacing: -.03em; }
+.badge { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 14px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #07111f; box-shadow: 0 12px 34px color-mix(in srgb, var(--accent) 35%, transparent); }
+.nav-links { display: flex; gap: 8px; flex-wrap: wrap; }
+.nav-links a { text-decoration: none; color: var(--muted); font-weight: 700; font-size: .94rem; padding: 8px 12px; border-radius: 999px; border: 1px solid transparent; }
+.nav-links a:hover, .nav-links a:focus-visible { color: var(--text); border-color: var(--border); background: var(--card); outline: none; }
+.hero, main, .footer-inner { width: min(1120px, calc(100% - 32px)); margin: 0 auto; }
+.hero { padding: clamp(42px, 8vw, 86px) 0 28px; text-align: center; }
+.kicker { display: inline-flex; align-items: center; gap: 9px; padding: 8px 12px; border-radius: 999px; background: var(--card); border: 1px solid var(--border); color: var(--muted); font-weight: 800; font-size: .86rem; }
+.spark { width: 9px; height: 9px; border-radius: 99px; background: var(--warm); box-shadow: 0 0 0 8px rgba(255,209,102,.12); }
+h1 { font-size: clamp(2.8rem, 9vw, 6.8rem); line-height: .95; margin: 20px 0 16px; letter-spacing: -.07em; }
+.subtitle { max-width: 760px; margin: 0 auto; color: var(--muted); font-size: clamp(1.08rem, 2.3vw, 1.35rem); }
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; max-width: 760px; margin: 30px auto 0; }
+.stat { border: 1px solid var(--border); background: var(--card); border-radius: 22px; padding: 16px; }
+.stat strong { display: block; font-size: 1.8rem; }
+.panel { margin: 24px 0 78px; border: 1px solid var(--border); border-radius: 30px; background: linear-gradient(180deg, var(--card-strong), rgba(255,255,255,.045)); box-shadow: var(--shadow); overflow: hidden; }
+.toolbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; padding: 18px; border-bottom: 1px solid var(--border); background: rgba(255,255,255,.045); }
+.progress-wrap { flex: 1; min-width: 220px; text-align: left; }
+.progress-label { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-weight: 800; margin-bottom: 8px; font-size: .92rem; }
+.progress { height: 12px; border-radius: 999px; background: rgba(255,255,255,.08); overflow: hidden; border: 1px solid var(--border); }
+.progress > span { display:block; width:0%; height:100%; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--warm)); transition: width .25s ease; }
+.reset { border: 1px solid var(--border); background: var(--card); color: var(--text); border-radius: 999px; padding: 10px 14px; cursor: pointer; font-weight: 800; }
+.reset:hover, .reset:focus-visible { background: var(--card-strong); outline: none; }
+.exercises { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; padding: 18px; }
+.card { text-align: left; padding: 20px; border-radius: 24px; border: 1px solid var(--border); background: rgba(8,16,29,.72); min-height: 250px; display: flex; flex-direction: column; gap: 14px; position: relative; overflow: hidden; }
+.card::before { content: ''; position: absolute; inset: 0 0 auto 0; height: 4px; background: linear-gradient(90deg, var(--accent), var(--accent2), var(--warm)); opacity: .88; }
+.card h2 { margin: 0; font-size: 1.18rem; letter-spacing: -.025em; }
+.question { color: var(--text); font-size: 1.08rem; font-weight: 750; }
+.prompt { color: var(--muted); margin-top: -6px; }
+.options { display: grid; gap: 10px; margin-top: auto; }
+.option { width: 100%; text-align: left; border: 1px solid var(--border); border-radius: 16px; background: rgba(255,255,255,.07); color: var(--text); padding: 12px 13px; cursor: pointer; font-weight: 800; font-size: 1rem; transition: transform .15s ease, background .15s ease, border .15s ease; }
+.option:hover, .option:focus-visible { transform: translateY(-1px); background: rgba(255,255,255,.12); outline: none; }
+.option.correct { border-color: rgba(81,227,138,.8); background: rgba(81,227,138,.16); }
+.option.wrong { border-color: rgba(255,107,138,.8); background: rgba(255,107,138,.14); }
+.answer-row { display: flex; gap: 10px; margin-top: auto; }
+.answer-row input { min-width: 0; flex: 1; border: 1px solid var(--border); border-radius: 16px; background: rgba(255,255,255,.08); color: var(--text); padding: 12px 13px; font-size: 1rem; font-weight: 800; }
+.answer-row input:focus { outline: 2px solid color-mix(in srgb, var(--accent2) 60%, transparent); }
+.check { border: 0; border-radius: 16px; background: linear-gradient(135deg, var(--accent), var(--accent2)); color: #07111f; padding: 12px 14px; font-weight: 900; cursor: pointer; }
+.feedback { min-height: 28px; font-weight: 850; }
+.feedback.good { color: var(--good); }
+.feedback.bad { color: var(--bad); }
+.footer { border-top: 1px solid var(--border); background: rgba(3,8,15,.65); padding: 28px 0; color: var(--muted); }
+.footer a { color: var(--text); font-weight: 800; text-decoration: none; }
+@media (max-width: 760px) {
+  .stats { grid-template-columns: 1fr; }
+  .exercises { grid-template-columns: 1fr; }
+  .toolbar { align-items: stretch; }
+  .reset { width: 100%; }
+  .answer-row { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+  <a class="skip-link" href="#exerciseGrid">Skip to exercises</a>
+  <header class="header">
+    <nav class="nav" aria-label="Learning navigation">
+      <a class="brand" href="index.html"><span class="badge" aria-hidden="true">C5</span><span>Cooper Learning Lab</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="cooper.html">Cooper</a>
+        <a href="chiara.html">Chiara</a>
+        <a href="#exerciseGrid">Exercises</a>
+      </div>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <span class="kicker"><span class="spark"></span>Playful learning for a curious 5-year-old</span>
+    <h1>Hi Cooper! Ready to learn?</h1>
+    <p class="subtitle">Ten short, colourful activities for early reading, counting, shapes, patterns, feelings, and everyday thinking.</p>
+    <div class="stats" aria-label="Page summary">
+      <div class="stat"><strong>10</strong><span>activities</span></div>
+      <div class="stat"><strong>5</strong><span>years old</span></div>
+      <div class="stat"><strong>∞</strong><span>tries allowed</span></div>
+    </div>
+  </section>
+
+  <main>
+    <section class="panel" aria-labelledby="activities-title">
+      <div class="toolbar">
+        <div class="progress-wrap">
+          <div class="progress-label"><span id="activities-title">Progress</span><span><span id="scoreNow">0</span>/<span id="scoreTotal">10</span> complete</span></div>
+          <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+        </div>
+        <button class="reset" type="button" id="resetProgress">Reset progress</button>
+      </div>
+      <div class="exercises" id="exerciseGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <p>Made for practice, confidence, and fun. <a href="index.html">Back to Allan Mak home</a>.</p>
+    </div>
+  </footer>
+
+  <script>
+    const pageId = "cooper";
+    const exercises = [
+  {
+    "type": "choice",
+    "title": "Letter Detective",
+    "question": "Which word starts with the letter B?",
+    "prompt": "Say the words out loud if it helps.",
+    "options": [
+      "Dog",
+      "Ball",
+      "Sun",
+      "Fish"
+    ],
+    "answer": "Ball"
+  },
+  {
+    "type": "choice",
+    "title": "Counting Stars",
+    "question": "How many stars? ⭐ ⭐ ⭐ ⭐ ⭐ ⭐",
+    "prompt": "Touch each star as you count.",
+    "options": [
+      "4",
+      "5",
+      "6",
+      "7"
+    ],
+    "answer": "6"
+  },
+  {
+    "type": "choice",
+    "title": "Shape Finder",
+    "question": "Which shape has three sides?",
+    "prompt": "Look for the shape with 1, 2, 3 sides.",
+    "options": [
+      "Circle",
+      "Triangle",
+      "Square",
+      "Rectangle"
+    ],
+    "answer": "Triangle"
+  },
+  {
+    "type": "choice",
+    "title": "Colour Match",
+    "question": "What colour do you get when you mix blue and yellow?",
+    "prompt": "Imagine paint mixing together.",
+    "options": [
+      "Green",
+      "Purple",
+      "Orange",
+      "Pink"
+    ],
+    "answer": "Green"
+  },
+  {
+    "type": "input",
+    "title": "Number Neighbour",
+    "question": "What number comes after 8?",
+    "prompt": "Count: 6, 7, 8...",
+    "answer": [
+      "9",
+      "nine"
+    ]
+  },
+  {
+    "type": "choice",
+    "title": "Animal Sound",
+    "question": "Which animal says “moo”?",
+    "prompt": "Make the sound!",
+    "options": [
+      "Duck",
+      "Cow",
+      "Cat",
+      "Lion"
+    ],
+    "answer": "Cow"
+  },
+  {
+    "type": "choice",
+    "title": "Pattern Power",
+    "question": "What comes next? 🔴 🔵 🔴 🔵 🔴",
+    "prompt": "Find the repeat.",
+    "options": [
+      "🔴",
+      "🔵",
+      "🟢",
+      "🟡"
+    ],
+    "answer": "🔵"
+  },
+  {
+    "type": "choice",
+    "title": "More or Less",
+    "question": "Which group has more?",
+    "prompt": "Count both groups.",
+    "options": [
+      "🍎 🍎",
+      "🍌 🍌 🍌 🍌",
+      "🍇",
+      "🍓 🍓 🍓"
+    ],
+    "answer": "🍌 🍌 🍌 🍌"
+  },
+  {
+    "type": "input",
+    "title": "Rhyming Time",
+    "question": "Type a word that rhymes with cat.",
+    "prompt": "Hint: bat, hat, mat, rat all work.",
+    "answer": [
+      "bat",
+      "hat",
+      "mat",
+      "rat",
+      "sat",
+      "pat",
+      "fat"
+    ]
+  },
+  {
+    "type": "choice",
+    "title": "Feelings Check",
+    "question": "If a friend drops their ice cream, what could you say?",
+    "prompt": "Choose the kind answer.",
+    "options": [
+      "That is funny",
+      "I can help you",
+      "Go away",
+      "Never mind you"
+    ],
+    "answer": "I can help you"
+  }
+];
+  </script>
+  <script>
+const scoreKey = `${pageId}-learning-score`;
+const answered = new Set(JSON.parse(localStorage.getItem(scoreKey) || '[]'));
+const grid = document.querySelector('#exerciseGrid');
+const scoreNow = document.querySelector('#scoreNow');
+const scoreTotal = document.querySelector('#scoreTotal');
+const progressBar = document.querySelector('#progressBar');
+scoreTotal.textContent = exercises.length;
+
+function normalise(value) {
+  return String(value).trim().toLowerCase().replace(/[.!?]/g, '').replace(/\s+/g, ' ');
+}
+
+function saveProgress() {
+  localStorage.setItem(scoreKey, JSON.stringify([...answered]));
+  scoreNow.textContent = answered.size;
+  progressBar.style.width = `${Math.round((answered.size / exercises.length) * 100)}%`;
+}
+
+function markAnswered(index, ok, feedbackEl) {
+  if (ok) {
+    answered.add(index);
+    feedbackEl.textContent = 'Correct — brilliant work! ✨';
+    feedbackEl.className = 'feedback good';
+  } else {
+    feedbackEl.textContent = 'Not quite. Try again — learning loves practice. 💪';
+    feedbackEl.className = 'feedback bad';
+  }
+  saveProgress();
+}
+
+function renderExercise(ex, index) {
+  const card = document.createElement('article');
+  card.className = 'card';
+  card.innerHTML = `
+    <h2>${index + 1}. ${ex.title}</h2>
+    <div class="question">${ex.question}</div>
+    <p class="prompt">${ex.prompt || ''}</p>
+    <div class="feedback" aria-live="polite">${answered.has(index) ? 'Already completed — nice!' : ''}</div>
+  `;
+  const feedback = card.querySelector('.feedback');
+  if (answered.has(index)) feedback.className = 'feedback good';
+
+  if (ex.type === 'choice') {
+    const options = document.createElement('div');
+    options.className = 'options';
+    ex.options.forEach(option => {
+      const btn = document.createElement('button');
+      btn.className = 'option';
+      btn.type = 'button';
+      btn.textContent = option;
+      btn.addEventListener('click', () => {
+        const ok = normalise(option) === normalise(ex.answer);
+        btn.classList.add(ok ? 'correct' : 'wrong');
+        if (ok) {
+          [...options.querySelectorAll('button')].forEach(b => b.disabled = true);
+        }
+        markAnswered(index, ok, feedback);
+      });
+      options.appendChild(btn);
+    });
+    card.appendChild(options);
+  } else {
+    const row = document.createElement('div');
+    row.className = 'answer-row';
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.autocomplete = 'off';
+    input.placeholder = 'Type your answer';
+    const check = document.createElement('button');
+    check.className = 'check';
+    check.type = 'button';
+    check.textContent = 'Check';
+    const validate = () => {
+      const answers = Array.isArray(ex.answer) ? ex.answer : [ex.answer];
+      const ok = answers.map(normalise).includes(normalise(input.value));
+      markAnswered(index, ok, feedback);
+      if (ok) { input.disabled = true; check.disabled = true; }
+    };
+    check.addEventListener('click', validate);
+    input.addEventListener('keydown', event => { if (event.key === 'Enter') validate(); });
+    row.append(input, check);
+    card.appendChild(row);
+  }
+  return card;
+}
+
+exercises.forEach((ex, index) => grid.appendChild(renderExercise(ex, index)));
+saveProgress();
+document.querySelector('#resetProgress').addEventListener('click', () => {
+  answered.clear();
+  localStorage.removeItem(scoreKey);
+  location.reload();
+});
+</script>
+</body>
+</html>
