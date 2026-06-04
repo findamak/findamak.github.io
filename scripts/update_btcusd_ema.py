@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Generate BTC/USD 20-day/200-day EMA data for btc.html.
+"""Generate BTC/USD 20-day EMA / 200-day SMA data for btc.html.
 
-Downloads daily BTC/USD candles from Bitstamp, computes the 20d and 200d
-exponential moving averages, detects historical crosses, and writes a static
-JSON payload for GitHub Pages.
+Downloads daily BTC/USD candles from Bitstamp, computes the 20d exponential
+moving average and 200d simple moving average, detects historical crosses,
+and writes a static JSON payload for GitHub Pages.
 """
 
 from __future__ import annotations
@@ -90,11 +90,11 @@ def download_history() -> pd.DataFrame:
 
 
 def compute_payload(df: pd.DataFrame) -> dict[str, Any]:
-    """Compute EMA series and cross events, then return JSON payload."""
+    """Compute moving-average series and cross events, then return JSON payload."""
     df = df.copy()
     df["ema20"] = df["close"].ewm(span=20, adjust=False).mean()
-    df["ema200"] = df["close"].ewm(span=200, adjust=False).mean()
-    df["diff"] = df["ema20"] - df["ema200"]
+    df["sma200"] = df["close"].rolling(window=200, min_periods=200).mean()
+    df["diff"] = df["ema20"] - df["sma200"]
 
     # Ignore early warm-up values before a full 200 daily closes are available.
     valid = df.index >= 199
@@ -109,7 +109,7 @@ def compute_payload(df: pd.DataFrame) -> dict[str, Any]:
                 "direction": "bullish" if bullish.loc[idx] else "bearish",
                 "close": _round(row["close"]),
                 "ema20": _round(row["ema20"]),
-                "ema200": _round(row["ema200"]),
+                "sma200": _round(row["sma200"]),
             }
         )
 
@@ -118,13 +118,13 @@ def compute_payload(df: pd.DataFrame) -> dict[str, Any]:
             "date": row["date"].isoformat(),
             "close": _round(row["close"]),
             "ema20": _round(row["ema20"]),
-            "ema200": _round(row["ema200"]),
+            "sma200": _round(row["sma200"]),
         }
         for _, row in df.iterrows()
     ]
 
     latest = df.iloc[-1]
-    current_trend = "bullish" if latest["ema20"] >= latest["ema200"] else "bearish"
+    current_trend = "bullish" if latest["ema20"] >= latest["sma200"] else "bearish"
 
     return {
         "symbol": SYMBOL,
@@ -135,7 +135,7 @@ def compute_payload(df: pd.DataFrame) -> dict[str, Any]:
             "date": latest["date"].isoformat(),
             "close": _round(latest["close"]),
             "ema20": _round(latest["ema20"]),
-            "ema200": _round(latest["ema200"]),
+            "sma200": _round(latest["sma200"]),
             "trend": current_trend,
         },
         "series": series,
@@ -153,7 +153,7 @@ def main() -> None:
     print(
         f"Wrote {OUTPUT_PATH} with {len(payload['series'])} daily bars "
         f"from {payload['series'][0]['date']} to {payload['series'][-1]['date']} "
-        f"and {len(payload['crosses'])} EMA crosses."
+        f"and {len(payload['crosses'])} moving-average crosses."
     )
 
 

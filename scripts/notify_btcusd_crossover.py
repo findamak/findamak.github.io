@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Email an alert when BTC/USD gets a new latest EMA crossover.
+"""Email an alert when BTC/USD gets a new latest moving-average crossover.
 
 State is stored outside the repo so a failed email can be retried on the next cron
 run. On first run, the script records the current latest crossover without
@@ -57,7 +57,7 @@ def state_payload(cross: dict[str, Any]) -> dict[str, Any]:
         "direction": cross["direction"],
         "close": cross["close"],
         "ema20": cross["ema20"],
-        "ema200": cross["ema200"],
+        "sma200": cross["sma200"],
     }
 
 
@@ -69,14 +69,14 @@ def build_email(current: dict[str, Any], cross: dict[str, Any]) -> tuple[str, st
     trend_word = "Bearish" if direction == "bearish" else "Bullish"
     action = "sell / move to cash" if direction == "bearish" else "buy / move back into BTC"
 
-    subject = f"{trend_word} BTC/USD EMA crossover detected on {cross['date']}"
-    body = f"""{trend_word} {symbol} 20-day / 200-day EMA crossover detected.
+    subject = f"{trend_word} BTC/USD MA crossover detected on {cross['date']}"
+    body = f"""{trend_word} {symbol} 20-day EMA / 200-day SMA crossover detected.
 
 Signal date: {cross['date']}
 Direction: {direction}
 Close: {money(float(cross['close']))}
 20d EMA: {money(float(cross['ema20']))}
-200d EMA: {money(float(cross['ema200']))}
+200d SMA: {money(float(cross['sma200']))}
 Strategy action: {action}
 
 Latest data point: {latest['date']} close {money(float(latest['close']))}
@@ -124,25 +124,25 @@ def main(argv: list[str]) -> int:
     current_cross = latest_cross(current)
 
     if current_cross is None:
-        print("current JSON has no EMA crosses; not sending crossover alert")
+        print("current JSON has no moving-average crosses; not sending crossover alert")
         return 0
 
     if not state_path.exists():
         write_json(state_path, state_payload(current_cross))
-        print(f"initialized BTC/USD EMA crossover notification state at {current_cross['date']} {current_cross['direction']}; no historical alert sent")
+        print(f"initialized BTC/USD moving-average crossover notification state at {current_cross['date']} {current_cross['direction']}; no historical alert sent")
         return 0
 
     notified_cross = load_json(state_path)
     notified_date = notified_cross.get("date", "")
 
     if current_cross["date"] <= notified_date:
-        print(f"no new BTC/USD EMA crossover; latest notified remains {notified_date}")
+        print(f"no new BTC/USD moving-average crossover; latest notified remains {notified_date}")
         return 0
 
     subject, body = build_email(current, current_cross)
     send_email(subject, body)
     write_json(state_path, state_payload(current_cross))
-    print(f"sent BTC/USD EMA crossover email for {current_cross['date']} {current_cross['direction']}")
+    print(f"sent BTC/USD moving-average crossover email for {current_cross['date']} {current_cross['direction']}")
     return 0
 
 

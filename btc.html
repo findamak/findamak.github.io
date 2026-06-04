@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="BTCUSD 20-day and 200-day EMA cross history">
-  <title>BTCUSD 20d / 200d EMA Crosses</title>
+  <meta name="description" content="BTCUSD 20-day EMA and 200-day SMA cross history">
+  <title>BTCUSD 20d EMA / 200d SMA Crosses</title>
   <link rel="icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -270,15 +270,15 @@
 
     <div class="hero">
       <div>
-        <h1>BTCUSD 20d / 200d EMA Crosses</h1>
-        <p class="subtitle">Daily Bitcoin closing price from Bitstamp, with 20-day and 200-day exponential moving averages. The chart marks historical bullish and bearish EMA crosses; the table lists every detected cross.</p>
+        <h1>BTCUSD 20d EMA / 200d SMA Crosses</h1>
+        <p class="subtitle">Daily Bitcoin closing price from Bitstamp, with 20-day exponential and 200-day simple moving averages. The chart marks historical bullish and bearish moving-average crosses; the table lists every detected cross.</p>
       </div>
 
-      <aside class="card summary-card" aria-label="Latest BTCUSD EMA summary">
+      <aside class="card summary-card" aria-label="Latest BTCUSD moving-average summary">
         <div class="summary-item"><span class="label">Status</span><span class="value" id="status">Loading…</span></div>
         <div class="summary-item"><span class="label">Latest close</span><span class="value" id="latestClose">—</span></div>
         <div class="summary-item"><span class="label">20d EMA</span><span class="value" id="latestEma20">—</span></div>
-        <div class="summary-item"><span class="label">200d EMA</span><span class="value" id="latestEma200">—</span></div>
+        <div class="summary-item"><span class="label">200d SMA</span><span class="value" id="latestSma200">—</span></div>
         <div class="summary-item"><span class="label">Last updated</span><span class="value" id="lastUpdated">—</span></div>
       </aside>
     </div>
@@ -288,15 +288,15 @@
     <section class="card section-card">
       <div class="section-heading">
         <div>
-          <h2>EMA chart</h2>
-          <p>Close price, 20d EMA, 200d EMA, and cross markers.</p>
+          <h2>Moving-average chart</h2>
+          <p>Close price, 20d EMA, 200d SMA, and cross markers.</p>
         </div>
       </div>
-      <div id="chart" role="img" aria-label="BTCUSD close, 20 day EMA, and 200 day EMA chart"></div>
+      <div id="chart" role="img" aria-label="BTCUSD close, 20 day EMA, and 200 day SMA chart"></div>
       <div class="legend" aria-label="Chart legend">
         <span style="--legend-color: var(--teal)">Close</span>
         <span style="--legend-color: var(--orange)">20d EMA</span>
-        <span style="--legend-color: var(--blue)">200d EMA</span>
+        <span style="--legend-color: var(--blue)">200d SMA</span>
         <span style="--legend-color: var(--green)">Bullish cross</span>
         <span style="--legend-color: var(--red)">Bearish cross</span>
       </div>
@@ -317,7 +317,7 @@
               <th>Direction</th>
               <th>Close</th>
               <th>20d EMA</th>
-              <th>200d EMA</th>
+              <th>200d SMA</th>
             </tr>
           </thead>
           <tbody id="crossTable"></tbody>
@@ -400,7 +400,7 @@
       status.classList.add(latest.trend === 'bullish' ? 'trend-bullish' : 'trend-bearish');
       document.getElementById('latestClose').textContent = preciseCurrency.format(latest.close);
       document.getElementById('latestEma20').textContent = preciseCurrency.format(latest.ema20);
-      document.getElementById('latestEma200').textContent = preciseCurrency.format(latest.ema200);
+      document.getElementById('latestSma200').textContent = preciseCurrency.format(latest.sma200);
       document.getElementById('lastUpdated').textContent = formatUpdated(data.updated_at);
     }
 
@@ -433,8 +433,8 @@
         lineWidth: 2,
         priceFormat: { type: 'price', precision: 0, minMove: 1 }
       });
-      const ema200Series = chart.addLineSeries({
-        title: '200d EMA',
+      const sma200Series = chart.addLineSeries({
+        title: '200d SMA',
         color: '#60a5fa',
         lineWidth: 2,
         priceFormat: { type: 'price', precision: 0, minMove: 1 }
@@ -442,7 +442,7 @@
 
       closeSeries.setData(data.series.map(row => ({ time: row.date, value: row.close })));
       ema20Series.setData(data.series.map(row => ({ time: row.date, value: row.ema20 })));
-      ema200Series.setData(data.series.map(row => ({ time: row.date, value: row.ema200 })));
+      sma200Series.setData(data.series.map(row => ({ time: row.date, value: row.sma200 })).filter(point => point.value !== null));
 
       closeSeries.setMarkers(data.crosses.map(cross => ({
         time: cross.date,
@@ -468,7 +468,7 @@
           <td><span class="pill ${cross.direction}">${cross.direction}</span></td>
           <td>${currency.format(cross.close)}</td>
           <td>${currency.format(cross.ema20)}</td>
-          <td>${currency.format(cross.ema200)}</td>
+          <td>${currency.format(cross.sma200)}</td>
         </tr>
       `).join('');
     }
@@ -549,7 +549,7 @@
         ? `${taxedBtc.toFixed(4)} BTC`
         : `${preciseCurrency.format(taxedUsd)} cash`;
       const difference = strategyValue - holdValue;
-      const winner = difference >= 0 ? 'EMA crossover strategy' : 'buy and hold';
+      const winner = difference >= 0 ? 'moving-average crossover strategy' : 'buy and hold';
       const differenceClass = difference >= 0 ? 'positive' : 'negative';
       const comparisonPct = Math.abs(difference / holdValue) * 100;
 
@@ -564,7 +564,7 @@
           <td>${(holdValue / initialUsd).toLocaleString('en-US', { maximumFractionDigits: 1 })}x</td>
         </tr>
         <tr>
-          <td>Sell bearish / buy bullish EMA crosses</td>
+          <td>Sell bearish / buy bullish MA crosses</td>
           <td>${initialBtc.toFixed(4)} BTC bought at ${preciseCurrency.format(first.close)}</td>
           <td>${trades}</td>
           <td>${endingPosition}</td>
@@ -572,7 +572,7 @@
           <td>${(strategyValue / initialUsd).toLocaleString('en-US', { maximumFractionDigits: 1 })}x</td>
         </tr>
         <tr>
-          <td>EMA crosses with 22.5% tax</td>
+          <td>MA crosses with 22.5% tax</td>
           <td>${initialBtc.toFixed(4)} BTC bought at ${preciseCurrency.format(first.close)}</td>
           <td>${taxedTrades}</td>
           <td>${taxedEndingPosition}</td>
@@ -593,7 +593,7 @@
         renderCrossTable(data);
         renderBacktestTable(data);
       } catch (error) {
-        setError(`Could not load BTCUSD EMA data: ${error.message}`);
+        setError(`Could not load BTCUSD moving-average data: ${error.message}`);
       }
     }
 
