@@ -4,504 +4,334 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Finance Dashboard</title>
+    <link rel="icon" href="favicon.ico">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --bg-primary: #0d1117;
-            --bg-secondary: #161b22;
-            --bg-card: #21262d;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --accent-btc: #f7931a;
-            --accent-eth: #627eea;
-            --border: #30363d;
-            --success: #3fb950;
-            --danger: #f85149;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            min-height: 100vh;
-            padding: 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            margin-bottom: 2rem;
-        }
-        .top-nav {
-            margin-bottom: 1rem;
-        }
-        .top-nav a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.875rem;
-            font-weight: 600;
-            transition: color 0.2s;
-        }
-        .top-nav a:hover,
-        .top-nav a:focus {
-            color: var(--text-primary);
-        }
-        h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
-
-        .last-updated {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            margin-top: 0.5rem;
-        }
-
-        .price-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .price-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .price-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-        }
-
-        .price-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-        }
-
-        .crypto-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-        }
-
-        .crypto-name {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .crypto-symbol {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-            text-transform: uppercase;
-        }
-
-        .price-value {
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .price-change {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.25rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-size: 0.875rem;
-            font-weight: 500;
-        }
-
-        .price-change.positive {
-            background: rgba(63, 185, 80, 0.15);
-            color: var(--success);
-        }
-
-        .price-change.negative {
-            background: rgba(248, 81, 73, 0.15);
-            color: var(--danger);
-        }
-
-        .price-updated {
-            margin-top: 0.55rem;
-            font-size: 0.72rem;
-            color: var(--text-secondary);
-        }
-
-        .price-with-dial {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .fg-dial-wrap {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-width: 96px;
-        }
-
-        .fg-dial {
-            --dial-color: #8b949e;
-            --dial-value: 50;
-            width: 78px;
-            height: 78px;
-            border-radius: 50%;
-            background: conic-gradient(var(--dial-color) calc(var(--dial-value) * 1%), #30363d 0);
-            display: grid;
-            place-items: center;
-            position: relative;
-        }
-
-        .fg-dial::before {
-            content: '';
-            position: absolute;
-            inset: 8px;
-            border-radius: 50%;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-        }
-
-        .fg-dial-value {
-            position: relative;
-            z-index: 1;
-            font-size: 1rem;
-            font-weight: 700;
-        }
-
-        .fg-dial-title {
-            margin-bottom: 0.35rem;
-            font-size: 0.72rem;
-            color: var(--text-primary);
-            text-align: center;
-            font-weight: 600;
-        }
-
-        .fg-dial-label {
-            margin-top: 0.15rem;
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            text-align: center;
-        }
-
-        .fg-dial-updated {
-            margin-top: 0.15rem;
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            text-align: center;
-            opacity: 0.9;
-        }
-
-        /* Stock Cards */
-        .stock-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .stock-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            transition: transform 0.2s, border-color 0.2s;
-        }
-
-        .stock-card:hover {
-            transform: translateY(-2px);
-            border-color: var(--text-secondary);
-        }
-
-        .stock-symbol {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stock-name {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .stock-price {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 0.25rem;
-        }
-
-        .stock-change {
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        .stock-change.positive {
-            color: var(--success);
-        }
-
-        .stock-change.negative {
-            color: var(--danger);
-        }
-
-        /* ETF Section */
-        .etf-section {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .etf-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-        }
-
-        .etf-summary {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .etf-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-        }
-
-        .etf-card-title {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .etf-card-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text-primary);
-        }
-
-        .etf-flows {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .flow-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            text-align: center;
-        }
-
-        .flow-period {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 0.5rem;
-        }
-
-        .flow-value {
-            font-size: 1.25rem;
-            font-weight: 600;
-        }
-
-        .flow-value.positive {
-            color: var(--success);
-        }
-
-        .flow-value.negative {
-            color: var(--danger);
-        }
-
-        .etf-history h3 {
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .history-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-
-        .history-table th,
-        .history-table td {
-            padding: 0.75rem;
-            text-align: left;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .history-table th {
-            color: var(--text-secondary);
-            font-weight: 500;
-        }
-
-        .history-table td {
-            color: var(--text-primary);
-        }
-
-        .loading {
-            color: var(--text-secondary);
-            font-style: italic;
-        }
-
-        .error {
-            color: var(--danger);
-            font-size: 0.875rem;
-        }
-
-        /* X Feed Section */
-        .x-feed-section {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .x-feed-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-primary);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .x-feed-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .x-feed-updated {
-            color: var(--text-secondary);
-            font-size: 0.875rem;
-        }
-
-        .x-feed-grid {
-            display: grid;
-            gap: 1rem;
-        }
-
-        .x-tweet-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 1rem;
-            transition: border-color 0.2s;
-        }
-
-        .x-tweet-card:hover {
-            border-color: var(--text-secondary);
-        }
-
-        .x-tweet-header {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .x-user-avatar {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            background: var(--bg-secondary);
-        }
-
-        .x-user-info {
-            flex: 1;
-        }
-
-        .x-user-name {
-            font-weight: 600;
-            color: var(--text-primary);
-            font-size: 0.95rem;
-        }
-
-        .x-user-handle {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-
-        .x-tweet-time {
-            color: var(--text-secondary);
-            font-size: 0.8rem;
-            white-space: nowrap;
-        }
-
-        .x-tweet-text {
-            color: var(--text-primary);
-            line-height: 1.5;
-            font-size: 0.95rem;
-            word-wrap: break-word;
-        }
-
-        .x-tweet-link {
-            display: inline-block;
-            margin-top: 0.75rem;
-            color: var(--accent-eth);
-            text-decoration: none;
-            font-size: 0.85rem;
-        }
-
-        .x-tweet-link:hover {
-            text-decoration: underline;
-        }
-
-        .x-feed-loading {
-            color: var(--text-secondary);
-            font-style: italic;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .x-feed-error {
-            color: var(--danger);
-            padding: 1rem;
-            background: rgba(248, 81, 73, 0.1);
-            border-radius: 8px;
-            margin-top: 1rem;
-        }
-    </style>
+    :root {
+      --bg: #06070a;
+      --bg-soft: #0b0d12;
+      --surface: rgba(255, 255, 255, 0.045);
+      --surface-strong: rgba(255, 255, 255, 0.075);
+      --surface-hover: rgba(255, 255, 255, 0.105);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f5f7fb;
+      --muted: #a8b0c2;
+      --subtle: #697184;
+      --accent: #7c83ff;
+      --accent-2: #38d9c6;
+      --accent-3: #f7c66f;
+      --teal: #38d9c6;
+      --danger: #ff6b8a;
+      --success: #38d9c6;
+      --text-primary: #f5f7fb;
+      --text-secondary: #a8b0c2;
+      --legend-color: #38d9c6;
+      --green: #38d9c6;
+      --red: #ff6b8a;
+      --orange: #f7c66f;
+      --blue: #7c83ff;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius: 24px;
+      --max-width: 1120px;
+      --transition: 180ms ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(124, 131, 255, 0.18), transparent 34rem),
+        radial-gradient(circle at 85% 12%, rgba(56, 217, 198, 0.12), transparent 28rem),
+        radial-gradient(circle at 50% 100%, rgba(247, 198, 111, 0.08), transparent 36rem),
+        var(--bg);
+      overflow-x: hidden;
+      font-feature-settings: "cv01", "ss03";
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 72%);
+      z-index: -1;
+    }
+    a { color: inherit; }
+    h1, h2, h3 {
+      color: var(--text);
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+    }
+    h1 {
+      font-size: clamp(3rem, 8vw, 6.6rem);
+      font-weight: 700;
+      margin: 0;
+    }
+    h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 650; }
+    h3 { font-size: clamp(1.15rem, 3vw, 1.45rem); font-weight: 650; letter-spacing: -0.02em; }
+    p { color: var(--muted); font-size: 1.02rem; }
+
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(6, 7, 10, 0.72);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav, .top-nav {
+      width: min(var(--max-width), calc(100% - 32px));
+      margin: 0 auto;
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    .brand-mark {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(124, 131, 255, 0.95), rgba(56, 217, 198, 0.9));
+      color: #05060a;
+      box-shadow: 0 14px 38px rgba(124, 131, 255, 0.24);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .nav-links a, .top-nav a, .nav > a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.94rem;
+      font-weight: 600;
+      padding: 9px 13px;
+      border: 1px solid transparent;
+      border-radius: 999px;
+      transition: color var(--transition), background var(--transition), border-color var(--transition), transform var(--transition);
+    }
+    .nav-links a:hover, .nav-links a:focus-visible,
+    .top-nav a:hover, .top-nav a:focus-visible,
+    .nav > a:hover, .nav > a:focus-visible {
+      color: var(--text);
+      background: var(--surface);
+      border-color: var(--border);
+      outline: none;
+    }
+    .nav-links .nav-cta {
+      color: #090b11;
+      background: linear-gradient(135deg, var(--accent), var(--accent-2));
+      border-color: transparent;
+      box-shadow: 0 10px 28px rgba(124, 131, 255, 0.24);
+    }
+    .nav-links .nav-cta:hover, .nav-links .nav-cta:focus-visible {
+      color: #05060a;
+      background: linear-gradient(135deg, #969bff, #55ead9);
+      transform: translateY(-1px);
+    }
+
+    header.hero-wrap, .page-hero, .container > header {
+      width: min(var(--max-width), calc(100% - 32px));
+      margin: 0 auto;
+      padding: 72px 0 34px;
+    }
+    .hero-card, .hero {
+      position: relative;
+      overflow: hidden;
+      padding: clamp(34px, 6vw, 64px);
+      border: 1px solid var(--border);
+      border-radius: calc(var(--radius) + 10px);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03));
+      box-shadow: var(--shadow);
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr);
+      gap: 28px;
+      align-items: stretch;
+    }
+    .hero-card::before, .hero::before,
+    .hero-card::after, .hero::after {
+      content: '';
+      position: absolute;
+      border-radius: 999px;
+      filter: blur(12px);
+      opacity: 0.8;
+      pointer-events: none;
+    }
+    .hero-card::before, .hero::before {
+      width: 320px;
+      height: 320px;
+      top: -160px;
+      right: -120px;
+      background: rgba(124, 131, 255, 0.23);
+    }
+    .hero-card::after, .hero::after {
+      width: 260px;
+      height: 260px;
+      left: -120px;
+      bottom: -140px;
+      background: rgba(56, 217, 198, 0.18);
+    }
+    .hero > *, .hero-card > * { position: relative; z-index: 1; }
+
+    main, footer, .container {
+      width: min(var(--max-width), calc(100% - 32px));
+      margin: 0 auto;
+    }
+    main { padding: 18px 0 82px; }
+    section { margin: 28px 0; }
+    .card, .section-card, .price-card, .stock-card, .etf-section, .etf-card, .flow-card, .x-feed-section, .x-tweet-card {
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.026));
+      box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24);
+      backdrop-filter: blur(14px);
+      border-radius: var(--radius);
+    }
+    .section-card, .price-card, .stock-card, .etf-section, .x-feed-section { padding: clamp(18px, 3vw, 30px); }
+    .etf-card, .flow-card, .x-tweet-card { padding: 1rem; border-radius: 18px; }
+    .price-card, .stock-card, .x-tweet-card {
+      transition: transform var(--transition), border-color var(--transition), background var(--transition), box-shadow var(--transition);
+    }
+    .price-card:hover, .stock-card:hover, .x-tweet-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--border-strong);
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.088), rgba(255, 255, 255, 0.036));
+      box-shadow: 0 26px 80px rgba(0, 0, 0, 0.32);
+    }
+    .section-heading {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+    .section-heading p, .subtitle, .last-updated, .price-updated, .crypto-symbol, .stock-name,
+    .etf-card-title, .flow-period, .x-feed-updated, .x-user-handle, .x-tweet-time,
+    .fg-dial-label, .fg-dial-updated, .label, .note, .legend, .loading {
+      color: var(--muted);
+    }
+    .subtitle { max-width: 760px; font-size: 1.06rem; margin-top: 22px; }
+    .value, .price-value, .stock-price, .etf-card-value, .flow-value, .crypto-name, .stock-symbol, .fg-dial-value { font-weight: 700; color: var(--text); }
+    .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
+    .stock-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .etf-summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
+    .etf-flows { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem; }
+    .price-header, .x-tweet-header { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1rem; }
+    .price-with-dial { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-bottom: 0.5rem; }
+    .crypto-icon { width: 40px; height: 40px; border-radius: 50%; }
+    .price-value { font-size: clamp(1.55rem, 4vw, 2rem); margin-bottom: 0.5rem; }
+    .stock-price, .etf-card-value { font-size: 1.5rem; }
+    .price-change, .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 700;
+    }
+    .positive, .trend-bullish, .price-change.positive, .stock-change.positive, .flow-value.positive { color: var(--success); }
+    .negative, .trend-bearish, .price-change.negative, .stock-change.negative, .flow-value.negative { color: var(--danger); }
+    .price-change.positive, .pill.bullish { background: rgba(56, 217, 198, 0.14); color: var(--success); }
+    .price-change.negative, .pill.bearish { background: rgba(255, 107, 138, 0.14); color: var(--danger); }
+    .fg-dial-wrap { display: flex; flex-direction: column; align-items: center; min-width: 96px; }
+    .fg-dial-title { margin-bottom: 0.35rem; font-size: 0.72rem; color: var(--text); text-align: center; font-weight: 600; }
+    .fg-dial {
+      --dial-color: var(--muted);
+      --dial-value: 50;
+      width: 78px;
+      height: 78px;
+      border-radius: 50%;
+      background: conic-gradient(var(--dial-color) calc(var(--dial-value) * 1%), rgba(255,255,255,0.1) 0);
+      display: grid;
+      place-items: center;
+      position: relative;
+    }
+    .fg-dial::before { content: ''; position: absolute; inset: 8px; border-radius: 50%; background: var(--bg-soft); border: 1px solid var(--border); }
+    .fg-dial-value { position: relative; z-index: 1; font-size: 1rem; }
+
+    .summary-card { padding: 24px; display: grid; gap: 14px; align-content: center; }
+    .summary-item { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .summary-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    #chart { height: 560px; width: 100%; }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: 14px; font-size: 0.9rem; }
+    .legend span::before { content: ''; display: inline-block; width: 11px; height: 11px; border-radius: 999px; margin-right: 7px; vertical-align: -1px; background: var(--legend-color); }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
+    th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255, 255, 255, 0.045); font-weight: 700; }
+    tr:last-child td { border-bottom: 0; }
+    .history-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .history-table th, .history-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
+
+    .x-feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem; }
+    .x-feed-grid { display: grid; gap: 1rem; }
+    .x-user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); }
+    .x-user-info { flex: 1; }
+    .x-user-name { font-weight: 600; color: var(--text); font-size: 0.95rem; }
+    .x-tweet-text { color: var(--text); line-height: 1.5; font-size: 0.95rem; word-wrap: break-word; }
+    .x-tweet-link { display: inline-block; margin-top: 0.75rem; color: var(--accent-2); text-decoration: none; font-size: 0.85rem; }
+    .x-tweet-link:hover { text-decoration: underline; }
+    .x-feed-loading { color: var(--muted); font-style: italic; padding: 2rem; text-align: center; }
+    .error, .x-feed-error { color: #fecdd3; padding: 1rem; background: rgba(255, 107, 138, 0.10); border: 1px solid rgba(255, 107, 138, 0.28); border-radius: 16px; margin-top: 1rem; }
+    footer { padding: 30px 0 46px; color: var(--muted); font-size: 0.9rem; text-align: center; }
+
+    @media (max-width: 820px) {
+      .nav, .top-nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .hero { grid-template-columns: 1fr !important; }
+      #chart { height: 420px; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+      .etf-flows { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body>
+    <header class="site-header">
+        <nav class="top-nav" aria-label="Dashboard navigation">
+            <a class="brand" href="index.html">
+                <span class="brand-mark">AM</span>
+                <span>Allan Mak</span>
+            </a>
+            <div class="nav-links">
+                <a href="index.html">Home</a>
+                <a class="nav-cta" href="btc.html">BTC Crosses</a>
+            </div>
+        </nav>
+    </header>
+
     <div class="container">
         <header>
-            <nav class="top-nav" aria-label="Dashboard navigation">
-                <a href="index.html">Home</a>
-            </nav>
-            <h1>📊 Finance Dashboard</h1>
+            <div class="hero-card">
+                <h1>Finance Dashboard</h1>
+                <p class="subtitle">Crypto prices, stock watchlist data, ETF flows, and market updates in the same style as the main Allan Mak page.</p>
+            </div>
         </header>
 
         <div class="price-grid">
