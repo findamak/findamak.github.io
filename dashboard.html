@@ -40,7 +40,20 @@
         header {
             margin-bottom: 2rem;
         }
-
+        .top-nav {
+            margin-bottom: 1rem;
+        }
+        .top-nav a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 600;
+            transition: color 0.2s;
+        }
+        .top-nav a:hover,
+        .top-nav a:focus {
+            color: var(--text-primary);
+        }
         h1 {
             font-size: 2rem;
             font-weight: 600;
@@ -485,6 +498,9 @@
 <body>
     <div class="container">
         <header>
+            <nav class="top-nav" aria-label="Dashboard navigation">
+                <a href="index.html">Home</a>
+            </nav>
             <h1>📊 Finance Dashboard</h1>
         </header>
 
