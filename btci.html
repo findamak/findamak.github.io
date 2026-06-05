@@ -534,7 +534,7 @@
         distributionTable.innerHTML = '<tr><td colspan="4">No distribution rows available.</td></tr>';
         return;
       }
-      distributionCount.textContent = `Last ${rows.length} monthly distributions, annualized from the closing price on each distribution date.`;
+      distributionCount.textContent = `Latest ${rows.length} available monthly distributions, up to 24, annualized from the closing price on each distribution date.`;
       distributionTable.innerHTML = rows.map(row => `
         <tr>
           <td>${formatDate(row.date)}</td>

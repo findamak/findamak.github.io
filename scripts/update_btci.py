@@ -139,7 +139,7 @@ def download_btcusd_history() -> pd.DataFrame:
 
 
 def compute_distribution_rows(btci_df: pd.DataFrame, yahoo_meta: dict[str, Any]) -> list[dict[str, Any]]:
-    """Compute the last 12 BTCI monthly distributions as annualized close-price yields."""
+    """Compute the last 24 BTCI monthly distributions as annualized close-price yields."""
     dividends = (yahoo_meta.get("events") or {}).get("dividends") or {}
     if not dividends:
         return []
@@ -173,7 +173,7 @@ def compute_distribution_rows(btci_df: pd.DataFrame, yahoo_meta: dict[str, Any])
             }
         )
 
-    return sorted(rows, key=lambda row: row["date"], reverse=True)[:12]
+    return sorted(rows, key=lambda row: row["date"], reverse=True)[:24]
 
 def compute_payload(btci_df: pd.DataFrame, btcusd_df: pd.DataFrame, yahoo_meta: dict[str, Any]) -> dict[str, Any]:
     """Align BTCI and BTC/USD histories and compute normalized performance."""
