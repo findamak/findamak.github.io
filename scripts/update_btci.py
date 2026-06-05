@@ -52,7 +52,7 @@ def download_btci_history() -> tuple[pd.DataFrame, dict[str, Any]]:
             "period1": START_TS,
             "period2": end_ts,
             "interval": "1d",
-            "events": "history",
+            "events": "history,div",
             "includeAdjustedClose": "true",
         }
     )
@@ -72,21 +72,26 @@ def download_btci_history() -> tuple[pd.DataFrame, dict[str, Any]]:
     values = adjclose if len(adjclose) == len(timestamps) else close
 
     rows: list[dict[str, Any]] = []
-    for ts, value in zip(timestamps, values):
+    for i, ts in enumerate(timestamps):
+        value = values[i] if i < len(values) else None
+        raw_close = close[i] if i < len(close) else None
         if value is None:
             continue
-        rows.append(
-            {
-                "date": datetime.fromtimestamp(int(ts), tz=timezone.utc).date(),
-                "btci_close": float(value),
-            }
-        )
+        row = {
+            "date": datetime.fromtimestamp(int(ts), tz=timezone.utc).date(),
+            "btci_close": float(value),
+        }
+        if raw_close is not None:
+            row["btci_raw_close"] = float(raw_close)
+        rows.append(row)
 
     if not rows:
         raise RuntimeError(f"No usable close prices returned for {BTCI_SYMBOL}")
 
     df = pd.DataFrame(rows).dropna().drop_duplicates(subset=["date"]).sort_values("date")
-    return df, result.get("meta", {})
+    meta = dict(result.get("meta", {}))
+    meta["events"] = result.get("events", {})
+    return df, meta
 
 
 def _fetch_bitstamp_page(start_ts: int) -> list[dict[str, str]]:
@@ -132,6 +137,44 @@ def download_btcusd_history() -> pd.DataFrame:
     return df[["date", "btcusd_close"]].dropna().drop_duplicates(subset=["date"]).sort_values("date")
 
 
+
+def compute_distribution_rows(btci_df: pd.DataFrame, yahoo_meta: dict[str, Any]) -> list[dict[str, Any]]:
+    """Compute the last 12 BTCI monthly distributions as annualized close-price yields."""
+    dividends = (yahoo_meta.get("events") or {}).get("dividends") or {}
+    if not dividends:
+        return []
+
+    close_lookup = {}
+    for _, row in btci_df.iterrows():
+        close = row.get("btci_raw_close", row.get("btci_close"))
+        if close is not None and not pd.isna(close):
+            close_lookup[row["date"]] = float(close)
+
+    latest_date = max(close_lookup.keys()) if close_lookup else None
+    rows = []
+    for event in dividends.values():
+        amount = event.get("amount")
+        ts = event.get("date")
+        if amount is None or ts is None:
+            continue
+        distribution_date = datetime.fromtimestamp(int(ts), tz=timezone.utc).date()
+        if latest_date and distribution_date > latest_date:
+            continue
+        close = close_lookup.get(distribution_date)
+        if close is None or close <= 0:
+            continue
+        annualized_distribution_pct = (float(amount) * 12.0 / close) * 100.0
+        rows.append(
+            {
+                "date": distribution_date.isoformat(),
+                "distribution": _round(amount, 4),
+                "btci_close": _round(close, 4),
+                "annualized_distribution_pct": _round(annualized_distribution_pct, 2),
+            }
+        )
+
+    return sorted(rows, key=lambda row: row["date"], reverse=True)[:12]
+
 def compute_payload(btci_df: pd.DataFrame, btcusd_df: pd.DataFrame, yahoo_meta: dict[str, Any]) -> dict[str, Any]:
     """Align BTCI and BTC/USD histories and compute normalized performance."""
     merged = btci_df.merge(btcusd_df, on="date", how="inner").sort_values("date")
@@ -165,6 +208,8 @@ def compute_payload(btci_df: pd.DataFrame, btcusd_df: pd.DataFrame, yahoo_meta: 
         for _, row in merged.iterrows()
     ]
 
+    distributions = compute_distribution_rows(btci_df, yahoo_meta)
+
     return {
         "symbol": BTCI_SYMBOL,
         "name": yahoo_meta.get("longName") or yahoo_meta.get("shortName") or BTCI_NAME,
@@ -183,6 +228,7 @@ def compute_payload(btci_df: pd.DataFrame, btcusd_df: pd.DataFrame, yahoo_meta: 
             "relative_return_pct": _round(latest_relative, 2),
             "leader": BTCI_SYMBOL if latest_btci_return >= latest_btcusd_return else BTCUSD_SYMBOL,
         },
+        "distributions": distributions,
         "series": series,
     }
 

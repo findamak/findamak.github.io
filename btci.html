@@ -367,6 +367,29 @@
     <section class="card section-card">
       <div class="section-heading">
         <div>
+          <h2>Monthly distribution yield</h2>
+          <p id="distributionCount">Loading BTCI distribution history...</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Distribution date</th>
+              <th>Distribution</th>
+              <th>BTCI close</th>
+              <th>Annualized distribution yield</th>
+            </tr>
+          </thead>
+          <tbody id="distributionTable"></tbody>
+        </table>
+      </div>
+      <p class="note">Annualized distribution yield is calculated as monthly distribution divided by BTCI closing price on the distribution date, multiplied by 12. It is not a total-return figure.</p>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
           <h2>Recent daily comparison</h2>
           <p id="rowCount">Loading comparison history...</p>
         </div>
@@ -502,6 +525,26 @@
       resize();
     }
 
+    function renderDistributionTable(data) {
+      const rows = data.distributions || [];
+      const distributionCount = document.getElementById('distributionCount');
+      const distributionTable = document.getElementById('distributionTable');
+      if (!rows.length) {
+        distributionCount.textContent = 'No BTCI distribution data is available yet.';
+        distributionTable.innerHTML = '<tr><td colspan="4">No distribution rows available.</td></tr>';
+        return;
+      }
+      distributionCount.textContent = `Last ${rows.length} monthly distributions, annualized from the closing price on each distribution date.`;
+      distributionTable.innerHTML = rows.map(row => `
+        <tr>
+          <td>${formatDate(row.date)}</td>
+          <td>${usd.format(row.distribution)}</td>
+          <td>${usd.format(row.btci_close)}</td>
+          <td class="${row.annualized_distribution_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.annualized_distribution_pct)}</td>
+        </tr>
+      `).join('');
+    }
+
     function renderTable(data) {
       const sorted = [...data.series].sort((a, b) => b.date.localeCompare(a.date));
       document.getElementById('rowCount').textContent = `${sorted.length} aligned trading days since ${formatDate(data.base_date)}.`;
@@ -525,6 +568,7 @@
       .then(data => {
         renderSummary(data);
         renderChart(data);
+        renderDistributionTable(data);
         renderTable(data);
       })
       .catch(error => {
