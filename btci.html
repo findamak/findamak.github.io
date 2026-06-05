@@ -239,6 +239,7 @@
       color: var(--muted);
     }
     .subtitle { max-width: 760px; font-size: 1.06rem; margin-top: 22px; }
+    .top-updated { display: inline-flex; margin-top: 18px; padding: 7px 12px; border: 1px solid var(--border); border-radius: 999px; background: var(--surface); color: var(--muted); font-size: 0.9rem; font-weight: 600; }
     .value, .price-value, .stock-price, .etf-card-value, .flow-value, .crypto-name, .stock-symbol, .fg-dial-value { font-weight: 700; color: var(--text); }
     .price-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-bottom: 2rem; }
     .stock-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
@@ -335,6 +336,7 @@
       <div>
         <h1>BTCI ETF vs BTCUSD Performance</h1>
         <p class="subtitle">Normalized daily performance from the first shared trading date. BTCI ETF data comes from Yahoo Finance; BTC/USD data comes from Bitstamp.</p>
+        <p class="top-updated">Updated <span id="topUpdated">loading...</span></p>
       </div>
 
       <aside class="card summary-card" aria-label="Latest BTCI and BTCUSD performance summary">
@@ -474,7 +476,9 @@
       btcusdReturn.textContent = formatPct(latest.btcusd_return_pct);
       btcusdReturn.classList.add(latest.btcusd_return_pct >= 0 ? 'positive' : 'negative');
       document.getElementById('leader').textContent = `${latest.leader} by ${formatPct(Math.abs(latest.relative_return_pct))}`;
-      document.getElementById('lastUpdated').textContent = formatUpdated(data.updated_at);
+      const updatedText = formatUpdated(data.updated_at);
+      document.getElementById('lastUpdated').textContent = updatedText;
+      document.getElementById('topUpdated').textContent = updatedText;
     }
 
     function renderChart(data) {
