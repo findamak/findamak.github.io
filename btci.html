@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="BTCI ETF and BTCUSD normalized performance comparison">
-  <title>BTCI ETF vs BTCUSD Performance</title>
+  <meta name="description" content="BTCI/BITO ETFs and BTCUSD normalized performance comparison">
+  <title>BTCI/BITO ETFs vs BTCUSD Performance</title>
   <link rel="icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -326,6 +326,7 @@
         <a href="btc.html">BTC Crosses</a>
         <a href="dashboard.html">Dashboard</a>
         <a class="nav-cta" href="https://finance.yahoo.com/quote/BTCI" rel="noopener" target="_blank">Yahoo BTCI</a>
+        <a class="nav-cta" href="https://finance.yahoo.com/quote/BITO" rel="noopener" target="_blank">Yahoo BITO</a>
       </div>
     </nav>
   </header>
@@ -333,14 +334,15 @@
   <header class="hero-wrap">
     <div class="hero">
       <div>
-        <h1>BTCI ETF vs BTCUSD Performance</h1>
-        <p class="subtitle">Normalized daily performance from the first shared trading date. BTCI ETF data comes from Yahoo Finance; BTC/USD data comes from Bitstamp.</p>
+        <h1>BTCI/BITO ETFs vs BTCUSD Performance</h1>
+        <p class="subtitle">Normalized daily performance from the first shared trading date. BTCI and BITO ETF data comes from Yahoo Finance; BTC/USD data comes from Bitstamp.</p>
       </div>
 
-      <aside class="card summary-card" aria-label="Latest BTCI and BTCUSD performance summary">
+      <aside class="card summary-card" aria-label="Latest BTCI, BITO, and BTCUSD performance summary">
         <div class="summary-item"><span class="label">Base date</span><span class="value" id="baseDate">Loading...</span></div>
         <div class="summary-item"><span class="label">Latest date</span><span class="value" id="latestDate">--</span></div>
         <div class="summary-item"><span class="label">BTCI return</span><span class="value" id="btciReturn">--</span></div>
+        <div class="summary-item"><span class="label">BITO return</span><span class="value" id="bitoReturn">--</span></div>
         <div class="summary-item"><span class="label">BTC/USD return</span><span class="value" id="btcusdReturn">--</span></div>
         <div class="summary-item"><span class="label">Leader</span><span class="value" id="leader">--</span></div>
         <div class="summary-item"><span class="label">Last updated</span><span class="value" id="lastUpdated">--</span></div>
@@ -353,22 +355,24 @@
       <div class="section-heading">
         <div>
           <h2>Normalized performance chart</h2>
-          <p>Both series start at 0% on the first shared trading date, so the chart compares performance rather than price.</p>
+          <p>Each series starts at 0% on the first shared trading date, so the chart compares performance rather than price.</p>
         </div>
       </div>
-      <div id="chart" role="img" aria-label="BTCI ETF and BTCUSD normalized performance chart"></div>
+      <div id="chart" role="img" aria-label="BTCI and BITO ETFs plus BTCUSD normalized performance chart"></div>
       <div class="legend" aria-label="Chart legend">
         <span style="--legend-color: var(--accent-2)">BTCI ETF</span>
+        <span style="--legend-color: #ff8a3d">BITO ETF</span>
         <span style="--legend-color: var(--accent)">BTC/USD</span>
         <span style="--legend-color: var(--accent-3)">BTCI minus BTC/USD</span>
+        <span style="--legend-color: #c084fc">BITO minus BTC/USD</span>
       </div>
     </section>
 
     <section class="card section-card">
       <div class="section-heading">
         <div>
-          <h2>Monthly distribution yield</h2>
-          <p id="distributionCount">Loading BTCI distribution history...</p>
+          <h2>Monthly distribution yields</h2>
+          <p id="distributionCount">Loading BTCI and BITO distribution history...</p>
         </div>
       </div>
       <div class="table-wrap">
@@ -376,15 +380,16 @@
           <thead>
             <tr>
               <th>Distribution date</th>
+              <th>ETF</th>
               <th>Distribution</th>
-              <th>BTCI close</th>
+              <th>ETF close</th>
               <th>Annualized distribution yield</th>
             </tr>
           </thead>
           <tbody id="distributionTable"></tbody>
         </table>
       </div>
-      <p class="note">Annualized distribution yield is calculated as monthly distribution divided by BTCI closing price on the distribution date, multiplied by 12. It is not a total-return figure.</p>
+      <p class="note">Annualized distribution yield is calculated as monthly distribution divided by the ETF closing price on the distribution date, multiplied by 12. It is not a total-return figure.</p>
     </section>
 
     <section class="card section-card">
@@ -400,10 +405,13 @@
             <tr>
               <th>Date</th>
               <th>BTCI close</th>
+              <th>BITO close</th>
               <th>BTC/USD close</th>
               <th>BTCI return</th>
+              <th>BITO return</th>
               <th>BTC/USD return</th>
-              <th>Relative</th>
+              <th>BTCI vs BTC</th>
+              <th>BITO vs BTC</th>
             </tr>
           </thead>
           <tbody id="comparisonTable"></tbody>
@@ -414,7 +422,7 @@
   </main>
 
   <footer>
-    BTCI ETF source: Yahoo Finance. BTC/USD source: Bitstamp daily OHLC.
+    BTCI and BITO ETF source: Yahoo Finance. BTC/USD source: Bitstamp daily OHLC.
   </footer>
 
   <script>
@@ -470,10 +478,13 @@
       const btciReturn = document.getElementById('btciReturn');
       btciReturn.textContent = formatPct(latest.btci_return_pct);
       btciReturn.classList.add(latest.btci_return_pct >= 0 ? 'positive' : 'negative');
+      const bitoReturn = document.getElementById('bitoReturn');
+      bitoReturn.textContent = formatPct(latest.bito_return_pct);
+      bitoReturn.classList.add(latest.bito_return_pct >= 0 ? 'positive' : 'negative');
       const btcusdReturn = document.getElementById('btcusdReturn');
       btcusdReturn.textContent = formatPct(latest.btcusd_return_pct);
       btcusdReturn.classList.add(latest.btcusd_return_pct >= 0 ? 'positive' : 'negative');
-      document.getElementById('leader').textContent = `${latest.leader} by ${formatPct(Math.abs(latest.relative_return_pct))}`;
+      document.getElementById('leader').textContent = `${latest.leader} by ${formatPct(Math.abs(latest.leader_margin_pct))}`;
       document.getElementById('lastUpdated').textContent = formatUpdated(data.updated_at);
     }
 
@@ -501,6 +512,12 @@
         lineWidth: 2,
         priceFormat: { type: 'custom', formatter: value => `${value.toFixed(2)}%` }
       });
+      const bitoSeries = chart.addLineSeries({
+        title: 'BITO ETF',
+        color: '#ff8a3d',
+        lineWidth: 2,
+        priceFormat: { type: 'custom', formatter: value => `${value.toFixed(2)}%` }
+      });
       const btcusdSeries = chart.addLineSeries({
         title: 'BTC/USD',
         color: '#7c83ff',
@@ -514,10 +531,19 @@
         lineStyle: LightweightCharts.LineStyle.Dashed,
         priceFormat: { type: 'custom', formatter: value => `${value.toFixed(2)}%` }
       });
+      const bitoRelativeSeries = chart.addLineSeries({
+        title: 'BITO minus BTC/USD',
+        color: '#c084fc',
+        lineWidth: 1,
+        lineStyle: LightweightCharts.LineStyle.Dashed,
+        priceFormat: { type: 'custom', formatter: value => `${value.toFixed(2)}%` }
+      });
 
       btciSeries.setData(data.series.map(row => ({ time: row.date, value: row.btci_return_pct })));
+      bitoSeries.setData(data.series.map(row => ({ time: row.date, value: row.bito_return_pct })));
       btcusdSeries.setData(data.series.map(row => ({ time: row.date, value: row.btcusd_return_pct })));
-      relativeSeries.setData(data.series.map(row => ({ time: row.date, value: row.relative_return_pct })));
+      relativeSeries.setData(data.series.map(row => ({ time: row.date, value: row.btci_relative_return_pct })));
+      bitoRelativeSeries.setData(data.series.map(row => ({ time: row.date, value: row.bito_relative_return_pct })));
       chart.timeScale().fitContent();
 
       const resize = () => chart.applyOptions({ width: chartContainer.clientWidth });
@@ -530,16 +556,17 @@
       const distributionCount = document.getElementById('distributionCount');
       const distributionTable = document.getElementById('distributionTable');
       if (!rows.length) {
-        distributionCount.textContent = 'No BTCI distribution data is available yet.';
-        distributionTable.innerHTML = '<tr><td colspan="4">No distribution rows available.</td></tr>';
+        distributionCount.textContent = 'No BTCI or BITO distribution data is available yet.';
+        distributionTable.innerHTML = '<tr><td colspan="5">No distribution rows available.</td></tr>';
         return;
       }
-      distributionCount.textContent = `Latest ${rows.length} available monthly distributions, up to 24, annualized from the closing price on each distribution date.`;
+      distributionCount.textContent = `Latest ${rows.length} available monthly distributions across BTCI and BITO, up to 24 per ETF, annualized from the closing price on each distribution date.`;
       distributionTable.innerHTML = rows.map(row => `
         <tr>
           <td>${formatDate(row.date)}</td>
+          <td>${row.etf}</td>
           <td>${usd.format(row.distribution)}</td>
-          <td>${usd.format(row.btci_close)}</td>
+          <td>${usd.format(row.close)}</td>
           <td class="${row.annualized_distribution_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.annualized_distribution_pct)}</td>
         </tr>
       `).join('');
@@ -552,17 +579,20 @@
         <tr>
           <td>${formatDate(row.date)}</td>
           <td>${usd.format(row.btci_close)}</td>
+          <td>${usd.format(row.bito_close)}</td>
           <td>${btcusd.format(row.btcusd_close)}</td>
           <td class="${row.btci_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.btci_return_pct)}</td>
+          <td class="${row.bito_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.bito_return_pct)}</td>
           <td class="${row.btcusd_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.btcusd_return_pct)}</td>
-          <td class="${row.relative_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.relative_return_pct)}</td>
+          <td class="${row.btci_relative_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.btci_relative_return_pct)}</td>
+          <td class="${row.bito_relative_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.bito_relative_return_pct)}</td>
         </tr>
       `).join('');
     }
 
     fetch('data/btci.json?t=' + Date.now())
       .then(response => {
-        if (!response.ok) throw new Error('Unable to load BTCI comparison data');
+        if (!response.ok) throw new Error('Unable to load BTCI/BITO comparison data');
         return response.json();
       })
       .then(data => {
@@ -573,7 +603,7 @@
       })
       .catch(error => {
         console.error(error);
-        setError('Unable to load BTCI comparison data. Please try again later.');
+        setError('Unable to load BTCI/BITO comparison data. Please try again later.');
       });
   </script>
 </body>

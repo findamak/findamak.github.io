@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Generate BTCI ETF vs BTC/USD performance data for btci.html.
+"""Generate BTCI/BITO ETF vs BTC/USD performance data for btci.html.
 
-Downloads BTCI ETF daily closes from Yahoo Finance and BTC/USD daily closes
-from Bitstamp, aligns on common dates, normalizes both instruments to their
-first shared trading date, and writes a static JSON payload for GitHub Pages.
+Downloads BTCI and BITO ETF daily closes/distributions from Yahoo Finance and
+BTC/USD daily closes from Bitstamp, aligns on common dates, normalizes all
+instruments to their first shared trading date, and writes a static JSON payload
+for GitHub Pages.
 """
 
 from __future__ import annotations
@@ -17,9 +18,18 @@ from urllib.request import Request, urlopen
 
 import pandas as pd
 
-BTCI_SYMBOL = "BTCI"
-BTCI_NAME = "NEOS Bitcoin High Income ETF"
-BTCI_SOURCE = "Yahoo Finance"
+ETF_CONFIGS = {
+    "btci": {
+        "symbol": "BTCI",
+        "name": "NEOS Bitcoin High Income ETF",
+        "source": "Yahoo Finance",
+    },
+    "bito": {
+        "symbol": "BITO",
+        "name": "ProShares Bitcoin Strategy ETF",
+        "source": "Yahoo Finance",
+    },
+}
 BTCUSD_SYMBOL = "BTC/USD"
 BTCUSD_SOURCE = "Bitstamp"
 OUTPUT_PATH = Path(__file__).resolve().parents[1] / "data" / "btci.json"
@@ -44,8 +54,8 @@ def _get_json(url: str) -> dict[str, Any]:
         return json.load(response)
 
 
-def download_btci_history() -> tuple[pd.DataFrame, dict[str, Any]]:
-    """Download all available daily BTCI ETF closes from Yahoo Finance."""
+def download_yahoo_history(symbol: str, prefix: str) -> tuple[pd.DataFrame, dict[str, Any]]:
+    """Download all available daily closes and dividend events for a Yahoo Finance symbol."""
     end_ts = int(datetime.now(timezone.utc).timestamp())
     params = urlencode(
         {
@@ -56,13 +66,13 @@ def download_btci_history() -> tuple[pd.DataFrame, dict[str, Any]]:
             "includeAdjustedClose": "true",
         }
     )
-    payload = _get_json(f"{YAHOO_CHART_URL.format(symbol=BTCI_SYMBOL)}?{params}")
+    payload = _get_json(f"{YAHOO_CHART_URL.format(symbol=symbol)}?{params}")
     chart = payload.get("chart", {})
     if chart.get("error"):
-        raise RuntimeError(f"Yahoo Finance error for {BTCI_SYMBOL}: {chart['error']}")
+        raise RuntimeError(f"Yahoo Finance error for {symbol}: {chart['error']}")
     results = chart.get("result") or []
     if not results:
-        raise RuntimeError(f"No Yahoo Finance chart data returned for {BTCI_SYMBOL}")
+        raise RuntimeError(f"No Yahoo Finance chart data returned for {symbol}")
 
     result = results[0]
     timestamps = result.get("timestamp") or []
@@ -79,16 +89,16 @@ def download_btci_history() -> tuple[pd.DataFrame, dict[str, Any]]:
             continue
         row = {
             "date": datetime.fromtimestamp(int(ts), tz=timezone.utc).date(),
-            "btci_close": float(value),
+            f"{prefix}_close": float(value),
         }
         if raw_close is not None:
-            row["btci_raw_close"] = float(raw_close)
+            row[f"{prefix}_raw_close"] = float(raw_close)
         rows.append(row)
 
     if not rows:
-        raise RuntimeError(f"No usable close prices returned for {BTCI_SYMBOL}")
+        raise RuntimeError(f"No usable close prices returned for {symbol}")
 
-    df = pd.DataFrame(rows).dropna().drop_duplicates(subset=["date"]).sort_values("date")
+    df = pd.DataFrame(rows).dropna(subset=[f"{prefix}_close"]).drop_duplicates(subset=["date"]).sort_values("date")
     meta = dict(result.get("meta", {}))
     meta["events"] = result.get("events", {})
     return df, meta
@@ -137,16 +147,21 @@ def download_btcusd_history() -> pd.DataFrame:
     return df[["date", "btcusd_close"]].dropna().drop_duplicates(subset=["date"]).sort_values("date")
 
 
-
-def compute_distribution_rows(btci_df: pd.DataFrame, yahoo_meta: dict[str, Any]) -> list[dict[str, Any]]:
-    """Compute the last 24 BTCI monthly distributions as annualized close-price yields."""
+def compute_distribution_rows(
+    etf_df: pd.DataFrame,
+    yahoo_meta: dict[str, Any],
+    prefix: str,
+    symbol: str,
+    limit: int = 24,
+) -> list[dict[str, Any]]:
+    """Compute the latest ETF distributions as annualized close-price yields."""
     dividends = (yahoo_meta.get("events") or {}).get("dividends") or {}
     if not dividends:
         return []
 
     close_lookup = {}
-    for _, row in btci_df.iterrows():
-        close = row.get("btci_raw_close", row.get("btci_close"))
+    for _, row in etf_df.iterrows():
+        close = row.get(f"{prefix}_raw_close", row.get(f"{prefix}_close"))
         if close is not None and not pd.isna(close):
             close_lookup[row["date"]] = float(close)
 
@@ -166,67 +181,110 @@ def compute_distribution_rows(btci_df: pd.DataFrame, yahoo_meta: dict[str, Any])
         annualized_distribution_pct = (float(amount) * 12.0 / close) * 100.0
         rows.append(
             {
+                "etf": symbol,
                 "date": distribution_date.isoformat(),
                 "distribution": _round(amount, 4),
-                "btci_close": _round(close, 4),
+                "close": _round(close, 4),
                 "annualized_distribution_pct": _round(annualized_distribution_pct, 2),
             }
         )
 
-    return sorted(rows, key=lambda row: row["date"], reverse=True)[:24]
+    return sorted(rows, key=lambda row: row["date"], reverse=True)[:limit]
 
-def compute_payload(btci_df: pd.DataFrame, btcusd_df: pd.DataFrame, yahoo_meta: dict[str, Any]) -> dict[str, Any]:
-    """Align BTCI and BTC/USD histories and compute normalized performance."""
-    merged = btci_df.merge(btcusd_df, on="date", how="inner").sort_values("date")
+
+def _display_name(prefix: str, meta: dict[str, Any]) -> str:
+    config = ETF_CONFIGS[prefix]
+    return meta.get("longName") or meta.get("shortName") or config["name"]
+
+
+def compute_payload(
+    etf_data: dict[str, tuple[pd.DataFrame, dict[str, Any]]],
+    btcusd_df: pd.DataFrame,
+) -> dict[str, Any]:
+    """Align ETF and BTC/USD histories and compute normalized performance."""
+    btci_df, btci_meta = etf_data["btci"]
+    bito_df, bito_meta = etf_data["bito"]
+    merged = btci_df.merge(bito_df, on="date", how="inner").merge(btcusd_df, on="date", how="inner").sort_values("date")
     if merged.empty:
-        raise RuntimeError("No overlapping BTCI and BTC/USD dates after alignment")
+        raise RuntimeError("No overlapping BTCI, BITO, and BTC/USD dates after alignment")
 
     first = merged.iloc[0]
-    btci_base = float(first["btci_close"])
-    btcusd_base = float(first["btcusd_close"])
-    if btci_base <= 0 or btcusd_base <= 0:
+    bases = {
+        "btci": float(first["btci_close"]),
+        "bito": float(first["bito_close"]),
+        "btcusd": float(first["btcusd_close"]),
+    }
+    if any(base <= 0 for base in bases.values()):
         raise RuntimeError("Invalid base close price for performance calculation")
 
-    merged["btci_return_pct"] = (merged["btci_close"] / btci_base - 1.0) * 100.0
-    merged["btcusd_return_pct"] = (merged["btcusd_close"] / btcusd_base - 1.0) * 100.0
-    merged["relative_return_pct"] = merged["btci_return_pct"] - merged["btcusd_return_pct"]
+    for key in ("btci", "bito", "btcusd"):
+        merged[f"{key}_return_pct"] = (merged[f"{key}_close"] / bases[key] - 1.0) * 100.0
+    merged["btci_relative_return_pct"] = merged["btci_return_pct"] - merged["btcusd_return_pct"]
+    merged["bito_relative_return_pct"] = merged["bito_return_pct"] - merged["btcusd_return_pct"]
+    merged["btci_vs_bito_return_pct"] = merged["btci_return_pct"] - merged["bito_return_pct"]
     last = merged.iloc[-1]
 
-    latest_btci_return = float(last["btci_return_pct"])
-    latest_btcusd_return = float(last["btcusd_return_pct"])
-    latest_relative = float(last["relative_return_pct"])
+    latest_returns = {
+        "BTCI": float(last["btci_return_pct"]),
+        "BITO": float(last["bito_return_pct"]),
+        BTCUSD_SYMBOL: float(last["btcusd_return_pct"]),
+    }
+    leader = max(latest_returns, key=lambda key: latest_returns[key])
+    runner_up = sorted(latest_returns.values(), reverse=True)[1]
+    leader_margin = latest_returns[leader] - runner_up
 
     series = [
         {
             "date": row["date"].isoformat(),
             "btci_close": _round(row["btci_close"], 4),
+            "bito_close": _round(row["bito_close"], 4),
             "btcusd_close": _round(row["btcusd_close"], 2),
             "btci_return_pct": _round(row["btci_return_pct"], 2),
+            "bito_return_pct": _round(row["bito_return_pct"], 2),
             "btcusd_return_pct": _round(row["btcusd_return_pct"], 2),
-            "relative_return_pct": _round(row["relative_return_pct"], 2),
+            "relative_return_pct": _round(row["btci_relative_return_pct"], 2),
+            "btci_relative_return_pct": _round(row["btci_relative_return_pct"], 2),
+            "bito_relative_return_pct": _round(row["bito_relative_return_pct"], 2),
+            "btci_vs_bito_return_pct": _round(row["btci_vs_bito_return_pct"], 2),
         }
         for _, row in merged.iterrows()
     ]
 
-    distributions = compute_distribution_rows(btci_df, yahoo_meta)
+    distributions = sorted(
+        compute_distribution_rows(btci_df, btci_meta, "btci", "BTCI")
+        + compute_distribution_rows(bito_df, bito_meta, "bito", "BITO"),
+        key=lambda row: (row["date"], row["etf"]),
+        reverse=True,
+    )
 
     return {
-        "symbol": BTCI_SYMBOL,
-        "name": yahoo_meta.get("longName") or yahoo_meta.get("shortName") or BTCI_NAME,
-        "currency": yahoo_meta.get("currency") or "USD",
-        "exchange": yahoo_meta.get("exchangeName") or yahoo_meta.get("fullExchangeName") or "Yahoo Finance",
-        "source": {"btci": BTCI_SOURCE, "btcusd": BTCUSD_SOURCE},
+        "symbol": "BTCI",
+        "symbols": ["BTCI", "BITO"],
+        "name": _display_name("btci", btci_meta),
+        "names": {
+            "btci": _display_name("btci", btci_meta),
+            "bito": _display_name("bito", bito_meta),
+        },
+        "currency": btci_meta.get("currency") or bito_meta.get("currency") or "USD",
+        "exchange": btci_meta.get("exchangeName") or btci_meta.get("fullExchangeName") or "Yahoo Finance",
+        "source": {"btci": "Yahoo Finance", "bito": "Yahoo Finance", "btcusd": BTCUSD_SOURCE},
         "comparison_symbol": BTCUSD_SYMBOL,
         "updated_at": datetime.now(timezone.utc).replace(microsecond=0).isoformat(),
         "base_date": first["date"].isoformat(),
         "latest": {
             "date": last["date"].isoformat(),
             "btci_close": _round(last["btci_close"], 4),
+            "bito_close": _round(last["bito_close"], 4),
             "btcusd_close": _round(last["btcusd_close"], 2),
-            "btci_return_pct": _round(latest_btci_return, 2),
-            "btcusd_return_pct": _round(latest_btcusd_return, 2),
-            "relative_return_pct": _round(latest_relative, 2),
-            "leader": BTCI_SYMBOL if latest_btci_return >= latest_btcusd_return else BTCUSD_SYMBOL,
+            "btci_return_pct": _round(last["btci_return_pct"], 2),
+            "bito_return_pct": _round(last["bito_return_pct"], 2),
+            "btcusd_return_pct": _round(last["btcusd_return_pct"], 2),
+            "relative_return_pct": _round(last["btci_relative_return_pct"], 2),
+            "btci_relative_return_pct": _round(last["btci_relative_return_pct"], 2),
+            "bito_relative_return_pct": _round(last["bito_relative_return_pct"], 2),
+            "btci_vs_bito_return_pct": _round(last["btci_vs_bito_return_pct"], 2),
+            "leader": leader,
+            "leader_margin_pct": _round(leader_margin, 2),
         },
         "distributions": distributions,
         "series": series,
@@ -234,9 +292,12 @@ def compute_payload(btci_df: pd.DataFrame, btcusd_df: pd.DataFrame, yahoo_meta: 
 
 
 def main() -> None:
-    btci_df, yahoo_meta = download_btci_history()
+    etf_data = {
+        prefix: download_yahoo_history(config["symbol"], prefix)
+        for prefix, config in ETF_CONFIGS.items()
+    }
     btcusd_df = download_btcusd_history()
-    payload = compute_payload(btci_df, btcusd_df, yahoo_meta)
+    payload = compute_payload(etf_data, btcusd_df)
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
