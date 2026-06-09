@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="KGLD, IGLD, and IAUI gold ETFs versus gold futures normalized performance comparison">
+  <title>KGLD/IGLD/IAUI Gold ETFs vs Gold Futures Performance</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lightweight-charts@4.2.3/dist/lightweight-charts.standalone.production.js"></script>
+  <style>
+    :root {
+      --bg: #06070a;
+      --bg-soft: #0b0d12;
+      --surface: rgba(255, 255, 255, 0.045);
+      --surface-strong: rgba(255, 255, 255, 0.075);
+      --surface-hover: rgba(255, 255, 255, 0.105);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f5f7fb;
+      --muted: #a8b0c2;
+      --subtle: #697184;
+      --accent: #7c83ff;
+      --accent-2: #38d9c6;
+      --accent-3: #f7c66f;
+      --teal: #38d9c6;
+      --danger: #ff6b8a;
+      --success: #38d9c6;
+      --text-primary: #f5f7fb;
+      --text-secondary: #a8b0c2;
+      --legend-color: #38d9c6;
+      --green: #38d9c6;
+      --red: #ff6b8a;
+      --orange: #f7c66f;
+      --blue: #7c83ff;
+      --gold: #f7c66f;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius: 24px;
+      --max-width: 1120px;
+      --transition: 180ms ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(247, 198, 111, 0.20), transparent 34rem),
+        radial-gradient(circle at 85% 12%, rgba(56, 217, 198, 0.10), transparent 28rem),
+        radial-gradient(circle at 50% 100%, rgba(124, 131, 255, 0.09), transparent 36rem),
+        var(--bg);
+      overflow-x: hidden;
+      font-feature-settings: "cv01", "ss03";
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 72%);
+      z-index: -1;
+    }
+    a { color: inherit; }
+    h1, h2, h3 { color: var(--text); letter-spacing: -0.04em; line-height: 1.05; }
+    h1 { font-size: clamp(3rem, 8vw, 6.6rem); font-weight: 700; margin: 0; }
+    h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 650; }
+    h3 { font-size: clamp(1.15rem, 3vw, 1.45rem); font-weight: 650; letter-spacing: -0.02em; }
+    p { color: var(--muted); font-size: 1.02rem; }
+
+    .site-header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(18px); background: rgba(6, 7, 10, 0.72); border-bottom: 1px solid var(--border); }
+    .nav, .top-nav { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; letter-spacing: -0.03em; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(135deg, rgba(247, 198, 111, 0.95), rgba(56, 217, 198, 0.9)); color: #05060a; box-shadow: 0 14px 38px rgba(247, 198, 111, 0.24); }
+    .nav-links { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+    .nav-links a, .top-nav a, .nav > a { color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 600; padding: 9px 13px; border: 1px solid transparent; border-radius: 999px; transition: color var(--transition), background var(--transition), border-color var(--transition), transform var(--transition); }
+    .nav-links a:hover, .nav-links a:focus-visible, .top-nav a:hover, .top-nav a:focus-visible, .nav > a:hover, .nav > a:focus-visible { color: var(--text); background: var(--surface); border-color: var(--border); outline: none; }
+    .nav-links .nav-cta { color: #090b11; background: linear-gradient(135deg, var(--gold), var(--accent-2)); border-color: transparent; box-shadow: 0 10px 28px rgba(247, 198, 111, 0.22); }
+    .nav-links .nav-cta:hover, .nav-links .nav-cta:focus-visible { color: #05060a; background: linear-gradient(135deg, #ffd98a, #55ead9); transform: translateY(-1px); }
+
+    header.hero-wrap, .page-hero, .container > header { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; padding: 72px 0 34px; }
+    .hero-card, .hero { position: relative; overflow: hidden; padding: clamp(34px, 6vw, 64px); border: 1px solid var(--border); border-radius: calc(var(--radius) + 10px); background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03)); box-shadow: var(--shadow); }
+    .hero { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr); gap: 28px; align-items: stretch; }
+    .hero-card::before, .hero::before, .hero-card::after, .hero::after { content: ''; position: absolute; border-radius: 999px; filter: blur(12px); opacity: 0.8; pointer-events: none; }
+    .hero-card::before, .hero::before { width: 320px; height: 320px; top: -160px; right: -120px; background: rgba(247, 198, 111, 0.25); }
+    .hero-card::after, .hero::after { width: 260px; height: 260px; left: -120px; bottom: -140px; background: rgba(56, 217, 198, 0.18); }
+    .hero > *, .hero-card > * { position: relative; z-index: 1; }
+
+    main, footer, .container { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; }
+    main { padding: 18px 0 82px; }
+    section { margin: 28px 0; }
+    .card, .section-card, .price-card, .stock-card, .etf-section, .etf-card, .flow-card, .x-feed-section, .x-tweet-card { border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.026)); box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24); backdrop-filter: blur(14px); border-radius: var(--radius); }
+    .section-card, .price-card, .stock-card, .etf-section, .x-feed-section { padding: clamp(18px, 3vw, 30px); }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .section-heading p, .subtitle, .last-updated, .price-updated, .crypto-symbol, .stock-name, .etf-card-title, .flow-period, .x-feed-updated, .x-user-handle, .x-tweet-time, .fg-dial-label, .fg-dial-updated, .label, .note, .legend, .loading { color: var(--muted); }
+    .subtitle { max-width: 760px; font-size: 1.06rem; margin-top: 22px; }
+    .value, .price-value, .stock-price, .etf-card-value, .flow-value, .crypto-name, .stock-symbol, .fg-dial-value { font-weight: 700; color: var(--text); }
+    .positive, .trend-bullish, .price-change.positive, .stock-change.positive, .flow-value.positive { color: var(--success); }
+    .negative, .trend-bearish, .price-change.negative, .stock-change.negative, .flow-value.negative { color: var(--danger); }
+
+    .summary-card { padding: 24px; display: grid; gap: 14px; align-content: center; }
+    .summary-item { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .summary-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    #chart { height: 560px; width: 100%; }
+    .legend { display: flex; flex-wrap: wrap; gap: 12px 18px; margin-top: 14px; font-size: 0.9rem; }
+    .legend span::before { content: ''; display: inline-block; width: 11px; height: 11px; border-radius: 999px; margin-right: 7px; vertical-align: -1px; background: var(--legend-color); }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
+    table { width: 100%; border-collapse: collapse; min-width: 860px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
+    th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255, 255, 255, 0.045); font-weight: 700; }
+    tr:last-child td { border-bottom: 0; }
+    .error, .x-feed-error { color: #fecdd3; padding: 1rem; background: rgba(255, 107, 138, 0.10); border: 1px solid rgba(255, 107, 138, 0.28); border-radius: 16px; margin-top: 1rem; }
+    footer { padding: 30px 0 46px; color: var(--muted); font-size: 0.9rem; text-align: center; }
+
+    @media (max-width: 820px) {
+      .nav, .top-nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .hero { grid-template-columns: 1fr !important; }
+      #chart { height: 420px; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Gold ETF page navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">AM</span>
+        <span>Allan Mak</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="btc.html">BTC Crosses</a>
+        <a href="btci.html">BTCI</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a class="nav-cta" href="https://finance.yahoo.com/quote/KGLD" rel="noopener" target="_blank">Yahoo KGLD</a>
+        <a class="nav-cta" href="https://finance.yahoo.com/quote/IGLD" rel="noopener" target="_blank">Yahoo IGLD</a>
+        <a class="nav-cta" href="https://finance.yahoo.com/quote/IAUI" rel="noopener" target="_blank">Yahoo IAUI</a>
+      </div>
+    </nav>
+  </header>
+
+  <header class="hero-wrap">
+    <div class="hero">
+      <div>
+        <h1>KGLD/IGLD/IAUI Gold ETFs vs Gold Futures Performance</h1>
+        <p class="subtitle">Normalized daily performance from the first shared trading date. KGLD, IGLD, IAUI, and COMEX gold futures data comes from Yahoo Finance.</p>
+      </div>
+
+      <aside class="card summary-card" aria-label="Latest KGLD, IGLD, IAUI, and gold futures performance summary">
+        <div class="summary-item"><span class="label">Base date</span><span class="value" id="baseDate">Loading...</span></div>
+        <div class="summary-item"><span class="label">Latest date</span><span class="value" id="latestDate">--</span></div>
+        <div class="summary-item"><span class="label">KGLD return</span><span class="value" id="kgldReturn">--</span></div>
+        <div class="summary-item"><span class="label">IGLD return</span><span class="value" id="igldReturn">--</span></div>
+        <div class="summary-item"><span class="label">IAUI return</span><span class="value" id="iauiReturn">--</span></div>
+        <div class="summary-item"><span class="label">Gold futures return</span><span class="value" id="goldReturn">--</span></div>
+        <div class="summary-item"><span class="label">Leader</span><span class="value" id="leader">--</span></div>
+        <div class="summary-item"><span class="label">Last updated</span><span class="value" id="lastUpdated">--</span></div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Normalized performance chart</h2>
+          <p>Each series starts at 0% on the first shared trading date, so the chart compares performance rather than price.</p>
+        </div>
+      </div>
+      <div id="chart" role="img" aria-label="KGLD, IGLD, IAUI, and gold futures normalized performance chart"></div>
+      <div class="legend" aria-label="Chart legend">
+        <span style="--legend-color: var(--gold)">KGLD ETF</span>
+        <span style="--legend-color: #38d9c6">IGLD ETF</span>
+        <span style="--legend-color: #ff8a3d">IAUI ETF</span>
+        <span style="--legend-color: var(--accent)">Gold futures</span>
+        <span style="--legend-color: #c084fc">KGLD minus gold</span>
+        <span style="--legend-color: #94a3b8">IGLD minus gold</span>
+        <span style="--legend-color: #22c55e">IAUI minus gold</span>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Monthly distribution yields</h2>
+          <p id="distributionCount">Loading KGLD, IGLD, and IAUI distribution history...</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Distribution date</th>
+              <th>ETF</th>
+              <th>Distribution</th>
+              <th>ETF close</th>
+              <th>Annualized distribution yield</th>
+            </tr>
+          </thead>
+          <tbody id="distributionTable"></tbody>
+        </table>
+      </div>
+      <p class="note">Annualized distribution yield is calculated as monthly distribution divided by the ETF closing price on the distribution date, multiplied by 12. It is not a total-return figure.</p>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Recent daily comparison</h2>
+          <p id="rowCount">Loading comparison history...</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Date</th>
+              <th>KGLD close</th>
+              <th>IGLD close</th>
+              <th>IAUI close</th>
+              <th>Gold futures close</th>
+              <th>KGLD return</th>
+              <th>IGLD return</th>
+              <th>IAUI return</th>
+              <th>Gold return</th>
+              <th>KGLD vs gold</th>
+              <th>IGLD vs gold</th>
+              <th>IAUI vs gold</th>
+            </tr>
+          </thead>
+          <tbody id="comparisonTable"></tbody>
+        </table>
+      </div>
+      <p class="note">Performance excludes distributions, taxes, fees, spreads, futures roll effects, and currency conversion effects. This page is informational only, not financial advice.</p>
+    </section>
+  </main>
+
+  <footer>
+    KGLD, IGLD, IAUI, and COMEX gold futures source: Yahoo Finance.
+  </footer>
+
+  <script>
+    const percent = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    const futuresUsd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    const ETF_PREFIXES = ['kgld', 'igld', 'iaui'];
+    const ETF_LABELS = { kgld: 'KGLD', igld: 'IGLD', iaui: 'IAUI' };
+
+    function formatPct(value) {
+      if (value === null || value === undefined || Number.isNaN(Number(value))) return '--';
+      const number = Number(value);
+      return `${number >= 0 ? '+' : ''}${percent.format(number)}%`;
+    }
+
+    function formatDate(dateString) {
+      return new Date(`${dateString}T00:00:00Z`).toLocaleDateString('en-AU', { year: 'numeric', month: 'short', day: 'numeric', timeZone: 'UTC' });
+    }
+
+    function formatUpdated(timestamp) {
+      return new Date(timestamp).toLocaleString('en-AU', { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function setError(message) {
+      document.querySelector('main').insertAdjacentHTML('afterbegin', `<div class="error">${message}</div>`);
+    }
+
+    function setReturn(id, value) {
+      const el = document.getElementById(id);
+      el.textContent = formatPct(value);
+      el.classList.add(value >= 0 ? 'positive' : 'negative');
+    }
+
+    function renderSummary(data) {
+      const latest = data.latest;
+      document.getElementById('baseDate').textContent = formatDate(data.base_date);
+      document.getElementById('latestDate').textContent = formatDate(latest.date);
+      setReturn('kgldReturn', latest.kgld_return_pct);
+      setReturn('igldReturn', latest.igld_return_pct);
+      setReturn('iauiReturn', latest.iaui_return_pct);
+      setReturn('goldReturn', latest.gold_return_pct);
+      document.getElementById('leader').textContent = `${latest.leader} by ${formatPct(Math.abs(latest.leader_margin_pct))}`;
+      document.getElementById('lastUpdated').textContent = formatUpdated(data.updated_at);
+    }
+
+    function addSeries(chart, title, color, width, dashed) {
+      return chart.addLineSeries({
+        title,
+        color,
+        lineWidth: width,
+        lineStyle: dashed ? LightweightCharts.LineStyle.Dashed : LightweightCharts.LineStyle.Solid,
+        priceFormat: { type: 'custom', formatter: value => `${value.toFixed(2)}%` }
+      });
+    }
+
+    function renderChart(data) {
+      const chartContainer = document.getElementById('chart');
+      const chart = LightweightCharts.createChart(chartContainer, {
+        layout: { background: { color: '#0b0d12' }, textColor: '#f5f7fb', fontFamily: 'Inter, sans-serif' },
+        grid: { vertLines: { color: 'rgba(255, 255, 255, 0.08)' }, horzLines: { color: 'rgba(255, 255, 255, 0.08)' } },
+        rightPriceScale: { borderColor: 'rgba(255, 255, 255, 0.16)' },
+        timeScale: { borderColor: 'rgba(255, 255, 255, 0.16)', timeVisible: false },
+        localization: { priceFormatter: value => `${value.toFixed(2)}%` },
+        crosshair: { mode: LightweightCharts.CrosshairMode.Normal }
+      });
+
+      const kgldSeries = addSeries(chart, 'KGLD ETF', '#f7c66f', 2, false);
+      const igldSeries = addSeries(chart, 'IGLD ETF', '#38d9c6', 2, false);
+      const iauiSeries = addSeries(chart, 'IAUI ETF', '#ff8a3d', 2, false);
+      const goldSeries = addSeries(chart, 'Gold futures', '#7c83ff', 2, false);
+      const kgldRelativeSeries = addSeries(chart, 'KGLD minus gold', '#c084fc', 1, true);
+      const igldRelativeSeries = addSeries(chart, 'IGLD minus gold', '#94a3b8', 1, true);
+      const iauiRelativeSeries = addSeries(chart, 'IAUI minus gold', '#22c55e', 1, true);
+
+      kgldSeries.setData(data.series.map(row => ({ time: row.date, value: row.kgld_return_pct })));
+      igldSeries.setData(data.series.map(row => ({ time: row.date, value: row.igld_return_pct })));
+      iauiSeries.setData(data.series.map(row => ({ time: row.date, value: row.iaui_return_pct })));
+      goldSeries.setData(data.series.map(row => ({ time: row.date, value: row.gold_return_pct })));
+      kgldRelativeSeries.setData(data.series.map(row => ({ time: row.date, value: row.kgld_relative_return_pct })));
+      igldRelativeSeries.setData(data.series.map(row => ({ time: row.date, value: row.igld_relative_return_pct })));
+      iauiRelativeSeries.setData(data.series.map(row => ({ time: row.date, value: row.iaui_relative_return_pct })));
+      chart.timeScale().fitContent();
+
+      const resize = () => chart.applyOptions({ width: chartContainer.clientWidth });
+      window.addEventListener('resize', resize);
+      resize();
+    }
+
+    function renderDistributionTable(data) {
+      const rows = data.distributions || [];
+      const distributionCount = document.getElementById('distributionCount');
+      const distributionTable = document.getElementById('distributionTable');
+      if (!rows.length) {
+        distributionCount.textContent = 'No KGLD, IGLD, or IAUI distribution data is available yet.';
+        distributionTable.innerHTML = '<tr><td colspan="5">No distribution rows available.</td></tr>';
+        return;
+      }
+      distributionCount.textContent = `Latest ${rows.length} available monthly distributions across KGLD, IGLD, and IAUI, up to 24 per ETF, annualized from the closing price on each distribution date.`;
+      distributionTable.innerHTML = rows.map(row => `
+        <tr>
+          <td>${formatDate(row.date)}</td>
+          <td>${row.etf}</td>
+          <td>${usd.format(row.distribution)}</td>
+          <td>${usd.format(row.close)}</td>
+          <td class="${row.annualized_distribution_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.annualized_distribution_pct)}</td>
+        </tr>
+      `).join('');
+    }
+
+    function renderTable(data) {
+      const sorted = [...data.series].sort((a, b) => b.date.localeCompare(a.date));
+      document.getElementById('rowCount').textContent = `${sorted.length} aligned trading days since ${formatDate(data.base_date)}.`;
+      document.getElementById('comparisonTable').innerHTML = sorted.slice(0, 40).map(row => `
+        <tr>
+          <td>${formatDate(row.date)}</td>
+          <td>${usd.format(row.kgld_close)}</td>
+          <td>${usd.format(row.igld_close)}</td>
+          <td>${usd.format(row.iaui_close)}</td>
+          <td>${futuresUsd.format(row.gold_close)}</td>
+          <td class="${row.kgld_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.kgld_return_pct)}</td>
+          <td class="${row.igld_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.igld_return_pct)}</td>
+          <td class="${row.iaui_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.iaui_return_pct)}</td>
+          <td class="${row.gold_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.gold_return_pct)}</td>
+          <td class="${row.kgld_relative_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.kgld_relative_return_pct)}</td>
+          <td class="${row.igld_relative_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.igld_relative_return_pct)}</td>
+          <td class="${row.iaui_relative_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.iaui_relative_return_pct)}</td>
+        </tr>
+      `).join('');
+    }
+
+    fetch('data/gold.json?t=' + Date.now())
+      .then(response => {
+        if (!response.ok) throw new Error('Unable to load KGLD/IGLD/IAUI comparison data');
+        return response.json();
+      })
+      .then(data => {
+        renderSummary(data);
+        renderChart(data);
+        renderDistributionTable(data);
+        renderTable(data);
+      })
+      .catch(error => {
+        console.error(error);
+        setError('Unable to load KGLD/IGLD/IAUI comparison data. Please try again later.');
+      });
+  </script>
+</body>
+</html>
