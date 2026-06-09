@@ -45,8 +45,8 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 210.45,
-      "change": -2.23,
+      "price": 211.0,
+      "change": -1.97,
       "type": "stock"
     },
     {
@@ -108,8 +108,8 @@
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 57.37,
-      "change": -1.65,
+      "price": 57.39,
+      "change": -1.61,
       "type": "stock"
     },
     {
@@ -122,8 +122,8 @@
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 173.88,
-      "change": -7.28,
+      "price": 173.94,
+      "change": -7.25,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4282.1001,
-      "change": -1.24,
+      "price": 4284.2002,
+      "change": -1.19,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 65.385,
-      "change": -4.44,
+      "price": 65.495,
+      "change": -4.28,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 91.64,
-      "change": -2.77,
+      "price": 91.6,
+      "change": -2.81,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 88.35,
-      "change": -3.23,
+      "price": 88.32,
+      "change": -3.26,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-10T06:10:18.048321"
+  "lastUpdated": "2026-06-10T06:15:16.036407"
 }
