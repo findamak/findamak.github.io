@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Generate gold ETF vs gold futures performance data for gold.html.
+"""Generate gold ETF vs GLD performance data for gold.html.
 
-Downloads KGLD, IGLD, and IAUI ETF daily closes/distributions plus COMEX gold
-futures (GC=F) daily closes from Yahoo Finance, aligns on common trading dates,
+Downloads KGLD, IGLD, and IAUI ETF daily closes/distributions plus GLD daily
+closes from Yahoo Finance, aligns on common trading dates,
 normalizes all instruments to their first shared date, and writes a static JSON
 payload for GitHub Pages.
 """
@@ -24,8 +24,8 @@ ETF_CONFIGS = {
     "iaui": {"symbol": "IAUI", "name": "NEOS Gold High Income ETF", "source": "Yahoo Finance"},
 }
 BENCHMARK_PREFIX = "gold"
-BENCHMARK_SYMBOL = "GC=F"
-BENCHMARK_NAME = "COMEX Gold Futures"
+BENCHMARK_SYMBOL = "GLD"
+BENCHMARK_NAME = "SPDR Gold Shares"
 OUTPUT_PATH = Path(__file__).resolve().parents[1] / "data" / "gold.json"
 YAHOO_CHART_URL = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 START_DATE = date(2024, 1, 1)
@@ -137,7 +137,7 @@ def compute_payload(etf_data: dict[str, tuple[pd.DataFrame, dict[str, Any]]], be
         merged = merged.merge(df, on="date", how="inner")
     merged = merged.sort_values("date")
     if merged.empty:
-        raise RuntimeError("No overlapping KGLD, IGLD, IAUI, and gold futures dates after alignment")
+        raise RuntimeError("No overlapping KGLD, IGLD, IAUI, and GLD dates after alignment")
 
     first = merged.iloc[0]
     prefixes = list(ETF_CONFIGS) + [BENCHMARK_PREFIX]
@@ -152,7 +152,7 @@ def compute_payload(etf_data: dict[str, tuple[pd.DataFrame, dict[str, Any]]], be
 
     last = merged.iloc[-1]
     latest_returns = {ETF_CONFIGS[prefix]["symbol"]: float(last[f"{prefix}_return_pct"]) for prefix in ETF_CONFIGS}
-    latest_returns["Gold futures"] = float(last[f"{BENCHMARK_PREFIX}_return_pct"])
+    latest_returns["GLD"] = float(last[f"{BENCHMARK_PREFIX}_return_pct"])
     leader = max(latest_returns, key=lambda key: latest_returns[key])
     runner_up = sorted(latest_returns.values(), reverse=True)[1]
     leader_margin = latest_returns[leader] - runner_up

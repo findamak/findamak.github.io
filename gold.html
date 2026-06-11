@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="KGLD, IGLD, and IAUI gold ETFs versus gold futures normalized performance comparison">
-  <title>KGLD/IGLD/IAUI Gold ETFs vs Gold Futures Performance</title>
+  <meta name="description" content="KGLD, IGLD, and IAUI gold ETFs versus GLD normalized performance comparison">
+  <title>KGLD/IGLD/IAUI Gold ETFs vs GLD Performance</title>
   <link rel="icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -144,6 +144,7 @@
         <a class="nav-cta" href="https://finance.yahoo.com/quote/KGLD" rel="noopener" target="_blank">Yahoo KGLD</a>
         <a class="nav-cta" href="https://finance.yahoo.com/quote/IGLD" rel="noopener" target="_blank">Yahoo IGLD</a>
         <a class="nav-cta" href="https://finance.yahoo.com/quote/IAUI" rel="noopener" target="_blank">Yahoo IAUI</a>
+        <a class="nav-cta" href="https://finance.yahoo.com/quote/GLD" rel="noopener" target="_blank">Yahoo GLD</a>
       </div>
     </nav>
   </header>
@@ -151,17 +152,17 @@
   <header class="hero-wrap">
     <div class="hero">
       <div>
-        <h1>KGLD/IGLD/IAUI Gold ETFs vs Gold Futures Performance</h1>
-        <p class="subtitle">Normalized daily performance from the first shared trading date. KGLD, IGLD, IAUI, and COMEX gold futures data comes from Yahoo Finance.</p>
+        <h1>KGLD/IGLD/IAUI Gold ETFs vs GLD Performance</h1>
+        <p class="subtitle">Normalized daily performance from the first shared trading date. KGLD, IGLD, IAUI, and GLD data comes from Yahoo Finance.</p>
       </div>
 
-      <aside class="card summary-card" aria-label="Latest KGLD, IGLD, IAUI, and gold futures performance summary">
+      <aside class="card summary-card" aria-label="Latest KGLD, IGLD, IAUI, and GLD performance summary">
         <div class="summary-item"><span class="label">Base date</span><span class="value" id="baseDate">Loading...</span></div>
         <div class="summary-item"><span class="label">Latest date</span><span class="value" id="latestDate">--</span></div>
         <div class="summary-item"><span class="label">KGLD return</span><span class="value" id="kgldReturn">--</span></div>
         <div class="summary-item"><span class="label">IGLD return</span><span class="value" id="igldReturn">--</span></div>
         <div class="summary-item"><span class="label">IAUI return</span><span class="value" id="iauiReturn">--</span></div>
-        <div class="summary-item"><span class="label">Gold futures return</span><span class="value" id="goldReturn">--</span></div>
+        <div class="summary-item"><span class="label">GLD return</span><span class="value" id="goldReturn">--</span></div>
         <div class="summary-item"><span class="label">Leader</span><span class="value" id="leader">--</span></div>
         <div class="summary-item"><span class="label">Last updated</span><span class="value" id="lastUpdated">--</span></div>
       </aside>
@@ -176,15 +177,15 @@
           <p>Each series starts at 0% on the first shared trading date, so the chart compares performance rather than price.</p>
         </div>
       </div>
-      <div id="chart" role="img" aria-label="KGLD, IGLD, IAUI, and gold futures normalized performance chart"></div>
+      <div id="chart" role="img" aria-label="KGLD, IGLD, IAUI, and GLD normalized performance chart"></div>
       <div class="legend" aria-label="Chart legend">
         <span style="--legend-color: var(--gold)">KGLD ETF</span>
         <span style="--legend-color: #38d9c6">IGLD ETF</span>
         <span style="--legend-color: #ff8a3d">IAUI ETF</span>
-        <span style="--legend-color: var(--accent)">Gold futures</span>
-        <span style="--legend-color: #c084fc">KGLD minus gold</span>
-        <span style="--legend-color: #94a3b8">IGLD minus gold</span>
-        <span style="--legend-color: #22c55e">IAUI minus gold</span>
+        <span style="--legend-color: var(--accent)">GLD ETF</span>
+        <span style="--legend-color: #c084fc">KGLD minus GLD</span>
+        <span style="--legend-color: #94a3b8">IGLD minus GLD</span>
+        <span style="--legend-color: #22c55e">IAUI minus GLD</span>
       </div>
     </section>
 
@@ -227,31 +228,31 @@
               <th>KGLD close</th>
               <th>IGLD close</th>
               <th>IAUI close</th>
-              <th>Gold futures close</th>
+              <th>GLD close</th>
               <th>KGLD return</th>
               <th>IGLD return</th>
               <th>IAUI return</th>
-              <th>Gold return</th>
-              <th>KGLD vs gold</th>
-              <th>IGLD vs gold</th>
-              <th>IAUI vs gold</th>
+              <th>GLD return</th>
+              <th>KGLD vs GLD</th>
+              <th>IGLD vs GLD</th>
+              <th>IAUI vs GLD</th>
             </tr>
           </thead>
           <tbody id="comparisonTable"></tbody>
         </table>
       </div>
-      <p class="note">Performance excludes distributions, taxes, fees, spreads, futures roll effects, and currency conversion effects. This page is informational only, not financial advice.</p>
+      <p class="note">Performance excludes distributions, taxes, fees, spreads, tracking error, and currency conversion effects. This page is informational only, not financial advice.</p>
     </section>
   </main>
 
   <footer>
-    KGLD, IGLD, IAUI, and COMEX gold futures source: Yahoo Finance.
+    KGLD, IGLD, IAUI, and GLD source: Yahoo Finance.
   </footer>
 
   <script>
     const percent = new Intl.NumberFormat('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const usd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    const futuresUsd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', maximumFractionDigits: 0 });
+    const benchmarkUsd = new Intl.NumberFormat('en-US', { style: 'currency', currency: 'USD', minimumFractionDigits: 2, maximumFractionDigits: 2 });
     const ETF_PREFIXES = ['kgld', 'igld', 'iaui'];
     const ETF_LABELS = { kgld: 'KGLD', igld: 'IGLD', iaui: 'IAUI' };
 
@@ -315,10 +316,10 @@
       const kgldSeries = addSeries(chart, 'KGLD ETF', '#f7c66f', 2, false);
       const igldSeries = addSeries(chart, 'IGLD ETF', '#38d9c6', 2, false);
       const iauiSeries = addSeries(chart, 'IAUI ETF', '#ff8a3d', 2, false);
-      const goldSeries = addSeries(chart, 'Gold futures', '#7c83ff', 2, false);
-      const kgldRelativeSeries = addSeries(chart, 'KGLD minus gold', '#c084fc', 1, true);
-      const igldRelativeSeries = addSeries(chart, 'IGLD minus gold', '#94a3b8', 1, true);
-      const iauiRelativeSeries = addSeries(chart, 'IAUI minus gold', '#22c55e', 1, true);
+      const goldSeries = addSeries(chart, 'GLD ETF', '#7c83ff', 2, false);
+      const kgldRelativeSeries = addSeries(chart, 'KGLD minus GLD', '#c084fc', 1, true);
+      const igldRelativeSeries = addSeries(chart, 'IGLD minus GLD', '#94a3b8', 1, true);
+      const iauiRelativeSeries = addSeries(chart, 'IAUI minus GLD', '#22c55e', 1, true);
 
       kgldSeries.setData(data.series.map(row => ({ time: row.date, value: row.kgld_return_pct })));
       igldSeries.setData(data.series.map(row => ({ time: row.date, value: row.igld_return_pct })));
@@ -364,7 +365,7 @@
           <td>${usd.format(row.kgld_close)}</td>
           <td>${usd.format(row.igld_close)}</td>
           <td>${usd.format(row.iaui_close)}</td>
-          <td>${futuresUsd.format(row.gold_close)}</td>
+          <td>${benchmarkUsd.format(row.gold_close)}</td>
           <td class="${row.kgld_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.kgld_return_pct)}</td>
           <td class="${row.igld_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.igld_return_pct)}</td>
           <td class="${row.iaui_return_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.iaui_return_pct)}</td>
