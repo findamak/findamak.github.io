@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 204.14,
+      "price": 204.0,
       "change": 0,
       "type": "stock"
     },
@@ -59,29 +59,29 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 107.29,
-      "change": -0.28,
+      "price": 107.24,
+      "change": -0.33,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 115.73,
-      "change": -0.63,
+      "price": 115.7,
+      "change": -0.65,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 69.37,
-      "change": -0.76,
+      "price": 69.34,
+      "change": -0.8,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 60.28,
-      "change": -0.74,
+      "price": 60.26,
+      "change": -0.77,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4110.2002,
-      "change": -3.52,
+      "price": 4114.0,
+      "change": -3.43,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 63.995,
-      "change": -1.69,
+      "price": 64.005,
+      "change": -1.67,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 94.59,
-      "change": 3.43,
+      "price": 94.6,
+      "change": 3.44,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 91.74,
-      "change": 4.01,
+      "price": 91.77,
+      "change": 4.05,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4277,
-      "change": 0.27,
+      "price": 1.4279,
+      "change": 0.28,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-11T12:25:17.504487"
+  "lastUpdated": "2026-06-11T12:30:17.232183"
 }
