@@ -3,9 +3,10 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 58.11,
-      "change": -1.81,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "CIFR",
@@ -45,8 +46,8 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 242.51,
-      "change": -1.52,
+      "price": 242.64,
+      "change": -1.46,
       "type": "stock"
     },
     {
@@ -143,38 +144,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4318.0,
-      "change": -0.94,
+      "price": 4314.8999,
+      "change": -1.01,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 68.77,
-      "change": -2.72,
+      "price": 68.745,
+      "change": -2.76,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 77.8,
-      "change": -2.2,
+      "price": 78.13,
+      "change": -1.79,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 74.22,
-      "change": -3.35,
+      "price": 74.44,
+      "change": -3.06,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4211,
-      "change": 0.41,
+      "price": 1.4213,
+      "change": 0.42,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-18T17:55:17.086470"
+  "lastUpdated": "2026-06-18T18:00:18.882975"
 }
