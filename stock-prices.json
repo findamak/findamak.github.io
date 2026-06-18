@@ -3,29 +3,29 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 60.19,
-      "change": 3.58,
+      "price": 59.95,
+      "change": 3.17,
       "type": "stock"
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 28.425,
-      "change": 7.87,
+      "price": 28.51,
+      "change": 8.2,
       "type": "stock"
     },
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1093.045,
-      "change": -1.7,
+      "price": 1092.51,
+      "change": -1.75,
       "type": "stock"
     },
     {
       "symbol": "BTCI",
       "name": "Neos Bitcoin High Income ETF",
-      "price": 28.87,
-      "change": -1.64,
+      "price": 28.8101,
+      "change": -1.84,
       "type": "stock"
     },
     {
@@ -45,14 +45,14 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 237.33,
-      "change": -3.62,
+      "price": 237.01,
+      "change": -3.75,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1612,
+      "price": 0.1614,
       "change": 0,
       "type": "stock"
     },
@@ -66,9 +66,10 @@
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 120.81,
-      "change": 0.19,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "IVV.AX",
@@ -87,94 +88,94 @@
     {
       "symbol": "GPIX",
       "name": "Goldman Sachs Income ETF",
-      "price": 55.405,
-      "change": 0.77,
+      "price": 55.38,
+      "change": 0.73,
       "type": "stock"
     },
     {
       "symbol": "QQQI",
       "name": "Neos Nasdaq 100 Income ETF",
-      "price": 56.615,
+      "price": 56.61,
       "change": 1.73,
       "type": "stock"
     },
     {
       "symbol": "STRC",
       "name": "Strategy STRC",
-      "price": 84.765,
-      "change": -4.76,
+      "price": 84.8,
+      "change": -4.72,
       "type": "stock"
     },
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 53.555,
-      "change": -2.04,
+      "price": 53.57,
+      "change": -2.01,
       "type": "stock"
     },
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": 657.3043,
-      "change": 5.34,
+      "price": 656.84,
+      "change": 5.27,
       "type": "stock"
     },
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 185.29,
-      "change": 5.64,
+      "price": 184.81,
+      "change": 5.36,
       "type": "stock"
     },
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 7485.8599,
-      "change": 0.89,
+      "price": 7482.9399,
+      "change": 0.85,
       "type": "index"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 30281.084,
-      "change": 2.06,
+      "price": 30275.3574,
+      "change": 2.04,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4265.8999,
-      "change": -2.13,
+      "price": 4262.1001,
+      "change": -2.22,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.265,
-      "change": -6.27,
+      "price": 66.255,
+      "change": -6.28,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 76.97,
-      "change": -3.24,
+      "price": 76.61,
+      "change": -3.7,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 73.21,
-      "change": -4.66,
+      "price": 72.86,
+      "change": -5.12,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4229,
-      "change": 0.53,
+      "price": 1.4225,
+      "change": 0.5,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-19T01:25:17.465204"
+  "lastUpdated": "2026-06-19T01:30:17.822645"
 }
