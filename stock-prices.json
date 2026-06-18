@@ -45,8 +45,8 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 234.95,
-      "change": -4.59,
+      "price": 234.91,
+      "change": -4.6,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4227.1001,
-      "change": -3.02,
+      "price": 4223.5,
+      "change": -3.11,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 65.77,
-      "change": -6.97,
+      "price": 65.68,
+      "change": -7.1,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 79.28,
-      "change": -0.34,
+      "price": 79.38,
+      "change": -0.21,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 75.42,
-      "change": -1.78,
+      "price": 75.59,
+      "change": -1.56,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-19T08:25:17.500183"
+  "lastUpdated": "2026-06-19T08:30:17.641461"
 }
