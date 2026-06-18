@@ -3,10 +3,9 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'NoneType' object is not subscriptable"
+      "price": 58.11,
+      "change": -1.81,
+      "type": "stock"
     },
     {
       "symbol": "CIFR",
@@ -46,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 242.64,
-      "change": -1.46,
+      "price": 242.36,
+      "change": -1.58,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1642,
-      "change": 0,
+      "price": 0.1641,
+      "change": 1.14,
       "type": "stock"
     },
     {
@@ -144,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4314.8999,
-      "change": -1.01,
+      "price": 4311.1001,
+      "change": -1.1,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 68.745,
-      "change": -2.76,
+      "price": 68.675,
+      "change": -2.86,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 78.13,
-      "change": -1.79,
+      "price": 78.02,
+      "change": -1.92,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 74.44,
-      "change": -3.06,
+      "price": 74.32,
+      "change": -3.22,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4213,
-      "change": 0.42,
+      "price": 1.4217,
+      "change": 0.45,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-18T18:00:18.882975"
+  "lastUpdated": "2026-06-18T18:05:22.119097"
 }
