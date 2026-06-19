@@ -3,178 +3,203 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 59.96,
-      "change": 3.18,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 29.18,
-      "change": 10.74,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1098.57,
-      "change": -1.21,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "BTCI",
       "name": "Neos Bitcoin High Income ETF",
-      "price": 28.67,
-      "change": -2.32,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 8.86,
-      "change": 0,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 18.08,
-      "change": -1.42,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 228.1,
-      "change": 0,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1571,
-      "change": 0,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.67,
-      "change": -1.13,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 120.29,
-      "change": -0.43,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 71.17,
-      "change": 0.39,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 63.6,
-      "change": 0.98,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "GPIX",
       "name": "Goldman Sachs Income ETF",
-      "price": 55.5,
-      "change": 0.95,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "QQQI",
       "name": "Neos Nasdaq 100 Income ETF",
-      "price": 56.75,
-      "change": 1.98,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "STRC",
       "name": "Strategy STRC",
-      "price": 88.59,
-      "change": -0.46,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 53.77,
-      "change": -1.65,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": 659.88,
-      "change": 5.76,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 194.92,
-      "change": 11.13,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 7500.58,
-      "change": 1.08,
-      "type": "index"
+      "price": null,
+      "change": null,
+      "type": "index",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 30406.193,
-      "change": 2.48,
-      "type": "index"
+      "price": null,
+      "change": null,
+      "type": "index",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4158.3999,
-      "change": -1.56,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 63.93,
-      "change": -3.51,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 79.57,
-      "change": -0.35,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 75.67,
-      "change": -1.21,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4293,
-      "change": 0.31,
-      "type": "forex"
+      "price": null,
+      "change": null,
+      "type": "forex",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     }
   ],
-  "lastUpdated": "2026-06-19T14:50:31.894547"
+  "lastUpdated": "2026-06-19T14:53:30.388128"
 }
