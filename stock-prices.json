@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 233.37,
+      "price": 231.9,
       "change": 0,
       "type": "stock"
     },
@@ -59,22 +59,22 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.94,
-      "change": -0.88,
+      "price": 109.87,
+      "change": -0.95,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 120.68,
-      "change": -0.11,
+      "price": 120.79,
+      "change": -0.02,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 71.11,
-      "change": 0.31,
+      "price": 71.14,
+      "change": 0.35,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4224.1001,
-      "change": 0,
+      "price": 4186.0,
+      "change": -3.97,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.255,
-      "change": 0,
+      "price": 64.45,
+      "change": -8.84,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 79.85,
+      "price": 79.55,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 76.6,
-      "change": 0,
+      "price": 75.68,
+      "change": -1.45,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4259,
-      "change": 0.08,
+      "price": 1.4265,
+      "change": 0.12,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-19T13:10:17.478335"
+  "lastUpdated": "2026-06-19T13:15:17.929204"
 }
