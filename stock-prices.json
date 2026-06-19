@@ -31,7 +31,7 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 8.93,
+      "price": 8.92,
       "change": 0,
       "type": "stock"
     },
@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 234.08,
+      "price": 233.35,
       "change": 0,
       "type": "stock"
     },
@@ -59,15 +59,15 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.88,
-      "change": -0.94,
+      "price": 109.81,
+      "change": -1.0,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 120.83,
-      "change": 0.02,
+      "price": 120.71,
+      "change": -0.08,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 63.74,
-      "change": 1.21,
+      "price": 63.73,
+      "change": 1.19,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4203.0,
-      "change": -3.58,
+      "price": 4200.6001,
+      "change": -3.63,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 65.055,
-      "change": -7.98,
+      "price": 64.88,
+      "change": -8.23,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 79.58,
-      "change": 0.04,
+      "price": 79.6,
+      "change": 0.06,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 75.67,
-      "change": -1.46,
+      "price": 75.7,
+      "change": -1.42,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4266,
-      "change": 0.13,
+      "price": 1.4268,
+      "change": 0.14,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-19T12:15:18.610528"
+  "lastUpdated": "2026-06-19T12:20:17.620527"
 }
