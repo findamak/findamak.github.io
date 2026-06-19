@@ -6,7 +6,7 @@
       "price": null,
       "change": null,
       "type": "stock",
-      "error": "Too Many Requests. Rate limited. Try after a while."
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "CIFR",
@@ -22,7 +22,7 @@
       "price": null,
       "change": null,
       "type": "stock",
-      "error": "Too Many Requests. Rate limited. Try after a while."
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "BTCI",
@@ -38,7 +38,7 @@
       "price": null,
       "change": null,
       "type": "stock",
-      "error": "Too Many Requests. Rate limited. Try after a while."
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "VBTC.AX",
@@ -54,7 +54,7 @@
       "price": null,
       "change": null,
       "type": "stock",
-      "error": "Too Many Requests. Rate limited. Try after a while."
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "CC37263-USD",
@@ -70,7 +70,7 @@
       "price": null,
       "change": null,
       "type": "stock",
-      "error": "Too Many Requests. Rate limited. Try after a while."
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "VEU.AX",
@@ -86,7 +86,7 @@
       "price": null,
       "change": null,
       "type": "stock",
-      "error": "Too Many Requests. Rate limited. Try after a while."
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "NDQ.AX",
@@ -102,7 +102,7 @@
       "price": null,
       "change": null,
       "type": "stock",
-      "error": "Too Many Requests. Rate limited. Try after a while."
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "QQQI",
@@ -118,7 +118,7 @@
       "price": null,
       "change": null,
       "type": "stock",
-      "error": "Too Many Requests. Rate limited. Try after a while."
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "XLE",
@@ -195,10 +195,11 @@
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.43,
-      "change": 0.36,
-      "type": "forex"
+      "price": null,
+      "change": null,
+      "type": "forex",
+      "error": "'NoneType' object is not subscriptable"
     }
   ],
-  "lastUpdated": "2026-06-19T15:09:41.919129"
+  "lastUpdated": "2026-06-19T15:14:11.838243"
 }
