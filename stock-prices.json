@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 227.34,
+      "price": 227.95,
       "change": 0,
       "type": "stock"
     },
@@ -150,9 +150,10 @@
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 64.91,
-      "change": -2.03,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "BZ",
@@ -176,5 +177,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-20T13:40:16.524397"
+  "lastUpdated": "2026-06-20T13:45:17.582039"
 }
