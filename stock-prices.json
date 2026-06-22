@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 234.8,
-      "change": 2.74,
+      "price": 235.0,
+      "change": 2.83,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.1505,
-      "change": 0.43,
+      "change": 0.44,
       "type": "stock"
     },
     {
@@ -143,38 +143,39 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4226.3999,
+      "price": 4223.5,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.52,
+      "price": 66.47,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 78.53,
+      "price": 78.55,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 74.62,
+      "price": 74.58,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4262,
-      "change": 0.02,
-      "type": "forex"
+      "price": null,
+      "change": null,
+      "type": "forex",
+      "error": "'NoneType' object is not subscriptable"
     }
   ],
-  "lastUpdated": "2026-06-22T22:40:16.328673"
+  "lastUpdated": "2026-06-22T22:45:26.557494"
 }
