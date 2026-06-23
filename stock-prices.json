@@ -31,7 +31,7 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 9.0,
+      "price": 8.99,
       "change": 0,
       "type": "stock"
     },
@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 227.7,
+      "price": 227.8,
       "change": 0,
       "type": "stock"
     },
@@ -115,9 +115,10 @@
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": 668.91,
-      "change": 1.37,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "GLW",
@@ -143,14 +144,14 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4208.2998,
+      "price": 4205.5,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 65.025,
+      "price": 65.0,
       "change": 0,
       "type": "commodity"
     },
@@ -164,17 +165,17 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 74.12,
+      "price": 74.17,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4293,
-      "change": 0.09,
+      "price": 1.4299,
+      "change": 0.13,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-23T10:00:18.256400"
+  "lastUpdated": "2026-06-23T10:05:16.439570"
 }
