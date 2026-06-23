@@ -14,15 +14,15 @@ X_USERS=(
     "jvisserlabs"
     #"MelMattison1"
     "TimmerFidelity"
-    "NoLimitGains"
+    #"NoLimitGains"
     "_Checkmatey_"
     "MarkNewtonCMT"
-    #"RyanDetrick"
+    "RyanDetrick"
     "TechCharts"
     "PeterLBrandt"
     "LynAldenContact"
     "SullyMichaelvan"
-    "porterstansb"
+    #"porterstansb"
 )
 
 OUTPUT_FILE="/home/amak/findamak.github.io/x-feed.json"
