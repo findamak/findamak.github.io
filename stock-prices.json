@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 219.49,
-      "change": -0.44,
+      "price": 219.51,
+      "change": -0.43,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1508,
-      "change": -0.56,
+      "price": 0.1507,
+      "change": -0.64,
       "type": "stock"
     },
     {
@@ -87,37 +87,42 @@
     {
       "symbol": "GPIX",
       "name": "Goldman Sachs Income ETF",
-      "price": 54.64,
-      "change": -1.3,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "QQQI",
       "name": "Neos Nasdaq 100 Income ETF",
-      "price": 55.14,
-      "change": -2.87,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "STRC",
       "name": "Strategy STRC",
-      "price": 87.31,
-      "change": -1.67,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 54.46,
-      "change": 0.74,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": 622.05,
-      "change": -7.01,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "GLW",
@@ -143,38 +148,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4079.6001,
-      "change": -1.22,
+      "price": 4072.8,
+      "change": -1.38,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 60.915,
-      "change": -1.78,
+      "price": 60.62,
+      "change": -2.26,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 75.59,
-      "change": -1.93,
+      "price": 75.57,
+      "change": -1.96,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 71.81,
-      "change": -1.91,
+      "price": 71.79,
+      "change": -1.94,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4511,
-      "change": 1.48,
+      "price": 1.4508,
+      "change": 1.46,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-24T21:00:16.188048"
+  "lastUpdated": "2026-06-24T21:06:12.272446"
 }
