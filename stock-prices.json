@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 212.1,
-      "change": -3.28,
+      "price": 211.7,
+      "change": -3.47,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1485,
-      "change": -1.73,
+      "price": 0.1489,
+      "change": -1.45,
       "type": "stock"
     },
     {
@@ -115,10 +115,9 @@
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'NoneType' object is not subscriptable"
+      "price": 636.88,
+      "change": 2.9,
+      "type": "stock"
     },
     {
       "symbol": "GLW",
@@ -177,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-26T07:35:17.840823"
+  "lastUpdated": "2026-06-26T07:40:17.764988"
 }
