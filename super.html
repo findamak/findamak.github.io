@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Australian superannuation tax brackets for accumulation and pension phases">
+  <title>Australian Super Tax Brackets</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06070a;
+      --surface: rgba(255, 255, 255, 0.045);
+      --surface-strong: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f5f7fb;
+      --muted: #a8b0c2;
+      --subtle: #697184;
+      --accent: #7c83ff;
+      --accent-2: #38d9c6;
+      --accent-3: #f7c66f;
+      --danger: #ff6b8a;
+      --success: #38d9c6;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius: 24px;
+      --max-width: 1120px;
+      --transition: 180ms ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(56, 217, 198, 0.18), transparent 34rem),
+        radial-gradient(circle at 85% 12%, rgba(124, 131, 255, 0.13), transparent 28rem),
+        radial-gradient(circle at 50% 100%, rgba(247, 198, 111, 0.08), transparent 36rem),
+        var(--bg);
+      overflow-x: hidden;
+      font-feature-settings: "cv01", "ss03";
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 72%);
+      z-index: -1;
+    }
+    a { color: inherit; }
+    h1, h2, h3 { color: var(--text); letter-spacing: -0.04em; line-height: 1.05; }
+    h1 { font-size: clamp(3.2rem, 8vw, 6.8rem); font-weight: 700; margin: 0; }
+    h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 650; }
+    h3 { font-size: clamp(1.15rem, 3vw, 1.45rem); font-weight: 650; letter-spacing: -0.02em; }
+    p { color: var(--muted); font-size: 1.02rem; }
+
+    .site-header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(18px); background: rgba(6, 7, 10, 0.72); border-bottom: 1px solid var(--border); }
+    .nav { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; letter-spacing: -0.03em; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(135deg, rgba(56, 217, 198, 0.95), rgba(124, 131, 255, 0.9)); color: #05060a; box-shadow: 0 14px 38px rgba(56, 217, 198, 0.22); }
+    .nav-links { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 600; padding: 9px 13px; border: 1px solid transparent; border-radius: 999px; transition: color var(--transition), background var(--transition), border-color var(--transition), transform var(--transition); }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); background: var(--surface); border-color: var(--border); outline: none; }
+    .nav-links .nav-cta { color: #090b11; background: linear-gradient(135deg, var(--accent-2), var(--accent)); border-color: transparent; box-shadow: 0 10px 28px rgba(56, 217, 198, 0.22); }
+
+    .hero-wrap, main, footer { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; }
+    .hero-wrap { padding: 72px 0 34px; }
+    .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr); gap: 28px; align-items: stretch; padding: clamp(34px, 6vw, 64px); border: 1px solid var(--border); border-radius: calc(var(--radius) + 10px); background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03)); box-shadow: var(--shadow); }
+    .hero::before, .hero::after { content: ''; position: absolute; border-radius: 999px; filter: blur(12px); opacity: 0.8; pointer-events: none; }
+    .hero::before { width: 320px; height: 320px; top: -160px; right: -120px; background: rgba(56, 217, 198, 0.22); }
+    .hero::after { width: 260px; height: 260px; left: -120px; bottom: -140px; background: rgba(124, 131, 255, 0.17); }
+    .hero > * { position: relative; z-index: 1; }
+    .subtitle { max-width: 760px; font-size: 1.08rem; margin-top: 22px; }
+    main { padding: 18px 0 82px; }
+    section { margin: 28px 0; }
+
+    .card { border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.026)); box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24); backdrop-filter: blur(14px); border-radius: var(--radius); }
+    .section-card { padding: clamp(18px, 3vw, 30px); }
+    .summary-card { padding: 24px; display: grid; gap: 14px; align-content: center; }
+    .summary-item { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .summary-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .label, .note, .source-list, .tag { color: var(--muted); }
+    .value { font-weight: 700; color: var(--text); text-align: right; }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+    .tag { display: inline-flex; align-items: center; border: 1px solid var(--border); border-radius: 999px; padding: 7px 11px; background: rgba(255,255,255,0.04); font-size: 0.86rem; font-weight: 600; }
+
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .section-heading p { margin-top: 8px; max-width: 820px; }
+    .grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+    .mini-card { padding: 20px; border-radius: 18px; border: 1px solid var(--border); background: rgba(255,255,255,0.035); }
+    .mini-card .big { display: block; margin-top: 8px; font-size: 1.8rem; font-weight: 700; color: var(--text); letter-spacing: -0.04em; }
+    .mini-card .small { color: var(--muted); font-size: 0.92rem; }
+
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
+    th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255, 255, 255, 0.045); font-weight: 700; text-align: left; white-space: nowrap; }
+    tr:last-child td { border-bottom: 0; }
+    td:first-child { font-weight: 700; color: var(--text); }
+    .nowrap { white-space: nowrap; }
+    .positive { color: var(--success); font-weight: 700; }
+    .warning { color: var(--accent-3); font-weight: 700; }
+    .danger { color: var(--danger); font-weight: 700; }
+    .source-list { padding-left: 1.2rem; margin-top: 12px; }
+    .source-list a { color: var(--accent-2); text-decoration: none; }
+    .source-list a:hover { text-decoration: underline; }
+    .note { margin-top: 14px; font-size: 0.94rem; }
+    footer { padding: 30px 0 46px; color: var(--muted); font-size: 0.9rem; text-align: center; }
+
+    @media (max-width: 820px) {
+      .nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .hero { grid-template-columns: 1fr; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+      .grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="Super tax page navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">AM</span>
+        <span>Allan Mak</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="btc.html">BTC Crosses</a>
+        <a href="btci.html">BTCI</a>
+        <a href="gold.html">Gold ETFs</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a class="nav-cta" href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds" rel="noopener" target="_blank">ATO super thresholds</a>
+      </div>
+    </nav>
+  </header>
+
+  <header class="hero-wrap">
+    <div class="hero">
+      <div>
+        <h1>Australian Super Tax Brackets</h1>
+        <p class="subtitle">A practical FY2025-26 reference for accumulation phase, retirement/pension phase, transfer balance cap limits, long-term capital gains treatment, and withdrawal taxes for ordinary taxed super funds.</p>
+        <div class="tag-row" aria-label="Scope tags">
+          <span class="tag">FY2025-26</span>
+          <span class="tag">Taxed funds / SMSFs</span>
+          <span class="tag">Accumulation vs pension</span>
+          <span class="tag">Not personal advice</span>
+        </div>
+      </div>
+
+      <aside class="card summary-card" aria-label="Key FY2025-26 super thresholds">
+        <div class="summary-item"><span class="label">General transfer balance cap</span><span class="value">$2.0m</span></div>
+        <div class="summary-item"><span class="label">NCC annual cap</span><span class="value">$120k</span></div>
+        <div class="summary-item"><span class="label">Max NCC bring-forward</span><span class="value">$360k</span></div>
+        <div class="summary-item"><span class="label">Low-rate lump sum cap</span><span class="value">$260k</span></div>
+        <div class="summary-item"><span class="label">Division 293 threshold</span><span class="value">$250k</span></div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Fast summary</h2>
+          <p>The big distinction is phase: accumulation earnings are concessionally taxed, while retirement-phase assets supporting an account-based pension are generally tax-free up to the transfer balance cap.</p>
+        </div>
+      </div>
+      <div class="grid">
+        <div class="mini-card">
+          <span class="small">Accumulation income</span>
+          <span class="big">15%</span>
+          <p class="small">Fund earnings while saving for retirement.</p>
+        </div>
+        <div class="mini-card">
+          <span class="small">Accumulation long-term CGT</span>
+          <span class="big">10%</span>
+          <p class="small">Effective rate after the super fund 1/3 CGT discount.</p>
+        </div>
+        <div class="mini-card">
+          <span class="small">Pension phase earnings</span>
+          <span class="big">0%</span>
+          <p class="small">For assets supporting retirement phase up to the cap.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Super balance and phase treatment</h2>
+          <p>These brackets combine the transfer balance cap and non-concessional contribution rules. Total super balance affects contribution eligibility; the transfer balance cap affects how much can sit in retirement phase.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Balance / amount bucket</th>
+              <th>Phase treatment</th>
+              <th>Earnings tax</th>
+              <th>Long-term CGT treatment</th>
+              <th>Withdrawal treatment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>$0 to $1.76m total super balance</td>
+              <td>Accumulation or pension-ready. Full 3-year non-concessional bring-forward may be available if otherwise eligible.</td>
+              <td>Accumulation: <span class="warning">15%</span>. Pension phase: <span class="positive">0%</span>.</td>
+              <td>Accumulation: <span class="warning">10%</span> effective after 1/3 CGT discount. Pension phase: <span class="positive">0%</span>.</td>
+              <td>Depends on age and component; see withdrawal table.</td>
+            </tr>
+            <tr>
+              <td>$1.76m to less than $1.88m TSB</td>
+              <td>Accumulation or pension-ready. 2-year non-concessional bring-forward may be available.</td>
+              <td>Accumulation: <span class="warning">15%</span>. Pension phase: <span class="positive">0%</span> up to transfer balance cap.</td>
+              <td>Accumulation: <span class="warning">10%</span> effective. Pension phase: <span class="positive">0%</span>.</td>
+              <td>Depends on age and component; see withdrawal table.</td>
+            </tr>
+            <tr>
+              <td>$1.88m to less than $2.0m TSB</td>
+              <td>Annual non-concessional cap only; no multi-year bring-forward.</td>
+              <td>Accumulation: <span class="warning">15%</span>. Pension phase: <span class="positive">0%</span> up to transfer balance cap.</td>
+              <td>Accumulation: <span class="warning">10%</span> effective. Pension phase: <span class="positive">0%</span>.</td>
+              <td>Depends on age and component; see withdrawal table.</td>
+            </tr>
+            <tr>
+              <td>$2.0m TSB and above</td>
+              <td>At or above the general transfer balance cap. Non-concessional contribution cap is nil if prior 30 June TSB is at or above the general transfer balance cap.</td>
+              <td>Pension phase: <span class="positive">0%</span> only for assets supporting retirement phase up to personal cap. Excess remains accumulation: <span class="warning">15%</span>.</td>
+              <td>Pension phase: <span class="positive">0%</span> up to cap. Excess accumulation assets: <span class="warning">10%</span> effective on gains held over 12 months.</td>
+              <td>Depends on age and component. Excess transfer balance tax may apply to notional earnings if too much is transferred to retirement phase.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Fund tax by phase</h2>
+          <p>Ordinary taxed super funds get concessional rates in accumulation and an earnings exemption for retirement-phase pension assets.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Accumulation phase</th>
+              <th>Retirement / pension phase</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Ordinary investment income</td>
+              <td><span class="warning">15%</span></td>
+              <td><span class="positive">0%</span> on assets supporting pension phase</td>
+            </tr>
+            <tr>
+              <td>Short-term capital gains</td>
+              <td><span class="warning">15%</span></td>
+              <td><span class="positive">0%</span> on assets supporting pension phase</td>
+            </tr>
+            <tr>
+              <td>Capital gains held more than 12 months</td>
+              <td><span class="warning">10%</span> effective rate after 1/3 CGT discount</td>
+              <td><span class="positive">0%</span> on assets supporting pension phase</td>
+            </tr>
+            <tr>
+              <td>Concessional contributions</td>
+              <td><span class="warning">15%</span> contributions tax; Division 293 can add another 15% for high income earners</td>
+              <td>Usually not relevant after retirement, but the same contribution tax rules apply if contributions are made</td>
+            </tr>
+            <tr>
+              <td>Non-concessional contributions</td>
+              <td><span class="positive">0%</span> contribution tax if within cap</td>
+              <td><span class="positive">0%</span> contribution tax if eligible and within cap</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Non-concessional contribution brackets</h2>
+          <p>For FY2025-26, the annual non-concessional cap is $120,000. Bring-forward access is based on total super balance immediately before the financial year.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Total super balance on prior 30 June</th>
+              <th>Non-concessional cap / bring-forward access</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Less than $1.76m</td>
+              <td>Up to <span class="positive">$360k</span> over 3 years, if otherwise eligible.</td>
+            </tr>
+            <tr>
+              <td>$1.76m to less than $1.88m</td>
+              <td>Up to <span class="positive">$240k</span> over 2 years.</td>
+            </tr>
+            <tr>
+              <td>$1.88m to less than $2.0m</td>
+              <td><span class="warning">$120k</span> annual cap only.</td>
+            </tr>
+            <tr>
+              <td>$2.0m or more</td>
+              <td><span class="danger">Nil</span> non-concessional cap.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Withdrawal tax from a taxed super fund</h2>
+          <p>Withdrawal tax depends on age, tax-free versus taxable components, and whether the benefit is paid as a lump sum or pension income stream.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Age / condition</th>
+              <th>Lump sum withdrawals</th>
+              <th>Pension / income stream withdrawals</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Age 60 or over</td>
+              <td>Taxed element is generally <span class="positive">tax-free</span> / non-assessable non-exempt.</td>
+              <td>Taxed element is generally <span class="positive">tax-free</span> / non-assessable non-exempt.</td>
+            </tr>
+            <tr>
+              <td>Preservation age to 59</td>
+              <td>Tax-free component is tax-free. Taxable component, taxed element: <span class="positive">0%</span> up to the $260k lifetime low-rate cap; <span class="warning">15%</span> above cap, plus Medicare levy.</td>
+              <td>Tax-free component is tax-free. Taxable component, taxed element: marginal rates with a <span class="positive">15%</span> tax offset.</td>
+            </tr>
+            <tr>
+              <td>Under preservation age</td>
+              <td>Tax-free component is tax-free. Taxable component, taxed element: <span class="danger">20%</span> plus Medicare levy.</td>
+              <td>Tax-free component is tax-free. Taxable component, taxed element: marginal rates, generally no 15% offset unless disability super benefit rules apply.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="note">Untaxed schemes, defined benefit pensions, death benefits, temporary residents, and excess contribution releases can have different tax treatment.</p>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>Sources and caveats</h2>
+          <p>This page is a compact reference, not personal tax or financial advice. Check the current ATO guidance and your own personal transfer balance cap before acting.</p>
+        </div>
+      </div>
+      <ul class="source-list">
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/transfer-balance-cap" rel="noopener" target="_blank">ATO transfer balance cap</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/contributions-caps" rel="noopener" target="_blank">ATO contribution caps</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/payments-from-super" rel="noopener" target="_blank">ATO payments from super</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-income-stream-tax-tables" rel="noopener" target="_blank">ATO super income stream tax tables</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/division-293-tax" rel="noopener" target="_blank">ATO Division 293 tax</a></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <p>Australian superannuation tax reference for FY2025-26. Verify against ATO guidance before using for decisions.</p>
+  </footer>
+</body>
+</html>
