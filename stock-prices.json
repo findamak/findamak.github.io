@@ -10,9 +10,10 @@
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 25.94,
-      "change": 1.01,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "LLY",
@@ -45,15 +46,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 213.92,
-      "change": 0.84,
+      "price": 214.44,
+      "change": 1.08,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.1512,
-      "change": 1.05,
+      "change": 1.03,
       "type": "stock"
     },
     {
@@ -176,5 +177,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-27T09:10:16.798838"
+  "lastUpdated": "2026-06-27T09:15:16.892255"
 }
