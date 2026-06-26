@@ -45,22 +45,22 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 206.57,
+      "price": 206.25,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.148,
+      "price": 0.1476,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.02,
-      "change": 0.11,
+      "price": 109.12,
+      "change": 0.2,
       "type": "stock"
     },
     {
@@ -73,15 +73,15 @@
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 70.98,
-      "change": -0.96,
+      "price": 70.95,
+      "change": -1.0,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 62.47,
-      "change": -2.01,
+      "price": 62.43,
+      "change": -2.07,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4030.8999,
-      "change": 1.02,
+      "price": 4030.3,
+      "change": 1.0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 56.96,
-      "change": -1.88,
+      "price": 56.77,
+      "change": -2.21,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 74.78,
-      "change": 1.41,
+      "price": 74.79,
+      "change": 1.42,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 71.18,
-      "change": 1.19,
+      "price": 71.25,
+      "change": 1.29,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4521,
-      "change": 0.19,
+      "price": 1.4538,
+      "change": 0.31,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-26T12:20:17.708579"
+  "lastUpdated": "2026-06-26T12:25:18.054279"
 }
