@@ -376,7 +376,7 @@
           var marketPreGain = Math.max(0, transitionMarketValue - costBasis);
           var marketPostGain = Math.max(0, saleAmount - transitionMarketValue);
           var marketPreTaxableGain = marketPreGain * (eligibleForDiscount ? 0.5 : 1);
-          var marketCpiExemptAmount = Math.max(0, marketPostGain * averageCpi * postYears);
+          var marketCpiExemptAmount = Math.max(0, transitionMarketValue * averageCpi * postYears);
           var marketPostTaxableGain = Math.max(0, marketPostGain - marketCpiExemptAmount);
           marketTaxableGain = marketPreTaxableGain + marketPostTaxableGain;
           marketTax = (marketPreTaxableGain * marginalTaxRate) + (marketPostTaxableGain * postTransitionTaxRate);
@@ -403,7 +403,7 @@
         setText('newTaxableGain', money(newTaxableGain));
         setText('newTax', money(newTax));
         if (marketTax !== null) {
-          setText('marketTreatment', 'Market value ' + money(transitionMarketValue) + '; post-sale gain CPI');
+          setText('marketTreatment', 'Market value ' + money(transitionMarketValue) + ' indexed for post-2027 CPI');
           setText('marketTaxableGain', money(marketTaxableGain));
           setText('marketTax', money(marketTax));
         } else {
