@@ -184,20 +184,20 @@
         <form class="form-grid" id="cgtForm">
           <div class="field">
             <label for="buyDate">Buy date</label>
-            <input id="buyDate" name="buyDate" type="date" value="2020-01-01" required>
+            <input id="buyDate" name="buyDate" type="date" required>
           </div>
           <div class="field">
             <label for="costBasis">Cost basis</label>
-            <input id="costBasis" name="costBasis" type="number" min="0" step="100" value="500000" required>
+            <input id="costBasis" name="costBasis" type="number" min="0" step="100" required>
             <div class="hint">Include purchase price and any costs you want modelled as part of the cost base.</div>
           </div>
           <div class="field">
             <label for="sellDate">Sell date</label>
-            <input id="sellDate" name="sellDate" type="date" value="2029-01-01" required>
+            <input id="sellDate" name="sellDate" type="date" required>
           </div>
           <div class="field">
             <label for="saleAmount">Total sale amount</label>
-            <input id="saleAmount" name="saleAmount" type="number" min="0" step="100" value="1000000" required>
+            <input id="saleAmount" name="saleAmount" type="number" min="0" step="100" required>
           </div>
           <div class="field">
             <label for="transitionMarketValue">Asset value on 1 July 2027 (optional)</label>
@@ -206,12 +206,12 @@
           </div>
           <div class="field">
             <label for="marginalTaxRate">Marginal tax rate</label>
-            <input id="marginalTaxRate" name="marginalTaxRate" type="number" min="0" max="100" step="0.1" value="47" required>
+            <input id="marginalTaxRate" name="marginalTaxRate" type="number" min="0" max="100" step="0.1" required>
             <div class="hint">Enter the effective marginal rate you want to test, including Medicare levy if desired.</div>
           </div>
           <div class="field">
             <label for="averageCpi">Average annual CPI</label>
-            <input id="averageCpi" name="averageCpi" type="number" min="-10" max="20" step="0.1" value="2.5" required>
+            <input id="averageCpi" name="averageCpi" type="number" min="-10" max="20" step="0.1" required>
           </div>
           <div class="button-row">
             <button class="primary" type="submit">Calculate</button>
@@ -298,12 +298,21 @@
       var form = document.getElementById('cgtForm');
       var errorBox = document.getElementById('errorBox');
       var resetButton = document.getElementById('resetExample');
-      var defaults = {
+      var blankValues = {
+        buyDate: '',
+        costBasis: '',
+        sellDate: '',
+        saleAmount: '',
+        transitionMarketValue: '',
+        marginalTaxRate: '',
+        averageCpi: ''
+      };
+      var exampleValues = {
         buyDate: '2020-01-01',
         costBasis: '500000',
         sellDate: '2029-01-01',
         saleAmount: '1000000',
-        transitionMarketValue: '',
+        transitionMarketValue: '750000',
         marginalTaxRate: '47',
         averageCpi: '2.5'
       };
@@ -325,6 +334,10 @@
       function setError(message) {
         errorBox.textContent = message;
         errorBox.style.display = message ? 'block' : 'none';
+      }
+      function resetResults() {
+        ['lowerMethod', 'taxDifference', 'nominalGain', 'oldCostBase', 'oldTaxableGain', 'oldTax', 'oldEffectiveRate', 'newCostBase', 'newTaxableGain', 'newTax', 'newEffectiveRate', 'marketTaxableGain', 'marketTax', 'marketEffectiveRate'].forEach(function (id) { setText(id, '--'); });
+        setText('marketTreatment', 'Enter 1 July 2027 value to calculate');
       }
       function daysBetween(start, end) {
         return Math.round((end.getTime() - start.getTime()) / 86400000);
@@ -400,7 +413,7 @@
         var difference = highestTax - methods[0].tax;
 
         setText('lowerMethod', lowerMethod);
-        setText('taxDifference', money(difference));
+        setText('taxDifference', money(difference) + ' high-low spread');
         setText('nominalGain', money(nominalGain));
         setText('oldCostBase', eligibleForDiscount ? '50% discount on whole gain' : 'No discount');
         setText('oldTaxableGain', money(oldTaxableGain));
@@ -425,10 +438,11 @@
 
       form.addEventListener('submit', calculate);
       resetButton.addEventListener('click', function () {
-        Object.keys(defaults).forEach(function (key) { byId(key).value = defaults[key]; });
+        Object.keys(exampleValues).forEach(function (key) { byId(key).value = exampleValues[key]; });
         calculate();
       });
-      calculate();
+      Object.keys(blankValues).forEach(function (key) { byId(key).value = blankValues[key]; });
+      resetResults();
     })();
   </script>
 </body>
