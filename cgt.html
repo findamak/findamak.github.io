@@ -98,7 +98,7 @@
 
     .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
     .section-heading p { color: var(--muted); }
-    .calculator-grid { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 24px; align-items: start; }
+    .calculator-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
     .form-grid { display: grid; gap: 16px; }
     .field { display: grid; gap: 7px; }
     label { color: var(--muted); font-weight: 650; font-size: 0.92rem; }
@@ -213,11 +213,10 @@
             <button class="secondary" type="button" id="resetExample">Reset example</button>
           </div>
           <div class="error" id="errorBox"></div>
-        </form>
 
-        <div class="results" aria-live="polite">
-          <div class="result-card">
-            <h3>Headline result</h3>
+          <div class="results" aria-live="polite">
+            <div class="result-card">
+              <h3>Headline result</h3>
             <div class="metric-grid">
               <div class="metric"><span>Lower tax method</span><strong id="lowerMethod">--</strong></div>
               <div class="metric"><span>Tax difference</span><strong id="taxDifference">--</strong></div>
@@ -255,7 +254,8 @@
               </table>
             </div>
           </div>
-        </div>
+          </div>
+        </form>
       </div>
     </section>
 
