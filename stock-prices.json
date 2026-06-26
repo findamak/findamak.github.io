@@ -17,15 +17,15 @@
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1207.8199,
-      "change": 7.11,
+      "price": 1206.51,
+      "change": 6.99,
       "type": "stock"
     },
     {
       "symbol": "BTCI",
       "name": "Neos Bitcoin High Income ETF",
-      "price": 27.27,
-      "change": 0.96,
+      "price": 27.265,
+      "change": 0.94,
       "type": "stock"
     },
     {
@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 213.19,
-      "change": 0.49,
+      "price": 213.35,
+      "change": 0.57,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.152,
-      "change": 1.56,
+      "change": 1.57,
       "type": "stock"
     },
     {
@@ -80,101 +80,115 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 62.06,
-      "change": -2.65,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "GPIX",
       "name": "Goldman Sachs Income ETF",
-      "price": 54.5,
-      "change": -0.22,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "QQQI",
       "name": "Neos Nasdaq 100 Income ETF",
-      "price": 54.69,
-      "change": -1.16,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "STRC",
       "name": "Strategy STRC",
-      "price": 74.57,
-      "change": -1.48,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 53.84,
-      "change": -0.46,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": 611.61,
-      "change": -3.97,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 221.05,
-      "change": -3.05,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 7354.02,
-      "change": -0.05,
-      "type": "index"
+      "price": null,
+      "change": null,
+      "type": "index",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 29118.2383,
-      "change": -1.09,
-      "type": "index"
+      "price": null,
+      "change": null,
+      "type": "index",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4085.5,
-      "change": 1.36,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 59.27,
-      "change": 1.58,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 72.71,
-      "change": -3.39,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 69.39,
-      "change": -3.52,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4492,
-      "change": -0.01,
-      "type": "forex"
+      "price": null,
+      "change": null,
+      "type": "forex",
+      "error": "'NoneType' object is not subscriptable"
     }
   ],
-  "lastUpdated": "2026-06-27T06:15:17.219601"
+  "lastUpdated": "2026-06-27T06:22:29.593237"
 }
