@@ -159,13 +159,13 @@
     <div class="hero">
       <div>
         <h1>CGT rule comparison</h1>
-        <p class="subtitle">Compare tax under the old discount CGT model versus the new CPI-indexed cost-base model. Enter the acquisition and sale details, your marginal tax rate, and an average annual CPI assumption.</p>
+        <p class="subtitle">Compare tax under the old full-period 50% discount CGT model versus the new transitional model: pre-1 July 2027 gains keep the discount, while post-1 July 2027 gains are CPI-indexed and taxed at a minimum 30%.</p>
       </div>
 
       <aside class="card summary-card" aria-label="CGT calculator summary">
         <div class="summary-item"><span class="label">Old model</span><span class="value">50% discount</span></div>
-        <div class="summary-item"><span class="label">New model</span><span class="value">CPI indexation</span></div>
-        <div class="summary-item"><span class="label">Discount trigger</span><span class="value">Held &gt; 12 months</span></div>
+        <div class="summary-item"><span class="label">New model</span><span class="value">Split + CPI</span></div>
+        <div class="summary-item"><span class="label">Transition date</span><span class="value">1 Jul 2027</span></div>
         <div class="summary-item"><span class="label">Purpose</span><span class="value">Scenario comparison</span></div>
       </aside>
     </div>
@@ -176,7 +176,7 @@
       <div class="section-heading">
         <div>
           <h2>Calculator</h2>
-          <p>This calculator applies the same sale to both rule sets so you can see whether the old discount method or the new CPI-indexed method produces the lower taxable gain and tax.</p>
+          <p>This calculator applies the same sale to both rule sets. The new model apportions the gain by days held before and after 1 July 2027.</p>
         </div>
       </div>
 
@@ -184,20 +184,20 @@
         <form class="form-grid" id="cgtForm">
           <div class="field">
             <label for="buyDate">Buy date</label>
-            <input id="buyDate" name="buyDate" type="date" value="2020-07-01" required>
+            <input id="buyDate" name="buyDate" type="date" value="2020-01-01" required>
           </div>
           <div class="field">
             <label for="costBasis">Cost basis</label>
-            <input id="costBasis" name="costBasis" type="number" min="0" step="100" value="100000" required>
+            <input id="costBasis" name="costBasis" type="number" min="0" step="100" value="500000" required>
             <div class="hint">Include purchase price and any costs you want modelled as part of the cost base.</div>
           </div>
           <div class="field">
             <label for="sellDate">Sell date</label>
-            <input id="sellDate" name="sellDate" type="date" value="2026-07-01" required>
+            <input id="sellDate" name="sellDate" type="date" value="2029-01-01" required>
           </div>
           <div class="field">
             <label for="saleAmount">Total sale amount</label>
-            <input id="saleAmount" name="saleAmount" type="number" min="0" step="100" value="200000" required>
+            <input id="saleAmount" name="saleAmount" type="number" min="0" step="100" value="1000000" required>
           </div>
           <div class="field">
             <label for="marginalTaxRate">Marginal tax rate</label>
@@ -206,7 +206,7 @@
           </div>
           <div class="field">
             <label for="averageCpi">Average annual CPI</label>
-            <input id="averageCpi" name="averageCpi" type="number" min="-10" max="20" step="0.1" value="3" required>
+            <input id="averageCpi" name="averageCpi" type="number" min="-10" max="20" step="0.1" value="2.5" required>
           </div>
           <div class="button-row">
             <button class="primary" type="submit">Calculate</button>
@@ -220,7 +220,7 @@
               <div class="metric-grid">
                 <div class="metric"><span>Lower tax method</span><strong id="lowerMethod">--</strong></div>
                 <div class="metric"><span>Tax difference</span><strong id="taxDifference">--</strong></div>
-                <div class="metric"><span>Holding period</span><strong id="holdingPeriod">--</strong></div>
+                <div class="metric"><span>Pre / post transition</span><strong id="holdingPeriod">--</strong></div>
                 <div class="metric"><span>Nominal gain</span><strong id="nominalGain">--</strong></div>
               </div>
             </div>
@@ -232,7 +232,7 @@
                 <thead>
                   <tr>
                     <th>Method</th>
-                    <th>Cost base used</th>
+                    <th>Treatment</th>
                     <th>Taxable gain</th>
                     <th>Estimated tax</th>
                   </tr>
@@ -245,7 +245,7 @@
                     <td id="oldTax">--</td>
                   </tr>
                   <tr>
-                    <td>New CPI-indexed model</td>
+                    <td>New transitional CPI model</td>
                     <td id="newCostBase">--</td>
                     <td id="newTaxableGain">--</td>
                     <td id="newTax">--</td>
@@ -263,13 +263,13 @@
       <div class="section-heading">
         <div>
           <h2>What this is modelling</h2>
-          <p>The comparison is intentionally simple: the old rules tax a discounted nominal capital gain if the asset was held for more than 12 months, while the new rules index the cost base for inflation.</p>
+          <p>The comparison is intentionally simple: the old rules apply the 50% CGT discount to the whole nominal gain. The new rules keep the discount for the pre-1 July 2027 portion and apply CPI indexation to the post-1 July 2027 portion, with a 30% minimum tax rate on that post-transition real gain.</p>
         </div>
       </div>
       <div class="callout">
         <p><strong>Old / discount model:</strong> taxable gain equals the nominal capital gain after a 50% discount if the asset was held for more than 12 months; otherwise the full nominal gain is taxed.</p>
-        <p><strong>New / CPI-indexed model:</strong> cost basis is compounded by the average annual CPI over the holding period. Taxable gain equals sale amount minus indexed cost base.</p>
-        <p class="note">This is a simplified planning calculator, not tax advice. It ignores capital losses, partial disposals, third-element costs, main-residence rules, company/trust/super-specific rules, foreign-resident rules, and exact ATO CPI quarter calculations or transitional rules.</p>
+        <p><strong>New / transitional CPI model:</strong> the nominal gain is apportioned by holding days before and after 1 July 2027. The pre-transition portion receives the old 50% discount. The post-transition portion is reduced by CPI for the post-transition holding period and then taxed at the higher of your marginal rate and 30%.</p>
+        <p class="note">This is a simplified planning calculator, not tax advice. It ignores capital losses, partial disposals, third-element costs, main-residence rules, company/trust/super-specific rules, foreign-resident rules, and exact ATO CPI quarter calculations, compounding details, cost-base adjustments, or edge-case transitional rules.</p>
       </div>
     </section>
   </main>
@@ -284,12 +284,12 @@
       var errorBox = document.getElementById('errorBox');
       var resetButton = document.getElementById('resetExample');
       var defaults = {
-        buyDate: '2020-07-01',
-        costBasis: '100000',
-        sellDate: '2026-07-01',
-        saleAmount: '200000',
+        buyDate: '2020-01-01',
+        costBasis: '500000',
+        sellDate: '2029-01-01',
+        saleAmount: '1000000',
         marginalTaxRate: '47',
-        averageCpi: '3'
+        averageCpi: '2.5'
       };
 
       function byId(id) { return document.getElementById(id); }
@@ -331,23 +331,39 @@
         var daysHeld = daysBetween(buyDate, sellDate);
         var yearsHeld = daysHeld / 365.25;
         var eligibleForDiscount = daysHeld > 365;
-        var indexedCostBase = costBasis * Math.pow(1 + averageCpi, yearsHeld);
+        var transitionDate = new Date('2027-07-01T00:00:00');
         var nominalGain = saleAmount - costBasis;
-        var oldTaxableGain = Math.max(0, nominalGain) * (eligibleForDiscount ? 0.5 : 1);
-        var newTaxableGain = Math.max(0, saleAmount - indexedCostBase);
+        var positiveGain = Math.max(0, nominalGain);
+
+        var postStart = buyDate > transitionDate ? buyDate : transitionDate;
+        var postDays = sellDate > transitionDate ? Math.max(0, daysBetween(postStart, sellDate)) : 0;
+        var preDays = Math.max(0, daysHeld - postDays);
+        var preRatio = daysHeld > 0 ? preDays / daysHeld : 0;
+        var postRatio = daysHeld > 0 ? postDays / daysHeld : 0;
+        var postYears = postDays / 365.25;
+
+        var oldTaxableGain = positiveGain * (eligibleForDiscount ? 0.5 : 1);
         var oldTax = oldTaxableGain * marginalTaxRate;
-        var newTax = newTaxableGain * marginalTaxRate;
+
+        var preTransitionGain = positiveGain * preRatio;
+        var postTransitionGain = positiveGain * postRatio;
+        var newPreTaxableGain = preTransitionGain * (eligibleForDiscount ? 0.5 : 1);
+        var cpiExemptAmount = Math.max(0, postTransitionGain * averageCpi * postYears);
+        var newPostTaxableGain = Math.max(0, postTransitionGain - cpiExemptAmount);
+        var postTransitionTaxRate = Math.max(marginalTaxRate, 0.30);
+        var newTaxableGain = newPreTaxableGain + newPostTaxableGain;
+        var newTax = (newPreTaxableGain * marginalTaxRate) + (newPostTaxableGain * postTransitionTaxRate);
         var difference = Math.abs(oldTax - newTax);
-        var lowerMethod = oldTax < newTax ? 'Old discount' : (newTax < oldTax ? 'New CPI-indexed' : 'Tie');
+        var lowerMethod = oldTax < newTax ? 'Old discount' : (newTax < oldTax ? 'New transitional CPI' : 'Tie');
 
         setText('lowerMethod', lowerMethod);
         setText('taxDifference', money(difference));
-        setText('holdingPeriod', yearsHeld.toFixed(2) + ' years');
+        setText('holdingPeriod', percent(preRatio * 100) + ' / ' + percent(postRatio * 100));
         setText('nominalGain', money(nominalGain));
-        setText('oldCostBase', money(costBasis));
+        setText('oldCostBase', eligibleForDiscount ? '50% discount on whole gain' : 'No discount');
         setText('oldTaxableGain', money(oldTaxableGain));
         setText('oldTax', money(oldTax));
-        setText('newCostBase', money(indexedCostBase));
+        setText('newCostBase', 'Pre ' + percent(preRatio * 100) + ' discount; post ' + percent(postRatio * 100) + ' CPI');
         setText('newTaxableGain', money(newTaxableGain));
         setText('newTax', money(newTax));
       }
