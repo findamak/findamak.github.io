@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Australian CGT calculator comparing CPI indexation-style CGT with discount CGT rules">
+  <meta name="description" content="Australian CGT calculator comparing discount CGT with CPI-indexed CGT rules">
   <title>CGT Rule Comparison Calculator</title>
   <link rel="icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -98,7 +98,7 @@
 
     .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
     .section-heading p { color: var(--muted); }
-    .calculator-grid { display: grid; grid-template-columns: 1fr; gap: 24px; align-items: start; }
+    .calculator-grid { display: block; }
     .form-grid { display: grid; gap: 16px; }
     .field { display: grid; gap: 7px; }
     label { color: var(--muted); font-weight: 650; font-size: 0.92rem; }
@@ -111,7 +111,7 @@
     .primary { color: #05060a; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
     .secondary { color: var(--text); background: var(--surface-strong); border: 1px solid var(--border); }
 
-    .results { display: grid; gap: 14px; }
+    .results { display: grid; gap: 14px; grid-column: 1 / -1; width: 100%; margin-top: 10px; clear: both; }
     .result-card { padding: 20px; border: 1px solid var(--border); border-radius: 18px; background: rgba(255, 255, 255, 0.035); }
     .result-card h3 { margin-bottom: 12px; }
     .metric-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
@@ -159,12 +159,12 @@
     <div class="hero">
       <div>
         <h1>CGT rule comparison</h1>
-        <p class="subtitle">Compare tax under an old CPI-indexed cost-base model versus the newer discount CGT model. Enter the acquisition and sale details, your marginal tax rate, and an average annual CPI assumption.</p>
+        <p class="subtitle">Compare tax under the old discount CGT model versus the new CPI-indexed cost-base model. Enter the acquisition and sale details, your marginal tax rate, and an average annual CPI assumption.</p>
       </div>
 
       <aside class="card summary-card" aria-label="CGT calculator summary">
-        <div class="summary-item"><span class="label">Old model</span><span class="value">CPI indexation</span></div>
-        <div class="summary-item"><span class="label">New model</span><span class="value">50% discount</span></div>
+        <div class="summary-item"><span class="label">Old model</span><span class="value">50% discount</span></div>
+        <div class="summary-item"><span class="label">New model</span><span class="value">CPI indexation</span></div>
         <div class="summary-item"><span class="label">Discount trigger</span><span class="value">Held &gt; 12 months</span></div>
         <div class="summary-item"><span class="label">Purpose</span><span class="value">Scenario comparison</span></div>
       </aside>
@@ -176,7 +176,7 @@
       <div class="section-heading">
         <div>
           <h2>Calculator</h2>
-          <p>This calculator applies the same sale to both rule sets so you can see which method produces the lower taxable gain and tax.</p>
+          <p>This calculator applies the same sale to both rule sets so you can see whether the old discount method or the new CPI-indexed method produces the lower taxable gain and tax.</p>
         </div>
       </div>
 
@@ -217,15 +217,15 @@
           <div class="results" aria-live="polite">
             <div class="result-card">
               <h3>Headline result</h3>
-            <div class="metric-grid">
-              <div class="metric"><span>Lower tax method</span><strong id="lowerMethod">--</strong></div>
-              <div class="metric"><span>Tax difference</span><strong id="taxDifference">--</strong></div>
-              <div class="metric"><span>Holding period</span><strong id="holdingPeriod">--</strong></div>
-              <div class="metric"><span>Nominal gain</span><strong id="nominalGain">--</strong></div>
+              <div class="metric-grid">
+                <div class="metric"><span>Lower tax method</span><strong id="lowerMethod">--</strong></div>
+                <div class="metric"><span>Tax difference</span><strong id="taxDifference">--</strong></div>
+                <div class="metric"><span>Holding period</span><strong id="holdingPeriod">--</strong></div>
+                <div class="metric"><span>Nominal gain</span><strong id="nominalGain">--</strong></div>
+              </div>
             </div>
-          </div>
 
-          <div class="result-card">
+            <div class="result-card">
             <h3>Tax comparison</h3>
             <div class="table-wrap">
               <table>
@@ -239,13 +239,13 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Old CPI-indexed model</td>
+                    <td>Old discount model</td>
                     <td id="oldCostBase">--</td>
                     <td id="oldTaxableGain">--</td>
                     <td id="oldTax">--</td>
                   </tr>
                   <tr>
-                    <td>New discount model</td>
+                    <td>New CPI-indexed model</td>
                     <td id="newCostBase">--</td>
                     <td id="newTaxableGain">--</td>
                     <td id="newTax">--</td>
@@ -253,7 +253,7 @@
                 </tbody>
               </table>
             </div>
-          </div>
+            </div>
           </div>
         </form>
       </div>
@@ -263,13 +263,13 @@
       <div class="section-heading">
         <div>
           <h2>What this is modelling</h2>
-          <p>The comparison is intentionally simple: old rules index the cost base for inflation, while new rules tax a discounted nominal capital gain if the asset was held for more than 12 months.</p>
+          <p>The comparison is intentionally simple: the old rules tax a discounted nominal capital gain if the asset was held for more than 12 months, while the new rules index the cost base for inflation.</p>
         </div>
       </div>
       <div class="callout">
-        <p><strong>Old / indexation model:</strong> cost basis is compounded by the average annual CPI over the holding period. Taxable gain equals sale amount minus indexed cost base.</p>
-        <p><strong>New / discount model:</strong> taxable gain equals the nominal capital gain after a 50% discount if the asset was held for more than 12 months; otherwise the full nominal gain is taxed.</p>
-        <p class="note">This is a simplified planning calculator, not tax advice. It ignores capital losses, partial disposals, third-element costs, main-residence rules, company/trust/super-specific rules, foreign-resident rules, and exact ATO CPI quarter calculations for pre-CGT-discount indexation choices.</p>
+        <p><strong>Old / discount model:</strong> taxable gain equals the nominal capital gain after a 50% discount if the asset was held for more than 12 months; otherwise the full nominal gain is taxed.</p>
+        <p><strong>New / CPI-indexed model:</strong> cost basis is compounded by the average annual CPI over the holding period. Taxable gain equals sale amount minus indexed cost base.</p>
+        <p class="note">This is a simplified planning calculator, not tax advice. It ignores capital losses, partial disposals, third-element costs, main-residence rules, company/trust/super-specific rules, foreign-resident rules, and exact ATO CPI quarter calculations or transitional rules.</p>
       </div>
     </section>
   </main>
@@ -333,21 +333,21 @@
         var eligibleForDiscount = daysHeld > 365;
         var indexedCostBase = costBasis * Math.pow(1 + averageCpi, yearsHeld);
         var nominalGain = saleAmount - costBasis;
-        var oldTaxableGain = Math.max(0, saleAmount - indexedCostBase);
-        var newTaxableGain = Math.max(0, nominalGain) * (eligibleForDiscount ? 0.5 : 1);
+        var oldTaxableGain = Math.max(0, nominalGain) * (eligibleForDiscount ? 0.5 : 1);
+        var newTaxableGain = Math.max(0, saleAmount - indexedCostBase);
         var oldTax = oldTaxableGain * marginalTaxRate;
         var newTax = newTaxableGain * marginalTaxRate;
         var difference = Math.abs(oldTax - newTax);
-        var lowerMethod = oldTax < newTax ? 'Old indexation' : (newTax < oldTax ? 'New discount' : 'Tie');
+        var lowerMethod = oldTax < newTax ? 'Old discount' : (newTax < oldTax ? 'New CPI-indexed' : 'Tie');
 
         setText('lowerMethod', lowerMethod);
         setText('taxDifference', money(difference));
         setText('holdingPeriod', yearsHeld.toFixed(2) + ' years');
         setText('nominalGain', money(nominalGain));
-        setText('oldCostBase', money(indexedCostBase));
+        setText('oldCostBase', money(costBasis));
         setText('oldTaxableGain', money(oldTaxableGain));
         setText('oldTax', money(oldTax));
-        setText('newCostBase', money(costBasis));
+        setText('newCostBase', money(indexedCostBase));
         setText('newTaxableGain', money(newTaxableGain));
         setText('newTax', money(newTax));
       }
