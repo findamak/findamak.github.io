@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Australian CGT calculator comparing CPI indexation-style CGT with discount CGT rules">
+  <title>CGT Rule Comparison Calculator</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #06070a;
+      --surface: rgba(255, 255, 255, 0.045);
+      --surface-strong: rgba(255, 255, 255, 0.075);
+      --border: rgba(255, 255, 255, 0.09);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --text: #f5f7fb;
+      --muted: #a8b0c2;
+      --accent: #7c83ff;
+      --accent-2: #38d9c6;
+      --gold: #f7c66f;
+      --danger: #ff6b8a;
+      --success: #38d9c6;
+      --warning: #f7c66f;
+      --shadow: 0 24px 80px rgba(0, 0, 0, 0.38);
+      --radius: 24px;
+      --max-width: 1120px;
+      --transition: 180ms ease;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      min-height: 100vh;
+      font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      color: var(--text);
+      line-height: 1.7;
+      background:
+        radial-gradient(circle at top left, rgba(124, 131, 255, 0.18), transparent 34rem),
+        radial-gradient(circle at 85% 12%, rgba(56, 217, 198, 0.12), transparent 28rem),
+        radial-gradient(circle at 50% 100%, rgba(247, 198, 111, 0.10), transparent 36rem),
+        var(--bg);
+      overflow-x: hidden;
+      font-feature-settings: "cv01", "ss03";
+    }
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+      mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 72%);
+      z-index: -1;
+    }
+    a { color: inherit; }
+    h1, h2, h3 { color: var(--text); letter-spacing: -0.04em; line-height: 1.05; }
+    h1 { font-size: clamp(3rem, 8vw, 6.4rem); font-weight: 700; margin: 0; }
+    h2 { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 650; }
+    h3 { font-size: clamp(1.15rem, 3vw, 1.45rem); font-weight: 650; letter-spacing: -0.02em; }
+    p { color: var(--muted); font-size: 1.02rem; }
+
+    .site-header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(18px); background: rgba(6, 7, 10, 0.72); border-bottom: 1px solid var(--border); }
+    .nav { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; letter-spacing: -0.03em; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(135deg, rgba(124, 131, 255, 0.95), rgba(56, 217, 198, 0.9)); color: #05060a; box-shadow: 0 14px 38px rgba(124, 131, 255, 0.24); }
+    .nav-links { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 600; padding: 9px 13px; border: 1px solid transparent; border-radius: 999px; transition: color var(--transition), background var(--transition), border-color var(--transition), transform var(--transition); }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); background: var(--surface); border-color: var(--border); outline: none; }
+    .nav-links .nav-cta { color: #090b11; background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: transparent; box-shadow: 0 10px 28px rgba(124, 131, 255, 0.22); }
+    .nav-links .nav-cta:hover, .nav-links .nav-cta:focus-visible { color: #05060a; background: linear-gradient(135deg, #9aa0ff, #55ead9); transform: translateY(-1px); }
+
+    header.hero-wrap, main, footer { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; }
+    header.hero-wrap { padding: 72px 0 34px; }
+    main { padding: 18px 0 82px; }
+    section { margin: 28px 0; }
+    .hero { position: relative; overflow: hidden; padding: clamp(34px, 6vw, 64px); border: 1px solid var(--border); border-radius: calc(var(--radius) + 10px); background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03)); box-shadow: var(--shadow); display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(280px, 0.9fr); gap: 28px; align-items: stretch; }
+    .hero::before, .hero::after { content: ''; position: absolute; border-radius: 999px; filter: blur(12px); opacity: 0.8; pointer-events: none; }
+    .hero::before { width: 320px; height: 320px; top: -160px; right: -120px; background: rgba(124, 131, 255, 0.25); }
+    .hero::after { width: 260px; height: 260px; left: -120px; bottom: -140px; background: rgba(56, 217, 198, 0.18); }
+    .hero > * { position: relative; z-index: 1; }
+    .subtitle { max-width: 780px; font-size: 1.06rem; margin-top: 22px; color: var(--muted); }
+
+    .card, .section-card { border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.026)); box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24); backdrop-filter: blur(14px); border-radius: var(--radius); }
+    .section-card { padding: clamp(18px, 3vw, 30px); }
+    .summary-card { padding: 24px; display: grid; gap: 14px; align-content: center; }
+    .summary-item { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .summary-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .label, .note { color: var(--muted); }
+    .value { font-weight: 700; color: var(--text); }
+    .positive { color: var(--success); }
+    .danger { color: var(--danger); }
+    .warning { color: var(--warning); }
+
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .section-heading p { color: var(--muted); }
+    .calculator-grid { display: grid; grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: 24px; align-items: start; }
+    .form-grid { display: grid; gap: 16px; }
+    .field { display: grid; gap: 7px; }
+    label { color: var(--muted); font-weight: 650; font-size: 0.92rem; }
+    input { width: 100%; border: 1px solid var(--border-strong); border-radius: 14px; padding: 13px 14px; color: var(--text); background: rgba(255, 255, 255, 0.06); font: inherit; outline: none; }
+    input:focus { border-color: rgba(56, 217, 198, 0.65); box-shadow: 0 0 0 4px rgba(56, 217, 198, 0.12); }
+    .hint { color: var(--muted); font-size: 0.86rem; line-height: 1.45; }
+    .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 4px; }
+    button { border: 0; border-radius: 999px; padding: 12px 18px; font: inherit; font-weight: 750; cursor: pointer; transition: transform var(--transition), opacity var(--transition); }
+    button:hover { transform: translateY(-1px); }
+    .primary { color: #05060a; background: linear-gradient(135deg, var(--accent), var(--accent-2)); }
+    .secondary { color: var(--text); background: var(--surface-strong); border: 1px solid var(--border); }
+
+    .results { display: grid; gap: 14px; }
+    .result-card { padding: 20px; border: 1px solid var(--border); border-radius: 18px; background: rgba(255, 255, 255, 0.035); }
+    .result-card h3 { margin-bottom: 12px; }
+    .metric-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+    .metric { padding: 14px; border-radius: 14px; border: 1px solid var(--border); background: rgba(0, 0, 0, 0.14); }
+    .metric span { display: block; color: var(--muted); font-size: 0.82rem; font-weight: 650; }
+    .metric strong { display: block; color: var(--text); font-size: clamp(1.15rem, 2.5vw, 1.55rem); line-height: 1.2; margin-top: 4px; }
+    .callout { padding: 16px 18px; border-radius: 18px; background: rgba(124, 131, 255, 0.10); border: 1px solid rgba(124, 131, 255, 0.28); color: var(--muted); }
+    .error { display: none; margin-top: 14px; padding: 14px 16px; border-radius: 16px; background: rgba(255, 107, 138, 0.10); border: 1px solid rgba(255, 107, 138, 0.28); color: #fecdd3; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
+    table { width: 100%; border-collapse: collapse; min-width: 720px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
+    th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; text-align: left; }
+    th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255, 255, 255, 0.045); font-weight: 700; }
+    tr:last-child td { border-bottom: 0; }
+    footer { padding: 30px 0 46px; color: var(--muted); font-size: 0.9rem; text-align: center; }
+
+    @media (max-width: 820px) {
+      .nav { align-items: flex-start; flex-direction: column; padding: 14px 0; }
+      .hero, .calculator-grid { grid-template-columns: 1fr; }
+      .section-heading { align-items: flex-start; flex-direction: column; }
+      .metric-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="CGT calculator page navigation">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">AM</span>
+        <span>Allan Mak</span>
+      </a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="btc.html">BTC Crosses</a>
+        <a href="btci.html">BTCI</a>
+        <a href="gold.html">Gold ETFs</a>
+        <a href="super.html">Super</a>
+        <a href="cgt.html">CGT</a>
+        <a href="dashboard.html">Dashboard</a>
+        <a class="nav-cta" href="#calculator">Calculator</a>
+      </div>
+    </nav>
+  </header>
+
+  <header class="hero-wrap">
+    <div class="hero">
+      <div>
+        <h1>CGT rule comparison</h1>
+        <p class="subtitle">Compare tax under an old CPI-indexed cost-base model versus the newer discount CGT model. Enter the acquisition and sale details, your marginal tax rate, and an average annual CPI assumption.</p>
+      </div>
+
+      <aside class="card summary-card" aria-label="CGT calculator summary">
+        <div class="summary-item"><span class="label">Old model</span><span class="value">CPI indexation</span></div>
+        <div class="summary-item"><span class="label">New model</span><span class="value">50% discount</span></div>
+        <div class="summary-item"><span class="label">Discount trigger</span><span class="value">Held &gt; 12 months</span></div>
+        <div class="summary-item"><span class="label">Purpose</span><span class="value">Scenario comparison</span></div>
+      </aside>
+    </div>
+  </header>
+
+  <main>
+    <section class="card section-card" id="calculator">
+      <div class="section-heading">
+        <div>
+          <h2>Calculator</h2>
+          <p>This calculator applies the same sale to both rule sets so you can see which method produces the lower taxable gain and tax.</p>
+        </div>
+      </div>
+
+      <div class="calculator-grid">
+        <form class="form-grid" id="cgtForm">
+          <div class="field">
+            <label for="buyDate">Buy date</label>
+            <input id="buyDate" name="buyDate" type="date" value="2020-07-01" required>
+          </div>
+          <div class="field">
+            <label for="costBasis">Cost basis</label>
+            <input id="costBasis" name="costBasis" type="number" min="0" step="100" value="100000" required>
+            <div class="hint">Include purchase price and any costs you want modelled as part of the cost base.</div>
+          </div>
+          <div class="field">
+            <label for="sellDate">Sell date</label>
+            <input id="sellDate" name="sellDate" type="date" value="2026-07-01" required>
+          </div>
+          <div class="field">
+            <label for="saleAmount">Total sale amount</label>
+            <input id="saleAmount" name="saleAmount" type="number" min="0" step="100" value="200000" required>
+          </div>
+          <div class="field">
+            <label for="marginalTaxRate">Marginal tax rate</label>
+            <input id="marginalTaxRate" name="marginalTaxRate" type="number" min="0" max="100" step="0.1" value="47" required>
+            <div class="hint">Enter the effective marginal rate you want to test, including Medicare levy if desired.</div>
+          </div>
+          <div class="field">
+            <label for="averageCpi">Average annual CPI</label>
+            <input id="averageCpi" name="averageCpi" type="number" min="-10" max="20" step="0.1" value="3" required>
+          </div>
+          <div class="button-row">
+            <button class="primary" type="submit">Calculate</button>
+            <button class="secondary" type="button" id="resetExample">Reset example</button>
+          </div>
+          <div class="error" id="errorBox"></div>
+        </form>
+
+        <div class="results" aria-live="polite">
+          <div class="result-card">
+            <h3>Headline result</h3>
+            <div class="metric-grid">
+              <div class="metric"><span>Lower tax method</span><strong id="lowerMethod">--</strong></div>
+              <div class="metric"><span>Tax difference</span><strong id="taxDifference">--</strong></div>
+              <div class="metric"><span>Holding period</span><strong id="holdingPeriod">--</strong></div>
+              <div class="metric"><span>Nominal gain</span><strong id="nominalGain">--</strong></div>
+            </div>
+          </div>
+
+          <div class="result-card">
+            <h3>Tax comparison</h3>
+            <div class="table-wrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Method</th>
+                    <th>Cost base used</th>
+                    <th>Taxable gain</th>
+                    <th>Estimated tax</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Old CPI-indexed model</td>
+                    <td id="oldCostBase">--</td>
+                    <td id="oldTaxableGain">--</td>
+                    <td id="oldTax">--</td>
+                  </tr>
+                  <tr>
+                    <td>New discount model</td>
+                    <td id="newCostBase">--</td>
+                    <td id="newTaxableGain">--</td>
+                    <td id="newTax">--</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card section-card">
+      <div class="section-heading">
+        <div>
+          <h2>What this is modelling</h2>
+          <p>The comparison is intentionally simple: old rules index the cost base for inflation, while new rules tax a discounted nominal capital gain if the asset was held for more than 12 months.</p>
+        </div>
+      </div>
+      <div class="callout">
+        <p><strong>Old / indexation model:</strong> cost basis is compounded by the average annual CPI over the holding period. Taxable gain equals sale amount minus indexed cost base.</p>
+        <p><strong>New / discount model:</strong> taxable gain equals the nominal capital gain after a 50% discount if the asset was held for more than 12 months; otherwise the full nominal gain is taxed.</p>
+        <p class="note">This is a simplified planning calculator, not tax advice. It ignores capital losses, partial disposals, third-element costs, main-residence rules, company/trust/super-specific rules, foreign-resident rules, and exact ATO CPI quarter calculations for pre-CGT-discount indexation choices.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>CGT comparison calculator for broad Australian tax modelling. Verify against ATO guidance before using for decisions.</p>
+  </footer>
+
+  <script>
+    (function () {
+      var form = document.getElementById('cgtForm');
+      var errorBox = document.getElementById('errorBox');
+      var resetButton = document.getElementById('resetExample');
+      var defaults = {
+        buyDate: '2020-07-01',
+        costBasis: '100000',
+        sellDate: '2026-07-01',
+        saleAmount: '200000',
+        marginalTaxRate: '47',
+        averageCpi: '3'
+      };
+
+      function byId(id) { return document.getElementById(id); }
+      function numberValue(id) { return parseFloat(byId(id).value); }
+      function dateValue(id) { return new Date(byId(id).value + 'T00:00:00'); }
+      function money(value) {
+        return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(value || 0);
+      }
+      function percent(value) {
+        return new Intl.NumberFormat('en-AU', { maximumFractionDigits: 2 }).format(value) + '%';
+      }
+      function setText(id, value) { byId(id).textContent = value; }
+      function setError(message) {
+        errorBox.textContent = message;
+        errorBox.style.display = message ? 'block' : 'none';
+      }
+      function daysBetween(start, end) {
+        return Math.round((end.getTime() - start.getTime()) / 86400000);
+      }
+
+      function calculate(event) {
+        if (event && event.preventDefault) event.preventDefault();
+        setError('');
+
+        var buyDate = dateValue('buyDate');
+        var sellDate = dateValue('sellDate');
+        var costBasis = numberValue('costBasis');
+        var saleAmount = numberValue('saleAmount');
+        var marginalTaxRate = numberValue('marginalTaxRate') / 100;
+        var averageCpi = numberValue('averageCpi') / 100;
+
+        if (isNaN(buyDate.getTime()) || isNaN(sellDate.getTime())) return setError('Enter valid buy and sell dates.');
+        if (sellDate <= buyDate) return setError('Sell date must be after buy date.');
+        if (!isFinite(costBasis) || costBasis < 0) return setError('Enter a valid cost basis.');
+        if (!isFinite(saleAmount) || saleAmount < 0) return setError('Enter a valid sale amount.');
+        if (!isFinite(marginalTaxRate) || marginalTaxRate < 0 || marginalTaxRate > 1) return setError('Enter a marginal tax rate between 0% and 100%.');
+        if (!isFinite(averageCpi) || averageCpi < -0.10 || averageCpi > 0.20) return setError('Enter an average annual CPI between -10% and 20%.');
+
+        var daysHeld = daysBetween(buyDate, sellDate);
+        var yearsHeld = daysHeld / 365.25;
+        var eligibleForDiscount = daysHeld > 365;
+        var indexedCostBase = costBasis * Math.pow(1 + averageCpi, yearsHeld);
+        var nominalGain = saleAmount - costBasis;
+        var oldTaxableGain = Math.max(0, saleAmount - indexedCostBase);
+        var newTaxableGain = Math.max(0, nominalGain) * (eligibleForDiscount ? 0.5 : 1);
+        var oldTax = oldTaxableGain * marginalTaxRate;
+        var newTax = newTaxableGain * marginalTaxRate;
+        var difference = Math.abs(oldTax - newTax);
+        var lowerMethod = oldTax < newTax ? 'Old indexation' : (newTax < oldTax ? 'New discount' : 'Tie');
+
+        setText('lowerMethod', lowerMethod);
+        setText('taxDifference', money(difference));
+        setText('holdingPeriod', yearsHeld.toFixed(2) + ' years');
+        setText('nominalGain', money(nominalGain));
+        setText('oldCostBase', money(indexedCostBase));
+        setText('oldTaxableGain', money(oldTaxableGain));
+        setText('oldTax', money(oldTax));
+        setText('newCostBase', money(costBasis));
+        setText('newTaxableGain', money(newTaxableGain));
+        setText('newTax', money(newTax));
+      }
+
+      form.addEventListener('submit', calculate);
+      resetButton.addEventListener('click', function () {
+        Object.keys(defaults).forEach(function (key) { byId(key).value = defaults[key]; });
+        calculate();
+      });
+      calculate();
+    })();
+  </script>
+</body>
+</html>
