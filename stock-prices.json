@@ -38,23 +38,22 @@
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'NoneType' object is not subscriptable"
+      "price": 17.53,
+      "change": -2.83,
+      "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 214.01,
-      "change": 0.88,
+      "price": 213.1,
+      "change": 0.45,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1521,
-      "change": 1.59,
+      "price": 0.152,
+      "change": 1.56,
       "type": "stock"
     },
     {
@@ -177,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-27T07:55:16.819131"
+  "lastUpdated": "2026-06-27T08:00:17.580259"
 }
