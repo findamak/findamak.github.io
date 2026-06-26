@@ -176,7 +176,7 @@
       <div class="section-heading">
         <div>
           <h2>Calculator</h2>
-          <p>This calculator applies the same sale to both rule sets. The new model apportions the gain by days held before and after 1 July 2027.</p>
+          <p>This calculator applies the same sale to both rule sets. The new model can split gains by time apportionment, or by a 1 July 2027 market valuation if you enter one.</p>
         </div>
       </div>
 
@@ -198,6 +198,11 @@
           <div class="field">
             <label for="saleAmount">Total sale amount</label>
             <input id="saleAmount" name="saleAmount" type="number" min="0" step="100" value="1000000" required>
+          </div>
+          <div class="field">
+            <label for="transitionMarketValue">Asset value on 1 July 2027 (optional)</label>
+            <input id="transitionMarketValue" name="transitionMarketValue" type="number" min="0" step="100" placeholder="Leave blank to only use time apportionment">
+            <div class="hint">If entered, the calculator adds a market valuation model result: pre-2027 gain uses this value less cost base; post-2027 gain uses sale amount less this value.</div>
           </div>
           <div class="field">
             <label for="marginalTaxRate">Marginal tax rate</label>
@@ -245,10 +250,16 @@
                     <td id="oldTax">--</td>
                   </tr>
                   <tr>
-                    <td>New transitional CPI model</td>
+                    <td>New time-apportionment CPI model</td>
                     <td id="newCostBase">--</td>
                     <td id="newTaxableGain">--</td>
                     <td id="newTax">--</td>
+                  </tr>
+                  <tr>
+                    <td>New market valuation CPI model</td>
+                    <td id="marketTreatment">Enter 1 July 2027 value to calculate</td>
+                    <td id="marketTaxableGain">--</td>
+                    <td id="marketTax">--</td>
                   </tr>
                 </tbody>
               </table>
@@ -263,12 +274,13 @@
       <div class="section-heading">
         <div>
           <h2>What this is modelling</h2>
-          <p>The comparison is intentionally simple: the old rules apply the 50% CGT discount to the whole nominal gain. The new rules keep the discount for the pre-1 July 2027 portion and apply CPI indexation to the post-1 July 2027 portion, with a 30% minimum tax rate on that post-transition real gain.</p>
+          <p>The comparison is intentionally simple: the old rules apply the 50% CGT discount to the whole nominal gain. The new rules keep the discount for the pre-1 July 2027 portion and apply CPI indexation to the post-1 July 2027 portion, with a 30% minimum tax rate on that post-transition real gain. For assets owned before 1 July 2027, investors can compare time apportionment against an optional market valuation split.</p>
         </div>
       </div>
       <div class="callout">
         <p><strong>Old / discount model:</strong> taxable gain equals the nominal capital gain after a 50% discount if the asset was held for more than 12 months; otherwise the full nominal gain is taxed.</p>
-        <p><strong>New / transitional CPI model:</strong> the nominal gain is apportioned by holding days before and after 1 July 2027. The pre-transition portion receives the old 50% discount. The post-transition portion is reduced by CPI for the post-transition holding period and then taxed at the higher of your marginal rate and 30%.</p>
+        <p><strong>New / time-apportionment CPI model:</strong> the nominal gain is apportioned by holding days before and after 1 July 2027. The pre-transition portion receives the old 50% discount. The post-transition portion is reduced by CPI for the post-transition holding period and then taxed at the higher of your marginal rate and 30%.</p>
+        <p><strong>New / market valuation CPI model:</strong> if you enter a 1 July 2027 asset value, the pre-transition gain is calculated from cost base to that market value, and the post-transition gain is calculated from that market value to sale proceeds.</p>
         <p class="note">This is a simplified planning calculator, not tax advice. It ignores capital losses, partial disposals, third-element costs, main-residence rules, company/trust/super-specific rules, foreign-resident rules, and exact ATO CPI quarter calculations, compounding details, cost-base adjustments, or edge-case transitional rules.</p>
       </div>
     </section>
@@ -288,6 +300,7 @@
         costBasis: '500000',
         sellDate: '2029-01-01',
         saleAmount: '1000000',
+        transitionMarketValue: '',
         marginalTaxRate: '47',
         averageCpi: '2.5'
       };
@@ -318,6 +331,8 @@
         var sellDate = dateValue('sellDate');
         var costBasis = numberValue('costBasis');
         var saleAmount = numberValue('saleAmount');
+        var transitionMarketValueRaw = byId('transitionMarketValue').value.trim();
+        var transitionMarketValue = transitionMarketValueRaw === '' ? null : parseFloat(transitionMarketValueRaw);
         var marginalTaxRate = numberValue('marginalTaxRate') / 100;
         var averageCpi = numberValue('averageCpi') / 100;
 
@@ -325,6 +340,7 @@
         if (sellDate <= buyDate) return setError('Sell date must be after buy date.');
         if (!isFinite(costBasis) || costBasis < 0) return setError('Enter a valid cost basis.');
         if (!isFinite(saleAmount) || saleAmount < 0) return setError('Enter a valid sale amount.');
+        if (transitionMarketValue !== null && (!isFinite(transitionMarketValue) || transitionMarketValue < 0)) return setError('Enter a valid 1 July 2027 market value, or leave it blank.');
         if (!isFinite(marginalTaxRate) || marginalTaxRate < 0 || marginalTaxRate > 1) return setError('Enter a marginal tax rate between 0% and 100%.');
         if (!isFinite(averageCpi) || averageCpi < -0.10 || averageCpi > 0.20) return setError('Enter an average annual CPI between -10% and 20%.');
 
@@ -353,8 +369,28 @@
         var postTransitionTaxRate = Math.max(marginalTaxRate, 0.30);
         var newTaxableGain = newPreTaxableGain + newPostTaxableGain;
         var newTax = (newPreTaxableGain * marginalTaxRate) + (newPostTaxableGain * postTransitionTaxRate);
-        var difference = Math.abs(oldTax - newTax);
-        var lowerMethod = oldTax < newTax ? 'Old discount' : (newTax < oldTax ? 'New transitional CPI' : 'Tie');
+
+        var marketTax = null;
+        var marketTaxableGain = null;
+        if (transitionMarketValue !== null) {
+          var marketPreGain = Math.max(0, transitionMarketValue - costBasis);
+          var marketPostGain = Math.max(0, saleAmount - transitionMarketValue);
+          var marketPreTaxableGain = marketPreGain * (eligibleForDiscount ? 0.5 : 1);
+          var marketCpiExemptAmount = Math.max(0, marketPostGain * averageCpi * postYears);
+          var marketPostTaxableGain = Math.max(0, marketPostGain - marketCpiExemptAmount);
+          marketTaxableGain = marketPreTaxableGain + marketPostTaxableGain;
+          marketTax = (marketPreTaxableGain * marginalTaxRate) + (marketPostTaxableGain * postTransitionTaxRate);
+        }
+
+        var methods = [
+          { name: 'Old discount', tax: oldTax },
+          { name: 'New time apportionment', tax: newTax }
+        ];
+        if (marketTax !== null) methods.push({ name: 'New market valuation', tax: marketTax });
+        methods.sort(function (a, b) { return a.tax - b.tax; });
+        var lowerMethod = methods.length > 1 && methods[0].tax === methods[1].tax ? 'Tie' : methods[0].name;
+        var highestTax = methods.reduce(function (max, method) { return Math.max(max, method.tax); }, methods[0].tax);
+        var difference = highestTax - methods[0].tax;
 
         setText('lowerMethod', lowerMethod);
         setText('taxDifference', money(difference));
@@ -366,6 +402,15 @@
         setText('newCostBase', 'Pre ' + percent(preRatio * 100) + ' discount; post ' + percent(postRatio * 100) + ' CPI');
         setText('newTaxableGain', money(newTaxableGain));
         setText('newTax', money(newTax));
+        if (marketTax !== null) {
+          setText('marketTreatment', 'Market value ' + money(transitionMarketValue) + '; post-sale gain CPI');
+          setText('marketTaxableGain', money(marketTaxableGain));
+          setText('marketTax', money(marketTax));
+        } else {
+          setText('marketTreatment', 'Enter 1 July 2027 value to calculate');
+          setText('marketTaxableGain', '--');
+          setText('marketTax', '--');
+        }
       }
 
       form.addEventListener('submit', calculate);
