@@ -386,7 +386,8 @@
         var preTransitionGain = positiveGain * preRatio;
         var postTransitionGain = positiveGain * postRatio;
         var newPreTaxableGain = preTransitionGain * (eligibleForDiscount ? 0.5 : 1);
-        var cpiExemptAmount = Math.max(0, postTransitionGain * averageCpi * postYears);
+        var notionalPostTransitionCostBase = costBasis + preTransitionGain;
+        var cpiExemptAmount = Math.max(0, notionalPostTransitionCostBase * averageCpi * postYears);
         var newPostTaxableGain = Math.max(0, postTransitionGain - cpiExemptAmount);
         var postTransitionTaxRate = Math.max(marginalTaxRate, 0.30);
         var newTaxableGain = newPreTaxableGain + newPostTaxableGain;
