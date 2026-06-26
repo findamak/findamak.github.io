@@ -118,6 +118,7 @@
     .metric { min-width: 0; padding: 14px; border-radius: 14px; border: 1px solid var(--border); background: rgba(0, 0, 0, 0.14); }
     .metric span { display: block; color: var(--muted); font-size: 0.82rem; font-weight: 650; }
     .metric strong { display: block; color: var(--text); font-size: clamp(1.15rem, 2.5vw, 1.55rem); line-height: 1.2; margin-top: 4px; }
+    #taxDifference { white-space: pre-line; font-size: clamp(0.98rem, 2vw, 1.2rem); line-height: 1.35; }
     .callout { padding: 16px 18px; border-radius: 18px; background: rgba(124, 131, 255, 0.10); border: 1px solid rgba(124, 131, 255, 0.28); color: var(--muted); }
     .error { display: none; margin-top: 14px; padding: 14px 16px; border-radius: 16px; background: rgba(255, 107, 138, 0.10); border: 1px solid rgba(255, 107, 138, 0.28); color: #fecdd3; }
     .table-wrap { width: 100%; max-width: 100%; min-width: 0; overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
@@ -212,6 +213,7 @@
           <div class="field">
             <label for="averageCpi">Average annual CPI</label>
             <input id="averageCpi" name="averageCpi" type="number" min="-10" max="20" step="0.1" required>
+            <div class="hint">Enter an annual percentage, not a decimal. For example, enter 2.5 for 2.5% CPI. Try a few scenarios because this is an assumption, not a forecast.</div>
           </div>
           <div class="button-row">
             <button class="primary" type="submit">Calculate</button>
@@ -224,7 +226,7 @@
               <h3>Headline result</h3>
               <div class="metric-grid">
                 <div class="metric"><span>Lower tax method</span><strong id="lowerMethod">--</strong></div>
-                <div class="metric"><span>Tax difference</span><strong id="taxDifference">--</strong></div>
+                <div class="metric"><span>Tax differences</span><strong id="taxDifference">--</strong></div>
                 <div class="metric"><span>Nominal gain</span><strong id="nominalGain">--</strong></div>
               </div>
             </div>
@@ -244,21 +246,21 @@
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Old discount model</td>
+                    <td>Discount model</td>
                     <td id="oldCostBase">--</td>
                     <td id="oldTaxableGain">--</td>
                     <td id="oldTax">--</td>
                     <td id="oldEffectiveRate">--</td>
                   </tr>
                   <tr>
-                    <td>New time-apportionment CPI model</td>
+                    <td>Time-apportionment CPI model</td>
                     <td id="newCostBase">--</td>
                     <td id="newTaxableGain">--</td>
                     <td id="newTax">--</td>
                     <td id="newEffectiveRate">--</td>
                   </tr>
                   <tr>
-                    <td>New market valuation CPI model</td>
+                    <td>Market valuation CPI model</td>
                     <td id="marketTreatment">Enter 1 July 2027 value to calculate</td>
                     <td id="marketTaxableGain">--</td>
                     <td id="marketTax">--</td>
@@ -403,17 +405,19 @@
         }
 
         var methods = [
-          { name: 'Old discount', tax: oldTax },
-          { name: 'New time apportionment', tax: newTax }
+          { name: 'Discount model', tax: oldTax },
+          { name: 'Time-apportionment CPI', tax: newTax }
         ];
-        if (marketTax !== null) methods.push({ name: 'New market valuation', tax: marketTax });
+        if (marketTax !== null) methods.push({ name: 'Market valuation CPI', tax: marketTax });
         methods.sort(function (a, b) { return a.tax - b.tax; });
         var lowerMethod = methods.length > 1 && methods[0].tax === methods[1].tax ? 'Tie' : methods[0].name;
-        var highestTax = methods.reduce(function (max, method) { return Math.max(max, method.tax); }, methods[0].tax);
-        var difference = highestTax - methods[0].tax;
+        var timeVsDiscountDifference = newTax - oldTax;
+        var marketVsTimeDifference = marketTax !== null ? marketTax - newTax : null;
+        var taxDifferenceText = 'Time vs discount: ' + money(timeVsDiscountDifference);
+        taxDifferenceText += '\nMarket vs time: ' + (marketVsTimeDifference === null ? '--' : money(marketVsTimeDifference));
 
         setText('lowerMethod', lowerMethod);
-        setText('taxDifference', money(difference) + ' high-low spread');
+        setText('taxDifference', taxDifferenceText);
         setText('nominalGain', money(nominalGain));
         setText('oldCostBase', eligibleForDiscount ? '50% discount on whole gain' : 'No discount');
         setText('oldTaxableGain', money(oldTaxableGain));
