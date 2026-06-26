@@ -121,7 +121,7 @@
     .callout { padding: 16px 18px; border-radius: 18px; background: rgba(124, 131, 255, 0.10); border: 1px solid rgba(124, 131, 255, 0.28); color: var(--muted); }
     .error { display: none; margin-top: 14px; padding: 14px 16px; border-radius: 16px; background: rgba(255, 107, 138, 0.10); border: 1px solid rgba(255, 107, 138, 0.28); color: #fecdd3; }
     .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
-    table { width: 100%; border-collapse: collapse; min-width: 720px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
+    table { width: 100%; border-collapse: collapse; min-width: 840px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
     th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; text-align: left; }
     th { color: var(--muted); font-size: 0.82rem; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255, 255, 255, 0.045); font-weight: 700; }
     tr:last-child td { border-bottom: 0; }
@@ -225,7 +225,6 @@
               <div class="metric-grid">
                 <div class="metric"><span>Lower tax method</span><strong id="lowerMethod">--</strong></div>
                 <div class="metric"><span>Tax difference</span><strong id="taxDifference">--</strong></div>
-                <div class="metric"><span>Pre / post transition</span><strong id="holdingPeriod">--</strong></div>
                 <div class="metric"><span>Nominal gain</span><strong id="nominalGain">--</strong></div>
               </div>
             </div>
@@ -240,6 +239,7 @@
                     <th>Treatment</th>
                     <th>Taxable gain</th>
                     <th>Estimated tax</th>
+                    <th>Effective tax rate</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -248,18 +248,21 @@
                     <td id="oldCostBase">--</td>
                     <td id="oldTaxableGain">--</td>
                     <td id="oldTax">--</td>
+                    <td id="oldEffectiveRate">--</td>
                   </tr>
                   <tr>
                     <td>New time-apportionment CPI model</td>
                     <td id="newCostBase">--</td>
                     <td id="newTaxableGain">--</td>
                     <td id="newTax">--</td>
+                    <td id="newEffectiveRate">--</td>
                   </tr>
                   <tr>
                     <td>New market valuation CPI model</td>
                     <td id="marketTreatment">Enter 1 July 2027 value to calculate</td>
                     <td id="marketTaxableGain">--</td>
                     <td id="marketTax">--</td>
+                    <td id="marketEffectiveRate">--</td>
                   </tr>
                 </tbody>
               </table>
@@ -313,6 +316,10 @@
       }
       function percent(value) {
         return new Intl.NumberFormat('en-AU', { maximumFractionDigits: 2 }).format(value) + '%';
+      }
+      function effectiveRate(tax, gain) {
+        if (!isFinite(tax) || !isFinite(gain) || gain <= 0) return '--';
+        return percent((tax / gain) * 100);
       }
       function setText(id, value) { byId(id).textContent = value; }
       function setError(message) {
@@ -394,22 +401,25 @@
 
         setText('lowerMethod', lowerMethod);
         setText('taxDifference', money(difference));
-        setText('holdingPeriod', percent(preRatio * 100) + ' / ' + percent(postRatio * 100));
         setText('nominalGain', money(nominalGain));
         setText('oldCostBase', eligibleForDiscount ? '50% discount on whole gain' : 'No discount');
         setText('oldTaxableGain', money(oldTaxableGain));
         setText('oldTax', money(oldTax));
+        setText('oldEffectiveRate', effectiveRate(oldTax, positiveGain));
         setText('newCostBase', 'Pre ' + percent(preRatio * 100) + ' discount; post ' + percent(postRatio * 100) + ' CPI');
         setText('newTaxableGain', money(newTaxableGain));
         setText('newTax', money(newTax));
+        setText('newEffectiveRate', effectiveRate(newTax, positiveGain));
         if (marketTax !== null) {
           setText('marketTreatment', 'Market value ' + money(transitionMarketValue) + ' indexed for post-2027 CPI');
           setText('marketTaxableGain', money(marketTaxableGain));
           setText('marketTax', money(marketTax));
+          setText('marketEffectiveRate', effectiveRate(marketTax, positiveGain));
         } else {
           setText('marketTreatment', 'Enter 1 July 2027 value to calculate');
           setText('marketTaxableGain', '--');
           setText('marketTax', '--');
+          setText('marketEffectiveRate', '--');
         }
       }
 
