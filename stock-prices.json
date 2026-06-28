@@ -171,10 +171,11 @@
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.449,
-      "change": -0.01,
-      "type": "forex"
+      "price": null,
+      "change": null,
+      "type": "forex",
+      "error": "'NoneType' object is not subscriptable"
     }
   ],
-  "lastUpdated": "2026-06-29T01:05:17.166371"
+  "lastUpdated": "2026-06-29T01:10:17.060379"
 }
