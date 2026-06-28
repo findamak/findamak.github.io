@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 207.75,
-      "change": -0.74,
+      "price": 207.25,
+      "change": -0.98,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.1528,
-      "change": -0.16,
+      "change": -0.18,
       "type": "stock"
     },
     {
@@ -164,9 +164,10 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 69.23,
-      "change": 0,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "USDAUD",
@@ -176,5 +177,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-28T20:25:17.372677"
+  "lastUpdated": "2026-06-28T20:30:15.651253"
 }
