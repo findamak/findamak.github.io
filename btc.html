@@ -541,7 +541,7 @@
 
     function renderBacktestTable(data) {
       const initialUsd = 1000;
-      const taxRate = 0.225;
+      const taxRate = 0.235;
       const first = data.series[0];
       const latest = data.series[data.series.length - 1];
       const sortedCrosses = data.crosses.slice().sort((a, b) => a.date.localeCompare(b.date));
@@ -638,7 +638,7 @@
           <td>${(strategyValue / initialUsd).toLocaleString('en-US', { maximumFractionDigits: 1 })}x</td>
         </tr>
         <tr>
-          <td>MA crosses with 22.5% tax</td>
+          <td>MA crosses with 23.5% tax</td>
           <td>${initialBtc.toFixed(4)} BTC bought at ${preciseCurrency.format(first.close)}</td>
           <td>${taxedTrades}</td>
           <td>${taxedEndingPosition}</td>
@@ -646,7 +646,7 @@
           <td>${(taxedStrategyValue / initialUsd).toLocaleString('en-US', { maximumFractionDigits: 1 })}x</td>
         </tr>
       `;
-      document.getElementById('backtestAssumptions').textContent = `Assumptions: start with $1,000 USD on ${formatDate(first.date)}, trade all-in/all-out at the crossover day's Bitstamp daily close, and ignore fees, spreads, and slippage. The tax row applies 22.5% tax on profitable sells, carries losses forward to offset later gains, and paid ${preciseCurrency.format(taxPaid)} in tax in this simulation. This is informational only, not tax or financial advice.`;
+      document.getElementById('backtestAssumptions').textContent = `Assumptions: start with $1,000 USD on ${formatDate(first.date)}, trade all-in/all-out at the crossover day's Bitstamp daily close, and ignore fees, spreads, and slippage. The tax row applies 23.5% tax on profitable sells, carries losses forward to offset later gains, and paid ${preciseCurrency.format(taxPaid)} in tax in this simulation. This is informational only, not tax or financial advice.`;
     }
 
     async function init() {
