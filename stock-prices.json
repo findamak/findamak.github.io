@@ -10,9 +10,10 @@
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 25.94,
-      "change": 1.01,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "LLY",
@@ -45,15 +46,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 207.75,
-      "change": -0.74,
+      "price": 207.6,
+      "change": -0.81,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1516,
-      "change": -0.93,
+      "price": 0.1515,
+      "change": -0.98,
       "type": "stock"
     },
     {
@@ -164,17 +165,19 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 69.23,
-      "change": 0,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.449,
-      "change": -0.01,
-      "type": "forex"
+      "price": null,
+      "change": null,
+      "type": "forex",
+      "error": "'NoneType' object is not subscriptable"
     }
   ],
-  "lastUpdated": "2026-06-29T00:55:16.379789"
+  "lastUpdated": "2026-06-29T01:00:34.936404"
 }
