@@ -24,9 +24,10 @@
     {
       "symbol": "BTCI",
       "name": "Neos Bitcoin High Income ETF",
-      "price": 27.265,
-      "change": 0.94,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "IBTC.XA",
@@ -45,8 +46,8 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 207.56,
-      "change": -0.83,
+      "price": 207.3,
+      "change": -0.95,
       "type": "stock"
     },
     {
@@ -176,5 +177,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-28T21:10:17.172538"
+  "lastUpdated": "2026-06-28T21:15:17.419780"
 }
