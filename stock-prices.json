@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 208.81,
+      "price": 208.52,
       "change": 0,
       "type": "stock"
     },
@@ -122,10 +122,9 @@
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'NoneType' object is not subscriptable"
+      "price": 221.05,
+      "change": -3.05,
+      "type": "stock"
     },
     {
       "symbol": "SPX",
@@ -177,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-06-28T14:50:14.914194"
+  "lastUpdated": "2026-06-28T14:55:16.659083"
 }
