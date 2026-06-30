@@ -17,15 +17,15 @@
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1199.1901,
-      "change": -2.5,
+      "price": 1199.3,
+      "change": -2.49,
       "type": "stock"
     },
     {
       "symbol": "BTCI",
       "name": "Neos Bitcoin High Income ETF",
-      "price": 26.78,
-      "change": -2.83,
+      "price": 26.86,
+      "change": -2.54,
       "type": "stock"
     },
     {
@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 202.48,
-      "change": -2.77,
+      "price": 201.71,
+      "change": -3.14,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1411,
-      "change": -2.95,
+      "price": 0.1412,
+      "change": -2.9,
       "type": "stock"
     },
     {
@@ -143,22 +143,22 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4032.3999,
-      "change": 0.25,
+      "price": 4034.1001,
+      "change": 0.29,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 59.66,
-      "change": 2.55,
+      "price": 59.735,
+      "change": 2.68,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 73.45,
-      "change": 0.41,
+      "price": 73.44,
+      "change": 0.4,
       "type": "commodity"
     },
     {
@@ -171,10 +171,10 @@
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4442,
+      "price": 1.4441,
       "change": -0.41,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-01T06:15:17.494065"
+  "lastUpdated": "2026-07-01T06:20:16.600072"
 }
