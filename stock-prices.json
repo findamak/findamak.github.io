@@ -17,10 +17,9 @@
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'NoneType' object is not subscriptable"
+      "price": 1199.4301,
+      "change": -2.48,
+      "type": "stock"
     },
     {
       "symbol": "BTCI",
@@ -46,29 +45,29 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 202.91,
+      "price": 202.88,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.146,
+      "price": 0.1454,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.23,
-      "change": -0.98,
+      "price": 108.27,
+      "change": -0.94,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 120.65,
-      "change": -0.7,
+      "price": 120.77,
+      "change": -0.6,
       "type": "stock"
     },
     {
@@ -81,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 63.7,
-      "change": -0.66,
+      "price": 63.72,
+      "change": -0.62,
       "type": "stock"
     },
     {
@@ -144,14 +143,14 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3990.6,
-      "change": 0,
+      "price": 3993.6001,
+      "change": -0.73,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 58.195,
+      "price": 58.3,
       "change": 0,
       "type": "commodity"
     },
@@ -165,7 +164,7 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 69.79,
+      "price": 69.82,
       "change": 0,
       "type": "commodity"
     },
@@ -177,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-01T14:05:18.040466"
+  "lastUpdated": "2026-07-01T14:10:17.730063"
 }
