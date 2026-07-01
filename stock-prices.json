@@ -17,9 +17,10 @@
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1199.4301,
-      "change": -2.48,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "BTCI",
@@ -31,57 +32,57 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 8.54,
+      "price": 8.53,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 17.26,
-      "change": -0.98,
+      "price": 17.25,
+      "change": -1.03,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 202.81,
+      "price": 202.91,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1462,
+      "price": 0.146,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.25,
-      "change": -0.96,
+      "price": 108.23,
+      "change": -0.98,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 120.69,
-      "change": -0.67,
+      "price": 120.65,
+      "change": -0.7,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 72.11,
-      "change": -0.25,
+      "price": 72.12,
+      "change": -0.24,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 63.69,
-      "change": -0.67,
+      "price": 63.7,
+      "change": -0.66,
       "type": "stock"
     },
     {
@@ -143,14 +144,14 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3989.9,
+      "price": 3990.6,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 58.18,
+      "price": 58.195,
       "change": 0,
       "type": "commodity"
     },
@@ -171,10 +172,10 @@
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4506,
-      "change": -0.16,
+      "price": 1.4511,
+      "change": -0.13,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-01T14:00:19.295932"
+  "lastUpdated": "2026-07-01T14:05:18.040466"
 }
