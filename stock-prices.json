@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 215.27,
+      "price": 215.28,
       "change": 2.93,
       "type": "stock"
     },
@@ -53,15 +53,16 @@
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.1395,
-      "change": -0.29,
+      "change": -0.26,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.65,
-      "change": 1.38,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "VEU.AX",
@@ -176,5 +177,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-04T08:35:18.699494"
+  "lastUpdated": "2026-07-04T08:40:16.263922"
 }
