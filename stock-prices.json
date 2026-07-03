@@ -31,36 +31,36 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 8.81,
+      "price": 8.8,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 17.85,
-      "change": 0,
+      "price": 17.92,
+      "change": 1.76,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 208.5,
+      "price": 208.48,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1394,
+      "price": 0.1398,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.58,
-      "change": 0.39,
+      "price": 108.55,
+      "change": 0.36,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.7,
-      "change": -1.56,
+      "price": 61.63,
+      "change": -1.68,
       "type": "stock"
     },
     {
@@ -143,15 +143,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4146.6001,
-      "change": 1.92,
+      "price": 4148.3999,
+      "change": 1.97,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 61.645,
-      "change": 2.6,
+      "price": 61.655,
+      "change": 2.61,
       "type": "commodity"
     },
     {
@@ -164,17 +164,17 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 68.38,
-      "change": -0.29,
+      "price": 68.43,
+      "change": -0.22,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4455,
-      "change": -0.38,
+      "price": 1.4458,
+      "change": -0.36,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-03T10:25:22.007128"
+  "lastUpdated": "2026-07-03T10:30:21.793992"
 }
