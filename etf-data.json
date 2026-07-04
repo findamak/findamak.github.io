@@ -1,11 +1,16 @@
 {
   "totalHoldingsBTC": 1210344,
   "flows": {
-    "1day": 3563,
-    "7day": -15627,
-    "30day": -56779
+    "1day": 0,
+    "7day": 0,
+    "30day": 0
   },
   "history": [
+    {
+      "date": "2026-07-05",
+      "totalBTC": 1210344,
+      "dailyFlow": 0
+    },
     {
       "date": "2026-07-04",
       "totalBTC": 1210344,
@@ -35,12 +40,7 @@
       "date": "2026-06-29",
       "totalBTC": 1219353,
       "dailyFlow": 0
-    },
-    {
-      "date": "2026-06-28",
-      "totalBTC": 1219353,
-      "dailyFlow": -7387
     }
   ],
-  "lastUpdated": "2026-07-04T06:00:05.266366"
+  "lastUpdated": "2026-07-05T06:00:05.366276"
 }
