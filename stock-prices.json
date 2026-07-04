@@ -3,10 +3,9 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'NoneType' object is not subscriptable"
+      "price": 38.82,
+      "change": -10.39,
+      "type": "stock"
     },
     {
       "symbol": "CIFR",
@@ -46,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 216.99,
-      "change": 0.78,
+      "price": 217.11,
+      "change": 0.83,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1401,
-      "change": -0.14,
+      "price": 0.1399,
+      "change": -0.27,
       "type": "stock"
     },
     {
@@ -177,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-05T07:25:16.568476"
+  "lastUpdated": "2026-07-05T07:30:16.603646"
 }
