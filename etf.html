@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ETF guide covering US, high-income, and ASX ETFs from Allan's spreadsheet.">
+  <title>ETF Guide</title>
+  <link rel="icon" href="favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --bg: #06070a; --surface: rgba(255, 255, 255, 0.045); --border: rgba(255, 255, 255, 0.09); --text: #f5f7fb; --muted: #a8b0c2; --subtle: #697184; --accent: #7c83ff; --accent-2: #38d9c6; --gold: #f7c66f; --danger: #ff6b8a; --success: #38d9c6; --shadow: 0 24px 80px rgba(0, 0, 0, 0.38); --radius: 24px; --max-width: 1120px; --transition: 180ms ease; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { min-height: 100vh; font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; color: var(--text); line-height: 1.7; background: radial-gradient(circle at top left, rgba(124, 131, 255, 0.20), transparent 34rem), radial-gradient(circle at 85% 12%, rgba(56, 217, 198, 0.10), transparent 28rem), radial-gradient(circle at 50% 100%, rgba(247, 198, 111, 0.09), transparent 36rem), var(--bg); overflow-x: hidden; font-feature-settings: "cv01", "ss03"; }
+    body::before { content: ''; position: fixed; inset: 0; pointer-events: none; background-image: linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px); background-size: 64px 64px; mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.75), transparent 72%); z-index: -1; }
+    a { color: inherit; }
+    h1, h2, h3 { color: var(--text); letter-spacing: -0.04em; line-height: 1.05; }
+    h1 { font-size: clamp(3rem, 8vw, 6.6rem); font-weight: 700; margin: 0; }
+    h2 { font-size: clamp(1.55rem, 3.4vw, 2.5rem); font-weight: 650; }
+    p { color: var(--muted); font-size: 1.02rem; }
+    .site-header { position: sticky; top: 0; z-index: 10; backdrop-filter: blur(18px); background: rgba(6, 7, 10, 0.72); border-bottom: 1px solid var(--border); }
+    .nav { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; min-height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
+    .brand { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; font-weight: 700; letter-spacing: -0.03em; }
+    .brand-mark { width: 38px; height: 38px; display: grid; place-items: center; border-radius: 12px; background: linear-gradient(135deg, rgba(124, 131, 255, 0.95), rgba(56, 217, 198, 0.9)); color: #05060a; box-shadow: 0 14px 38px rgba(124, 131, 255, 0.24); }
+    .nav-links { display: flex; align-items: center; justify-content: flex-end; gap: 8px; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.94rem; font-weight: 600; padding: 9px 13px; border: 1px solid transparent; border-radius: 999px; transition: color var(--transition), background var(--transition), border-color var(--transition), transform var(--transition); }
+    .nav-links a:hover, .nav-links a:focus-visible { color: var(--text); background: var(--surface); border-color: var(--border); outline: none; }
+    .nav-links .nav-cta { color: #090b11; background: linear-gradient(135deg, var(--accent), var(--accent-2)); border-color: transparent; box-shadow: 0 10px 28px rgba(124, 131, 255, 0.22); }
+    .nav-links .nav-cta:hover, .nav-links .nav-cta:focus-visible { color: #05060a; background: linear-gradient(135deg, #a5b4fc, #55ead9); transform: translateY(-1px); }
+    .hero-wrap, main, footer { width: min(var(--max-width), calc(100% - 32px)); margin: 0 auto; }
+    .hero-wrap { padding: 72px 0 34px; }
+    .hero { position: relative; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.8fr); gap: 28px; align-items: stretch; padding: clamp(34px, 6vw, 64px); border: 1px solid var(--border); border-radius: calc(var(--radius) + 10px); background: linear-gradient(180deg, rgba(255, 255, 255, 0.075), rgba(255, 255, 255, 0.03)); box-shadow: var(--shadow); }
+    .hero::before, .hero::after { content: ''; position: absolute; border-radius: 999px; filter: blur(12px); opacity: 0.8; pointer-events: none; }
+    .hero::before { width: 320px; height: 320px; top: -160px; right: -120px; background: rgba(124, 131, 255, 0.25); }
+    .hero::after { width: 260px; height: 260px; left: -120px; bottom: -140px; background: rgba(56, 217, 198, 0.18); }
+    .hero > * { position: relative; z-index: 1; }
+    .eyebrow { color: var(--accent-2); text-transform: uppercase; letter-spacing: 0.18em; font-size: 0.78rem; font-weight: 800; margin-bottom: 18px; }
+    .subtitle { max-width: 760px; font-size: 1.06rem; margin-top: 22px; }
+    main { padding: 18px 0 82px; }
+    section { margin: 28px 0; }
+    .card, .section-card, .summary-card { border: 1px solid var(--border); background: linear-gradient(180deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.026)); box-shadow: 0 18px 60px rgba(0, 0, 0, 0.24); backdrop-filter: blur(14px); border-radius: var(--radius); }
+    .summary-card { padding: 24px; display: grid; gap: 14px; align-content: center; }
+    .summary-item { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
+    .summary-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .label, .note { color: var(--muted); } .value { font-weight: 700; color: var(--text); text-align: right; }
+    .section-card { padding: clamp(18px, 3vw, 30px); }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
+    .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
+    table { width: 100%; border-collapse: collapse; min-width: 900px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
+    th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; vertical-align: top; }
+    th { color: var(--muted); font-size: 0.80rem; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255, 255, 255, 0.045); font-weight: 700; text-align: left; }
+    th span { color: var(--subtle); font-size: 0.72rem; letter-spacing: 0.02em; text-transform: none; } tr:last-child td { border-bottom: 0; }
+    .fund-name { white-space: normal; min-width: 280px; }
+    .ticker { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; color: #090b11; background: linear-gradient(135deg, var(--gold), var(--accent-2)); border-radius: 999px; padding: 4px 9px; font-weight: 800; }
+    .metric { font-weight: 750; } .positive { color: var(--success); } .negative { color: var(--danger); } .zero { color: var(--subtle); }
+    .source-link { color: var(--accent-2); text-decoration: none; font-weight: 700; } .source-link:hover { text-decoration: underline; }
+    .risk-pill { display: inline-flex; margin-left: 8px; padding: 4px 9px; border: 1px solid rgba(255, 107, 138, 0.32); border-radius: 999px; color: #fecdd3; background: rgba(255, 107, 138, 0.10); font-size: 0.78rem; letter-spacing: 0.02em; vertical-align: middle; }
+    .note { margin-top: 16px; font-size: 0.94rem; } footer { padding: 30px 0 46px; color: var(--muted); font-size: 0.9rem; text-align: center; }
+    @media (max-width: 820px) { .nav { align-items: flex-start; flex-direction: column; padding: 14px 0; } .hero { grid-template-columns: 1fr; } .section-heading { align-items: flex-start; flex-direction: column; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <nav class="nav" aria-label="ETF guide navigation">
+      <a class="brand" href="index.html"><span class="brand-mark">AM</span><span>Allan Mak</span></a>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="btc.html">BTC Crosses</a>
+        <a href="btci.html">BTCI</a>
+        <a href="etf.html">ETF Guide</a>
+        <a href="gold.html">Gold</a>
+        <a href="super.html">Super</a>
+        <a href="cgt.html">CGT</a>
+        <a href="dashboard.html">Dashboard</a>
+      </div>
+    </nav>
+  </header>
+  <header class="hero-wrap">
+    <div class="hero">
+      <div><div class="eyebrow">Spreadsheet import</div><h1>ETF Guide</h1><p class="subtitle">A quick reference for US, high-income, and ASX ETFs using the figures from the supplied spreadsheet. Percentages are shown as entered, with decimal spreadsheet values converted to percent format.</p></div>
+      <aside class="card summary-card" aria-label="ETF guide summary">
+        <div class="summary-item"><span class="label">ETF count</span><span class="value">11</span></div>
+        <div class="summary-item"><span class="label">Groups</span><span class="value">3</span></div>
+        <div class="summary-item"><span class="label">Top listed performance</span><span class="value">IBTC 49.00%</span></div>
+        <div class="summary-item"><span class="label">Lowest listed performance</span><span class="value">BTCI -7.22%</span></div>
+      </aside>
+    </div>
+  </header>
+  <main>
+    <section class="card section-card"><div class="section-heading"><div><h2>How to read this</h2><p>The spreadsheet column is labelled “Performance since inception (yield reinvested)”. I have preserved that wording rather than inferring CAGR, total return, tax treatment, currency effects, or fee methodology.</p></div></div><p class="note">This page is informational only and is not financial advice. High-income products can use option overlays, bitcoin exposure, leverage-like payoff profiles, or other strategies that may create materially different risk from broad-market index ETFs.</p></section>
+
+    <section class="card section-card" id="us-etf">
+      <div class="section-heading">
+        <div>
+          <h2>US ETF</h2>
+          <p>2 ETFs from the spreadsheet.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ETF</th>
+              <th>Ticker</th>
+              <th>Inception date</th>
+              <th>Performance since inception<br><span>(yield reinvested)</span></th>
+              <th>Yield since inception</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="fund-name">Vanguard Total World Stock ETF</td>
+              <td><span class="ticker">VT</span></td>
+              <td>2008-06-24</td>
+              <td class="metric positive">8.70%</td>
+              <td class="metric ">2% - 2.5%</td>
+              <td><a class="source-link" href="https://investor.vanguard.com/investment-products/etfs/profile/vt#overview" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+            <tr>
+              <td class="fund-name">Vanguard Total Stock Market ETF</td>
+              <td><span class="ticker">VTI</span></td>
+              <td>2001-05-24</td>
+              <td class="metric positive">9.34%</td>
+              <td class="metric ">6.29% last 5yr</td>
+              <td><a class="source-link" href="https://investor.vanguard.com/investment-products/etfs/profile/vti" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="card section-card" id="us-high-income-etf--high-risk">
+      <div class="section-heading">
+        <div>
+          <h2>US High Income ETF (HIGH RISK) <span class="risk-pill">High risk</span></h2>
+          <p>3 ETFs from the spreadsheet.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ETF</th>
+              <th>Ticker</th>
+              <th>Inception date</th>
+              <th>Performance since inception<br><span>(yield reinvested)</span></th>
+              <th>Yield since inception</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="fund-name">Goldman Sachs S&amp;P 500 Premium Income ETF</td>
+              <td><span class="ticker">GPIX</span></td>
+              <td>2023-10-24</td>
+              <td class="metric positive">23.00%</td>
+              <td class="metric positive">8.00%</td>
+              <td><a class="source-link" href="https://am.gs.com/en-us/advisors/funds/detail/PV105258/38149W622/goldman-sachs-s-p-500-premium-income-etf" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+            <tr>
+              <td class="fund-name">NEOS Nasdaq 100 high income ETF</td>
+              <td><span class="ticker">QQQI</span></td>
+              <td>2024-01-30</td>
+              <td class="metric positive">19.61%</td>
+              <td class="metric ">13.43% - 13.61%</td>
+              <td><a class="source-link" href="https://neosfunds.com/qqqi/" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+            <tr>
+              <td class="fund-name">NEOS Bitcoin High Income ETF</td>
+              <td><span class="ticker">BTCI</span></td>
+              <td>2024-10-16</td>
+              <td class="metric negative">-7.22%</td>
+              <td class="metric positive">37.00%</td>
+              <td><a class="source-link" href="https://neosfunds.com/btci/" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section class="card section-card" id="asx-etf">
+      <div class="section-heading">
+        <div>
+          <h2>ASX ETF</h2>
+          <p>6 ETFs from the spreadsheet.</p>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>ETF</th>
+              <th>Ticker</th>
+              <th>Inception date</th>
+              <th>Performance since inception<br><span>(yield reinvested)</span></th>
+              <th>Yield since inception</th>
+              <th>Link</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="fund-name">iShares S&amp;P 500 ETF</td>
+              <td><span class="ticker">IVV</span></td>
+              <td>2000-05-15</td>
+              <td class="metric positive">7.27%</td>
+              <td class="metric positive">1.71%</td>
+              <td><a class="source-link" href="https://www.blackrock.com/au/products/275304/" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+            <tr>
+              <td class="fund-name">Nasdaq 100 ETF</td>
+              <td><span class="ticker">NDQ</span></td>
+              <td>2015-05-26</td>
+              <td class="metric positive">19.22%</td>
+              <td class="metric positive">2.27%</td>
+              <td><a class="source-link" href="https://www.betashares.com.au/fund/nasdaq-100-etf/" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+            <tr>
+              <td class="fund-name">Vanguard Australian Shares Index ETF</td>
+              <td><span class="ticker">VAS</span></td>
+              <td>2009-05-04</td>
+              <td class="metric positive">9.00%</td>
+              <td class="metric positive">4.00%</td>
+              <td><a class="source-link" href="https://www.vanguard.com.au/personal/invest-with-us/etf?portId=8205" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+            <tr>
+              <td class="fund-name">Vanguard All-World ex-U.S. Shares Index ETF</td>
+              <td><span class="ticker">VEU</span></td>
+              <td>2009-05-12</td>
+              <td class="metric positive">8.00%</td>
+              <td class="metric ">2.5% - 3.2%</td>
+              <td><a class="source-link" href="https://www.vanguard.com.au/personal/invest-with-us/etf?portId=0991" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+            <tr>
+              <td class="fund-name">Monochrome Bitcoin ETF</td>
+              <td><span class="ticker">IBTC</span></td>
+              <td>2023-03-10</td>
+              <td class="metric positive">49.00%</td>
+              <td class="metric zero">0.00%</td>
+              <td><a class="source-link" href="https://www.monochrome.au/products/monochrome-bitcoin-etf" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+            <tr>
+              <td class="fund-name">Vanguard MSCI Index International Shares ETF</td>
+              <td><span class="ticker">VGS</span></td>
+              <td>2014-11-18</td>
+              <td class="metric positive">13.00%</td>
+              <td class="metric positive">2.00%</td>
+              <td><a class="source-link" href="https://www.vanguard.com.au/personal/invest-with-us/etf?portId=8212" rel="noopener" target="_blank">Fund page</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+  <footer>Source: ETFGuide.xlsx supplied spreadsheet. Links point to each fund issuer page.</footer>
+</body>
+</html>
