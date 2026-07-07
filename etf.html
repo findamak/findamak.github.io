@@ -48,7 +48,7 @@
     .section-card { padding: clamp(18px, 3vw, 30px); }
     .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
     .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
-    table { width: 100%; border-collapse: collapse; min-width: 900px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
+    table { width: 100%; border-collapse: collapse; min-width: 1020px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
     th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; vertical-align: top; }
     th { color: var(--muted); font-size: 0.80rem; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255, 255, 255, 0.045); font-weight: 700; text-align: left; }
     th span { color: var(--subtle); font-size: 0.72rem; letter-spacing: 0.02em; text-transform: none; } tr:last-child td { border-bottom: 0; }
@@ -101,6 +101,7 @@
             <tr>
               <th>ETF</th>
               <th>Ticker</th>
+              <th>Total AUM</th>
               <th>Inception date</th>
               <th>Performance since inception<br><span>(yield reinvested)</span></th>
               <th>Yield since inception</th>
@@ -111,6 +112,7 @@
             <tr>
               <td class="fund-name">Vanguard Total World Stock ETF</td>
               <td><span class="ticker">VT</span></td>
+              <td class="metric">US$95.33B</td>
               <td>2008-06-24</td>
               <td class="metric positive">8.70%</td>
               <td class="metric ">2% - 2.5%</td>
@@ -119,6 +121,7 @@
             <tr>
               <td class="fund-name">Vanguard Total Stock Market ETF</td>
               <td><span class="ticker">VTI</span></td>
+              <td class="metric">US$2.31T</td>
               <td>2001-05-24</td>
               <td class="metric positive">9.34%</td>
               <td class="metric ">6.29% last 5yr</td>
@@ -140,6 +143,7 @@
             <tr>
               <th>ETF</th>
               <th>Ticker</th>
+              <th>Total AUM</th>
               <th>Inception date</th>
               <th>Performance since inception<br><span>(yield reinvested)</span></th>
               <th>Yield since inception</th>
@@ -150,6 +154,7 @@
             <tr>
               <td class="fund-name">Goldman Sachs S&amp;P 500 Premium Income ETF</td>
               <td><span class="ticker">GPIX</span></td>
+              <td class="metric">US$4.29B</td>
               <td>2023-10-24</td>
               <td class="metric positive">23.00%</td>
               <td class="metric positive">8.00%</td>
@@ -158,6 +163,7 @@
             <tr>
               <td class="fund-name">NEOS Nasdaq 100 high income ETF</td>
               <td><span class="ticker">QQQI</span></td>
+              <td class="metric">US$12.35B</td>
               <td>2024-01-30</td>
               <td class="metric positive">19.61%</td>
               <td class="metric ">13.43% - 13.61%</td>
@@ -166,6 +172,7 @@
             <tr>
               <td class="fund-name">NEOS Bitcoin High Income ETF</td>
               <td><span class="ticker">BTCI</span></td>
+              <td class="metric">US$1.06B</td>
               <td>2024-10-16</td>
               <td class="metric negative">-7.22%</td>
               <td class="metric positive">37.00%</td>
@@ -187,6 +194,7 @@
             <tr>
               <th>ETF</th>
               <th>Ticker</th>
+              <th>Total AUM</th>
               <th>Inception date</th>
               <th>Performance since inception<br><span>(yield reinvested)</span></th>
               <th>Yield since inception</th>
@@ -197,6 +205,7 @@
             <tr>
               <td class="fund-name">iShares S&amp;P 500 ETF</td>
               <td><span class="ticker">IVV</span></td>
+              <td class="metric">A$13.75B</td>
               <td>2000-05-15</td>
               <td class="metric positive">7.27%</td>
               <td class="metric positive">1.71%</td>
@@ -205,6 +214,7 @@
             <tr>
               <td class="fund-name">Nasdaq 100 ETF</td>
               <td><span class="ticker">NDQ</span></td>
+              <td class="metric">A$9.92B</td>
               <td>2015-05-26</td>
               <td class="metric positive">19.22%</td>
               <td class="metric positive">2.27%</td>
@@ -213,6 +223,7 @@
             <tr>
               <td class="fund-name">Vanguard Australian Shares Index ETF</td>
               <td><span class="ticker">VAS</span></td>
+              <td class="metric">A$25.43B</td>
               <td>2009-05-04</td>
               <td class="metric positive">9.00%</td>
               <td class="metric positive">4.00%</td>
@@ -221,6 +232,7 @@
             <tr>
               <td class="fund-name">Vanguard All-World ex-U.S. Shares Index ETF</td>
               <td><span class="ticker">VEU</span></td>
+              <td class="metric">A$6.19B</td>
               <td>2009-05-12</td>
               <td class="metric positive">8.00%</td>
               <td class="metric ">2.5% - 3.2%</td>
@@ -229,6 +241,7 @@
             <tr>
               <td class="fund-name">Monochrome Bitcoin ETF</td>
               <td><span class="ticker">IBTC</span></td>
+              <td class="metric">A$125.9M</td>
               <td>2023-03-10</td>
               <td class="metric positive">49.00%</td>
               <td class="metric zero">0.00%</td>
@@ -237,6 +250,7 @@
             <tr>
               <td class="fund-name">Vanguard MSCI Index International Shares ETF</td>
               <td><span class="ticker">VGS</span></td>
+              <td class="metric">A$16.87B</td>
               <td>2014-11-18</td>
               <td class="metric positive">13.00%</td>
               <td class="metric positive">2.00%</td>
@@ -247,6 +261,6 @@
       </div>
     </section>
   </main>
-  <footer>Source: ETFGuide.xlsx supplied spreadsheet. Links point to each fund issuer page.</footer>
+  <footer>Source: ETFGuide.xlsx supplied spreadsheet plus issuer/Yahoo Finance AUM data. Links point to each fund issuer page.</footer>
 </body>
 </html>
