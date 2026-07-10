@@ -53,7 +53,7 @@
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.1319,
-      "change": -0.72,
+      "change": -0.71,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4111.5,
-      "change": -0.46,
+      "price": 4110.0,
+      "change": -0.5,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 60.035,
-      "change": -0.57,
+      "price": 59.98,
+      "change": -0.66,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 76.38,
-      "change": 0.1,
+      "price": 76.18,
+      "change": -0.16,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 72.15,
-      "change": 0.1,
+      "price": 71.96,
+      "change": -0.17,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-10T18:50:16.931316"
+  "lastUpdated": "2026-07-10T18:55:18.108880"
 }
