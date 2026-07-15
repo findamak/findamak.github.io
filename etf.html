@@ -48,11 +48,11 @@
     .section-card { padding: clamp(18px, 3vw, 30px); }
     .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 18px; }
     .table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 18px; }
-    table { width: 100%; border-collapse: collapse; min-width: 1020px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
+    table { width: 100%; border-collapse: collapse; min-width: 1180px; background: rgba(255, 255, 255, 0.025); color: var(--text); }
     th, td { padding: 14px 16px; border-bottom: 1px solid var(--border); white-space: nowrap; vertical-align: top; }
     th { color: var(--muted); font-size: 0.80rem; text-transform: uppercase; letter-spacing: 0.06em; background: rgba(255, 255, 255, 0.045); font-weight: 700; text-align: left; }
     th span { color: var(--subtle); font-size: 0.72rem; letter-spacing: 0.02em; text-transform: none; } tr:last-child td { border-bottom: 0; }
-    .fund-name { white-space: normal; min-width: 280px; }
+    .fund-name { white-space: normal; min-width: 280px; } .notes { white-space: normal; min-width: 240px; }
     .ticker { font-family: 'JetBrains Mono', ui-monospace, SFMono-Regular, Menlo, monospace; color: #090b11; background: linear-gradient(135deg, var(--gold), var(--accent-2)); border-radius: 999px; padding: 4px 9px; font-weight: 800; }
     .metric { font-weight: 750; } .positive { color: var(--success); } .negative { color: var(--danger); } .zero { color: var(--subtle); }
     .source-link { color: var(--accent-2); text-decoration: none; font-weight: 700; } .source-link:hover { text-decoration: underline; }
@@ -106,6 +106,7 @@
               <th>Annualised performance since inception<br><span>(distributions reinvested)</span></th>
               <th>Current / trailing yield</th>
               <th>Link</th>
+              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -117,6 +118,7 @@
               <td class="metric positive">8.87%</td>
               <td class="metric positive">1.59%</td>
               <td><a class="source-link" href="https://investor.vanguard.com/investment-products/etfs/profile/vt#overview" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
             <tr>
               <td class="fund-name">Vanguard Total Stock Market ETF</td>
@@ -126,6 +128,7 @@
               <td class="metric positive">9.48%</td>
               <td class="metric positive">1.01%</td>
               <td><a class="source-link" href="https://investor.vanguard.com/investment-products/etfs/profile/vti" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
           </tbody>
         </table>
@@ -148,6 +151,7 @@
               <th>Annualised performance since inception<br><span>(distributions reinvested)</span></th>
               <th>Current / trailing yield</th>
               <th>Link</th>
+              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -159,6 +163,7 @@
               <td class="metric positive">23.21%</td>
               <td class="metric positive">7.83%</td>
               <td><a class="source-link" href="https://am.gs.com/en-us/advisors/funds/detail/PV105258/38149W622/goldman-sachs-s-p-500-premium-income-etf" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
             <tr>
               <td class="fund-name">NEOS Nasdaq 100 high income ETF</td>
@@ -168,6 +173,7 @@
               <td class="metric positive">21.63%</td>
               <td class="metric positive">14.05%</td>
               <td><a class="source-link" href="https://neosfunds.com/qqqi/" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
             <tr>
               <td class="fund-name">NEOS Bitcoin High Income ETF</td>
@@ -177,6 +183,7 @@
               <td class="metric negative">-7.65%</td>
               <td class="metric positive">26.16%</td>
               <td><a class="source-link" href="https://neosfunds.com/btci/" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
           </tbody>
         </table>
@@ -199,6 +206,7 @@
               <th>Annualised performance since inception<br><span>(distributions reinvested)</span></th>
               <th>Current / trailing yield</th>
               <th>Link</th>
+              <th>Notes</th>
             </tr>
           </thead>
           <tbody>
@@ -210,6 +218,7 @@
               <td class="metric positive">15.74%</td>
               <td class="metric positive">0.92%</td>
               <td><a class="source-link" href="https://www.vanguard.com.au/personal/invest-with-us/etf?portId=0970" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes">Built on VTI and is a feeder into VTI.</td>
             </tr>
             <tr>
               <td class="fund-name">iShares S&amp;P 500 ETF</td>
@@ -219,6 +228,7 @@
               <td class="metric positive">7.53%</td>
               <td class="metric positive">1.04%</td>
               <td><a class="source-link" href="https://www.blackrock.com/au/products/275304/" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
             <tr>
               <td class="fund-name">Nasdaq 100 ETF</td>
@@ -228,6 +238,7 @@
               <td class="metric positive">20.37%</td>
               <td class="metric positive">0.80%</td>
               <td><a class="source-link" href="https://www.betashares.com.au/fund/nasdaq-100-etf/" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
             <tr>
               <td class="fund-name">Vanguard Australian Shares Index ETF</td>
@@ -237,6 +248,7 @@
               <td class="metric positive">9.22%</td>
               <td class="metric positive">4.00%</td>
               <td><a class="source-link" href="https://www.vanguard.com.au/personal/invest-with-us/etf?portId=8205" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
             <tr>
               <td class="fund-name">Vanguard All-World ex-U.S. Shares Index ETF</td>
@@ -246,6 +258,7 @@
               <td class="metric positive">9.10%</td>
               <td class="metric positive">2.51%</td>
               <td><a class="source-link" href="https://www.vanguard.com.au/personal/invest-with-us/etf?portId=0991" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
             <tr>
               <td class="fund-name">Monochrome Bitcoin ETF</td>
@@ -255,6 +268,7 @@
               <td class="metric positive">49.00%</td>
               <td class="metric zero">0.00%</td>
               <td><a class="source-link" href="https://www.monochrome.au/products/monochrome-bitcoin-etf" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
             <tr>
               <td class="fund-name">Vanguard MSCI Index International Shares ETF</td>
@@ -264,6 +278,7 @@
               <td class="metric positive">13.07%</td>
               <td class="metric positive">1.45%</td>
               <td><a class="source-link" href="https://www.vanguard.com.au/personal/invest-with-us/etf?portId=8212" rel="noopener" target="_blank">Fund page</a></td>
+              <td class="notes"></td>
             </tr>
           </tbody>
         </table>
