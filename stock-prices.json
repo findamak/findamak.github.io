@@ -45,43 +45,43 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 201.72,
+      "price": 201.0,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1348,
+      "price": 0.1347,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.36,
-      "change": -0.04,
+      "price": 109.35,
+      "change": -0.05,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 118.74,
-      "change": -0.61,
+      "price": 118.89,
+      "change": -0.49,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 72.03,
-      "change": 0.06,
+      "price": 72.0,
+      "change": 0.01,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.35,
-      "change": -1.19,
+      "price": 61.37,
+      "change": -1.16,
       "type": "stock"
     },
     {
@@ -143,22 +143,22 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4039.0,
-      "change": -0.12,
+      "price": 4038.5,
+      "change": -0.14,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 57.465,
-      "change": 0.62,
+      "price": 57.42,
+      "change": 0.54,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 84.76,
-      "change": -0.22,
+      "price": 84.8,
+      "change": -0.18,
       "type": "commodity"
     },
     {
@@ -171,10 +171,10 @@
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4275,
-      "change": -0.41,
+      "price": 1.4277,
+      "change": -0.4,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-16T14:15:18.750798"
+  "lastUpdated": "2026-07-16T14:20:17.145081"
 }
