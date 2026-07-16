@@ -292,11 +292,12 @@
     .history-table th, .history-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
 
     .x-feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem; }
-    .x-feed-grid { display: grid; gap: 1rem; }
-    .x-user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); }
-    .x-user-info { flex: 1; }
-    .x-user-name { font-weight: 600; color: var(--text); font-size: 0.95rem; }
-    .x-tweet-text { color: var(--text); line-height: 1.5; font-size: 0.95rem; word-wrap: break-word; }
+    .x-feed-grid { display: grid; gap: 1rem; min-width: 0; }
+    .x-tweet-card { min-width: 0; overflow: hidden; }
+    .x-user-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--surface); flex: 0 0 auto; }
+    .x-user-info { flex: 1 1 auto; min-width: 0; }
+    .x-user-name { font-weight: 600; color: var(--text); font-size: 0.95rem; overflow-wrap: anywhere; }
+    .x-tweet-text { color: var(--text); line-height: 1.5; font-size: 0.95rem; white-space: pre-wrap; overflow-wrap: anywhere; word-break: break-word; }
     .x-tweet-link { display: inline-block; margin-top: 0.75rem; color: var(--accent-2); text-decoration: none; font-size: 0.85rem; }
     .x-tweet-link:hover { text-decoration: underline; }
     .x-feed-loading { color: var(--muted); font-style: italic; padding: 2rem; text-align: center; }
