@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 191.09,
+      "price": 191.5,
       "change": 0,
       "type": "stock"
     },
@@ -59,29 +59,29 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.75,
+      "price": 108.76,
       "change": -0.68,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 116.42,
-      "change": -1.84,
+      "price": 116.37,
+      "change": -1.88,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 71.26,
-      "change": -1.01,
+      "price": 71.24,
+      "change": -1.04,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 59.8,
-      "change": -2.45,
+      "price": 59.72,
+      "change": -2.58,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3992.2,
-      "change": 0.17,
+      "price": 3992.1001,
+      "change": 0.16,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 55.595,
-      "change": -0.54,
+      "price": 55.57,
+      "change": -0.59,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 84.99,
-      "change": 0.9,
+      "price": 85.07,
+      "change": 1.0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 79.15,
-      "change": 0.25,
+      "price": 79.18,
+      "change": 0.29,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.432,
-      "change": 0.35,
+      "price": 1.4321,
+      "change": 0.36,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-17T14:20:18.053747"
+  "lastUpdated": "2026-07-17T14:25:18.291225"
 }
