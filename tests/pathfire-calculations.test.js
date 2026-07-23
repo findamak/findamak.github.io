@@ -53,6 +53,7 @@ assert.equal(result.income, result.manualIncome + result.cashIncome);
 assert.ok(result.cashInterestLines.length > 0);
 renderCashflow();
 assert.ok(renderedElements.cashflow.innerHTML.includes('Estimated interest — Cash &amp; savings'));
+assert.match(renderedElements.cashflow.innerHTML, /<h3>Income breakdown<\/h3>[\s\S]*onclick="openCheckinIncomeAndSpending\(\)">Update<\/button>[\s\S]*<span>Total income<\/span>/);
 assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>[\s\S]*onclick="openCheckinIncomeAndSpending\(\)">Update<\/button>/);
 openCheckinIncomeAndSpending();
 assert.match(renderedElements.checkinBody.innerHTML, /<h3>2\. Income & spending<\/h3>/);
