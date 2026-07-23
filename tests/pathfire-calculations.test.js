@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const html = fs.readFileSync('projects/australian-fire-prototype/index.html', 'utf8');
 const script = html.slice(html.indexOf('<script>') + 8, html.lastIndexOf('</script>'))
   .replace(/\bboot\(\);\s*$/, '');
-const renderedElements = { cashflow: { innerHTML: '' }, checkin: { innerHTML: '' }, checkinBody: { innerHTML: '' }, headerTitle: { textContent: '' } };
+const renderedElements = { cashflow: { innerHTML: '' }, dashboard: { innerHTML: '' }, checkin: { innerHTML: '' }, checkinBody: { innerHTML: '' }, headerTitle: { textContent: '' } };
 const context = {
   console,
   Intl,
@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, renderDashboard, shortMoney, openCheckinIncomeAndSpending };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, renderDashboard, shortMoney, openCheckinIncomeAndSpending } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -58,6 +58,9 @@ assert.equal(removeIncomeSource('Consulting'), true);
 assert.equal(calc().income, initialIncome);
 
 const result = calc();
+assert.equal(result.net, result.assets - result.debt);
+renderDashboard();
+assert.match(renderedElements.dashboard.innerHTML, new RegExp(`<div class="metric-label">Net worth including PPOR<\\/div><div class="metric-value">${shortMoney(result.net).replace('$','\\$')}<\\/div>`));
 assert.equal(result.income, result.manualIncome + result.cashIncome);
 assert.ok(result.cashInterestLines.length > 0);
 renderCashflow();
