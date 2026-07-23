@@ -25,6 +25,9 @@ assert.equal(defaultState.debts.find(debt => debt.id === 'otherloan').name, 'Cre
 assert.ok(defaultState.assets.every(asset => typeof asset.annualReturn === 'number'));
 
 const result = calc();
+const expectedMonthlyInterest = defaultState.debts.reduce((total, debt) => total + debt.balance * debt.annualInterestRate / 100 / 12, 0);
+assert.equal(result.monthlyInterest, expectedMonthlyInterest);
+assert.equal(result.totalExpenses, result.expenses + expectedMonthlyInterest);
 const fiAssets = defaultState.assets.filter(asset => asset.fi);
 const expectedWeightedRealReturn = fiAssets.reduce(
   (total, asset) => total + asset.balance * calculateRealReturn(asset.annualReturn, defaultState.profile.inflationRate),
