@@ -14,8 +14,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -29,6 +29,7 @@ assert.equal(suggestedAssetTypeForLiability('ppor_loan'), 'primary_residence');
 assert.equal(suggestedAssetTypeForLiability('smsf_loan'), 'smsf');
 assert.equal(isUsualLiabilityAssetPair('ppor_loan', 'primary_residence'), true);
 assert.equal(isUsualLiabilityAssetPair('ppor_loan', 'investment_property'), false);
+assert.deepEqual(JSON.parse(JSON.stringify(incomeLines(defaultState.income))), [{name:'Employment',monthly:17500},{name:'Rental income',monthly:4100},{name:'Distributions',monthly:1100}]);
 
 const result = calc();
 const expectedMonthlyInterest = defaultState.debts.reduce((total, debt) => total + debt.balance * debt.annualInterestRate / 100 / 12, 0);
