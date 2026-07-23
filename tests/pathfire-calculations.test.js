@@ -14,12 +14,13 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
 assert.match(assetTypeOptions('smsf'), /<option value="smsf" selected>SMSF<\/option>/);
+assert.deepEqual([...linkablePropertyAssets(defaultState.assets).map(asset => asset.id)].sort(), ['ip1', 'ppor']);
 assert.equal(defaultState.debts.find(debt => debt.id === 'mortgage').name, 'PPOR loan');
 assert.equal(defaultState.debts.find(debt => debt.id === 'otherloan').name, 'Credit card debt');
 assert.ok(defaultState.assets.every(asset => typeof asset.annualReturn === 'number'));
