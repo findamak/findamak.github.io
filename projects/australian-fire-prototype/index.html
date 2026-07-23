@@ -140,7 +140,7 @@ const defaultState = {
   profile:{age:40, retirementAge:52, preservationAge:60, withdrawalRate:3.5, inflationRate:2.5, retirementSpend:85000},
   assets:[
     {id:'cash',name:'Cash & savings',type:'cash',balance:189000,annualReturn:3.5,fi:true,accessible:true},
-    {id:'super',name:'Super',type:'super',balance:271000,annualReturn:7.5,fi:true,accessible:false},
+    {id:'super',name:'Super',type:'superannuation',balance:271000,annualReturn:7.5,fi:true,accessible:false},
     {id:'etf',name:'ETFs',type:'investment',balance:80000,annualReturn:7,fi:true,accessible:true},
     {id:'shares',name:'Direct shares',type:'investment',balance:2581814,annualReturn:7,fi:true,accessible:true},
     {id:'ppor',name:'Primary residence',type:'primary_residence',balance:2062000,annualReturn:3.5,fi:false,accessible:false},
@@ -165,7 +165,8 @@ const defaultState = {
 };
 let state = JSON.parse(localStorage.getItem('pathfirePrototype') || JSON.stringify(defaultState));
 let checkStep = 1;
-function defaultAnnualReturn(type){ return ({cash:3.5,investment:7,super:7.5,smsf:7.5,primary_residence:3.5,investment_property:3.5,other:0})[type] ?? 0; }
+function normaliseAssetType(type){ return ['super','smsf'].includes(type) ? 'superannuation' : type; }
+function defaultAnnualReturn(type){ return ({cash:3.5,investment:7,superannuation:7.5,primary_residence:3.5,investment_property:3.5,other:0})[normaliseAssetType(type)] ?? 0; }
 function calculateRealReturn(annualReturn, inflationRate){ return ((1 + Number(annualReturn || 0) / 100) / (1 + Number(inflationRate || 0) / 100) - 1) * 100; }
 function defaultLiabilityType(name=''){
   const value=name.toLowerCase();
@@ -178,12 +179,12 @@ function defaultLiabilityType(name=''){
   if(value.includes('car')) return 'car_loan';
   return 'other';
 }
-function suggestedAssetTypeForLiability(type){ return ({ppor_loan:'primary_residence',investment_property_loan:'investment_property',margin_loan:'investment',car_loan:'other',smsf_loan:'smsf'})[type] || ''; }
+function suggestedAssetTypeForLiability(type){ return ({ppor_loan:'primary_residence',investment_property_loan:'investment_property',margin_loan:'investment',car_loan:'other',smsf_loan:'superannuation'})[type] || ''; }
 function linkableAssets(assets=state.assets){ return assets; }
 function isUsualLiabilityAssetPair(liabilityType,assetType){ const suggested=suggestedAssetTypeForLiability(liabilityType); return !suggested || suggested===assetType; }
 function normaliseState(){
   state.profile.inflationRate ??= 2.5;
-  state.assets.forEach(asset => { asset.annualReturn ??= defaultAnnualReturn(asset.type); });
+  state.assets.forEach(asset => { asset.type=normaliseAssetType(asset.type); asset.annualReturn ??= defaultAnnualReturn(asset.type); });
   state.debts.forEach(debt => { debt.annualInterestRate ??= 0; if(debt.name==='Home loan') debt.name='PPOR loan'; if(debt.name==='Other loan') debt.name='Credit card debt'; debt.type ??= defaultLiabilityType(debt.name); });
 }
 normaliseState();
@@ -299,7 +300,7 @@ function saveExpenseCategories(){
   });
   state.expenses=next; save(); closeModal(); renderAll(); toast('Cash flow updated');
 }
-function assetTypeOptions(selected){ return [['cash','Cash / savings'],['investment','ETF / shares'],['super','Super'],['smsf','SMSF'],['primary_residence','Primary residence'],['investment_property','Investment property'],['other','Other asset']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join(''); }
+function assetTypeOptions(selected){ return [['cash','Cash / savings'],['investment','ETF / shares'],['superannuation','Superannuation'],['primary_residence','Primary residence'],['investment_property','Investment property'],['other','Other asset']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join(''); }
 function liabilityTypeOptions(selected){ return [['ppor_loan','PPOR loan'],['investment_property_loan','Investment-property loan'],['margin_loan','Margin loan'],['car_loan','Car loan'],['credit_card','Credit card debt'],['personal_loan','Personal loan'],['smsf_loan','SMSF loan'],['other','Other liability']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join(''); }
 function liabilityTypeLabel(type){ return ({ppor_loan:'PPOR loan',investment_property_loan:'Investment-property loan',margin_loan:'Margin loan',car_loan:'Car loan',credit_card:'Credit card debt',personal_loan:'Personal loan',smsf_loan:'SMSF loan',other:'Other liability'})[type] || 'Other liability'; }
 function liabilityLinkOptions(liabilityType,selected=''){
@@ -310,7 +311,7 @@ function liabilityLinkOptions(liabilityType,selected=''){
 function liabilityLinkGuidance(liabilityType,assetId=''){
   const suggestedType=suggestedAssetTypeForLiability(liabilityType), asset=linkableAssets().find(item=>item.id===assetId);
   if(!suggestedType) return 'This liability is normally left unlinked. Link it only if you want it to reduce a specific asset’s displayed equity.';
-  const suggestion={primary_residence:'a primary residence',investment_property:'an investment property',investment:'an investment asset',other:'an associated asset',smsf:'an SMSF asset'}[suggestedType];
+  const suggestion={primary_residence:'a primary residence',investment_property:'an investment property',investment:'an investment asset',other:'an associated asset',superannuation:'a superannuation asset'}[suggestedType];
   if(asset && !isUsualLiabilityAssetPair(liabilityType,asset.type)) return `This is an unusual pairing. ${liabilityTypeLabel(liabilityType)} normally suggests ${suggestion}; you can still keep this association if it reflects the real structure.`;
   return `${liabilityTypeLabel(liabilityType)} usually suggests ${suggestion}. Suggested assets appear first.`;
 }

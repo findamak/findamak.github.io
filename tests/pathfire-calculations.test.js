@@ -20,19 +20,23 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
-assert.match(assetTypeOptions('smsf'), /<option value="smsf" selected>SMSF<\/option>/);
+assert.match(assetTypeOptions('superannuation'), /<option value="superannuation" selected>Superannuation<\/option>/);
+assert.doesNotMatch(assetTypeOptions('superannuation'), /value="super"|value="smsf"/);
+assert.equal(normaliseAssetType('super'), 'superannuation');
+assert.equal(normaliseAssetType('smsf'), 'superannuation');
+assert.equal(normaliseAssetType('investment'), 'investment');
 assert.deepEqual([...linkablePropertyAssets(defaultState.assets).map(asset => asset.id)].sort(), ['ip1', 'ppor']);
 assert.equal(defaultState.debts.find(debt => debt.id === 'mortgage').name, 'PPOR loan');
 assert.equal(defaultState.debts.find(debt => debt.id === 'otherloan').name, 'Credit card debt');
 assert.ok(defaultState.assets.every(asset => typeof asset.annualReturn === 'number'));
 assert.equal(linkableAssets(defaultState.assets).length, defaultState.assets.length);
 assert.equal(suggestedAssetTypeForLiability('ppor_loan'), 'primary_residence');
-assert.equal(suggestedAssetTypeForLiability('smsf_loan'), 'smsf');
+assert.equal(suggestedAssetTypeForLiability('smsf_loan'), 'superannuation');
 assert.equal(isUsualLiabilityAssetPair('ppor_loan', 'primary_residence'), true);
 assert.equal(isUsualLiabilityAssetPair('ppor_loan', 'investment_property'), false);
 assert.deepEqual(JSON.parse(JSON.stringify(incomeLines(defaultState.income))), [{name:'Employment',monthly:17500},{name:'Rental income',monthly:4100},{name:'Distributions',monthly:1100}]);
