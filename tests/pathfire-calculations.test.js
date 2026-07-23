@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -32,13 +32,18 @@ assert.equal(normaliseAssetType('smsf'), 'superannuation');
 assert.equal(normaliseAssetType('investment'), 'investment');
 assert.deepEqual([...linkablePropertyAssets(defaultState.assets).map(asset => asset.id)].sort(), ['ip1', 'ppor']);
 assert.equal(defaultState.debts.find(debt => debt.id === 'mortgage').name, 'PPOR loan');
+assert.equal(defaultState.debts.find(debt => debt.id === 'mortgage').type, 'loan');
+assert.equal(defaultState.debts.find(debt => debt.id === 'iploan').type, 'loan');
 assert.equal(defaultState.debts.find(debt => debt.id === 'otherloan').name, 'Credit card debt');
+assert.match(liabilityTypeOptions('loan'), /<option value="loan" selected>Loan<\/option>/);
+assert.doesNotMatch(liabilityTypeOptions('loan'), /value="ppor_loan"|value="investment_property_loan"|value="margin_loan"|value="car_loan"|value="personal_loan"|value="smsf_loan"/);
+['ppor_loan','investment_property_loan','margin_loan','car_loan','personal_loan','smsf_loan'].forEach(type => assert.equal(normaliseLiabilityType(type), 'loan'));
+assert.equal(normaliseLiabilityType('credit_card'), 'credit_card');
 assert.ok(defaultState.assets.every(asset => typeof asset.annualReturn === 'number'));
 assert.equal(linkableAssets(defaultState.assets).length, defaultState.assets.length);
-assert.equal(suggestedAssetTypeForLiability('ppor_loan'), 'primary_residence');
-assert.equal(suggestedAssetTypeForLiability('smsf_loan'), 'superannuation');
-assert.equal(isUsualLiabilityAssetPair('ppor_loan', 'primary_residence'), true);
-assert.equal(isUsualLiabilityAssetPair('ppor_loan', 'investment_property'), false);
+assert.equal(suggestedAssetTypeForLiability('loan'), '');
+assert.equal(isUsualLiabilityAssetPair('loan', 'primary_residence'), true);
+assert.equal(isUsualLiabilityAssetPair('loan', 'investment_property'), true);
 assert.deepEqual(JSON.parse(JSON.stringify(incomeLines(defaultState.income))), [{name:'Employment',monthly:17500},{name:'Rental income',monthly:4100},{name:'Distributions',monthly:1100}]);
 assert.deepEqual(JSON.parse(JSON.stringify(cashIncomeLines([
   {name:'Savings account',type:'cash',balance:12000,annualReturn:5},

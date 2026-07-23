@@ -147,8 +147,8 @@ const defaultState = {
     {id:'ip1',name:'Investment property',type:'investment_property',balance:1632000,annualReturn:3.5,fi:false,accessible:false}
   ],
   debts:[
-    {id:'mortgage',name:'PPOR loan',type:'ppor_loan',balance:1260000,annualInterestRate:6.0,linked:'ppor'},
-    {id:'iploan',name:'Investment loan',type:'investment_property_loan',balance:75000,annualInterestRate:6.5,linked:'ip1'},
+    {id:'mortgage',name:'PPOR loan',type:'loan',balance:1260000,annualInterestRate:6.0,linked:'ppor'},
+    {id:'iploan',name:'Investment loan',type:'loan',balance:75000,annualInterestRate:6.5,linked:'ip1'},
     {id:'loc',name:'Line of credit',type:'other',balance:30000,annualInterestRate:7.0},
     {id:'otherloan',name:'Credit card debt',type:'credit_card',balance:250000,annualInterestRate:0}
   ],
@@ -168,24 +168,20 @@ let checkStep = 1;
 function normaliseAssetType(type){ return ['super','smsf'].includes(type) ? 'superannuation' : type; }
 function defaultAnnualReturn(type){ return ({cash:3.5,investment:7,superannuation:7.5,primary_residence:3.5,investment_property:3.5,other:0})[normaliseAssetType(type)] ?? 0; }
 function calculateRealReturn(annualReturn, inflationRate){ return ((1 + Number(annualReturn || 0) / 100) / (1 + Number(inflationRate || 0) / 100) - 1) * 100; }
+function normaliseLiabilityType(type){ return ['ppor_loan','investment_property_loan','margin_loan','car_loan','personal_loan','smsf_loan'].includes(type) ? 'loan' : type; }
 function defaultLiabilityType(name=''){
   const value=name.toLowerCase();
-  if(value.includes('ppor') || value.includes('home loan') || value.includes('mortgage')) return 'ppor_loan';
-  if(value.includes('investment') && value.includes('loan')) return 'investment_property_loan';
-  if(value.includes('margin')) return 'margin_loan';
   if(value.includes('credit card')) return 'credit_card';
-  if(value.includes('personal')) return 'personal_loan';
-  if(value.includes('smsf')) return 'smsf_loan';
-  if(value.includes('car')) return 'car_loan';
+  if(value.includes('loan') || value.includes('mortgage') || value.includes('margin')) return 'loan';
   return 'other';
 }
-function suggestedAssetTypeForLiability(type){ return ({ppor_loan:'primary_residence',investment_property_loan:'investment_property',margin_loan:'investment',car_loan:'other',smsf_loan:'superannuation'})[type] || ''; }
+function suggestedAssetTypeForLiability(){ return ''; }
 function linkableAssets(assets=state.assets){ return assets; }
 function isUsualLiabilityAssetPair(liabilityType,assetType){ const suggested=suggestedAssetTypeForLiability(liabilityType); return !suggested || suggested===assetType; }
 function normaliseState(){
   state.profile.inflationRate ??= 2.5;
   state.assets.forEach(asset => { asset.type=normaliseAssetType(asset.type); asset.annualReturn ??= defaultAnnualReturn(asset.type); });
-  state.debts.forEach(debt => { debt.annualInterestRate ??= 0; if(debt.name==='Home loan') debt.name='PPOR loan'; if(debt.name==='Other loan') debt.name='Credit card debt'; debt.type ??= defaultLiabilityType(debt.name); });
+  state.debts.forEach(debt => { debt.annualInterestRate ??= 0; if(debt.name==='Home loan') debt.name='PPOR loan'; if(debt.name==='Other loan') debt.name='Credit card debt'; debt.type=normaliseLiabilityType(debt.type ?? defaultLiabilityType(debt.name)); });
 }
 normaliseState();
 function save(){ localStorage.setItem('pathfirePrototype',JSON.stringify(state)); }
@@ -301,8 +297,8 @@ function saveExpenseCategories(){
   state.expenses=next; save(); closeModal(); renderAll(); toast('Cash flow updated');
 }
 function assetTypeOptions(selected){ return [['cash','Cash / savings'],['investment','ETF / shares'],['superannuation','Superannuation'],['primary_residence','Primary residence'],['investment_property','Investment property'],['other','Other asset']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join(''); }
-function liabilityTypeOptions(selected){ return [['ppor_loan','PPOR loan'],['investment_property_loan','Investment-property loan'],['margin_loan','Margin loan'],['car_loan','Car loan'],['credit_card','Credit card debt'],['personal_loan','Personal loan'],['smsf_loan','SMSF loan'],['other','Other liability']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join(''); }
-function liabilityTypeLabel(type){ return ({ppor_loan:'PPOR loan',investment_property_loan:'Investment-property loan',margin_loan:'Margin loan',car_loan:'Car loan',credit_card:'Credit card debt',personal_loan:'Personal loan',smsf_loan:'SMSF loan',other:'Other liability'})[type] || 'Other liability'; }
+function liabilityTypeOptions(selected){ return [['loan','Loan'],['credit_card','Credit card debt'],['other','Other liability']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join(''); }
+function liabilityTypeLabel(type){ return ({loan:'Loan',credit_card:'Credit card debt',other:'Other liability'})[normaliseLiabilityType(type)] || 'Other liability'; }
 function liabilityLinkOptions(liabilityType,selected=''){
   const suggestedType=suggestedAssetTypeForLiability(liabilityType), assets=linkableAssets();
   const ordered=[...assets.filter(asset=>asset.type===suggestedType),...assets.filter(asset=>asset.type!==suggestedType)];
@@ -310,6 +306,7 @@ function liabilityLinkOptions(liabilityType,selected=''){
 }
 function liabilityLinkGuidance(liabilityType,assetId=''){
   const suggestedType=suggestedAssetTypeForLiability(liabilityType), asset=linkableAssets().find(item=>item.id===assetId);
+  if(normaliseLiabilityType(liabilityType)==='loan') return 'A loan can be associated with any asset if you want it to reduce that asset’s displayed equity.';
   if(!suggestedType) return 'This liability is normally left unlinked. Link it only if you want it to reduce a specific asset’s displayed equity.';
   const suggestion={primary_residence:'a primary residence',investment_property:'an investment property',investment:'an investment asset',other:'an associated asset',superannuation:'a superannuation asset'}[suggestedType];
   if(asset && !isUsualLiabilityAssetPair(liabilityType,asset.type)) return `This is an unusual pairing. ${liabilityTypeLabel(liabilityType)} normally suggests ${suggestion}; you can still keep this association if it reflects the real structure.`;
@@ -323,7 +320,7 @@ function openAssetForm(id){ const a=id ? state.assets.find(asset=>asset.id===id)
 function deleteAssetUI(id){ if(confirm('Delete this asset? Any linked liability will remain but no longer be linked.')){ removeAsset(id); openAssetEditor(); renderAll(); toast('Asset deleted'); } }
 function saveAsset(id){ const type=document.getElementById('assetType').value; const asset={id:id||('asset'+Date.now()),name:document.getElementById('assetName').value.trim()||'Unnamed asset',type,balance:Math.max(0,Number(document.getElementById('assetBalance').value)||0),annualReturn:Number(document.getElementById('assetReturn').value)||0,fi:document.getElementById('assetFi').checked,accessible:document.getElementById('assetAccessible').checked}; if(id){ Object.assign(state.assets.find(a=>a.id===id),asset); } else { state.assets.push(asset); } save();openAssetEditor();renderAll();toast(id?'Asset updated':'Asset added');}
 function openLiabilityForm(id){
-  const d=id ? state.debts.find(debt=>debt.id===id) : {id:'',name:'',type:'other',balance:0,annualInterestRate:0,linked:''};
+  const d=id ? state.debts.find(debt=>debt.id===id) : {id:'',name:'',type:'loan',balance:0,annualInterestRate:0,linked:''};
   const annualInterest=d.balance*Number(d.annualInterestRate||0)/100;
   openModal(`<div class="row"><h2>${id?'Edit liability':'Add liability'}</h2><button class="close" onclick="openAssetEditor()">×</button></div>
     <label>Liability name</label><input id="debtName" value="${escapeHTML(d.name)}" placeholder="e.g. PPOR loan">
