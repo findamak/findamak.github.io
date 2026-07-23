@@ -5,19 +5,23 @@ const vm = require('node:vm');
 const html = fs.readFileSync('projects/australian-fire-prototype/index.html', 'utf8');
 const script = html.slice(html.indexOf('<script>') + 8, html.lastIndexOf('</script>'))
   .replace(/\bboot\(\);\s*$/, '');
-const renderedElements = { cashflow: { innerHTML: '' } };
+const renderedElements = { cashflow: { innerHTML: '' }, checkin: { innerHTML: '' }, checkinBody: { innerHTML: '' }, headerTitle: { textContent: '' } };
 const context = {
   console,
   Intl,
   Date,
   Math,
   JSON,
-  document: { getElementById: id => renderedElements[id] || { innerHTML: '' } },
+  document: {
+    getElementById: id => renderedElements[id] || { innerHTML: '' },
+    querySelectorAll: () => [],
+  },
+  window: { scrollTo: () => {} },
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, renderCashflow, openCheckinIncomeAndSpending } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -49,6 +53,9 @@ assert.equal(result.income, result.manualIncome + result.cashIncome);
 assert.ok(result.cashInterestLines.length > 0);
 renderCashflow();
 assert.ok(renderedElements.cashflow.innerHTML.includes('Estimated interest — Cash &amp; savings'));
+assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>[\s\S]*onclick="openCheckinIncomeAndSpending\(\)">Update<\/button>/);
+openCheckinIncomeAndSpending();
+assert.match(renderedElements.checkinBody.innerHTML, /<h3>2\. Income & spending<\/h3>/);
 assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>[\s\S]*<span>Total spending<\/span><strong>\$12,500\/month<\/strong>[\s\S]*<h3>Automatic liability interest<\/h3>/);
 const expectedMonthlyInterest = defaultState.debts.reduce((total, debt) => total + debt.balance * debt.annualInterestRate / 100 / 12, 0);
 assert.equal(result.monthlyInterest, expectedMonthlyInterest);
