@@ -14,8 +14,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -24,11 +24,17 @@ assert.deepEqual([...linkablePropertyAssets(defaultState.assets).map(asset => as
 assert.equal(defaultState.debts.find(debt => debt.id === 'mortgage').name, 'PPOR loan');
 assert.equal(defaultState.debts.find(debt => debt.id === 'otherloan').name, 'Credit card debt');
 assert.ok(defaultState.assets.every(asset => typeof asset.annualReturn === 'number'));
+assert.equal(linkableAssets(defaultState.assets).length, defaultState.assets.length);
+assert.equal(suggestedAssetTypeForLiability('ppor_loan'), 'primary_residence');
+assert.equal(suggestedAssetTypeForLiability('smsf_loan'), 'smsf');
+assert.equal(isUsualLiabilityAssetPair('ppor_loan', 'primary_residence'), true);
+assert.equal(isUsualLiabilityAssetPair('ppor_loan', 'investment_property'), false);
 
 const result = calc();
 const expectedMonthlyInterest = defaultState.debts.reduce((total, debt) => total + debt.balance * debt.annualInterestRate / 100 / 12, 0);
 assert.equal(result.monthlyInterest, expectedMonthlyInterest);
 assert.equal(result.totalExpenses, result.expenses + expectedMonthlyInterest);
+assert.equal(result.assetEquity.find(asset => asset.id === 'ppor').equity, 2062000 - 1260000);
 const fiAssets = defaultState.assets.filter(asset => asset.fi);
 const expectedWeightedRealReturn = fiAssets.reduce(
   (total, asset) => total + asset.balance * calculateRealReturn(asset.annualReturn, defaultState.profile.inflationRate),

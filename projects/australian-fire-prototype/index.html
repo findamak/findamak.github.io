@@ -147,10 +147,10 @@ const defaultState = {
     {id:'ip1',name:'Investment property',type:'investment_property',balance:1632000,annualReturn:3.5,fi:false,accessible:false}
   ],
   debts:[
-    {id:'mortgage',name:'PPOR loan',balance:1260000,annualInterestRate:6.0,linked:'ppor'},
-    {id:'iploan',name:'Investment loan',balance:75000,annualInterestRate:6.5,linked:'ip1'},
-    {id:'loc',name:'Line of credit',balance:30000,annualInterestRate:7.0},
-    {id:'otherloan',name:'Credit card debt',balance:250000,annualInterestRate:0}
+    {id:'mortgage',name:'PPOR loan',type:'ppor_loan',balance:1260000,annualInterestRate:6.0,linked:'ppor'},
+    {id:'iploan',name:'Investment loan',type:'investment_property_loan',balance:75000,annualInterestRate:6.5,linked:'ip1'},
+    {id:'loc',name:'Line of credit',type:'other',balance:30000,annualInterestRate:7.0},
+    {id:'otherloan',name:'Credit card debt',type:'credit_card',balance:250000,annualInterestRate:0}
   ],
   income:{Employment:17500,'Rental income':4100,'Distributions':1100},
   expenses:{Housing:4300,'Investment property':950,'Utilities & communications':760,'Food & household':2400,Transport:680,Health:580,'Family & education':1350,Lifestyle:1100,Other:380},
@@ -167,10 +167,24 @@ let state = JSON.parse(localStorage.getItem('pathfirePrototype') || JSON.stringi
 let checkStep = 1;
 function defaultAnnualReturn(type){ return ({cash:3.5,investment:7,super:7.5,smsf:7.5,primary_residence:3.5,investment_property:3.5,other:0})[type] ?? 0; }
 function calculateRealReturn(annualReturn, inflationRate){ return ((1 + Number(annualReturn || 0) / 100) / (1 + Number(inflationRate || 0) / 100) - 1) * 100; }
+function defaultLiabilityType(name=''){
+  const value=name.toLowerCase();
+  if(value.includes('ppor') || value.includes('home loan') || value.includes('mortgage')) return 'ppor_loan';
+  if(value.includes('investment') && value.includes('loan')) return 'investment_property_loan';
+  if(value.includes('margin')) return 'margin_loan';
+  if(value.includes('credit card')) return 'credit_card';
+  if(value.includes('personal')) return 'personal_loan';
+  if(value.includes('smsf')) return 'smsf_loan';
+  if(value.includes('car')) return 'car_loan';
+  return 'other';
+}
+function suggestedAssetTypeForLiability(type){ return ({ppor_loan:'primary_residence',investment_property_loan:'investment_property',margin_loan:'investment',car_loan:'other',smsf_loan:'smsf'})[type] || ''; }
+function linkableAssets(assets=state.assets){ return assets; }
+function isUsualLiabilityAssetPair(liabilityType,assetType){ const suggested=suggestedAssetTypeForLiability(liabilityType); return !suggested || suggested===assetType; }
 function normaliseState(){
   state.profile.inflationRate ??= 2.5;
   state.assets.forEach(asset => { asset.annualReturn ??= defaultAnnualReturn(asset.type); });
-  state.debts.forEach(debt => { debt.annualInterestRate ??= 0; if(debt.name==='Home loan') debt.name='PPOR loan'; if(debt.name==='Other loan') debt.name='Credit card debt'; });
+  state.debts.forEach(debt => { debt.annualInterestRate ??= 0; if(debt.name==='Home loan') debt.name='PPOR loan'; if(debt.name==='Other loan') debt.name='Credit card debt'; debt.type ??= defaultLiabilityType(debt.name); });
 }
 normaliseState();
 function save(){ localStorage.setItem('pathfirePrototype',JSON.stringify(state)); }
@@ -192,7 +206,9 @@ function removeAsset(id){
 function removeLiability(id){ const index=state.debts.findIndex(debt=>debt.id===id); if(index<0) return false; state.debts.splice(index,1); save(); return true; }
 function calc(){
   const assets=state.assets.reduce((a,x)=>a+x.balance,0), debt=state.debts.reduce((a,x)=>a+x.balance,0);
-  const ppor=state.assets.find(x=>x.id==='ppor')?.balance||0, pporDebt=state.debts.filter(x=>x.linked==='ppor').reduce((a,x)=>a+x.balance,0);
+  const primaryAssets=state.assets.filter(asset=>asset.type==='primary_residence'), primaryAssetIds=new Set(primaryAssets.map(asset=>asset.id));
+  const ppor=primaryAssets.reduce((total,asset)=>total+asset.balance,0), pporDebt=state.debts.filter(debt=>primaryAssetIds.has(debt.linked)).reduce((total,debt)=>total+debt.balance,0);
+  const assetEquity=state.assets.map(asset=>{const linkedDebt=state.debts.filter(debt=>debt.linked===asset.id).reduce((total,debt)=>total+debt.balance,0);return {...asset,linkedDebt,equity:asset.balance-linkedDebt};});
   const fiAssets=state.assets.filter(x=>x.fi);
   const accessible=fiAssets.filter(x=>x.accessible).reduce((a,x)=>a+x.balance,0);
   const superBal=fiAssets.filter(x=>!x.accessible).reduce((a,x)=>a+x.balance,0);
@@ -201,7 +217,7 @@ function calc(){
   const income=Object.values(state.income).reduce((a,x)=>a+Number(x),0), expenses=Object.values(state.expenses).reduce((a,x)=>a+Number(x),0);
   const interestLines=state.debts.map(debt=>({name:`Interest — ${debt.name}`,monthly:debt.balance*Number(debt.annualInterestRate||0)/100/12}));
   const monthlyInterest=interestLines.reduce((total,line)=>total+line.monthly,0), totalExpenses=expenses+monthlyInterest;
-  return {assets,debt,net:assets-debt,netExPpor:(assets-ppor)-(debt-pporDebt),accessible,superBal,fi,fiAssets,weightedRealReturn,income,expenses,interestLines,monthlyInterest,totalExpenses,surplus:income-totalExpenses};
+  return {assets,debt,net:assets-debt,netExPpor:(assets-ppor)-(debt-pporDebt),assetEquity,accessible,superBal,fi,fiAssets,weightedRealReturn,income,expenses,interestLines,monthlyInterest,totalExpenses,surplus:income-totalExpenses};
 }
 function scenarioCalc(key=state.activeScenario){
   const c=calc(), p=state.profile, s=state.scenarios[key];
@@ -259,14 +275,45 @@ function saveExpenseCategories(){
   state.expenses=next; save(); closeModal(); renderAll(); toast('Cash flow updated');
 }
 function assetTypeOptions(selected){ return [['cash','Cash / savings'],['investment','ETF / shares'],['super','Super'],['smsf','SMSF'],['primary_residence','Primary residence'],['investment_property','Investment property'],['other','Other asset']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join(''); }
+function liabilityTypeOptions(selected){ return [['ppor_loan','PPOR loan'],['investment_property_loan','Investment-property loan'],['margin_loan','Margin loan'],['car_loan','Car loan'],['credit_card','Credit card debt'],['personal_loan','Personal loan'],['smsf_loan','SMSF loan'],['other','Other liability']].map(([value,label])=>`<option value="${value}" ${selected===value?'selected':''}>${label}</option>`).join(''); }
+function liabilityTypeLabel(type){ return ({ppor_loan:'PPOR loan',investment_property_loan:'Investment-property loan',margin_loan:'Margin loan',car_loan:'Car loan',credit_card:'Credit card debt',personal_loan:'Personal loan',smsf_loan:'SMSF loan',other:'Other liability'})[type] || 'Other liability'; }
+function liabilityLinkOptions(liabilityType,selected=''){
+  const suggestedType=suggestedAssetTypeForLiability(liabilityType), assets=linkableAssets();
+  const ordered=[...assets.filter(asset=>asset.type===suggestedType),...assets.filter(asset=>asset.type!==suggestedType)];
+  return `<option value="">Not linked to an asset</option>${ordered.map(asset=>`<option value="${asset.id}" ${selected===asset.id?'selected':''}>${asset.type===suggestedType?'Suggested — ':''}${escapeHTML(asset.name)} (${asset.type.replaceAll('_',' ')})</option>`).join('')}`;
+}
+function liabilityLinkGuidance(liabilityType,assetId=''){
+  const suggestedType=suggestedAssetTypeForLiability(liabilityType), asset=linkableAssets().find(item=>item.id===assetId);
+  if(!suggestedType) return 'This liability is normally left unlinked. Link it only if you want it to reduce a specific asset’s displayed equity.';
+  const suggestion={primary_residence:'a primary residence',investment_property:'an investment property',investment:'an investment asset',other:'an associated asset',smsf:'an SMSF asset'}[suggestedType];
+  if(asset && !isUsualLiabilityAssetPair(liabilityType,asset.type)) return `This is an unusual pairing. ${liabilityTypeLabel(liabilityType)} normally suggests ${suggestion}; you can still keep this association if it reflects the real structure.`;
+  return `${liabilityTypeLabel(liabilityType)} usually suggests ${suggestion}. Suggested assets appear first.`;
+}
+function updateLiabilityLinkSuggestions(){ const type=document.getElementById('debtType').value, linked=document.getElementById('debtLinked'); const selected=linked.value; linked.innerHTML=liabilityLinkOptions(type,selected); document.getElementById('debtLinkGuidance').textContent=liabilityLinkGuidance(type,linked.value); }
 function linkablePropertyAssets(assets=state.assets){ return assets.filter(asset=>['primary_residence','investment_property'].includes(asset.type)); }
-function openAssetEditor(){ const inflation=state.profile.inflationRate; openModal(`<div class="row"><h2>Assets & debts</h2><button class="close" onclick="closeModal()">×</button></div><p class="sub">Add or edit balances, annualised returns and whether an asset forms part of your FI portfolio.</p><div class="section-title">Assets</div>${state.assets.map(a=>`<div class="list-item"><div><div class="item-name">${a.name}</div><div class="item-meta">${a.type.replaceAll('_',' ')} · ${Number(a.annualReturn).toFixed(1)}% annualised · ${calculateRealReturn(a.annualReturn,inflation).toFixed(1)}% real</div></div><div><div class="item-value">${money(a.balance)}</div><button class="action ghost" onclick="openAssetForm('${a.id}')">Edit</button></div></div>`).join('')}<button class="action secondary full" style="margin-top:12px" onclick="openAssetForm()">+ Add asset</button><div class="section-title">Liabilities</div>${state.debts.map(d=>`<div class="list-item"><div><div class="item-name">${d.name}</div><div class="item-meta">${d.linked ? 'Linked to '+(state.assets.find(a=>a.id===d.linked)?.name || 'asset') : 'Not linked to an asset'}</div></div><div><div class="item-value negative">${money(d.balance)}</div><button class="action ghost" onclick="openLiabilityForm('${d.id}')">Edit</button></div></div>`).join('')}<button class="action secondary full" style="margin-top:12px" onclick="openLiabilityForm()">+ Add liability</button>`);}
+function openAssetEditor(){ const inflation=state.profile.inflationRate, equityById=Object.fromEntries(calc().assetEquity.map(asset=>[asset.id,asset])); openModal(`<div class="row"><h2>Assets & debts</h2><button class="close" onclick="closeModal()">×</button></div><p class="sub">Add or edit balances, annualised returns and whether an asset forms part of your FI portfolio.</p><div class="section-title">Assets</div>${state.assets.map(a=>{const equity=equityById[a.id];return `<div class="list-item"><div><div class="item-name">${escapeHTML(a.name)}</div><div class="item-meta">${a.type.replaceAll('_',' ')} · ${Number(a.annualReturn).toFixed(1)}% annualised · ${calculateRealReturn(a.annualReturn,inflation).toFixed(1)}% real${equity.linkedDebt?` · Equity ${money(equity.equity)}`:''}</div></div><div><div class="item-value">${money(a.balance)}</div><button class="action ghost" onclick="openAssetForm('${a.id}')">Edit</button></div></div>`}).join('')}<button class="action secondary full" style="margin-top:12px" onclick="openAssetForm()">+ Add asset</button><div class="section-title">Liabilities</div>${state.debts.map(d=>`<div class="list-item"><div><div class="item-name">${escapeHTML(d.name)}</div><div class="item-meta">${liabilityTypeLabel(d.type)} · ${d.linked ? 'Associated with '+(state.assets.find(a=>a.id===d.linked)?.name || 'asset') : 'Not associated with an asset'}</div></div><div><div class="item-value negative">${money(d.balance)}</div><button class="action ghost" onclick="openLiabilityForm('${d.id}')">Edit</button></div></div>`).join('')}<button class="action secondary full" style="margin-top:12px" onclick="openLiabilityForm()">+ Add liability</button>`);}
+
 function openAssetForm(id){ const a=id ? state.assets.find(asset=>asset.id===id) : {id:'',name:'',type:'investment',balance:0,annualReturn:7,fi:true,accessible:true}; openModal(`<div class="row"><h2>${id?'Edit asset':'Add asset'}</h2><button class="close" onclick="openAssetEditor()">×</button></div><label>Asset name</label><input id="assetName" value="${a.name}" placeholder="e.g. Australian shares"><label>Asset type</label><select id="assetType">${assetTypeOptions(a.type)}</select><label>Current balance</label><div class="input-prefix"><span>$</span><input id="assetBalance" type="number" value="${a.balance}"></div><label>Annualised return assumption</label><div class="input-prefix"><input id="assetReturn" type="number" step="0.1" value="${a.annualReturn}"><span>%</span></div><p class="small" style="margin-top:7px">With ${state.profile.inflationRate}% inflation, this is a <strong>${calculateRealReturn(a.annualReturn,state.profile.inflationRate).toFixed(2)}% real return</strong>.</p><div class="check-row"><input type="checkbox" id="assetFi" ${a.fi?'checked':''}><label for="assetFi" style="margin:0">Include in FI portfolio</label></div><div class="check-row"><input type="checkbox" id="assetAccessible" ${a.accessible?'checked':''}><label for="assetAccessible" style="margin:0">Accessible before super</label></div><button class="action full" style="margin-top:16px" onclick="saveAsset('${id||''}')">${id?'Save asset':'Add asset'}</button>${id?`<button class="action ghost full" style="color:#9c393e;margin-top:10px" onclick="deleteAssetUI('${id}')">Delete asset</button>`:''}`);}
 function deleteAssetUI(id){ if(confirm('Delete this asset? Any linked liability will remain but no longer be linked.')){ removeAsset(id); openAssetEditor(); renderAll(); toast('Asset deleted'); } }
 function saveAsset(id){ const type=document.getElementById('assetType').value; const asset={id:id||('asset'+Date.now()),name:document.getElementById('assetName').value.trim()||'Unnamed asset',type,balance:Math.max(0,Number(document.getElementById('assetBalance').value)||0),annualReturn:Number(document.getElementById('assetReturn').value)||0,fi:document.getElementById('assetFi').checked,accessible:document.getElementById('assetAccessible').checked}; if(id){ Object.assign(state.assets.find(a=>a.id===id),asset); } else { state.assets.push(asset); } save();openAssetEditor();renderAll();toast(id?'Asset updated':'Asset added');}
-function openLiabilityForm(id){ const d=id ? state.debts.find(debt=>debt.id===id) : {id:'',name:'',balance:0,annualInterestRate:0,linked:''}; const annualInterest=d.balance*Number(d.annualInterestRate||0)/100; openModal(`<div class="row"><h2>${id?'Edit liability':'Add liability'}</h2><button class="close" onclick="openAssetEditor()">×</button></div><label>Liability name</label><input id="debtName" value="${d.name}" placeholder="e.g. PPOR loan"><label>Amount owing</label><div class="input-prefix"><span>$</span><input id="debtBalance" type="number" value="${d.balance}"></div><label>Annual interest rate</label><div class="input-prefix"><input id="debtInterestRate" type="number" step="0.01" value="${d.annualInterestRate}"><span>%</span></div><p class="small" style="margin-top:7px">At the current balance and rate, the calculated interest expense is <strong>${money(annualInterest)}/year</strong> (${money(annualInterest/12)}/month). This is added automatically to Cash flow.</p><label>Linked asset <span style="font-weight:400">(optional)</span></label><select id="debtLinked"><option value="">Not linked to an asset</option>${linkablePropertyAssets().map(a=>`<option value="${a.id}" ${d.linked===a.id?'selected':''}>${a.name}</option>`).join('')}</select><button class="action full" style="margin-top:20px" onclick="saveLiability('${id||''}')">${id?'Save liability':'Add liability'}</button>${id?`<button class="action ghost full" style="color:#9c393e;margin-top:10px" onclick="deleteLiabilityUI('${id}')">Delete liability</button>`:''}`);}
+function openLiabilityForm(id){
+  const d=id ? state.debts.find(debt=>debt.id===id) : {id:'',name:'',type:'other',balance:0,annualInterestRate:0,linked:''};
+  const annualInterest=d.balance*Number(d.annualInterestRate||0)/100;
+  openModal(`<div class="row"><h2>${id?'Edit liability':'Add liability'}</h2><button class="close" onclick="openAssetEditor()">×</button></div>
+    <label>Liability name</label><input id="debtName" value="${escapeHTML(d.name)}" placeholder="e.g. PPOR loan">
+    <label>Liability type</label><select id="debtType" onchange="updateLiabilityLinkSuggestions()">${liabilityTypeOptions(d.type||defaultLiabilityType(d.name))}</select>
+    <label>Amount owing</label><div class="input-prefix"><span>$</span><input id="debtBalance" type="number" value="${d.balance}"></div>
+    <label>Annual interest rate</label><div class="input-prefix"><input id="debtInterestRate" type="number" step="0.01" value="${d.annualInterestRate}"><span>%</span></div>
+    <p class="small" style="margin-top:7px">At the current balance and rate, the calculated interest expense is <strong>${money(annualInterest)}/year</strong> (${money(annualInterest/12)}/month). This is added automatically to Cash flow.</p>
+    <label>Secured against / associated asset <span style="font-weight:400">(optional)</span></label>
+    <p class="small" style="margin-top:4px">Use one optional association for the asset securing the liability or whose displayed equity it should reduce. It does <strong>not</strong> decide tax deductibility or the use of borrowed funds.</p>
+    <select id="debtLinked" onchange="document.getElementById('debtLinkGuidance').textContent=liabilityLinkGuidance(document.getElementById('debtType').value,this.value)">${liabilityLinkOptions(d.type||defaultLiabilityType(d.name),d.linked)}</select>
+    <p id="debtLinkGuidance" class="small" style="margin-top:7px">${liabilityLinkGuidance(d.type||defaultLiabilityType(d.name),d.linked)}</p>
+    <div class="notice" style="margin-top:12px"><strong>Loan splits:</strong> If one facility funds different purposes or assets, create separate liability entries for each split. This prototype supports one associated asset per liability.</div>
+    <button class="action full" style="margin-top:20px" onclick="saveLiability('${id||''}')">${id?'Save liability':'Add liability'}</button>${id?`<button class="action ghost full" style="color:#9c393e;margin-top:10px" onclick="deleteLiabilityUI('${id}')">Delete liability</button>`:''}`);
+}
 function deleteLiabilityUI(id){ if(confirm('Delete this liability? Its automatic interest cash-flow line will also be removed.')){ removeLiability(id); openAssetEditor(); renderAll(); toast('Liability deleted'); } }
-function saveLiability(id){ const debt={id:id||('debt'+Date.now()),name:document.getElementById('debtName').value.trim()||'Unnamed liability',balance:Math.max(0,Number(document.getElementById('debtBalance').value)||0),annualInterestRate:Math.max(0,Number(document.getElementById('debtInterestRate').value)||0),linked:document.getElementById('debtLinked').value}; if(id){ Object.assign(state.debts.find(d=>d.id===id),debt); } else { state.debts.push(debt); } save();openAssetEditor();renderAll();toast(id?'Liability updated':'Liability added');}
+function saveLiability(id){ const debt={id:id||('debt'+Date.now()),name:document.getElementById('debtName').value.trim()||'Unnamed liability',type:document.getElementById('debtType').value,balance:Math.max(0,Number(document.getElementById('debtBalance').value)||0),annualInterestRate:Math.max(0,Number(document.getElementById('debtInterestRate').value)||0),linked:document.getElementById('debtLinked').value}; if(id){ Object.assign(state.debts.find(d=>d.id===id),debt); } else { state.debts.push(debt); } save();openAssetEditor();renderAll();toast(id?'Liability updated':'Liability added');}
 function openScenarioEditor(k){const s=state.scenarios[k];openModal(`<div class="row"><h2>${s.name}</h2><button class="close" onclick="closeModal()">×</button></div><p class="sub">Scenario changes do not alter your monthly actuals.</p><label>Annual retirement spending</label><div class="input-prefix"><span>$</span><input id="sspend" type="number" value="${s.spend}"></div><label>Annual flexible-work income</label><div class="input-prefix"><span>$</span><input id="sflex" type="number" value="${s.flexIncome}"></div><label>Age to leave full-time work</label><input id="sage" type="number" value="${s.workEndAge}"><label>Scenario note</label><input id="snote" value="${s.note}"><button class="action full" style="margin-top:20px" onclick="saveScenario('${k}')">Save plan</button>`);}
 function saveScenario(k){const s=state.scenarios[k];s.spend=Number(document.getElementById('sspend').value)||0;s.flexIncome=Number(document.getElementById('sflex').value)||0;s.workEndAge=Number(document.getElementById('sage').value)||0;s.note=document.getElementById('snote').value;save();closeModal();renderAll();toast('Plan updated');}
 function addScenario(){ const id='custom'+Date.now();state.scenarios[id]={name:'Custom plan',spend:state.profile.retirementSpend,flexIncome:0,workEndAge:state.profile.retirementAge,note:'A new scenario to explore.'};state.activeScenario=id;save();renderAll();openScenarioEditor(id); }
