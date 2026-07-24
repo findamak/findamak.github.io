@@ -92,7 +92,7 @@ assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>
 renderCheckin();
 assert.match(renderedElements.checkin.innerHTML, /<h2>Check-ins<\/h2>/);
 assert.match(renderedElements.checkin.innerHTML, /<div class="section-title">Previous check-ins<\/div>/);
-assert.match(renderedElements.checkin.innerHTML, /<span>Net worth excluding PPOR<\/span>/);
+assert.match(renderedElements.checkin.innerHTML, /<div class="metric-label">Net worth excluding PPOR<\/div>[\s\S]*<div class="metric-label">FI portfolio<\/div>[\s\S]*<span>Net worth<\/span>/);
 assert.match(renderedElements.checkin.innerHTML, /January 2024[\s\S]*onclick="openHistoricalCheckin\(0\)">Update<\/button>[\s\S]*onclick="deleteHistoricalCheckinUI\(0\)">Delete<\/button>/);
 assert.match(renderedElements.checkin.innerHTML, /onclick="openCurrentCheckin\(\)">Complete check-in for this month<\/button>/);
 assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>[\s\S]*<span>Total spending<\/span><strong>\$12,500\/month<\/strong>[\s\S]*<h3>Automatic liability interest<\/h3>/);
