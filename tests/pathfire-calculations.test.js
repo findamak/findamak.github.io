@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -47,6 +47,11 @@ assert.deepEqual(JSON.parse(JSON.stringify(checkinSnapshot.income)), JSON.parse(
 assert.deepEqual(JSON.parse(JSON.stringify(checkinSnapshot.expenses)), JSON.parse(JSON.stringify(defaultState.expenses)));
 checkinSnapshot.assets[0].balance=1;
 assert.notEqual(defaultState.assets[0].balance, 1);
+const editableLegacyCheckin=checkinSnapshotForEditing({label:'February',net:123,fi:100,spend:80,note:'Legacy'}, defaultState);
+assert.equal(editableLegacyCheckin.label, 'February 2026');
+assert.equal(editableLegacyCheckin.assets.length, defaultState.assets.length);
+assert.equal(editableLegacyCheckin.debts.length, defaultState.debts.length);
+assert.deepEqual(JSON.parse(JSON.stringify(editableLegacyCheckin.income)), JSON.parse(JSON.stringify(defaultState.income)));
 const revisedCheckin = updateHistoricalCheckin(0, {...checkinSnapshot,month:'January',year:2024,note:'Corrected after reconciliation.'});
 assert.equal(revisedCheckin.label, 'January 2024');
 assert.equal(revisedCheckin.year, 2024);
