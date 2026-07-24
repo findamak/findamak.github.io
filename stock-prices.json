@@ -31,21 +31,21 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 9.3,
+      "price": 9.29,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 18.9,
-      "change": 0.05,
+      "price": 18.915,
+      "change": 0.13,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 192.45,
+      "price": 192.44,
       "change": 0,
       "type": "stock"
     },
@@ -59,22 +59,22 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.51,
-      "change": -0.9,
+      "price": 108.47,
+      "change": -0.94,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 116.9,
-      "change": -1.28,
+      "price": 116.86,
+      "change": -1.31,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 70.63,
-      "change": -0.51,
+      "price": 70.62,
+      "change": -0.52,
       "type": "stock"
     },
     {
@@ -143,15 +143,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4029.0,
+      "price": 4029.3,
       "change": -0.43,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 57.575,
-      "change": -0.39,
+      "price": 57.565,
+      "change": -0.4,
       "type": "commodity"
     },
     {
@@ -164,17 +164,17 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 91.67,
-      "change": -0.56,
+      "price": 91.73,
+      "change": -0.5,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4336,
-      "change": 0.2,
+      "price": 1.4337,
+      "change": 0.21,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-24T14:55:17.113447"
+  "lastUpdated": "2026-07-24T15:00:18.093581"
 }
