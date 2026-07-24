@@ -3,23 +3,26 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 40.58,
-      "change": -1.7,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 25.82,
-      "change": 5.56,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1185.87,
-      "change": 1.97,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "Too Many Requests. Rate limited. Try after a while."
     },
     {
       "symbol": "BTCI",
@@ -45,15 +48,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 191.55,
-      "change": -0.61,
+      "price": 191.57,
+      "change": -0.6,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1201,
-      "change": -1.83,
+      "price": 0.1202,
+      "change": -1.82,
       "type": "stock"
     },
     {
@@ -143,38 +146,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4061.3999,
+      "price": 4061.5,
       "change": 0.37,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 58.715,
-      "change": 1.59,
+      "price": 58.755,
+      "change": 1.66,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 92.22,
-      "change": -8.41,
+      "price": 92.05,
+      "change": -8.58,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 89.89,
-      "change": -2.49,
+      "price": 89.74,
+      "change": -2.66,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4299,
-      "change": -0.05,
+      "price": 1.4297,
+      "change": -0.07,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-24T20:55:16.893008"
+  "lastUpdated": "2026-07-24T21:00:30.445525"
 }
