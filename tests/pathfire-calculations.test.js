@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, updateHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, updateHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -39,9 +39,21 @@ assert.match(liabilityTypeOptions('loan'), /<option value="loan" selected>Loan<\
 assert.doesNotMatch(liabilityTypeOptions('loan'), /value="ppor_loan"|value="investment_property_loan"|value="margin_loan"|value="car_loan"|value="personal_loan"|value="smsf_loan"/);
 ['ppor_loan','investment_property_loan','margin_loan','car_loan','personal_loan','smsf_loan'].forEach(type => assert.equal(normaliseLiabilityType(type), 'loan'));
 assert.equal(normaliseLiabilityType('credit_card'), 'credit_card');
-const revisedCheckin = updateHistoricalCheckin(0, {label:'January',net:2900000,fi:2800000,spend:79000,note:'Corrected after reconciliation.'});
-assert.deepEqual(JSON.parse(JSON.stringify(revisedCheckin)), {label:'January',net:2900000,fi:2800000,spend:79000,note:'Corrected after reconciliation.'});
-assert.equal(updateHistoricalCheckin(-1, {label:'Invalid'}), false);
+const checkinSnapshot = makeCheckinSnapshot({month:'January',year:2025,note:'Reconciled month'}, defaultState);
+assert.equal(checkinSnapshot.label, 'January 2025');
+assert.equal(checkinSnapshot.assets.length, defaultState.assets.length);
+assert.equal(checkinSnapshot.debts.length, defaultState.debts.length);
+assert.deepEqual(JSON.parse(JSON.stringify(checkinSnapshot.income)), JSON.parse(JSON.stringify(defaultState.income)));
+assert.deepEqual(JSON.parse(JSON.stringify(checkinSnapshot.expenses)), JSON.parse(JSON.stringify(defaultState.expenses)));
+checkinSnapshot.assets[0].balance=1;
+assert.notEqual(defaultState.assets[0].balance, 1);
+const revisedCheckin = updateHistoricalCheckin(0, {...checkinSnapshot,month:'January',year:2024,note:'Corrected after reconciliation.'});
+assert.equal(revisedCheckin.label, 'January 2024');
+assert.equal(revisedCheckin.year, 2024);
+assert.equal(revisedCheckin.assets[0].balance, 1);
+assert.equal(revisedCheckin.note, 'Corrected after reconciliation.');
+assert.equal(updateHistoricalCheckin(-1, {month:'Invalid'}), false);
+assert.equal(deleteHistoricalCheckin(-1), false);
 assert.ok(defaultState.assets.every(asset => typeof asset.annualReturn === 'number'));
 assert.equal(linkableAssets(defaultState.assets).length, defaultState.assets.length);
 assert.equal(suggestedAssetTypeForLiability('loan'), '');
@@ -73,7 +85,7 @@ assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>
 renderCheckin();
 assert.match(renderedElements.checkin.innerHTML, /<h2>Check-ins<\/h2>/);
 assert.match(renderedElements.checkin.innerHTML, /<div class="section-title">Previous check-ins<\/div>/);
-assert.match(renderedElements.checkin.innerHTML, /January[\s\S]*onclick="openHistoricalCheckin\(0\)">Update<\/button>/);
+assert.match(renderedElements.checkin.innerHTML, /January 2024[\s\S]*onclick="openHistoricalCheckin\(0\)">Update<\/button>[\s\S]*onclick="deleteHistoricalCheckinUI\(0\)">Delete<\/button>/);
 assert.match(renderedElements.checkin.innerHTML, /onclick="openCurrentCheckin\(\)">Complete check-in for this month<\/button>/);
 assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>[\s\S]*<span>Total spending<\/span><strong>\$12,500\/month<\/strong>[\s\S]*<h3>Automatic liability interest<\/h3>/);
 const expectedMonthlyInterest = defaultState.debts.reduce((total, debt) => total + debt.balance * debt.annualInterestRate / 100 / 12, 0);
@@ -104,5 +116,7 @@ assert.equal(calc().assets, initialAssets - defaultState.assets.find(asset => as
 const initialDebt = calc().debt;
 assert.equal(removeLiability('loc'), true);
 assert.equal(calc().debt, initialDebt - defaultState.debts.find(debt => debt.id === 'loc').balance);
+while(deleteHistoricalCheckin(0)){}
+assert.doesNotThrow(() => renderDashboard());
 
 console.log('Pathfire calculation tests: PASS');
