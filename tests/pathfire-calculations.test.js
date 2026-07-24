@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -46,6 +46,10 @@ assert.equal(checkinSnapshot.debts.length, defaultState.debts.length);
 assert.equal(checkinSnapshot.netExPpor, checkinSnapshot.net - defaultState.assets.find(asset=>asset.id==='ppor').balance + defaultState.debts.filter(debt=>debt.linked==='ppor').reduce((total,debt)=>total+debt.balance,0));
 assert.deepEqual(JSON.parse(JSON.stringify(checkinSnapshot.income)), JSON.parse(JSON.stringify(defaultState.income)));
 assert.deepEqual(JSON.parse(JSON.stringify(checkinSnapshot.expenses)), JSON.parse(JSON.stringify(defaultState.expenses)));
+const historicCashflow=checkinCashflowMetrics(checkinSnapshot);
+assert.equal(historicCashflow.spending*12, checkinSnapshot.spend);
+assert.equal(historicCashflow.surplus, historicCashflow.income-historicCashflow.spending);
+assert.ok(historicCashflow.income > Object.values(defaultState.income).reduce((total,value)=>total+value,0));
 checkinSnapshot.assets[0].balance=1;
 assert.notEqual(defaultState.assets[0].balance, 1);
 const editableLegacyCheckin=checkinSnapshotForEditing({label:'February',net:123,fi:100,spend:80,note:'Legacy'}, defaultState);
@@ -92,6 +96,7 @@ renderCashflow();
 assert.ok(renderedElements.cashflow.innerHTML.includes('Estimated interest — Cash &amp; savings'));
 assert.match(renderedElements.cashflow.innerHTML, /<h3>Income breakdown<\/h3>[\s\S]*onclick="openCheckinIncomeAndSpending\(\)">Update<\/button>[\s\S]*<span>Total income<\/span>/);
 assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>[\s\S]*onclick="openCheckinIncomeAndSpending\(\)">Update<\/button>/);
+assert.match(renderedElements.cashflow.innerHTML, /<div class="section-title">Cash-flow history<\/div>[\s\S]*January 2024[\s\S]*Income[\s\S]*Spending[\s\S]*[Ss]urplus/);
 renderCheckin();
 assert.match(renderedElements.checkin.innerHTML, /<h2>Check-ins<\/h2>/);
 assert.match(renderedElements.checkin.innerHTML, /<div class="section-title">Previous check-ins<\/div>/);
