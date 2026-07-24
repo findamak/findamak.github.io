@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const html = fs.readFileSync('projects/australian-fire-prototype/index.html', 'utf8');
 const script = html.slice(html.indexOf('<script>') + 8, html.lastIndexOf('</script>'))
   .replace(/\bboot\(\);\s*$/, '');
-const renderedElements = { cashflow: { innerHTML: '' }, dashboard: { innerHTML: '' }, checkin: { innerHTML: '' }, checkinBody: { innerHTML: '' }, headerTitle: { textContent: '' } };
+const renderedElements = { cashflow: { innerHTML: '' }, dashboard: { innerHTML: '' }, checkin: { innerHTML: '' }, checkinModal: { innerHTML: '' }, modal: { innerHTML: '', classList: { add: () => {}, remove: () => {} } }, checkinBody: { innerHTML: '' }, headerTitle: { textContent: '' } };
 const context = {
   console,
   Intl,
@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -92,6 +92,8 @@ assert.ok(result.cashInterestLines.length > 0);
 renderDashboard();
 assert.match(renderedElements.dashboard.innerHTML, /Complete this month’s check-in/);
 assert.doesNotMatch(renderedElements.dashboard.innerHTML, /Complete January 2026 check-in/);
+openCurrentCheckin();
+assert.match(renderedElements.checkinModal.innerHTML, /<h2>Current monthly check-in<\/h2>[\s\S]*<label>Check-in period<\/label>[\s\S]*id="checkinMonth"[\s\S]*id="checkinYear"/);
 renderCashflow();
 assert.ok(renderedElements.cashflow.innerHTML.includes('Estimated interest — Cash &amp; savings'));
 assert.match(renderedElements.cashflow.innerHTML, /<h3>Income breakdown<\/h3>[\s\S]*onclick="openCheckinIncomeAndSpending\(\)">Update<\/button>[\s\S]*<span>Total income<\/span>/);
