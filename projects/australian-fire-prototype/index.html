@@ -158,9 +158,9 @@ const defaultState = {
     {label:'Feb',net:2930000,fi:2850000,spend:80100},{label:'Mar',net:2970000,fi:2895000,spend:81100},{label:'Apr',net:3015000,fi:2945000,spend:82300},{label:'May',net:3048000,fi:3005000,spend:83000},{label:'Jun',net:3090000,fi:3070000,spend:83700},{label:'Jul',net:3138814,fi:3121814,spend:84500}
   ],
   scenarios:{
-    current:{name:'Current plan',spend:85000,flexIncome:0,workEndAge:52,accessibleExclude:0,note:'Keep current properties and loan structure.'},
-    debtfree:{name:'Debt-free plan',spend:67000,flexIncome:0,workEndAge:52,accessibleExclude:0,note:'Mortgage and loan repayments no longer form part of lifestyle spending.'},
-    barista:{name:'Part-time at 47',spend:85000,flexIncome:36000,workEndAge:47,accessibleExclude:0,note:'Flexible work funds part of annual living costs.'}
+    current:{name:'Current plan',flexIncome:0,accessibleExclude:0,note:'Keep current properties and loan structure.'},
+    debtfree:{name:'Debt-free plan',flexIncome:0,accessibleExclude:0,note:'Mortgage and loan repayments no longer form part of lifestyle spending.'},
+    barista:{name:'Part-time at 47',flexIncome:36000,accessibleExclude:0,note:'Flexible work funds part of annual living costs.'}
   }
 };
 let state = JSON.parse(localStorage.getItem('pathfirePrototype') || JSON.stringify(defaultState));
@@ -180,6 +180,8 @@ function linkableAssets(assets=state.assets){ return assets; }
 function isUsualLiabilityAssetPair(liabilityType,assetType){ const suggested=suggestedAssetTypeForLiability(liabilityType); return !suggested || suggested===assetType; }
 function normaliseState(){
   state.profile.inflationRate ??= 2.5;
+  state.scenarios ??={};
+  Object.values(state.scenarios).forEach(scenario=>{ delete scenario.spend; delete scenario.workEndAge; });
   state.assets.forEach(asset => { asset.type=normaliseAssetType(asset.type); asset.annualReturn ??= defaultAnnualReturn(asset.type); });
   state.debts.forEach(debt => { debt.annualInterestRate ??= 0; if(debt.name==='Home loan') debt.name='PPOR loan'; if(debt.name==='Other loan') debt.name='Credit card debt'; debt.type=normaliseLiabilityType(debt.type ?? defaultLiabilityType(debt.name)); });
   state.history ??=[]; state.history.forEach(normaliseCheckinRecord);
@@ -277,19 +279,20 @@ function calc(){
 }
 function scenarioCalc(key=state.activeScenario){
   const c=calc(), p=state.profile, s=state.scenarios[key];
+  const spend=p.retirementSpend, workEndAge=p.retirementAge;
   const wr=p.withdrawalRate/100, rr=c.weightedRealReturn/100;
-  const netSpend=Math.max(0,s.spend-s.flexIncome);
+  const netSpend=Math.max(0,spend-s.flexIncome);
   const full=netSpend/wr;
-  const years=Math.max(0,s.workEndAge-p.age);
+  const years=Math.max(0,workEndAge-p.age);
   const coast=rr > -1 ? full/Math.pow(1+rr,years) : full;
-  const barista=Math.max(0,s.spend-s.flexIncome)/wr;
-  const bridgeYears=Math.max(0,p.preservationAge-s.workEndAge);
+  const barista=Math.max(0,spend-s.flexIncome)/wr;
+  const bridgeYears=Math.max(0,p.preservationAge-workEndAge);
   const bridge=Math.max(0,netSpend*bridgeYears);
   const monthlyContribution=Math.max(0,c.surplus);
   let portfolio=c.fi, months=0;
   while(portfolio<full && months<720){ portfolio=portfolio*Math.pow(1+rr,1/12)+monthlyContribution; months++; }
   const date=months<720?new Date(new Date().getFullYear(),new Date().getMonth()+months,1):null;
-  return {...s,full,coast,barista,bridge,netSpend,years,monthlyContribution,realReturn:rr,projected:date ? date.toLocaleString('en-AU',{month:'short',year:'numeric'}) : 'Not reached', date};
+  return {...s,spend,workEndAge,full,coast,barista,bridge,netSpend,years,monthlyContribution,realReturn:rr,projected:date ? date.toLocaleString('en-AU',{month:'short',year:'numeric'}) : 'Not reached', date};
 }
 function milestone(name,description,current,target,date,colour=''){ const pct=target?clamp(current/target*100,0,100):0; return `<div class="milestone"><div class="row"><div><div class="name">${name}</div><div class="description">${description}</div></div><div><div class="date">${date}</div><div class="small" style="text-align:right">${pct.toFixed(0)}% there</div></div></div><div class="progress ${colour}"><span style="width:${pct}%"></span></div><div class="row small"><span>${shortMoney(current)} today</span><span>Target ${shortMoney(target)}</span></div></div>`; }
 function dashboardSnapshotMetrics(history,current){
@@ -304,7 +307,7 @@ function renderDashboard(){ const c=calc(), s=scenarioCalc(), dashboard=dashboar
  <div class="scenario-select">${scenarioButtons()}</div>
  <div class="card"><div class="row"><div><h2>${s.name}</h2><p class="sub">${s.note}</p></div><button class="action ghost" onclick="showScreen('plans')">Compare</button></div>
  ${milestone('Coast FI','Investments can grow to your FI target without new contributions.',c.fi,s.coast,c.fi>=s.coast?'Reached':`Age ${state.profile.retirementAge}`)}
- ${milestone('Bridge FI','Accessible assets to cover the years before super.',c.accessible,s.bridge,`${Math.max(0,state.profile.preservationAge-s.workEndAge)} years`, 'gold')}
+ ${milestone('Bridge FI','Accessible assets to cover the years before super.',c.accessible,s.bridge,`${Math.max(0,state.profile.preservationAge-state.profile.retirementAge)} years`, 'gold')}
  ${milestone('Barista FI','Flexible income covers part of your annual living costs.',c.fi,s.barista,s.flexIncome?`${money(s.flexIncome)}/yr work`:'Add flexible income', 'gold')}
  ${milestone('Full FI','Portfolio funds your planned lifestyle.',c.fi,s.full,s.projected,'rose')}
  </div>
@@ -407,9 +410,9 @@ function openLiabilityForm(id){
 }
 function deleteLiabilityUI(id){ if(confirm('Delete this liability? Its automatic interest cash-flow line will also be removed.')){ removeLiability(id); openAssetEditor(); renderAll(); toast('Liability deleted'); } }
 function saveLiability(id){ const debt={id:id||('debt'+Date.now()),name:document.getElementById('debtName').value.trim()||'Unnamed liability',type:document.getElementById('debtType').value,balance:Math.max(0,Number(document.getElementById('debtBalance').value)||0),annualInterestRate:Math.max(0,Number(document.getElementById('debtInterestRate').value)||0),linked:document.getElementById('debtLinked').value}; if(id){ Object.assign(state.debts.find(d=>d.id===id),debt); } else { state.debts.push(debt); } save();openAssetEditor();renderAll();toast(id?'Liability updated':'Liability added');}
-function openScenarioEditor(k){const s=state.scenarios[k];openModal(`<div class="row"><h2>${s.name}</h2><button class="close" onclick="closeModal()">×</button></div><p class="sub">Scenario changes do not alter your monthly actuals.</p><label>Annual retirement spending</label><div class="input-prefix"><span>$</span><input id="sspend" type="number" value="${s.spend}"></div><label>Annual flexible-work income</label><div class="input-prefix"><span>$</span><input id="sflex" type="number" value="${s.flexIncome}"></div><label>Age to leave full-time work</label><input id="sage" type="number" value="${s.workEndAge}"><label>Scenario note</label><input id="snote" value="${s.note}"><button class="action full" style="margin-top:20px" onclick="saveScenario('${k}')">Save plan</button>`);}
-function saveScenario(k){const s=state.scenarios[k];s.spend=Number(document.getElementById('sspend').value)||0;s.flexIncome=Number(document.getElementById('sflex').value)||0;s.workEndAge=Number(document.getElementById('sage').value)||0;s.note=document.getElementById('snote').value;save();closeModal();renderAll();toast('Plan updated');}
-function addScenario(){ const id='custom'+Date.now();state.scenarios[id]={name:'Custom plan',spend:state.profile.retirementSpend,flexIncome:0,workEndAge:state.profile.retirementAge,note:'A new scenario to explore.'};state.activeScenario=id;save();renderAll();openScenarioEditor(id); }
+function openScenarioEditor(k){const s=state.scenarios[k];openModal(`<div class="row"><h2>${s.name}</h2><button class="close" onclick="closeModal()">×</button></div><p class="sub">All plans use the retirement spending and Full FI age from Plan settings. Scenario changes do not alter your monthly actuals.</p><label>Annual flexible-work income</label><div class="input-prefix"><span>$</span><input id="sflex" type="number" value="${s.flexIncome}"></div><label>Scenario note</label><input id="snote" value="${s.note}"><button class="action full" style="margin-top:20px" onclick="saveScenario('${k}')">Save plan</button>`);}
+function saveScenario(k){const s=state.scenarios[k];s.flexIncome=Number(document.getElementById('sflex').value)||0;s.note=document.getElementById('snote').value;save();closeModal();renderAll();toast('Plan updated');}
+function addScenario(){ const id='custom'+Date.now();state.scenarios[id]={name:'Custom plan',flexIncome:0,note:'A new scenario to explore.'};state.activeScenario=id;save();renderAll();openScenarioEditor(id); }
 function openCheckinIncomeAndSpending(){ openCurrentCheckin(2); }
 function showScreen(id){document.querySelectorAll('.screen').forEach(x=>x.classList.toggle('active',x.id===id));document.querySelectorAll('.nav button').forEach(x=>x.classList.toggle('active',x.dataset.screen===id));document.getElementById('headerTitle').textContent=({dashboard:'Your FIRE path',checkin:'Monthly check-in',cashflow:'Cash flow',plans:'Plans',settings:'Plan settings'})[id]||'Pathfire';window.scrollTo(0,0);}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}

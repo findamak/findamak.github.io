@@ -5,7 +5,7 @@ const vm = require('node:vm');
 const html = fs.readFileSync('projects/australian-fire-prototype/index.html', 'utf8');
 const script = html.slice(html.indexOf('<script>') + 8, html.lastIndexOf('</script>'))
   .replace(/\bboot\(\);\s*$/, '');
-const renderedElements = { cashflow: { innerHTML: '' }, dashboard: { innerHTML: '' }, checkin: { innerHTML: '' }, checkinModal: { innerHTML: '' }, settings: { innerHTML: '' }, modal: { innerHTML: '', classList: { add: () => {}, remove: () => {} } }, checkinBody: { innerHTML: '' }, headerTitle: { textContent: '' } };
+const renderedElements = { cashflow: { innerHTML: '' }, dashboard: { innerHTML: '' }, checkin: { innerHTML: '' }, checkinModal: { innerHTML: '' }, settings: { innerHTML: '' }, plans: { innerHTML: '' }, sheet: { innerHTML: '' }, modal: { innerHTML: '', classList: { add: () => {}, remove: () => {} } }, checkinBody: { innerHTML: '' }, headerTitle: { textContent: '' } };
 const context = {
   console,
   Intl,
@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
+const { calculateRealReturn, calc, scenarioCalc, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -125,6 +125,21 @@ assert.ok(Math.abs(result.weightedRealReturn - expectedWeightedRealReturn) < 1e-
 const currentPlan = scenarioCalc('current');
 assert.ok(currentPlan.realReturn > 0);
 assert.equal(currentPlan.realReturn, result.weightedRealReturn / 100);
+
+state.profile.retirementSpend = 100000;
+state.profile.retirementAge = 55;
+state.scenarios.current.spend = 1;
+state.scenarios.current.workEndAge = 41;
+state.scenarios.current.flexIncome = 20000;
+const settingsDrivenPlan = scenarioCalc('current');
+assert.equal(settingsDrivenPlan.spend, 100000);
+assert.equal(settingsDrivenPlan.workEndAge, 55);
+assert.equal(settingsDrivenPlan.full, 80000 / (state.profile.withdrawalRate / 100));
+assert.equal(settingsDrivenPlan.years, 15);
+assert.equal(settingsDrivenPlan.bridge, 80000 * (state.profile.preservationAge - 55));
+openScenarioEditor('current');
+assert.match(renderedElements.sheet.innerHTML, /Annual flexible-work income/);
+assert.doesNotMatch(renderedElements.sheet.innerHTML, /Annual retirement spending|Age to leave full-time work|id="sspend"|id="sage"/);
 
 const initialExpenses = calc().expenses;
 assert.equal(addExpenseCategory('Pet insurance'), 'Pet insurance');
