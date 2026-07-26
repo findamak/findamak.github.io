@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
-const { calculateRealReturn, calc, cashflowSource, scenarioCalc, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
+const { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -157,6 +157,25 @@ assert.equal(settingsDrivenPlan.bridge, 80000 * (state.profile.preservationAge -
 openScenarioEditor('current');
 assert.match(renderedElements.sheet.innerHTML, /Annual flexible-work income/);
 assert.doesNotMatch(renderedElements.sheet.innerHTML, /Annual retirement spending|Age to leave full-time work|id="sspend"|id="sage"/);
+
+assert.equal(isCustomScenario('debtfree'), false);
+assert.equal(isCustomScenario('barista'), false);
+assert.equal(renameScenario('debtfree', 'Different name'), false);
+assert.equal(deleteScenario('debtfree'), false);
+assert.equal(deleteScenario('barista'), false);
+assert.equal(state.scenarios.debtfree.name, 'Debt-free plan');
+state.scenarios.customTest = {name:'Custom plan',flexIncome:0,accessibleExclude:0,note:'Test custom scenario.'};
+state.activeScenario = 'customTest';
+assert.equal(isCustomScenario('customTest'), true);
+openScenarioEditor('customTest');
+assert.match(renderedElements.sheet.innerHTML, /Plan name[\s\S]*id="sname"[\s\S]*Delete plan/);
+assert.equal(renameScenario('customTest', 'Travel year'), true);
+assert.equal(state.scenarios.customTest.name, 'Travel year');
+assert.equal(deleteScenario('customTest'), true);
+assert.equal(state.scenarios.customTest, undefined);
+assert.equal(state.activeScenario, 'current');
+openScenarioEditor('barista');
+assert.doesNotMatch(renderedElements.sheet.innerHTML, /id="sname"|Delete plan/);
 
 const initialExpenses = calc().expenses;
 assert.equal(addExpenseCategory('Pet insurance'), 'Pet insurance');
