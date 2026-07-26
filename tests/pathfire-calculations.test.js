@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, scenarioCalc, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
-const { calculateRealReturn, calc, scenarioCalc, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
+const { calculateRealReturn, calc, cashflowSource, scenarioCalc, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -79,6 +79,23 @@ assert.deepEqual(JSON.parse(JSON.stringify(cashIncomeLines([
   {name:'Zero-rate cash',type:'cash',balance:8000,annualReturn:0},
   {name:'Shares',type:'investment',balance:12000,annualReturn:5},
 ]))), [{name:'Estimated interest — Savings account',monthly:50}]);
+const originalHistory = state.history;
+const liveCash = state.assets.find(asset => asset.id === 'cash');
+const originalCashBalance = liveCash.balance;
+const originalCashReturn = liveCash.annualReturn;
+liveCash.balance = 15000;
+liveCash.annualReturn = 6.63;
+const latestCashflowCheckin = makeCheckinSnapshot({month:'August',year:2026});
+latestCashflowCheckin.assets.find(asset => asset.id === 'cash').balance = 900000;
+latestCashflowCheckin.assets.find(asset => asset.id === 'cash').annualReturn = 3.5;
+state.history = [latestCashflowCheckin];
+assert.equal(cashflowSource().assets.find(asset => asset.id === 'cash').balance, 900000);
+assert.equal(calc(cashflowSource()).cashIncome, 4972.5);
+renderCashflow();
+assert.match(renderedElements.cashflow.innerHTML, /Estimated interest — Cash &amp; savings[\s\S]*\$4,973/);
+state.history = originalHistory;
+liveCash.balance = originalCashBalance;
+liveCash.annualReturn = originalCashReturn;
 const initialIncome = calc().income;
 assert.equal(addIncomeSource('Side project'), 'Side project');
 assert.equal(setIncomeSource('Side project', 'Consulting', 900), true);
