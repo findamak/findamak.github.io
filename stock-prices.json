@@ -45,29 +45,29 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 192.78,
+      "price": 192.68,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.119,
+      "price": 0.1191,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 111.93,
-      "change": 1.03,
+      "price": 111.9,
+      "change": 1.0,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 116.64,
-      "change": 0.2,
+      "price": 116.61,
+      "change": 0.17,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 57.85,
-      "change": 0.02,
+      "price": 57.83,
+      "change": -0.02,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4032.2,
+      "price": 4032.3999,
       "change": -0.1,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 58.04,
-      "change": 1.3,
+      "price": 57.99,
+      "change": 1.21,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 87.14,
-      "change": 3.63,
+      "price": 87.24,
+      "change": 3.75,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 82.06,
-      "change": 3.53,
+      "price": 81.97,
+      "change": 3.42,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4371,
-      "change": 0.41,
+      "price": 1.437,
+      "change": 0.4,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-07-29T16:00:17.726553"
+  "lastUpdated": "2026-07-29T16:05:17.073528"
 }
