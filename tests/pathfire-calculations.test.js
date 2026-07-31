@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
-const { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
+const { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -142,6 +142,11 @@ assert.ok(Math.abs(result.weightedRealReturn - expectedWeightedRealReturn) < 1e-
 const currentPlan = scenarioCalc('current');
 assert.ok(currentPlan.realReturn > 0);
 assert.equal(currentPlan.realReturn, result.weightedRealReturn / 100);
+const originalRetirementSpend = state.profile.retirementSpend;
+state.profile.retirementSpend = 500000;
+renderPlans();
+assert.match(renderedElements.plans.innerHTML, /Full FI target<\/div><div class="metric-value">\$14\.29m<\/div>/);
+state.profile.retirementSpend = originalRetirementSpend;
 
 state.profile.retirementSpend = 100000;
 state.profile.retirementAge = 55;
