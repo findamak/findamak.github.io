@@ -142,6 +142,11 @@ assert.ok(Math.abs(result.weightedRealReturn - expectedWeightedRealReturn) < 1e-
 const currentPlan = scenarioCalc('current');
 assert.ok(currentPlan.realReturn > 0);
 assert.equal(currentPlan.realReturn, result.weightedRealReturn / 100);
+const debtFreePlan = scenarioCalc('debtfree');
+assert.equal(debtFreePlan.debtPayoff, result.debt);
+assert.equal(debtFreePlan.debtFreeCapitalRequired, debtFreePlan.full + result.debt);
+renderPlans();
+assert.match(renderedElements.plans.innerHTML, /Debt-free capital required[\s\S]*Full FI target[\s\S]*Current debt payoff[\s\S]*\$4\.04m[\s\S]*one-off capital requirement[\s\S]*Debt-free projection and funded percentage use this combined figure/);
 const originalRetirementSpend = state.profile.retirementSpend;
 state.profile.retirementSpend = 500000;
 renderPlans();
