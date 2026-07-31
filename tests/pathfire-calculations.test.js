@@ -158,6 +158,8 @@ assert.equal(debtFreePlan.target, debtFreePlan.debtFreeCapitalRequired);
 renderPlans();
 assert.match(renderedElements.plans.innerHTML, /Debt-free plan[\s\S]*Debt-free target<\/div><div class="metric-value">\$4\.04m<\/div>[\s\S]*Projection/);
 assert.match(renderedElements.plans.innerHTML, /Debt-free capital required[\s\S]*Full FI target[\s\S]*Current debt payoff[\s\S]*\$4\.04m[\s\S]*one-off capital requirement[\s\S]*Debt-free projection and funded percentage use this combined figure/);
+assert.match(renderedElements.plans.innerHTML, /class="card debt-free-breakdown"/);
+assert.match(html, /\.debt-free-breakdown\s*\{\s*color:var\(--ink\);\s*\}/);
 state.scenarios.current.spend = 100000;
 state.scenarios.barista.spend = 90000;
 state.profile.retirementAge = 55;
