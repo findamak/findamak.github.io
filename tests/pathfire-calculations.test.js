@@ -20,11 +20,20 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
-const { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, normaliseState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
+const { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, normaliseState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
+assert.equal(defaultState.profile.retirementSpend, undefined);
+assert.deepEqual(JSON.parse(JSON.stringify(Object.values(defaultState.scenarios).map(scenario => scenario.spend))), [85000, 85000, 85000]);
+const legacyPlanState = JSON.parse(JSON.stringify(defaultState));
+legacyPlanState.profile.retirementSpend = 123000;
+delete legacyPlanState.scenarios.current.spend;
+delete legacyPlanState.scenarios.debtfree.spend;
+assert.equal(normaliseState(legacyPlanState).scenarios.current.spend, 123000);
+assert.equal(legacyPlanState.scenarios.debtfree.spend, 123000);
+assert.equal(legacyPlanState.profile.retirementSpend, undefined);
 assert.match(assetTypeOptions('superannuation'), /<option value="superannuation" selected>Superannuation<\/option>/);
 assert.doesNotMatch(assetTypeOptions('superannuation'), /value="super"|value="smsf"/);
 assert.equal(normaliseAssetType('super'), 'superannuation');
@@ -149,26 +158,25 @@ assert.equal(debtFreePlan.target, debtFreePlan.debtFreeCapitalRequired);
 renderPlans();
 assert.match(renderedElements.plans.innerHTML, /Debt-free plan[\s\S]*Debt-free target<\/div><div class="metric-value">\$4\.04m<\/div>[\s\S]*Projection/);
 assert.match(renderedElements.plans.innerHTML, /Debt-free capital required[\s\S]*Full FI target[\s\S]*Current debt payoff[\s\S]*\$4\.04m[\s\S]*one-off capital requirement[\s\S]*Debt-free projection and funded percentage use this combined figure/);
-const originalRetirementSpend = state.profile.retirementSpend;
-state.profile.retirementSpend = 500000;
-renderPlans();
-assert.match(renderedElements.plans.innerHTML, /Full FI target<\/div><div class="metric-value">\$14\.29m<\/div>/);
-state.profile.retirementSpend = originalRetirementSpend;
-
-state.profile.retirementSpend = 100000;
+state.scenarios.current.spend = 100000;
+state.scenarios.barista.spend = 90000;
 state.profile.retirementAge = 55;
-state.scenarios.current.spend = 1;
 state.scenarios.current.workEndAge = 41;
 state.scenarios.current.flexIncome = 20000;
 const settingsDrivenPlan = scenarioCalc('current');
+const baristaSpendPlan = scenarioCalc('barista');
 assert.equal(settingsDrivenPlan.spend, 100000);
+assert.equal(baristaSpendPlan.spend, 90000);
 assert.equal(settingsDrivenPlan.workEndAge, 55);
 assert.equal(settingsDrivenPlan.full, 80000 / (state.profile.withdrawalRate / 100));
 assert.equal(settingsDrivenPlan.years, 15);
 assert.equal(settingsDrivenPlan.bridge, 80000 * (state.profile.preservationAge - 55));
+renderSettings();
+assert.doesNotMatch(renderedElements.settings.innerHTML, /Annual retirement spending|id="retirementSpend"/);
 openScenarioEditor('current');
+assert.match(renderedElements.sheet.innerHTML, /Each plan has its own retirement-spending assumption[\s\S]*Annual retirement spending[\s\S]*id="sspend"/);
 assert.match(renderedElements.sheet.innerHTML, /Annual flexible-work income/);
-assert.doesNotMatch(renderedElements.sheet.innerHTML, /Annual retirement spending|Age to leave full-time work|id="sspend"|id="sage"/);
+assert.doesNotMatch(renderedElements.sheet.innerHTML, /Age to leave full-time work|id="sage"/);
 
 assert.equal(isCustomScenario('debtfree'), false);
 assert.equal(isCustomScenario('barista'), false);
