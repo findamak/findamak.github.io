@@ -38,14 +38,14 @@
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 18.44,
-      "change": 0.33,
+      "price": 18.36,
+      "change": -0.11,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 196.27,
+      "price": 196.51,
       "change": 0,
       "type": "stock"
     },
@@ -59,29 +59,29 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 113.94,
-      "change": 0.67,
+      "price": 114.0,
+      "change": 0.72,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 120.54,
-      "change": 1.12,
+      "price": 120.53,
+      "change": 1.11,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 73.23,
-      "change": 1.38,
+      "price": 73.25,
+      "change": 1.41,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.34,
-      "change": 2.23,
+      "price": 61.35,
+      "change": 2.25,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4188.6001,
-      "change": 3.84,
+      "price": 4188.2002,
+      "change": 3.83,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 61.095,
-      "change": 5.94,
+      "price": 61.05,
+      "change": 5.87,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 78.34,
-      "change": -6.48,
+      "price": 78.47,
+      "change": -6.33,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 74.61,
-      "change": -7.13,
+      "price": 74.7,
+      "change": -7.02,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-08-05T13:35:18.059969"
+  "lastUpdated": "2026-08-05T13:40:16.341845"
 }
