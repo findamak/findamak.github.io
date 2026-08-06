@@ -21,25 +21,32 @@
   },
   "comparison_symbol": "GLD",
   "comparison_name": "SPDR\u00a0Gold Shares",
-  "updated_at": "2026-08-05T02:45:02+00:00",
+  "updated_at": "2026-08-06T02:45:02+00:00",
   "base_date": "2025-07-09",
   "latest": {
-    "date": "2026-08-04",
-    "gold_close": 374.16,
-    "gold_return_pct": 22.47,
+    "date": "2026-08-05",
+    "gold_close": 389.64,
+    "gold_return_pct": 27.53,
     "leader": "GLD",
-    "leader_margin_pct": 0.86,
-    "kgld_close": 26.33,
-    "kgld_return_pct": 21.61,
-    "kgld_relative_return_pct": -0.86,
-    "igld_close": 20.48,
-    "igld_return_pct": 15.27,
-    "igld_relative_return_pct": -7.2,
-    "iaui_close": 48.94,
-    "iaui_return_pct": 13.63,
-    "iaui_relative_return_pct": -8.83
+    "leader_margin_pct": 0.54,
+    "kgld_close": 27.13,
+    "kgld_return_pct": 26.99,
+    "kgld_relative_return_pct": -0.54,
+    "igld_close": 21.24,
+    "igld_return_pct": 19.55,
+    "igld_relative_return_pct": -7.99,
+    "iaui_close": 50.42,
+    "iaui_return_pct": 17.07,
+    "iaui_relative_return_pct": -10.46
   },
   "distributions": [
+    {
+      "etf": "KGLD",
+      "date": "2026-08-05",
+      "distribution": 0.35,
+      "close": 27.13,
+      "annualized_distribution_pct": 15.48
+    },
     {
       "etf": "IGLD",
       "date": "2026-08-03",
@@ -394,7 +401,7 @@
   "series": [
     {
       "date": "2025-07-09",
-      "kgld_close": 21.6517,
+      "kgld_close": 21.3639,
       "kgld_return_pct": 0.0,
       "kgld_relative_return_pct": 0.0,
       "igld_close": 17.767,
@@ -408,7 +415,7 @@
     },
     {
       "date": "2025-07-10",
-      "kgld_close": 21.7522,
+      "kgld_close": 21.463,
       "kgld_return_pct": 0.46,
       "kgld_relative_return_pct": 0.24,
       "igld_close": 17.808,
@@ -422,7 +429,7 @@
     },
     {
       "date": "2025-07-11",
-      "kgld_close": 21.9235,
+      "kgld_close": 21.6321,
       "kgld_return_pct": 1.26,
       "kgld_relative_return_pct": 0.07,
       "igld_close": 17.8817,
@@ -436,10 +443,10 @@
     },
     {
       "date": "2025-07-14",
-      "kgld_close": 21.8684,
+      "kgld_close": 21.5777,
       "kgld_return_pct": 1.0,
       "kgld_relative_return_pct": 0.19,
-      "igld_close": 17.8654,
+      "igld_close": 17.8653,
       "igld_return_pct": 0.55,
       "igld_relative_return_pct": -0.26,
       "iaui_close": 43.3747,
@@ -450,7 +457,7 @@
     },
     {
       "date": "2025-07-15",
-      "kgld_close": 21.7714,
+      "kgld_close": 21.482,
       "kgld_return_pct": 0.55,
       "kgld_relative_return_pct": 0.16,
       "igld_close": 17.7506,
@@ -464,7 +471,7 @@
     },
     {
       "date": "2025-07-16",
-      "kgld_close": 21.8911,
+      "kgld_close": 21.6001,
       "kgld_return_pct": 1.11,
       "kgld_relative_return_pct": 0.21,
       "igld_close": 17.8162,
@@ -478,10 +485,10 @@
     },
     {
       "date": "2025-07-17",
-      "kgld_close": 21.844,
+      "kgld_close": 21.5536,
       "kgld_return_pct": 0.89,
       "kgld_relative_return_pct": 0.21,
-      "igld_close": 17.8654,
+      "igld_close": 17.8653,
       "igld_return_pct": 0.55,
       "igld_relative_return_pct": -0.12,
       "iaui_close": 43.3135,
@@ -492,7 +499,7 @@
     },
     {
       "date": "2025-07-18",
-      "kgld_close": 21.8964,
+      "kgld_close": 21.6053,
       "kgld_return_pct": 1.13,
       "kgld_relative_return_pct": 0.19,
       "igld_close": 17.9063,
@@ -506,7 +513,7 @@
     },
     {
       "date": "2025-07-21",
-      "kgld_close": 22.1367,
+      "kgld_close": 21.8425,
       "kgld_return_pct": 2.24,
       "kgld_relative_return_pct": -0.25,
       "igld_close": 18.0866,
@@ -520,7 +527,7 @@
     },
     {
       "date": "2025-07-22",
-      "kgld_close": 22.2809,
+      "kgld_close": 21.9847,
       "kgld_return_pct": 2.91,
       "kgld_relative_return_pct": -0.56,
       "igld_close": 18.2751,
@@ -534,13 +541,13 @@
     },
     {
       "date": "2025-07-23",
-      "kgld_close": 22.1236,
+      "kgld_close": 21.8295,
       "kgld_return_pct": 2.18,
       "kgld_relative_return_pct": -0.0,
       "igld_close": 18.0948,
       "igld_return_pct": 1.85,
       "igld_relative_return_pct": -0.33,
-      "iaui_close": 43.8005,
+      "iaui_close": 43.8006,
       "iaui_return_pct": 1.7,
       "iaui_relative_return_pct": -0.48,
       "gold_close": 312.18,
@@ -548,7 +555,7 @@
     },
     {
       "date": "2025-07-24",
-      "kgld_close": 22.0336,
+      "kgld_close": 21.7407,
       "kgld_return_pct": 1.76,
       "kgld_relative_return_pct": 0.21,
       "igld_close": 17.9965,
@@ -562,7 +569,7 @@
     },
     {
       "date": "2025-07-25",
-      "kgld_close": 21.8623,
+      "kgld_close": 21.5717,
       "kgld_return_pct": 0.97,
       "kgld_relative_return_pct": 0.36,
       "igld_close": 17.8981,
@@ -576,7 +583,7 @@
     },
     {
       "date": "2025-07-28",
-      "kgld_close": 21.7452,
+      "kgld_close": 21.4561,
       "kgld_return_pct": 0.43,
       "kgld_relative_return_pct": 0.47,
       "igld_close": 17.8326,
@@ -590,7 +597,7 @@
     },
     {
       "date": "2025-07-29",
-      "kgld_close": 21.7837,
+      "kgld_close": 21.4941,
       "kgld_return_pct": 0.61,
       "kgld_relative_return_pct": 0.37,
       "igld_close": 17.7834,
@@ -604,7 +611,7 @@
     },
     {
       "date": "2025-07-30",
-      "kgld_close": 21.4551,
+      "kgld_close": 21.1699,
       "kgld_return_pct": -0.91,
       "kgld_relative_return_pct": 0.58,
       "igld_close": 17.6195,
@@ -618,7 +625,7 @@
     },
     {
       "date": "2025-07-31",
-      "kgld_close": 21.5573,
+      "kgld_close": 21.2708,
       "kgld_return_pct": -0.44,
       "kgld_relative_return_pct": 0.4,
       "igld_close": 17.7178,
@@ -632,7 +639,7 @@
     },
     {
       "date": "2025-08-01",
-      "kgld_close": 22.0257,
+      "kgld_close": 21.7329,
       "kgld_return_pct": 1.73,
       "kgld_relative_return_pct": 0.55,
       "igld_close": 17.9578,
@@ -646,7 +653,7 @@
     },
     {
       "date": "2025-08-04",
-      "kgld_close": 22.1594,
+      "kgld_close": 21.8649,
       "kgld_return_pct": 2.35,
       "kgld_relative_return_pct": 0.58,
       "igld_close": 18.065,
@@ -660,7 +667,7 @@
     },
     {
       "date": "2025-08-05",
-      "kgld_close": 22.1979,
+      "kgld_close": 21.9028,
       "kgld_return_pct": 2.52,
       "kgld_relative_return_pct": 0.68,
       "igld_close": 18.0732,
@@ -674,7 +681,7 @@
     },
     {
       "date": "2025-08-06",
-      "kgld_close": 22.1317,
+      "kgld_close": 21.8375,
       "kgld_return_pct": 2.22,
       "kgld_relative_return_pct": 0.59,
       "igld_close": 18.0567,
@@ -688,7 +695,7 @@
     },
     {
       "date": "2025-08-07",
-      "kgld_close": 22.3294,
+      "kgld_close": 22.0326,
       "kgld_return_pct": 3.13,
       "kgld_relative_return_pct": 0.64,
       "igld_close": 18.1557,
@@ -702,7 +709,7 @@
     },
     {
       "date": "2025-08-08",
-      "kgld_close": 22.3347,
+      "kgld_close": 22.0378,
       "kgld_return_pct": 3.15,
       "kgld_relative_return_pct": 0.69,
       "igld_close": 18.1557,
@@ -716,7 +723,7 @@
     },
     {
       "date": "2025-08-11",
-      "kgld_close": 22.1105,
+      "kgld_close": 21.8166,
       "kgld_return_pct": 2.12,
       "kgld_relative_return_pct": 1.13,
       "igld_close": 17.9908,
@@ -730,7 +737,7 @@
     },
     {
       "date": "2025-08-12",
-      "kgld_close": 22.0964,
+      "kgld_close": 21.8027,
       "kgld_return_pct": 2.05,
       "kgld_relative_return_pct": 1.15,
       "igld_close": 17.966,
@@ -744,7 +751,7 @@
     },
     {
       "date": "2025-08-13",
-      "kgld_close": 22.1538,
+      "kgld_close": 21.8593,
       "kgld_return_pct": 2.32,
       "kgld_relative_return_pct": 1.11,
       "igld_close": 17.9413,
@@ -758,7 +765,7 @@
     },
     {
       "date": "2025-08-14",
-      "kgld_close": 22.0743,
+      "kgld_close": 21.7809,
       "kgld_return_pct": 1.95,
       "kgld_relative_return_pct": 1.39,
       "igld_close": 17.8836,
@@ -772,7 +779,7 @@
     },
     {
       "date": "2025-08-15",
-      "kgld_close": 22.0832,
+      "kgld_close": 21.7896,
       "kgld_return_pct": 1.99,
       "kgld_relative_return_pct": 1.37,
       "igld_close": 17.9001,
@@ -786,7 +793,7 @@
     },
     {
       "date": "2025-08-18",
-      "kgld_close": 22.1008,
+      "kgld_close": 21.807,
       "kgld_return_pct": 2.07,
       "kgld_relative_return_pct": 1.61,
       "igld_close": 17.933,
@@ -800,7 +807,7 @@
     },
     {
       "date": "2025-08-19",
-      "kgld_close": 21.9772,
+      "kgld_close": 21.6851,
       "kgld_return_pct": 1.5,
       "kgld_relative_return_pct": 1.59,
       "igld_close": 17.8506,
@@ -814,7 +821,7 @@
     },
     {
       "date": "2025-08-20",
-      "kgld_close": 22.1396,
+      "kgld_close": 21.8453,
       "kgld_return_pct": 2.25,
       "kgld_relative_return_pct": 1.32,
       "igld_close": 17.9413,
@@ -828,7 +835,7 @@
     },
     {
       "date": "2025-08-21",
-      "kgld_close": 22.0832,
+      "kgld_close": 21.7896,
       "kgld_return_pct": 1.99,
       "kgld_relative_return_pct": 1.41,
       "igld_close": 17.9413,
@@ -842,7 +849,7 @@
     },
     {
       "date": "2025-08-22",
-      "kgld_close": 22.25,
+      "kgld_close": 21.9542,
       "kgld_return_pct": 2.76,
       "kgld_relative_return_pct": 1.11,
       "igld_close": 18.1144,
@@ -856,7 +863,7 @@
     },
     {
       "date": "2025-08-25",
-      "kgld_close": 22.2464,
+      "kgld_close": 21.9507,
       "kgld_return_pct": 2.75,
       "kgld_relative_return_pct": 1.34,
       "igld_close": 18.0897,
@@ -870,7 +877,7 @@
     },
     {
       "date": "2025-08-26",
-      "kgld_close": 22.3435,
+      "kgld_close": 22.0465,
       "kgld_return_pct": 3.2,
       "kgld_relative_return_pct": 1.05,
       "igld_close": 18.1639,
@@ -884,7 +891,7 @@
     },
     {
       "date": "2025-08-27",
-      "kgld_close": 22.3744,
+      "kgld_close": 22.077,
       "kgld_return_pct": 3.34,
       "kgld_relative_return_pct": 0.98,
       "igld_close": 18.1721,
@@ -898,7 +905,7 @@
     },
     {
       "date": "2025-08-28",
-      "kgld_close": 22.5156,
+      "kgld_close": 22.2163,
       "kgld_return_pct": 3.99,
       "kgld_relative_return_pct": 0.88,
       "igld_close": 18.2876,
@@ -912,7 +919,7 @@
     },
     {
       "date": "2025-08-29",
-      "kgld_close": 22.6304,
+      "kgld_close": 22.3296,
       "kgld_return_pct": 4.52,
       "kgld_relative_return_pct": 0.41,
       "igld_close": 18.3288,
@@ -926,7 +933,7 @@
     },
     {
       "date": "2025-09-02",
-      "kgld_close": 22.9393,
+      "kgld_close": 22.6344,
       "kgld_return_pct": 5.95,
       "kgld_relative_return_pct": -0.62,
       "igld_close": 18.7311,
@@ -940,7 +947,7 @@
     },
     {
       "date": "2025-09-03",
-      "kgld_close": 23.0641,
+      "kgld_close": 22.7575,
       "kgld_return_pct": 6.52,
       "kgld_relative_return_pct": -0.88,
       "igld_close": 18.8473,
@@ -954,7 +961,7 @@
     },
     {
       "date": "2025-09-04",
-      "kgld_close": 23.0552,
+      "kgld_close": 22.7487,
       "kgld_return_pct": 6.48,
       "kgld_relative_return_pct": -0.45,
       "igld_close": 18.7892,
@@ -968,7 +975,7 @@
     },
     {
       "date": "2025-09-05",
-      "kgld_close": 23.2067,
+      "kgld_close": 22.8982,
       "kgld_return_pct": 7.18,
       "kgld_relative_return_pct": -1.17,
       "igld_close": 18.8556,
@@ -982,7 +989,7 @@
     },
     {
       "date": "2025-09-08",
-      "kgld_close": 23.4428,
+      "kgld_close": 23.1312,
       "kgld_return_pct": 8.27,
       "kgld_relative_return_pct": -1.32,
       "igld_close": 19.1127,
@@ -996,7 +1003,7 @@
     },
     {
       "date": "2025-09-09",
-      "kgld_close": 23.3938,
+      "kgld_close": 23.0828,
       "kgld_return_pct": 8.05,
       "kgld_relative_return_pct": -1.3,
       "igld_close": 19.1293,
@@ -1010,7 +1017,7 @@
     },
     {
       "date": "2025-09-10",
-      "kgld_close": 23.5275,
+      "kgld_close": 23.2147,
       "kgld_return_pct": 8.66,
       "kgld_relative_return_pct": -1.07,
       "igld_close": 19.1127,
@@ -1024,7 +1031,7 @@
     },
     {
       "date": "2025-09-11",
-      "kgld_close": 23.4562,
+      "kgld_close": 23.1444,
       "kgld_return_pct": 8.33,
       "kgld_relative_return_pct": -1.24,
       "igld_close": 19.1376,
@@ -1038,7 +1045,7 @@
     },
     {
       "date": "2025-09-12",
-      "kgld_close": 23.5248,
+      "kgld_close": 23.2121,
       "kgld_return_pct": 8.65,
       "kgld_relative_return_pct": -1.14,
       "igld_close": 19.1376,
@@ -1052,7 +1059,7 @@
     },
     {
       "date": "2025-09-15",
-      "kgld_close": 23.777,
+      "kgld_close": 23.461,
       "kgld_return_pct": 9.82,
       "kgld_relative_return_pct": -1.11,
       "igld_close": 19.2786,
@@ -1066,9 +1073,9 @@
     },
     {
       "date": "2025-09-16",
-      "kgld_close": 23.8269,
+      "kgld_close": 23.5102,
       "kgld_return_pct": 10.05,
-      "kgld_relative_return_pct": -1.1,
+      "kgld_relative_return_pct": -1.11,
       "igld_close": 19.2454,
       "igld_return_pct": 8.32,
       "igld_relative_return_pct": -2.83,
@@ -1080,7 +1087,7 @@
     },
     {
       "date": "2025-09-17",
-      "kgld_close": 23.7235,
+      "kgld_close": 23.4082,
       "kgld_return_pct": 9.57,
       "kgld_relative_return_pct": -0.72,
       "igld_close": 19.2786,
@@ -1094,7 +1101,7 @@
     },
     {
       "date": "2025-09-18",
-      "kgld_close": 23.6166,
+      "kgld_close": 23.3027,
       "kgld_return_pct": 9.08,
       "kgld_relative_return_pct": -0.78,
       "igld_close": 19.1874,
@@ -1108,7 +1115,7 @@
     },
     {
       "date": "2025-09-19",
-      "kgld_close": 23.9285,
+      "kgld_close": 23.6104,
       "kgld_return_pct": 10.52,
       "kgld_relative_return_pct": -0.5,
       "igld_close": 19.3201,
@@ -1122,7 +1129,7 @@
     },
     {
       "date": "2025-09-22",
-      "kgld_close": 24.285,
+      "kgld_close": 23.9622,
       "kgld_return_pct": 12.16,
       "kgld_relative_return_pct": -0.78,
       "igld_close": 19.5441,
@@ -1136,7 +1143,7 @@
     },
     {
       "date": "2025-09-23",
-      "kgld_close": 24.4365,
+      "kgld_close": 24.1117,
       "kgld_return_pct": 12.86,
       "kgld_relative_return_pct": -0.54,
       "igld_close": 19.5441,
@@ -1150,7 +1157,7 @@
     },
     {
       "date": "2025-09-24",
-      "kgld_close": 24.2226,
+      "kgld_close": 23.9006,
       "kgld_return_pct": 11.87,
       "kgld_relative_return_pct": -0.5,
       "igld_close": 19.3284,
@@ -1164,7 +1171,7 @@
     },
     {
       "date": "2025-09-25",
-      "kgld_close": 24.3385,
+      "kgld_close": 24.0149,
       "kgld_return_pct": 12.41,
       "kgld_relative_return_pct": -0.43,
       "igld_close": 19.4694,
@@ -1178,7 +1185,7 @@
     },
     {
       "date": "2025-09-26",
-      "kgld_close": 24.5345,
+      "kgld_close": 24.2084,
       "kgld_return_pct": 13.31,
       "kgld_relative_return_pct": -0.18,
       "igld_close": 19.5441,
@@ -1192,7 +1199,7 @@
     },
     {
       "date": "2025-09-29",
-      "kgld_close": 24.9445,
+      "kgld_close": 24.6129,
       "kgld_return_pct": 15.21,
       "kgld_relative_return_pct": -0.16,
       "igld_close": 19.7349,
@@ -1206,7 +1213,7 @@
     },
     {
       "date": "2025-09-30",
-      "kgld_close": 25.0871,
+      "kgld_close": 24.7536,
       "kgld_return_pct": 15.87,
       "kgld_relative_return_pct": -0.48,
       "igld_close": 19.8593,
@@ -1220,7 +1227,7 @@
     },
     {
       "date": "2025-10-01",
-      "kgld_close": 25.1762,
+      "kgld_close": 24.8415,
       "kgld_return_pct": 16.28,
       "kgld_relative_return_pct": -0.25,
       "igld_close": 19.8601,
@@ -1234,7 +1241,7 @@
     },
     {
       "date": "2025-10-02",
-      "kgld_close": 25.1584,
+      "kgld_close": 24.8239,
       "kgld_return_pct": 16.2,
       "kgld_relative_return_pct": 0.07,
       "igld_close": 19.8435,
@@ -1248,7 +1255,7 @@
     },
     {
       "date": "2025-10-03",
-      "kgld_close": 25.3455,
+      "kgld_close": 25.0086,
       "kgld_return_pct": 17.06,
       "kgld_relative_return_pct": 0.0,
       "igld_close": 19.9645,
@@ -1262,7 +1269,7 @@
     },
     {
       "date": "2025-10-06",
-      "kgld_close": 25.7332,
+      "kgld_close": 25.3911,
       "kgld_return_pct": 18.85,
       "kgld_relative_return_pct": -0.41,
       "igld_close": 20.269,
@@ -1276,7 +1283,7 @@
     },
     {
       "date": "2025-10-07",
-      "kgld_close": 25.8357,
+      "kgld_close": 25.4922,
       "kgld_return_pct": 19.32,
       "kgld_relative_return_pct": -0.56,
       "igld_close": 20.3692,
@@ -1290,7 +1297,7 @@
     },
     {
       "date": "2025-10-08",
-      "kgld_close": 26.0698,
+      "kgld_close": 25.7233,
       "kgld_return_pct": 20.41,
       "kgld_relative_return_pct": -1.45,
       "igld_close": 20.5611,
@@ -1304,10 +1311,10 @@
     },
     {
       "date": "2025-10-09",
-      "kgld_close": 25.6286,
+      "kgld_close": 25.2879,
       "kgld_return_pct": 18.37,
       "kgld_relative_return_pct": -1.24,
-      "igld_close": 20.3107,
+      "igld_close": 20.3108,
       "igld_return_pct": 14.32,
       "igld_relative_return_pct": -5.29,
       "iaui_close": 48.2141,
@@ -1318,7 +1325,7 @@
     },
     {
       "date": "2025-10-10",
-      "kgld_close": 25.9437,
+      "kgld_close": 25.5989,
       "kgld_return_pct": 19.82,
       "kgld_relative_return_pct": -0.99,
       "igld_close": 20.5611,
@@ -1332,7 +1339,7 @@
     },
     {
       "date": "2025-10-13",
-      "kgld_close": 26.7992,
+      "kgld_close": 26.443,
       "kgld_return_pct": 23.77,
       "kgld_relative_return_pct": 0.02,
       "igld_close": 20.8114,
@@ -1346,7 +1353,7 @@
     },
     {
       "date": "2025-10-14",
-      "kgld_close": 26.9163,
+      "kgld_close": 26.5585,
       "kgld_return_pct": 24.31,
       "kgld_relative_return_pct": -0.32,
       "igld_close": 20.9241,
@@ -1360,7 +1367,7 @@
     },
     {
       "date": "2025-10-15",
-      "kgld_close": 27.3395,
+      "kgld_close": 26.9761,
       "kgld_return_pct": 26.27,
       "kgld_relative_return_pct": -0.53,
       "igld_close": 21.1369,
@@ -1374,7 +1381,7 @@
     },
     {
       "date": "2025-10-16",
-      "kgld_close": 27.9159,
+      "kgld_close": 27.5448,
       "kgld_return_pct": 28.93,
       "kgld_relative_return_pct": -0.83,
       "igld_close": 21.5457,
@@ -1388,7 +1395,7 @@
     },
     {
       "date": "2025-10-17",
-      "kgld_close": 27.3755,
+      "kgld_close": 27.0116,
       "kgld_return_pct": 26.44,
       "kgld_relative_return_pct": -0.88,
       "igld_close": 21.2453,
@@ -1402,7 +1409,7 @@
     },
     {
       "date": "2025-10-20",
-      "kgld_close": 28.4291,
+      "kgld_close": 28.0512,
       "kgld_return_pct": 31.3,
       "kgld_relative_return_pct": -0.65,
       "igld_close": 21.8044,
@@ -1416,7 +1423,7 @@
     },
     {
       "date": "2025-10-21",
-      "kgld_close": 26.403,
+      "kgld_close": 26.052,
       "kgld_return_pct": 21.94,
       "kgld_relative_return_pct": -1.53,
       "igld_close": 20.8365,
@@ -1430,7 +1437,7 @@
     },
     {
       "date": "2025-10-22",
-      "kgld_close": 26.457,
+      "kgld_close": 26.1053,
       "kgld_return_pct": 22.19,
       "kgld_relative_return_pct": -1.29,
       "igld_close": 20.7739,
@@ -1444,7 +1451,7 @@
     },
     {
       "date": "2025-10-23",
-      "kgld_close": 26.5651,
+      "kgld_close": 26.212,
       "kgld_return_pct": 22.69,
       "kgld_relative_return_pct": -1.29,
       "igld_close": 20.8448,
@@ -1458,7 +1465,7 @@
     },
     {
       "date": "2025-10-24",
-      "kgld_close": 26.4633,
+      "kgld_close": 26.1116,
       "kgld_return_pct": 22.22,
       "kgld_relative_return_pct": -1.34,
       "igld_close": 20.7363,
@@ -1472,7 +1479,7 @@
     },
     {
       "date": "2025-10-27",
-      "kgld_close": 25.5475,
+      "kgld_close": 25.2079,
       "kgld_return_pct": 17.99,
       "kgld_relative_return_pct": -2.13,
       "igld_close": 20.4025,
@@ -1486,7 +1493,7 @@
     },
     {
       "date": "2025-10-28",
-      "kgld_close": 25.2774,
+      "kgld_close": 24.9413,
       "kgld_return_pct": 16.75,
       "kgld_relative_return_pct": -2.52,
       "igld_close": 20.3441,
@@ -1500,7 +1507,7 @@
     },
     {
       "date": "2025-10-29",
-      "kgld_close": 25.1333,
+      "kgld_close": 24.7992,
       "kgld_return_pct": 16.08,
       "kgld_relative_return_pct": -2.73,
       "igld_close": 20.2231,
@@ -1514,7 +1521,7 @@
     },
     {
       "date": "2025-10-30",
-      "kgld_close": 25.8447,
+      "kgld_close": 25.5011,
       "kgld_return_pct": 19.37,
       "kgld_relative_return_pct": -1.78,
       "igld_close": 20.5361,
@@ -1528,7 +1535,7 @@
     },
     {
       "date": "2025-10-31",
-      "kgld_close": 25.7636,
+      "kgld_close": 25.4212,
       "kgld_return_pct": 18.99,
       "kgld_relative_return_pct": -1.5,
       "igld_close": 20.4943,
@@ -1542,7 +1549,7 @@
     },
     {
       "date": "2025-11-03",
-      "kgld_close": 25.8267,
+      "kgld_close": 25.4834,
       "kgld_return_pct": 19.28,
       "kgld_relative_return_pct": -1.42,
       "igld_close": 20.5464,
@@ -1556,7 +1563,7 @@
     },
     {
       "date": "2025-11-04",
-      "kgld_close": 25.4034,
+      "kgld_close": 25.0657,
       "kgld_return_pct": 17.33,
       "kgld_relative_return_pct": -1.26,
       "igld_close": 20.1519,
@@ -1570,7 +1577,7 @@
     },
     {
       "date": "2025-11-05",
-      "kgld_close": 25.7038,
+      "kgld_close": 25.3621,
       "kgld_return_pct": 18.71,
       "kgld_relative_return_pct": -1.25,
       "igld_close": 20.3701,
@@ -1584,13 +1591,13 @@
     },
     {
       "date": "2025-11-06",
-      "kgld_close": 25.6674,
+      "kgld_close": 25.3262,
       "kgld_return_pct": 18.55,
       "kgld_relative_return_pct": -1.27,
       "igld_close": 20.3701,
       "igld_return_pct": 14.65,
       "igld_relative_return_pct": -5.17,
-      "iaui_close": 48.6122,
+      "iaui_close": 48.6123,
       "iaui_return_pct": 12.87,
       "iaui_relative_return_pct": -6.95,
       "gold_close": 366.07,
@@ -1598,7 +1605,7 @@
     },
     {
       "date": "2025-11-07",
-      "kgld_close": 25.7402,
+      "kgld_close": 25.398,
       "kgld_return_pct": 18.88,
       "kgld_relative_return_pct": -1.67,
       "igld_close": 20.4624,
@@ -1612,7 +1619,7 @@
     },
     {
       "date": "2025-11-10",
-      "kgld_close": 26.4228,
+      "kgld_close": 26.0716,
       "kgld_return_pct": 22.04,
       "kgld_relative_return_pct": -1.81,
       "igld_close": 20.9576,
@@ -1626,7 +1633,7 @@
     },
     {
       "date": "2025-11-11",
-      "kgld_close": 26.5776,
+      "kgld_close": 26.2243,
       "kgld_return_pct": 22.75,
       "kgld_relative_return_pct": -1.58,
       "igld_close": 20.9828,
@@ -1640,7 +1647,7 @@
     },
     {
       "date": "2025-11-12",
-      "kgld_close": 26.9508,
+      "kgld_close": 26.5925,
       "kgld_return_pct": 24.47,
       "kgld_relative_return_pct": -1.86,
       "igld_close": 21.3605,
@@ -1654,7 +1661,7 @@
     },
     {
       "date": "2025-11-13",
-      "kgld_close": 26.7596,
+      "kgld_close": 26.4039,
       "kgld_return_pct": 23.59,
       "kgld_relative_return_pct": -1.73,
       "igld_close": 21.1591,
@@ -1668,7 +1675,7 @@
     },
     {
       "date": "2025-11-14",
-      "kgld_close": 26.4319,
+      "kgld_close": 26.0806,
       "kgld_return_pct": 22.08,
       "kgld_relative_return_pct": -0.98,
       "igld_close": 20.8569,
@@ -1682,7 +1689,7 @@
     },
     {
       "date": "2025-11-17",
-      "kgld_close": 26.0952,
+      "kgld_close": 25.7483,
       "kgld_return_pct": 20.52,
       "kgld_relative_return_pct": -1.12,
       "igld_close": 20.6597,
@@ -1696,7 +1703,7 @@
     },
     {
       "date": "2025-11-18",
-      "kgld_close": 26.2681,
+      "kgld_close": 25.9189,
       "kgld_return_pct": 21.32,
       "kgld_relative_return_pct": -1.21,
       "igld_close": 20.7394,
@@ -1710,7 +1717,7 @@
     },
     {
       "date": "2025-11-19",
-      "kgld_close": 26.3682,
+      "kgld_close": 26.0177,
       "kgld_return_pct": 21.78,
       "kgld_relative_return_pct": -0.94,
       "igld_close": 20.8485,
@@ -1724,13 +1731,13 @@
     },
     {
       "date": "2025-11-20",
-      "kgld_close": 26.3773,
+      "kgld_close": 26.0267,
       "kgld_return_pct": 21.83,
       "kgld_relative_return_pct": -0.87,
       "igld_close": 20.8653,
       "igld_return_pct": 17.44,
       "igld_relative_return_pct": -5.25,
-      "iaui_close": 49.6435,
+      "iaui_close": 49.6434,
       "iaui_return_pct": 15.27,
       "iaui_relative_return_pct": -7.43,
       "gold_close": 374.85,
@@ -1738,7 +1745,7 @@
     },
     {
       "date": "2025-11-21",
-      "kgld_close": 26.3136,
+      "kgld_close": 25.9638,
       "kgld_return_pct": 21.53,
       "kgld_relative_return_pct": -0.97,
       "igld_close": 20.7982,
@@ -1752,7 +1759,7 @@
     },
     {
       "date": "2025-11-24",
-      "kgld_close": 26.7414,
+      "kgld_close": 26.3859,
       "kgld_return_pct": 23.51,
       "kgld_relative_return_pct": -0.94,
       "igld_close": 20.9744,
@@ -1766,7 +1773,7 @@
     },
     {
       "date": "2025-11-25",
-      "kgld_close": 26.7414,
+      "kgld_close": 26.3859,
       "kgld_return_pct": 23.51,
       "kgld_relative_return_pct": -0.9,
       "igld_close": 21.0751,
@@ -1780,7 +1787,7 @@
     },
     {
       "date": "2025-11-26",
-      "kgld_close": 26.9143,
+      "kgld_close": 26.5566,
       "kgld_return_pct": 24.31,
       "kgld_relative_return_pct": -1.09,
       "igld_close": 21.201,
@@ -1794,7 +1801,7 @@
     },
     {
       "date": "2025-11-28",
-      "kgld_close": 27.2966,
+      "kgld_close": 26.9338,
       "kgld_return_pct": 26.07,
       "kgld_relative_return_pct": -0.89,
       "igld_close": 21.3941,
@@ -1808,7 +1815,7 @@
     },
     {
       "date": "2025-12-01",
-      "kgld_close": 27.4787,
+      "kgld_close": 27.1134,
       "kgld_return_pct": 26.91,
       "kgld_relative_return_pct": -0.66,
       "igld_close": 21.4915,
@@ -1822,7 +1829,7 @@
     },
     {
       "date": "2025-12-02",
-      "kgld_close": 27.2056,
+      "kgld_close": 26.844,
       "kgld_return_pct": 25.65,
       "kgld_relative_return_pct": -1.1,
       "igld_close": 21.3377,
@@ -1836,7 +1843,7 @@
     },
     {
       "date": "2025-12-03",
-      "kgld_close": 27.2792,
+      "kgld_close": 26.9165,
       "kgld_return_pct": 25.99,
       "kgld_relative_return_pct": -0.64,
       "igld_close": 21.2949,
@@ -1850,7 +1857,7 @@
     },
     {
       "date": "2025-12-04",
-      "kgld_close": 27.3067,
+      "kgld_close": 26.9438,
       "kgld_return_pct": 26.12,
       "kgld_relative_return_pct": -0.59,
       "igld_close": 21.2949,
@@ -1864,7 +1871,7 @@
     },
     {
       "date": "2025-12-05",
-      "kgld_close": 27.3159,
+      "kgld_close": 26.9528,
       "kgld_return_pct": 26.16,
       "kgld_relative_return_pct": -0.33,
       "igld_close": 21.3035,
@@ -1878,7 +1885,7 @@
     },
     {
       "date": "2025-12-08",
-      "kgld_close": 27.2056,
+      "kgld_close": 26.844,
       "kgld_return_pct": 25.65,
       "kgld_relative_return_pct": -0.5,
       "igld_close": 21.2564,
@@ -1892,7 +1899,7 @@
     },
     {
       "date": "2025-12-09",
-      "kgld_close": 27.3886,
+      "kgld_close": 27.0245,
       "kgld_return_pct": 26.5,
       "kgld_relative_return_pct": -0.3,
       "igld_close": 21.2436,
@@ -1906,7 +1913,7 @@
     },
     {
       "date": "2025-12-10",
-      "kgld_close": 27.5734,
+      "kgld_close": 27.2068,
       "kgld_return_pct": 27.35,
       "kgld_relative_return_pct": 0.01,
       "igld_close": 21.406,
@@ -1920,7 +1927,7 @@
     },
     {
       "date": "2025-12-11",
-      "kgld_close": 27.7462,
+      "kgld_close": 27.3774,
       "kgld_return_pct": 28.15,
       "kgld_relative_return_pct": -0.56,
       "igld_close": 21.6112,
@@ -1934,7 +1941,7 @@
     },
     {
       "date": "2025-12-12",
-      "kgld_close": 27.9319,
+      "kgld_close": 27.5607,
       "kgld_return_pct": 29.01,
       "kgld_relative_return_pct": -0.43,
       "igld_close": 21.7309,
@@ -1948,7 +1955,7 @@
     },
     {
       "date": "2025-12-15",
-      "kgld_close": 28.0791,
+      "kgld_close": 27.7058,
       "kgld_return_pct": 29.69,
       "kgld_relative_return_pct": 0.14,
       "igld_close": 21.7651,
@@ -1962,7 +1969,7 @@
     },
     {
       "date": "2025-12-16",
-      "kgld_close": 28.0791,
+      "kgld_close": 27.7058,
       "kgld_return_pct": 29.69,
       "kgld_relative_return_pct": 0.11,
       "igld_close": 21.7736,
@@ -1976,7 +1983,7 @@
     },
     {
       "date": "2025-12-17",
-      "kgld_close": 28.3089,
+      "kgld_close": 27.9326,
       "kgld_return_pct": 30.75,
       "kgld_relative_return_pct": 0.05,
       "igld_close": 21.9532,
@@ -1990,7 +1997,7 @@
     },
     {
       "date": "2025-12-18",
-      "kgld_close": 28.2629,
+      "kgld_close": 27.8872,
       "kgld_return_pct": 30.53,
       "kgld_relative_return_pct": 0.08,
       "igld_close": 21.8506,
@@ -2004,7 +2011,7 @@
     },
     {
       "date": "2025-12-19",
-      "kgld_close": 28.3089,
+      "kgld_close": 27.9326,
       "kgld_return_pct": 30.75,
       "kgld_relative_return_pct": 0.14,
       "igld_close": 21.9019,
@@ -2018,7 +2025,7 @@
     },
     {
       "date": "2025-12-22",
-      "kgld_close": 29.0261,
+      "kgld_close": 28.6402,
       "kgld_return_pct": 34.06,
       "kgld_relative_return_pct": 0.44,
       "igld_close": 22.2353,
@@ -2032,7 +2039,7 @@
     },
     {
       "date": "2025-12-23",
-      "kgld_close": 29.4398,
+      "kgld_close": 29.0485,
       "kgld_return_pct": 35.97,
       "kgld_relative_return_pct": 0.58,
       "igld_close": 22.543,
@@ -2046,7 +2053,7 @@
     },
     {
       "date": "2025-12-24",
-      "kgld_close": 29.3019,
+      "kgld_close": 28.9124,
       "kgld_return_pct": 35.33,
       "kgld_relative_return_pct": 0.5,
       "igld_close": 22.4832,
@@ -2060,7 +2067,7 @@
     },
     {
       "date": "2025-12-26",
-      "kgld_close": 29.6715,
+      "kgld_close": 29.2771,
       "kgld_return_pct": 37.04,
       "kgld_relative_return_pct": 0.64,
       "igld_close": 22.7396,
@@ -2074,7 +2081,7 @@
     },
     {
       "date": "2025-12-29",
-      "kgld_close": 28.2997,
+      "kgld_close": 27.9235,
       "kgld_return_pct": 30.7,
       "kgld_relative_return_pct": 0.24,
       "igld_close": 21.915,
@@ -2088,7 +2095,7 @@
     },
     {
       "date": "2025-12-30",
-      "kgld_close": 28.2905,
+      "kgld_close": 27.9145,
       "kgld_return_pct": 30.66,
       "kgld_relative_return_pct": 0.1,
       "igld_close": 22.0199,
@@ -2102,7 +2109,7 @@
     },
     {
       "date": "2025-12-31",
-      "kgld_close": 28.0607,
+      "kgld_close": 27.6877,
       "kgld_return_pct": 29.6,
       "kgld_relative_return_pct": -0.12,
       "igld_close": 21.8713,
@@ -2116,7 +2123,7 @@
     },
     {
       "date": "2026-01-02",
-      "kgld_close": 28.125,
+      "kgld_close": 27.7512,
       "kgld_return_pct": 29.9,
       "kgld_relative_return_pct": -0.46,
       "igld_close": 21.9412,
@@ -2130,7 +2137,7 @@
     },
     {
       "date": "2026-01-05",
-      "kgld_close": 29.0169,
+      "kgld_close": 28.6311,
       "kgld_return_pct": 34.02,
       "kgld_relative_return_pct": 0.23,
       "igld_close": 22.4135,
@@ -2138,13 +2145,13 @@
       "igld_relative_return_pct": -7.64,
       "iaui_close": 53.3044,
       "iaui_return_pct": 23.77,
-      "iaui_relative_return_pct": -10.02,
+      "iaui_relative_return_pct": -10.03,
       "gold_close": 408.76,
       "gold_return_pct": 33.79
     },
     {
       "date": "2026-01-06",
-      "kgld_close": 29.3754,
+      "kgld_close": 28.985,
       "kgld_return_pct": 35.67,
       "kgld_relative_return_pct": 0.43,
       "igld_close": 22.5271,
@@ -2158,7 +2165,7 @@
     },
     {
       "date": "2026-01-07",
-      "kgld_close": 29.0692,
+      "kgld_close": 28.6827,
       "kgld_return_pct": 34.26,
       "kgld_relative_return_pct": 0.31,
       "igld_close": 22.4484,
@@ -2172,7 +2179,7 @@
     },
     {
       "date": "2026-01-08",
-      "kgld_close": 29.2084,
+      "kgld_close": 28.8201,
       "kgld_return_pct": 34.9,
       "kgld_relative_return_pct": 0.22,
       "igld_close": 22.5796,
@@ -2186,7 +2193,7 @@
     },
     {
       "date": "2026-01-09",
-      "kgld_close": 29.4126,
+      "kgld_close": 29.0216,
       "kgld_return_pct": 35.84,
       "kgld_relative_return_pct": 0.18,
       "igld_close": 22.6233,
@@ -2200,7 +2207,7 @@
     },
     {
       "date": "2026-01-12",
-      "kgld_close": 30.0066,
+      "kgld_close": 29.6077,
       "kgld_return_pct": 38.59,
       "kgld_relative_return_pct": 0.39,
       "igld_close": 22.8507,
@@ -2214,7 +2221,7 @@
     },
     {
       "date": "2026-01-13",
-      "kgld_close": 29.9602,
+      "kgld_close": 29.5619,
       "kgld_return_pct": 38.37,
       "kgld_relative_return_pct": 0.37,
       "igld_close": 23.0256,
@@ -2228,7 +2235,7 @@
     },
     {
       "date": "2026-01-14",
-      "kgld_close": 30.3036,
+      "kgld_close": 29.9008,
       "kgld_return_pct": 39.96,
       "kgld_relative_return_pct": 0.54,
       "igld_close": 22.9994,
@@ -2242,7 +2249,7 @@
     },
     {
       "date": "2026-01-15",
-      "kgld_close": 30.0623,
+      "kgld_close": 29.6626,
       "kgld_return_pct": 38.84,
       "kgld_relative_return_pct": 0.28,
       "igld_close": 22.9731,
@@ -2256,7 +2263,7 @@
     },
     {
       "date": "2026-01-16",
-      "kgld_close": 29.9416,
+      "kgld_close": 29.5436,
       "kgld_return_pct": 38.29,
       "kgld_relative_return_pct": 0.39,
       "igld_close": 22.8769,
@@ -2270,7 +2277,7 @@
     },
     {
       "date": "2026-01-20",
-      "kgld_close": 31.2131,
+      "kgld_close": 30.7982,
       "kgld_return_pct": 44.16,
       "kgld_relative_return_pct": 1.05,
       "igld_close": 23.5765,
@@ -2284,7 +2291,7 @@
     },
     {
       "date": "2026-01-21",
-      "kgld_close": 31.7051,
+      "kgld_close": 31.2836,
       "kgld_return_pct": 46.43,
       "kgld_relative_return_pct": 1.24,
       "igld_close": 23.8476,
@@ -2298,7 +2305,7 @@
     },
     {
       "date": "2026-01-22",
-      "kgld_close": 32.3826,
+      "kgld_close": 31.9521,
       "kgld_return_pct": 49.56,
       "kgld_relative_return_pct": 1.69,
       "igld_close": 24.2237,
@@ -2312,7 +2319,7 @@
     },
     {
       "date": "2026-01-23",
-      "kgld_close": 32.8374,
+      "kgld_close": 32.4009,
       "kgld_return_pct": 51.66,
       "kgld_relative_return_pct": 1.75,
       "igld_close": 24.4598,
@@ -2326,13 +2333,13 @@
     },
     {
       "date": "2026-01-26",
-      "kgld_close": 33.3664,
+      "kgld_close": 32.9229,
       "kgld_return_pct": 54.11,
       "kgld_relative_return_pct": 2.0,
       "igld_close": 24.7309,
       "igld_return_pct": 39.2,
       "igld_relative_return_pct": -12.91,
-      "iaui_close": 57.4472,
+      "iaui_close": 57.4473,
       "iaui_return_pct": 33.39,
       "iaui_relative_return_pct": -18.72,
       "gold_close": 464.7,
@@ -2340,7 +2347,7 @@
     },
     {
       "date": "2026-01-27",
-      "kgld_close": 34.2203,
+      "kgld_close": 33.7654,
       "kgld_return_pct": 58.05,
       "kgld_relative_return_pct": 2.22,
       "igld_close": 25.2206,
@@ -2354,7 +2361,7 @@
     },
     {
       "date": "2026-01-28",
-      "kgld_close": 35.8538,
+      "kgld_close": 35.3772,
       "kgld_return_pct": 65.59,
       "kgld_relative_return_pct": 3.72,
       "igld_close": 25.9989,
@@ -2368,7 +2375,7 @@
     },
     {
       "date": "2026-01-29",
-      "kgld_close": 35.6032,
+      "kgld_close": 35.1299,
       "kgld_return_pct": 64.44,
       "kgld_relative_return_pct": 2.12,
       "igld_close": 25.9115,
@@ -2382,7 +2389,7 @@
     },
     {
       "date": "2026-01-30",
-      "kgld_close": 32.0021,
+      "kgld_close": 31.5767,
       "kgld_return_pct": 47.8,
       "kgld_relative_return_pct": 2.17,
       "igld_close": 24.0575,
@@ -2396,7 +2403,7 @@
     },
     {
       "date": "2026-02-02",
-      "kgld_close": 30.6284,
+      "kgld_close": 30.2213,
       "kgld_return_pct": 41.46,
       "kgld_relative_return_pct": 1.66,
       "igld_close": 22.9633,
@@ -2410,7 +2417,7 @@
     },
     {
       "date": "2026-02-03",
-      "kgld_close": 32.6425,
+      "kgld_close": 32.2086,
       "kgld_return_pct": 50.76,
       "kgld_relative_return_pct": 2.07,
       "igld_close": 24.4716,
@@ -2424,7 +2431,7 @@
     },
     {
       "date": "2026-02-04",
-      "kgld_close": 32.6238,
+      "kgld_close": 32.1901,
       "kgld_return_pct": 50.68,
       "kgld_relative_return_pct": 2.09,
       "igld_close": 24.4627,
@@ -2438,7 +2445,7 @@
     },
     {
       "date": "2026-02-05",
-      "kgld_close": 31.5847,
+      "kgld_close": 31.1648,
       "kgld_return_pct": 45.88,
       "kgld_relative_return_pct": 1.24,
       "igld_close": 23.829,
@@ -2452,7 +2459,7 @@
     },
     {
       "date": "2026-02-06",
-      "kgld_close": 32.5957,
+      "kgld_close": 32.1624,
       "kgld_return_pct": 50.55,
       "kgld_relative_return_pct": 1.47,
       "igld_close": 24.3645,
@@ -2466,7 +2473,7 @@
     },
     {
       "date": "2026-02-09",
-      "kgld_close": 33.4663,
+      "kgld_close": 33.0214,
       "kgld_return_pct": 54.57,
       "kgld_relative_return_pct": 1.7,
       "igld_close": 25.0785,
@@ -2480,7 +2487,7 @@
     },
     {
       "date": "2026-02-10",
-      "kgld_close": 33.2603,
+      "kgld_close": 32.8182,
       "kgld_return_pct": 53.62,
       "kgld_relative_return_pct": 2.27,
       "igld_close": 24.9357,
@@ -2494,7 +2501,7 @@
     },
     {
       "date": "2026-02-11",
-      "kgld_close": 33.6628,
+      "kgld_close": 33.2154,
       "kgld_return_pct": 55.47,
       "kgld_relative_return_pct": 2.41,
       "igld_close": 25.1767,
@@ -2508,7 +2515,7 @@
     },
     {
       "date": "2026-02-12",
-      "kgld_close": 32.3616,
+      "kgld_close": 31.9315,
       "kgld_return_pct": 49.46,
       "kgld_relative_return_pct": 1.72,
       "igld_close": 24.2217,
@@ -2522,7 +2529,7 @@
     },
     {
       "date": "2026-02-13",
-      "kgld_close": 33.1948,
+      "kgld_close": 32.7535,
       "kgld_return_pct": 53.31,
       "kgld_relative_return_pct": 1.89,
       "igld_close": 24.9536,
@@ -2536,7 +2543,7 @@
     },
     {
       "date": "2026-02-17",
-      "kgld_close": 32.1744,
+      "kgld_close": 31.7467,
       "kgld_return_pct": 48.6,
       "kgld_relative_return_pct": 1.9,
       "igld_close": 24.1771,
@@ -2550,7 +2557,7 @@
     },
     {
       "date": "2026-02-18",
-      "kgld_close": 32.9795,
+      "kgld_close": 32.5411,
       "kgld_return_pct": 52.32,
       "kgld_relative_return_pct": 2.32,
       "igld_close": 24.6858,
@@ -2564,7 +2571,7 @@
     },
     {
       "date": "2026-02-19",
-      "kgld_close": 33.1105,
+      "kgld_close": 32.6704,
       "kgld_return_pct": 52.92,
       "kgld_relative_return_pct": 2.5,
       "igld_close": 24.7483,
@@ -2578,7 +2585,7 @@
     },
     {
       "date": "2026-02-20",
-      "kgld_close": 33.8594,
+      "kgld_close": 33.4093,
       "kgld_return_pct": 56.38,
       "kgld_relative_return_pct": 3.0,
       "igld_close": 25.1678,
@@ -2592,7 +2599,7 @@
     },
     {
       "date": "2026-02-23",
-      "kgld_close": 34.6738,
+      "kgld_close": 34.2129,
       "kgld_return_pct": 60.14,
       "kgld_relative_return_pct": 2.62,
       "igld_close": 25.8639,
@@ -2606,7 +2613,7 @@
     },
     {
       "date": "2026-02-24",
-      "kgld_close": 34.2432,
+      "kgld_close": 33.788,
       "kgld_return_pct": 58.16,
       "kgld_relative_return_pct": 2.81,
       "igld_close": 25.4623,
@@ -2620,7 +2627,7 @@
     },
     {
       "date": "2026-02-25",
-      "kgld_close": 34.159,
+      "kgld_close": 33.7049,
       "kgld_return_pct": 57.77,
       "kgld_relative_return_pct": 2.81,
       "igld_close": 25.44,
@@ -2634,7 +2641,7 @@
     },
     {
       "date": "2026-02-26",
-      "kgld_close": 34.3836,
+      "kgld_close": 33.9266,
       "kgld_return_pct": 58.8,
       "kgld_relative_return_pct": 2.52,
       "igld_close": 25.4801,
@@ -2648,7 +2655,7 @@
     },
     {
       "date": "2026-02-27",
-      "kgld_close": 34.9453,
+      "kgld_close": 34.4808,
       "kgld_return_pct": 61.4,
       "kgld_relative_return_pct": 3.06,
       "igld_close": 25.8817,
@@ -2662,7 +2669,7 @@
     },
     {
       "date": "2026-03-02",
-      "kgld_close": 35.3993,
+      "kgld_close": 34.9288,
       "kgld_return_pct": 63.49,
       "kgld_relative_return_pct": 3.11,
       "igld_close": 26.2141,
@@ -2676,7 +2683,7 @@
     },
     {
       "date": "2026-03-03",
-      "kgld_close": 33.7658,
+      "kgld_close": 33.317,
       "kgld_return_pct": 55.95,
       "kgld_relative_return_pct": 2.72,
       "igld_close": 25.1154,
@@ -2690,7 +2697,7 @@
     },
     {
       "date": "2026-03-04",
-      "kgld_close": 34.0312,
+      "kgld_close": 33.5789,
       "kgld_return_pct": 57.18,
       "kgld_relative_return_pct": 2.75,
       "igld_close": 25.3242,
@@ -2704,7 +2711,7 @@
     },
     {
       "date": "2026-03-05",
-      "kgld_close": 33.5857,
+      "kgld_close": 33.1393,
       "kgld_return_pct": 55.12,
       "kgld_relative_return_pct": 2.55,
       "igld_close": 24.9065,
@@ -2718,7 +2725,7 @@
     },
     {
       "date": "2026-03-06",
-      "kgld_close": 34.1071,
+      "kgld_close": 33.6537,
       "kgld_return_pct": 57.53,
       "kgld_relative_return_pct": 2.54,
       "igld_close": 25.4059,
@@ -2732,7 +2739,7 @@
     },
     {
       "date": "2026-03-09",
-      "kgld_close": 34.0881,
+      "kgld_close": 33.635,
       "kgld_return_pct": 57.44,
       "kgld_relative_return_pct": 2.77,
       "igld_close": 25.2879,
@@ -2746,7 +2753,7 @@
     },
     {
       "date": "2026-03-10",
-      "kgld_close": 34.4863,
+      "kgld_close": 34.0278,
       "kgld_return_pct": 59.28,
       "kgld_relative_return_pct": 2.87,
       "igld_close": 25.4967,
@@ -2760,7 +2767,7 @@
     },
     {
       "date": "2026-03-11",
-      "kgld_close": 34.382,
+      "kgld_close": 33.9249,
       "kgld_return_pct": 58.8,
       "kgld_relative_return_pct": 2.92,
       "igld_close": 25.4513,
@@ -2774,7 +2781,7 @@
     },
     {
       "date": "2026-03-12",
-      "kgld_close": 33.5762,
+      "kgld_close": 33.1299,
       "kgld_return_pct": 55.07,
       "kgld_relative_return_pct": 2.26,
       "igld_close": 25.0791,
@@ -2788,7 +2795,7 @@
     },
     {
       "date": "2026-03-13",
-      "kgld_close": 33.1212,
+      "kgld_close": 32.6809,
       "kgld_return_pct": 52.97,
       "kgld_relative_return_pct": 2.13,
       "igld_close": 24.7249,
@@ -2802,7 +2809,7 @@
     },
     {
       "date": "2026-03-16",
-      "kgld_close": 33.0786,
+      "kgld_close": 32.6388,
       "kgld_return_pct": 52.78,
       "kgld_relative_return_pct": 2.07,
       "igld_close": 24.7431,
@@ -2816,7 +2823,7 @@
     },
     {
       "date": "2026-03-17",
-      "kgld_close": 33.0264,
+      "kgld_close": 32.5874,
       "kgld_return_pct": 52.54,
       "kgld_relative_return_pct": 2.21,
       "igld_close": 24.7159,
@@ -2830,7 +2837,7 @@
     },
     {
       "date": "2026-03-18",
-      "kgld_close": 31.8889,
+      "kgld_close": 31.465,
       "kgld_return_pct": 47.28,
       "kgld_relative_return_pct": 1.71,
       "igld_close": 24.053,
@@ -2844,7 +2851,7 @@
     },
     {
       "date": "2026-03-19",
-      "kgld_close": 30.1447,
+      "kgld_close": 29.744,
       "kgld_return_pct": 39.23,
       "kgld_relative_return_pct": -0.34,
       "igld_close": 22.8726,
@@ -2858,7 +2865,7 @@
     },
     {
       "date": "2026-03-20",
-      "kgld_close": 29.4716,
+      "kgld_close": 29.0799,
       "kgld_return_pct": 36.12,
       "kgld_relative_return_pct": 0.81,
       "igld_close": 22.1916,
@@ -2872,7 +2879,7 @@
     },
     {
       "date": "2026-03-23",
-      "kgld_close": 28.7607,
+      "kgld_close": 28.3783,
       "kgld_return_pct": 32.83,
       "kgld_relative_return_pct": 0.59,
       "igld_close": 21.8102,
@@ -2886,7 +2893,7 @@
     },
     {
       "date": "2026-03-24",
-      "kgld_close": 28.7701,
+      "kgld_close": 28.3877,
       "kgld_return_pct": 32.88,
       "kgld_relative_return_pct": 0.6,
       "igld_close": 21.8193,
@@ -2900,7 +2907,7 @@
     },
     {
       "date": "2026-03-25",
-      "kgld_close": 29.6328,
+      "kgld_close": 29.2389,
       "kgld_return_pct": 36.86,
       "kgld_relative_return_pct": 0.61,
       "igld_close": 22.5185,
@@ -2914,7 +2921,7 @@
     },
     {
       "date": "2026-03-26",
-      "kgld_close": 28.5805,
+      "kgld_close": 28.2006,
       "kgld_return_pct": 32.0,
       "kgld_relative_return_pct": 0.87,
       "igld_close": 21.6105,
@@ -2928,7 +2935,7 @@
     },
     {
       "date": "2026-03-27",
-      "kgld_close": 29.6423,
+      "kgld_close": 29.2482,
       "kgld_return_pct": 36.91,
       "kgld_relative_return_pct": 1.17,
       "igld_close": 22.3278,
@@ -2942,10 +2949,10 @@
     },
     {
       "date": "2026-03-30",
-      "kgld_close": 29.6991,
+      "kgld_close": 29.3043,
       "kgld_return_pct": 37.17,
       "kgld_relative_return_pct": 1.47,
-      "igld_close": 22.3551,
+      "igld_close": 22.355,
       "igld_return_pct": 25.82,
       "igld_relative_return_pct": -9.87,
       "iaui_close": 52.6428,
@@ -2956,7 +2963,7 @@
     },
     {
       "date": "2026-03-31",
-      "kgld_close": 30.8746,
+      "kgld_close": 30.4642,
       "kgld_return_pct": 42.6,
       "kgld_relative_return_pct": 1.76,
       "igld_close": 23.1813,
@@ -2970,7 +2977,7 @@
     },
     {
       "date": "2026-04-01",
-      "kgld_close": 31.2253,
+      "kgld_close": 30.8102,
       "kgld_return_pct": 44.22,
       "kgld_relative_return_pct": 0.91,
       "igld_close": 23.458,
@@ -2984,7 +2991,7 @@
     },
     {
       "date": "2026-04-02",
-      "kgld_close": 30.6186,
+      "kgld_close": 30.2116,
       "kgld_return_pct": 41.41,
       "kgld_relative_return_pct": 0.86,
       "igld_close": 23.1156,
@@ -2998,7 +3005,7 @@
     },
     {
       "date": "2026-04-06",
-      "kgld_close": 30.5428,
+      "kgld_close": 30.1368,
       "kgld_return_pct": 41.06,
       "kgld_relative_return_pct": 1.09,
       "igld_close": 22.9861,
@@ -3012,7 +3019,7 @@
     },
     {
       "date": "2026-04-07",
-      "kgld_close": 30.8367,
+      "kgld_close": 30.4268,
       "kgld_return_pct": 42.42,
       "kgld_relative_return_pct": 1.09,
       "igld_close": 23.1804,
@@ -3026,7 +3033,7 @@
     },
     {
       "date": "2026-04-08",
-      "kgld_close": 31.0193,
+      "kgld_close": 30.607,
       "kgld_return_pct": 43.27,
       "kgld_relative_return_pct": 1.04,
       "igld_close": 23.3192,
@@ -3040,7 +3047,7 @@
     },
     {
       "date": "2026-04-09",
-      "kgld_close": 31.1923,
+      "kgld_close": 30.7777,
       "kgld_return_pct": 44.06,
       "kgld_relative_return_pct": 0.73,
       "igld_close": 23.4858,
@@ -3054,7 +3061,7 @@
     },
     {
       "date": "2026-04-10",
-      "kgld_close": 31.2115,
+      "kgld_close": 30.7967,
       "kgld_return_pct": 44.15,
       "kgld_relative_return_pct": 1.08,
       "igld_close": 23.6061,
@@ -3068,7 +3075,7 @@
     },
     {
       "date": "2026-04-13",
-      "kgld_close": 31.0481,
+      "kgld_close": 30.6354,
       "kgld_return_pct": 43.4,
       "kgld_relative_return_pct": 0.9,
       "igld_close": 23.4025,
@@ -3082,7 +3089,7 @@
     },
     {
       "date": "2026-04-14",
-      "kgld_close": 31.7883,
+      "kgld_close": 31.3657,
       "kgld_return_pct": 46.82,
       "kgld_relative_return_pct": 1.13,
       "igld_close": 23.9485,
@@ -3096,7 +3103,7 @@
     },
     {
       "date": "2026-04-15",
-      "kgld_close": 31.3942,
+      "kgld_close": 30.9769,
       "kgld_return_pct": 45.0,
       "kgld_relative_return_pct": 0.83,
       "igld_close": 23.7726,
@@ -3110,7 +3117,7 @@
     },
     {
       "date": "2026-04-16",
-      "kgld_close": 31.3942,
+      "kgld_close": 30.9769,
       "kgld_return_pct": 45.0,
       "kgld_relative_return_pct": 0.95,
       "igld_close": 23.7356,
@@ -3124,7 +3131,7 @@
     },
     {
       "date": "2026-04-17",
-      "kgld_close": 31.8364,
+      "kgld_close": 31.4132,
       "kgld_return_pct": 47.04,
       "kgld_relative_return_pct": 1.08,
       "igld_close": 24.0225,
@@ -3138,7 +3145,7 @@
     },
     {
       "date": "2026-04-20",
-      "kgld_close": 31.548,
+      "kgld_close": 31.1286,
       "kgld_return_pct": 45.71,
       "kgld_relative_return_pct": 1.01,
       "igld_close": 23.8559,
@@ -3152,7 +3159,7 @@
     },
     {
       "date": "2026-04-21",
-      "kgld_close": 30.5867,
+      "kgld_close": 30.1802,
       "kgld_return_pct": 41.27,
       "kgld_relative_return_pct": 0.66,
       "igld_close": 23.2544,
@@ -3166,7 +3173,7 @@
     },
     {
       "date": "2026-04-22",
-      "kgld_close": 30.9808,
+      "kgld_close": 30.569,
       "kgld_return_pct": 43.09,
       "kgld_relative_return_pct": 0.62,
       "igld_close": 23.5043,
@@ -3180,7 +3187,7 @@
     },
     {
       "date": "2026-04-23",
-      "kgld_close": 30.779,
+      "kgld_close": 30.3698,
       "kgld_return_pct": 42.16,
       "kgld_relative_return_pct": 1.07,
       "igld_close": 23.1897,
@@ -3194,7 +3201,7 @@
     },
     {
       "date": "2026-04-24",
-      "kgld_close": 30.8367,
+      "kgld_close": 30.4268,
       "kgld_return_pct": 42.42,
       "kgld_relative_return_pct": 0.61,
       "igld_close": 23.4303,
@@ -3208,7 +3215,7 @@
     },
     {
       "date": "2026-04-27",
-      "kgld_close": 30.5483,
+      "kgld_close": 30.1422,
       "kgld_return_pct": 41.09,
       "kgld_relative_return_pct": 0.38,
       "igld_close": 23.2637,
@@ -3222,7 +3229,7 @@
     },
     {
       "date": "2026-04-28",
-      "kgld_close": 29.9812,
+      "kgld_close": 29.5826,
       "kgld_return_pct": 38.47,
       "kgld_relative_return_pct": 0.37,
       "igld_close": 22.8935,
@@ -3236,7 +3243,7 @@
     },
     {
       "date": "2026-04-29",
-      "kgld_close": 29.6447,
+      "kgld_close": 29.2507,
       "kgld_return_pct": 36.92,
       "kgld_relative_return_pct": 0.29,
       "igld_close": 22.6252,
@@ -3250,7 +3257,7 @@
     },
     {
       "date": "2026-04-30",
-      "kgld_close": 30.1542,
+      "kgld_close": 29.7533,
       "kgld_return_pct": 39.27,
       "kgld_relative_return_pct": 0.6,
       "igld_close": 22.9491,
@@ -3264,7 +3271,7 @@
     },
     {
       "date": "2026-05-01",
-      "kgld_close": 30.0292,
+      "kgld_close": 29.63,
       "kgld_return_pct": 38.69,
       "kgld_relative_return_pct": 0.18,
       "igld_close": 22.9246,
@@ -3278,7 +3285,7 @@
     },
     {
       "date": "2026-05-04",
-      "kgld_close": 29.4429,
+      "kgld_close": 29.0515,
       "kgld_return_pct": 35.98,
       "kgld_relative_return_pct": 0.25,
       "igld_close": 22.5382,
@@ -3292,7 +3299,7 @@
     },
     {
       "date": "2026-05-05",
-      "kgld_close": 29.6928,
+      "kgld_close": 29.2981,
       "kgld_return_pct": 37.14,
       "kgld_relative_return_pct": 0.23,
       "igld_close": 22.6419,
@@ -3306,7 +3313,7 @@
     },
     {
       "date": "2026-05-06",
-      "kgld_close": 30.7153,
+      "kgld_close": 30.307,
       "kgld_return_pct": 41.86,
       "kgld_relative_return_pct": 0.8,
       "igld_close": 23.3297,
@@ -3320,7 +3327,7 @@
     },
     {
       "date": "2026-05-07",
-      "kgld_close": 30.7153,
+      "kgld_close": 30.307,
       "kgld_return_pct": 41.86,
       "kgld_relative_return_pct": 0.57,
       "igld_close": 23.2543,
@@ -3334,7 +3341,7 @@
     },
     {
       "date": "2026-05-08",
-      "kgld_close": 30.8517,
+      "kgld_close": 30.4416,
       "kgld_return_pct": 42.49,
       "kgld_relative_return_pct": 0.51,
       "igld_close": 23.4616,
@@ -3348,7 +3355,7 @@
     },
     {
       "date": "2026-05-11",
-      "kgld_close": 30.9588,
+      "kgld_close": 30.5473,
       "kgld_return_pct": 42.99,
       "kgld_relative_return_pct": 0.72,
       "igld_close": 23.4287,
@@ -3362,7 +3369,7 @@
     },
     {
       "date": "2026-05-12",
-      "kgld_close": 30.8127,
+      "kgld_close": 30.4031,
       "kgld_return_pct": 42.31,
       "kgld_relative_return_pct": 0.61,
       "igld_close": 23.3957,
@@ -3376,7 +3383,7 @@
     },
     {
       "date": "2026-05-13",
-      "kgld_close": 30.6472,
+      "kgld_close": 30.2398,
       "kgld_return_pct": 41.55,
       "kgld_relative_return_pct": 0.64,
       "igld_close": 23.292,
@@ -3390,7 +3397,7 @@
     },
     {
       "date": "2026-05-14",
-      "kgld_close": 30.3258,
+      "kgld_close": 29.9227,
       "kgld_return_pct": 40.06,
       "kgld_relative_return_pct": 0.23,
       "igld_close": 23.1695,
@@ -3404,7 +3411,7 @@
     },
     {
       "date": "2026-05-15",
-      "kgld_close": 29.6636,
+      "kgld_close": 29.2693,
       "kgld_return_pct": 37.0,
       "kgld_relative_return_pct": 0.42,
       "igld_close": 22.689,
@@ -3418,7 +3425,7 @@
     },
     {
       "date": "2026-05-18",
-      "kgld_close": 29.6733,
+      "kgld_close": 29.2789,
       "kgld_return_pct": 37.05,
       "kgld_relative_return_pct": 0.09,
       "igld_close": 22.7173,
@@ -3432,7 +3439,7 @@
     },
     {
       "date": "2026-05-19",
-      "kgld_close": 29.1912,
+      "kgld_close": 28.8032,
       "kgld_return_pct": 34.82,
       "kgld_relative_return_pct": 0.13,
       "igld_close": 22.3875,
@@ -3446,7 +3453,7 @@
     },
     {
       "date": "2026-05-20",
-      "kgld_close": 29.6139,
+      "kgld_close": 29.2202,
       "kgld_return_pct": 36.77,
       "kgld_relative_return_pct": 0.15,
       "igld_close": 22.6419,
@@ -3460,7 +3467,7 @@
     },
     {
       "date": "2026-05-21",
-      "kgld_close": 29.6149,
+      "kgld_close": 29.2212,
       "kgld_return_pct": 36.78,
       "kgld_relative_return_pct": 0.29,
       "igld_close": 22.6607,
@@ -3474,7 +3481,7 @@
     },
     {
       "date": "2026-05-22",
-      "kgld_close": 29.351,
+      "kgld_close": 28.9608,
       "kgld_return_pct": 35.56,
       "kgld_relative_return_pct": 0.11,
       "igld_close": 22.4723,
@@ -3488,7 +3495,7 @@
     },
     {
       "date": "2026-05-26",
-      "kgld_close": 29.3422,
+      "kgld_close": 28.9522,
       "kgld_return_pct": 35.52,
       "kgld_relative_return_pct": 0.01,
       "igld_close": 22.444,
@@ -3502,7 +3509,7 @@
     },
     {
       "date": "2026-05-27",
-      "kgld_close": 28.9527,
+      "kgld_close": 28.5678,
       "kgld_return_pct": 33.72,
       "kgld_relative_return_pct": 0.02,
       "igld_close": 22.2085,
@@ -3516,7 +3523,7 @@
     },
     {
       "date": "2026-05-28",
-      "kgld_close": 29.2838,
+      "kgld_close": 28.8945,
       "kgld_return_pct": 35.25,
       "kgld_relative_return_pct": 0.15,
       "igld_close": 22.51,
@@ -3530,7 +3537,7 @@
     },
     {
       "date": "2026-05-29",
-      "kgld_close": 29.6051,
+      "kgld_close": 29.2116,
       "kgld_return_pct": 36.73,
       "kgld_relative_return_pct": 0.21,
       "igld_close": 22.6325,
@@ -3544,7 +3551,7 @@
     },
     {
       "date": "2026-06-01",
-      "kgld_close": 29.1864,
+      "kgld_close": 28.7984,
       "kgld_return_pct": 34.8,
       "kgld_relative_return_pct": 0.19,
       "igld_close": 22.3263,
@@ -3558,7 +3565,7 @@
     },
     {
       "date": "2026-06-02",
-      "kgld_close": 29.2059,
+      "kgld_close": 28.8176,
       "kgld_return_pct": 34.89,
       "kgld_relative_return_pct": 0.05,
       "igld_close": 22.4223,
@@ -3572,7 +3579,7 @@
     },
     {
       "date": "2026-06-03",
-      "kgld_close": 28.8999,
+      "kgld_close": 28.5157,
       "kgld_return_pct": 33.48,
       "kgld_relative_return_pct": -0.02,
       "igld_close": 22.2399,
@@ -3586,7 +3593,7 @@
     },
     {
       "date": "2026-06-04",
-      "kgld_close": 29.1466,
+      "kgld_close": 28.7592,
       "kgld_return_pct": 34.62,
       "kgld_relative_return_pct": 0.0,
       "igld_close": 22.4223,
@@ -3600,7 +3607,7 @@
     },
     {
       "date": "2026-06-05",
-      "kgld_close": 28.0412,
+      "kgld_close": 27.6684,
       "kgld_return_pct": 29.51,
       "kgld_relative_return_pct": -0.18,
       "igld_close": 21.6832,
@@ -3614,7 +3621,7 @@
     },
     {
       "date": "2026-06-08",
-      "kgld_close": 28.1004,
+      "kgld_close": 27.7269,
       "kgld_return_pct": 29.78,
       "kgld_relative_return_pct": -0.25,
       "igld_close": 21.7312,
@@ -3628,7 +3635,7 @@
     },
     {
       "date": "2026-06-09",
-      "kgld_close": 27.5684,
+      "kgld_close": 27.2019,
       "kgld_return_pct": 27.33,
       "kgld_relative_return_pct": -0.58,
       "igld_close": 21.3664,
@@ -3642,7 +3649,7 @@
     },
     {
       "date": "2026-06-10",
-      "kgld_close": 26.4471,
+      "kgld_close": 26.0956,
       "kgld_return_pct": 22.15,
       "kgld_relative_return_pct": -0.46,
       "igld_close": 20.4738,
@@ -3656,7 +3663,7 @@
     },
     {
       "date": "2026-06-11",
-      "kgld_close": 27.1884,
+      "kgld_close": 26.827,
       "kgld_return_pct": 25.57,
       "kgld_relative_return_pct": -0.88,
       "igld_close": 21.1649,
@@ -3670,7 +3677,7 @@
     },
     {
       "date": "2026-06-12",
-      "kgld_close": 27.2812,
+      "kgld_close": 26.9185,
       "kgld_return_pct": 26.0,
       "kgld_relative_return_pct": -0.52,
       "igld_close": 21.1169,
@@ -3684,7 +3691,7 @@
     },
     {
       "date": "2026-06-15",
-      "kgld_close": 28.0313,
+      "kgld_close": 27.6587,
       "kgld_return_pct": 29.46,
       "kgld_relative_return_pct": -0.33,
       "igld_close": 21.7312,
@@ -3698,7 +3705,7 @@
     },
     {
       "date": "2026-06-16",
-      "kgld_close": 28.1103,
+      "kgld_close": 27.7366,
       "kgld_return_pct": 29.83,
       "kgld_relative_return_pct": -0.32,
       "igld_close": 21.7216,
@@ -3712,7 +3719,7 @@
     },
     {
       "date": "2026-06-17",
-      "kgld_close": 27.4884,
+      "kgld_close": 27.123,
       "kgld_return_pct": 26.96,
       "kgld_relative_return_pct": -0.24,
       "igld_close": 21.3088,
@@ -3726,7 +3733,7 @@
     },
     {
       "date": "2026-06-18",
-      "kgld_close": 27.3108,
+      "kgld_close": 26.9477,
       "kgld_return_pct": 26.14,
       "kgld_relative_return_pct": -0.57,
       "igld_close": 21.2032,
@@ -3740,7 +3747,7 @@
     },
     {
       "date": "2026-06-22",
-      "kgld_close": 27.0739,
+      "kgld_close": 26.714,
       "kgld_return_pct": 25.04,
       "kgld_relative_return_pct": -0.84,
       "igld_close": 21.0689,
@@ -3754,7 +3761,7 @@
     },
     {
       "date": "2026-06-23",
-      "kgld_close": 26.6199,
+      "kgld_close": 26.266,
       "kgld_return_pct": 22.95,
       "kgld_relative_return_pct": -0.56,
       "igld_close": 20.6561,
@@ -3768,7 +3775,7 @@
     },
     {
       "date": "2026-06-24",
-      "kgld_close": 25.7908,
+      "kgld_close": 25.4479,
       "kgld_return_pct": 19.12,
       "kgld_relative_return_pct": -0.65,
       "igld_close": 19.965,
@@ -3782,7 +3789,7 @@
     },
     {
       "date": "2026-06-25",
-      "kgld_close": 26.0375,
+      "kgld_close": 25.6914,
       "kgld_return_pct": 20.26,
       "kgld_relative_return_pct": -0.67,
       "igld_close": 20.2338,
@@ -3796,7 +3803,7 @@
     },
     {
       "date": "2026-06-26",
-      "kgld_close": 26.3435,
+      "kgld_close": 25.9933,
       "kgld_return_pct": 21.67,
       "kgld_relative_return_pct": -0.62,
       "igld_close": 20.445,
@@ -3810,7 +3817,7 @@
     },
     {
       "date": "2026-06-29",
-      "kgld_close": 25.9783,
+      "kgld_close": 25.633,
       "kgld_return_pct": 19.98,
       "kgld_relative_return_pct": -0.66,
       "igld_close": 20.157,
@@ -3824,7 +3831,7 @@
     },
     {
       "date": "2026-06-30",
-      "kgld_close": 25.9556,
+      "kgld_close": 25.6106,
       "kgld_return_pct": 19.88,
       "kgld_relative_return_pct": -0.7,
       "igld_close": 20.2146,
@@ -3838,7 +3845,7 @@
     },
     {
       "date": "2026-07-01",
-      "kgld_close": 26.1264,
+      "kgld_close": 25.7791,
       "kgld_return_pct": 20.67,
       "kgld_relative_return_pct": -0.63,
       "igld_close": 20.2695,
@@ -3852,7 +3859,7 @@
     },
     {
       "date": "2026-07-02",
-      "kgld_close": 26.6594,
+      "kgld_close": 26.305,
       "kgld_return_pct": 23.13,
       "kgld_relative_return_pct": -0.64,
       "igld_close": 20.6711,
@@ -3866,7 +3873,7 @@
     },
     {
       "date": "2026-07-06",
-      "kgld_close": 26.9258,
+      "kgld_close": 26.5679,
       "kgld_return_pct": 24.36,
       "kgld_relative_return_pct": -0.72,
       "igld_close": 20.8475,
@@ -3880,7 +3887,7 @@
     },
     {
       "date": "2026-07-07",
-      "kgld_close": 26.61,
+      "kgld_close": 26.2563,
       "kgld_return_pct": 22.9,
       "kgld_relative_return_pct": -0.66,
       "igld_close": 20.5634,
@@ -3894,7 +3901,7 @@
     },
     {
       "date": "2026-07-08",
-      "kgld_close": 26.39,
+      "kgld_close": 26.0392,
       "kgld_return_pct": 21.88,
       "kgld_relative_return_pct": -0.68,
       "igld_close": 20.485,
@@ -3908,7 +3915,7 @@
     },
     {
       "date": "2026-07-09",
-      "kgld_close": 26.627,
+      "kgld_close": 26.2731,
       "kgld_return_pct": 22.98,
       "kgld_relative_return_pct": -0.8,
       "igld_close": 20.6515,
@@ -3922,7 +3929,7 @@
     },
     {
       "date": "2026-07-10",
-      "kgld_close": 26.52,
+      "kgld_close": 26.1675,
       "kgld_return_pct": 22.48,
       "kgld_relative_return_pct": -0.91,
       "igld_close": 20.5927,
@@ -3936,7 +3943,7 @@
     },
     {
       "date": "2026-07-13",
-      "kgld_close": 25.85,
+      "kgld_close": 25.5064,
       "kgld_return_pct": 19.39,
       "kgld_relative_return_pct": -0.78,
       "igld_close": 20.1323,
@@ -3950,7 +3957,7 @@
     },
     {
       "date": "2026-07-14",
-      "kgld_close": 26.21,
+      "kgld_close": 25.8616,
       "kgld_return_pct": 21.05,
       "kgld_relative_return_pct": -0.76,
       "igld_close": 20.4066,
@@ -3964,7 +3971,7 @@
     },
     {
       "date": "2026-07-15",
-      "kgld_close": 26.23,
+      "kgld_close": 25.8813,
       "kgld_return_pct": 21.15,
       "kgld_relative_return_pct": -0.73,
       "igld_close": 20.3674,
@@ -3978,7 +3985,7 @@
     },
     {
       "date": "2026-07-16",
-      "kgld_close": 25.7,
+      "kgld_close": 25.3584,
       "kgld_return_pct": 18.7,
       "kgld_relative_return_pct": -0.76,
       "igld_close": 20.0637,
@@ -3992,7 +3999,7 @@
     },
     {
       "date": "2026-07-17",
-      "kgld_close": 25.89,
+      "kgld_close": 25.5458,
       "kgld_return_pct": 19.57,
       "kgld_relative_return_pct": -1.01,
       "igld_close": 20.1813,
@@ -4006,7 +4013,7 @@
     },
     {
       "date": "2026-07-20",
-      "kgld_close": 25.87,
+      "kgld_close": 25.5261,
       "kgld_return_pct": 19.48,
       "kgld_relative_return_pct": -0.84,
       "igld_close": 20.1715,
@@ -4020,7 +4027,7 @@
     },
     {
       "date": "2026-07-21",
-      "kgld_close": 26.39,
+      "kgld_close": 26.0392,
       "kgld_return_pct": 21.88,
       "kgld_relative_return_pct": -0.8,
       "igld_close": 20.5438,
@@ -4034,7 +4041,7 @@
     },
     {
       "date": "2026-07-22",
-      "kgld_close": 26.69,
+      "kgld_close": 26.3352,
       "kgld_return_pct": 23.27,
       "kgld_relative_return_pct": -0.82,
       "igld_close": 20.7299,
@@ -4048,7 +4055,7 @@
     },
     {
       "date": "2026-07-23",
-      "kgld_close": 26.2,
+      "kgld_close": 25.8517,
       "kgld_return_pct": 21.01,
       "kgld_relative_return_pct": -0.6,
       "igld_close": 20.2988,
@@ -4062,7 +4069,7 @@
     },
     {
       "date": "2026-07-24",
-      "kgld_close": 26.18,
+      "kgld_close": 25.832,
       "kgld_return_pct": 20.91,
       "kgld_relative_return_pct": -0.81,
       "igld_close": 20.3968,
@@ -4076,7 +4083,7 @@
     },
     {
       "date": "2026-07-27",
-      "kgld_close": 26.355,
+      "kgld_close": 26.0047,
       "kgld_return_pct": 21.72,
       "kgld_relative_return_pct": -0.9,
       "igld_close": 20.534,
@@ -4090,7 +4097,7 @@
     },
     {
       "date": "2026-07-28",
-      "kgld_close": 25.99,
+      "kgld_close": 25.6445,
       "kgld_return_pct": 20.04,
       "kgld_relative_return_pct": -0.86,
       "igld_close": 20.289,
@@ -4104,7 +4111,7 @@
     },
     {
       "date": "2026-07-29",
-      "kgld_close": 26.12,
+      "kgld_close": 25.7728,
       "kgld_return_pct": 20.64,
       "kgld_relative_return_pct": -0.82,
       "igld_close": 20.387,
@@ -4118,7 +4125,7 @@
     },
     {
       "date": "2026-07-30",
-      "kgld_close": 26.59,
+      "kgld_close": 26.2365,
       "kgld_return_pct": 22.81,
       "kgld_relative_return_pct": -0.64,
       "igld_close": 20.6613,
@@ -4132,7 +4139,7 @@
     },
     {
       "date": "2026-07-31",
-      "kgld_close": 26.19,
+      "kgld_close": 25.8419,
       "kgld_return_pct": 20.96,
       "kgld_relative_return_pct": -0.65,
       "igld_close": 20.436,
@@ -4146,7 +4153,7 @@
     },
     {
       "date": "2026-08-03",
-      "kgld_close": 26.21,
+      "kgld_close": 25.8616,
       "kgld_return_pct": 21.05,
       "kgld_relative_return_pct": -0.61,
       "igld_close": 20.37,
@@ -4160,7 +4167,7 @@
     },
     {
       "date": "2026-08-04",
-      "kgld_close": 26.33,
+      "kgld_close": 25.98,
       "kgld_return_pct": 21.61,
       "kgld_relative_return_pct": -0.86,
       "igld_close": 20.48,
@@ -4171,6 +4178,20 @@
       "iaui_relative_return_pct": -8.83,
       "gold_close": 374.16,
       "gold_return_pct": 22.47
+    },
+    {
+      "date": "2026-08-05",
+      "kgld_close": 27.13,
+      "kgld_return_pct": 26.99,
+      "kgld_relative_return_pct": -0.54,
+      "igld_close": 21.24,
+      "igld_return_pct": 19.55,
+      "igld_relative_return_pct": -7.99,
+      "iaui_close": 50.42,
+      "iaui_return_pct": 17.07,
+      "iaui_relative_return_pct": -10.46,
+      "gold_close": 389.64,
+      "gold_return_pct": 27.53
     }
   ]
 }
