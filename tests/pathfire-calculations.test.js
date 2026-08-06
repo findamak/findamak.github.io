@@ -26,7 +26,14 @@ const { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenari
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
 assert.equal(defaultState.profile.retirementSpend, undefined);
-assert.deepEqual(JSON.parse(JSON.stringify(Object.values(defaultState.scenarios).map(scenario => scenario.spend))), [85000, 85000, 85000]);
+assert.deepEqual(JSON.parse(JSON.stringify(defaultState.profile)), {age:50, retirementAge:55, preservationAge:60, withdrawalRate:3.5, inflationRate:2.5});
+assert.deepEqual(JSON.parse(JSON.stringify(Object.values(defaultState.scenarios).map(scenario => scenario.spend))), [320000, 320000, 320000]);
+assert.deepEqual(JSON.parse(JSON.stringify(Object.values(defaultState.scenarios).map(scenario => scenario.flexIncome))), [0, 0, 0]);
+assert.equal(defaultState.assets.find(asset => asset.id === 'etf').balance, 7021017);
+assert.equal(defaultState.assets.find(asset => asset.id === 'ip1').fi, true);
+assert.equal(defaultState.assets.find(asset => asset.id === 'ip1').accessible, true);
+assert.equal(defaultState.assets.find(asset => asset.id === 'smsf').accessible, false);
+assert.equal(defaultState.debts.reduce((total, debt) => total + debt.balance, 0), 2189000);
 const legacyPlanState = JSON.parse(JSON.stringify(defaultState));
 legacyPlanState.profile.retirementSpend = 123000;
 delete legacyPlanState.scenarios.current.spend;
@@ -40,10 +47,10 @@ assert.equal(normaliseAssetType('super'), 'superannuation');
 assert.equal(normaliseAssetType('smsf'), 'superannuation');
 assert.equal(normaliseAssetType('investment'), 'investment');
 assert.deepEqual([...linkablePropertyAssets(defaultState.assets).map(asset => asset.id)].sort(), ['ip1', 'ppor']);
-assert.equal(defaultState.debts.find(debt => debt.id === 'mortgage').name, 'PPOR loan');
-assert.equal(defaultState.debts.find(debt => debt.id === 'mortgage').type, 'loan');
-assert.equal(defaultState.debts.find(debt => debt.id === 'iploan').type, 'loan');
-assert.equal(defaultState.debts.find(debt => debt.id === 'otherloan').name, 'Credit card debt');
+assert.equal(defaultState.debts.find(debt => debt.id === 'chatswood').name, 'Chatswood loan');
+assert.equal(defaultState.debts.find(debt => debt.id === 'chatswood').type, 'loan');
+assert.equal(defaultState.debts.find(debt => debt.id === 'wahroonga').type, 'loan');
+assert.equal(defaultState.debts.find(debt => debt.id === 'family').name, 'Family loan');
 assert.match(liabilityTypeOptions('loan'), /<option value="loan" selected>Loan<\/option>/);
 assert.doesNotMatch(liabilityTypeOptions('loan'), /value="ppor_loan"|value="investment_property_loan"|value="margin_loan"|value="car_loan"|value="personal_loan"|value="smsf_loan"/);
 ['ppor_loan','investment_property_loan','margin_loan','car_loan','personal_loan','smsf_loan'].forEach(type => assert.equal(normaliseLiabilityType(type), 'loan'));
@@ -67,6 +74,7 @@ assert.equal(editableLegacyCheckin.assets.length, defaultState.assets.length);
 assert.equal(editableLegacyCheckin.debts.length, defaultState.debts.length);
 assert.deepEqual(JSON.parse(JSON.stringify(editableLegacyCheckin.income)), JSON.parse(JSON.stringify(defaultState.income)));
 assert.deepEqual(JSON.parse(JSON.stringify(sortCheckins([{label:'December 2024',month:'December',year:2024},{label:'January 2026',month:'January',year:2026},{label:'November 2025',month:'November',year:2025}]).map(checkin=>checkin.label))), ['January 2026','November 2025','December 2024']);
+state.history = [checkinSnapshot];
 const snapshotDashboard=dashboardSnapshotMetrics([{month:'January',year:2026,assets:[{id:'cash',balance:200,fi:true,accessible:true},{id:'super',balance:250,fi:true,accessible:false},{id:'ppor',type:'primary_residence',balance:300,fi:false,accessible:false}],debts:[{linked:'ppor',balance:100},{balance:50}]}], {net:999,netExPpor:998,accessible:997,superBal:996});
 assert.deepEqual(JSON.parse(JSON.stringify(snapshotDashboard)), {net:600,netExPpor:400,accessible:200,superBal:250});
 assert.deepEqual(JSON.parse(JSON.stringify(dashboardSnapshotMetrics([{month:'July',year:2026,net:2300000}], {net:999,netExPpor:998,accessible:997,superBal:996}))), {net:999,netExPpor:998,accessible:997,superBal:996});
@@ -82,7 +90,7 @@ assert.equal(linkableAssets(defaultState.assets).length, defaultState.assets.len
 assert.equal(suggestedAssetTypeForLiability('loan'), '');
 assert.equal(isUsualLiabilityAssetPair('loan', 'primary_residence'), true);
 assert.equal(isUsualLiabilityAssetPair('loan', 'investment_property'), true);
-assert.deepEqual(JSON.parse(JSON.stringify(incomeLines(defaultState.income))), [{name:'Employment',monthly:17500},{name:'Rental income',monthly:4100},{name:'Distributions',monthly:1100}]);
+assert.deepEqual(JSON.parse(JSON.stringify(incomeLines(defaultState.income))), [{name:'Current income',monthly:15695}]);
 assert.deepEqual(JSON.parse(JSON.stringify(cashIncomeLines([
   {name:'Savings account',type:'cash',balance:12000,annualReturn:5},
   {name:'Zero-rate cash',type:'cash',balance:8000,annualReturn:0},
@@ -136,11 +144,11 @@ assert.match(renderedElements.checkin.innerHTML, /<div class="section-title">Pre
 assert.match(renderedElements.checkin.innerHTML, /<div class="metric-label">Net worth excluding PPOR<\/div>[\s\S]*<div class="metric-label">FI portfolio<\/div>[\s\S]*<span>Net worth<\/span>/);
 assert.match(renderedElements.checkin.innerHTML, /January 2024[\s\S]*onclick="openHistoricalCheckin\(0\)">Update<\/button>[\s\S]*onclick="deleteHistoricalCheckinUI\(0\)">Delete<\/button>/);
 assert.match(renderedElements.checkin.innerHTML, /onclick="openCurrentCheckin\(\)">Complete check-in for this month<\/button>/);
-assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>[\s\S]*<span>Total spending<\/span><strong>\$12,500\/month<\/strong>[\s\S]*<h3>Automatic liability interest<\/h3>/);
+assert.match(renderedElements.cashflow.innerHTML, /<h3>Spending categories<\/h3>[\s\S]*<span>Total spending<\/span><strong>\$5,584\/month<\/strong>[\s\S]*<h3>Automatic liability interest<\/h3>/);
 const expectedMonthlyInterest = defaultState.debts.reduce((total, debt) => total + debt.balance * debt.annualInterestRate / 100 / 12, 0);
 assert.equal(result.monthlyInterest, expectedMonthlyInterest);
 assert.equal(result.totalExpenses, result.expenses + expectedMonthlyInterest);
-assert.equal(result.assetEquity.find(asset => asset.id === 'ppor').equity, 2062000 - 1260000);
+assert.equal(result.assetEquity.find(asset => asset.id === 'ppor').equity, 2790000 - 505000);
 const fiAssets = defaultState.assets.filter(asset => asset.fi);
 const expectedWeightedRealReturn = fiAssets.reduce(
   (total, asset) => total + asset.balance * calculateRealReturn(asset.annualReturn, defaultState.profile.inflationRate),
@@ -151,13 +159,25 @@ assert.ok(Math.abs(result.weightedRealReturn - expectedWeightedRealReturn) < 1e-
 const currentPlan = scenarioCalc('current');
 assert.ok(currentPlan.realReturn > 0);
 assert.equal(currentPlan.realReturn, result.weightedRealReturn / 100);
+assert.equal(currentPlan.monthlyContribution, result.surplus);
+const accessibleFiAssets = defaultState.assets.filter(asset => asset.fi && asset.accessible);
+const expectedAccessibleRealReturn = accessibleFiAssets.reduce(
+  (total, asset) => total + asset.balance * calculateRealReturn(asset.annualReturn, defaultState.profile.inflationRate),
+  0,
+) / result.accessible / 100;
+assert.ok(Math.abs(currentPlan.accessibleRealReturn - expectedAccessibleRealReturn) < 1e-10);
+const expectedBridge = currentPlan.netSpend * (1 - Math.pow(1 + expectedAccessibleRealReturn, -5)) / expectedAccessibleRealReturn;
+assert.ok(Math.abs(currentPlan.bridge - expectedBridge) < 1e-6);
 const debtFreePlan = scenarioCalc('debtfree');
-assert.equal(debtFreePlan.debtPayoff, result.debt);
-assert.equal(debtFreePlan.debtFreeCapitalRequired, debtFreePlan.full + result.debt);
-assert.equal(debtFreePlan.target, debtFreePlan.debtFreeCapitalRequired);
+const flexibleWorkPlan = scenarioCalc('barista');
+[currentPlan, debtFreePlan, flexibleWorkPlan].forEach(plan => {
+  assert.equal(plan.debtPayoff, result.debt);
+  assert.equal(plan.debtFreeCapitalRequired, plan.full + result.debt);
+  assert.equal(plan.target, plan.debtFreeCapitalRequired);
+});
 renderPlans();
-assert.match(renderedElements.plans.innerHTML, /Debt-free plan[\s\S]*Debt-free target<\/div><div class="metric-value">\$4\.04m<\/div>[\s\S]*Projection/);
-assert.match(renderedElements.plans.innerHTML, /Debt-free capital required[\s\S]*Full FI target[\s\S]*Current debt payoff[\s\S]*\$4\.04m[\s\S]*one-off capital requirement[\s\S]*Debt-free projection and funded percentage use this combined figure/);
+assert.match(renderedElements.plans.innerHTML, /Full FI plan[\s\S]*Capital required<\/div><div class="metric-value">\$11\.33m<\/div>[\s\S]*Projection/);
+assert.match(renderedElements.plans.innerHTML, /Debt-free capital required[\s\S]*Full FI target[\s\S]*Current debt payoff[\s\S]*\$11\.33m[\s\S]*one-off capital requirement[\s\S]*Every plan's projection and funded percentage use this combined figure/);
 assert.match(renderedElements.plans.innerHTML, /class="card debt-free-breakdown"/);
 assert.match(html, /\.debt-free-breakdown\s*\{\s*color:var\(--ink\);\s*\}/);
 state.scenarios.current.spend = 100000;
@@ -171,8 +191,8 @@ assert.equal(settingsDrivenPlan.spend, 100000);
 assert.equal(baristaSpendPlan.spend, 90000);
 assert.equal(settingsDrivenPlan.workEndAge, 55);
 assert.equal(settingsDrivenPlan.full, 80000 / (state.profile.withdrawalRate / 100));
-assert.equal(settingsDrivenPlan.years, 15);
-assert.equal(settingsDrivenPlan.bridge, 80000 * (state.profile.preservationAge - 55));
+assert.equal(settingsDrivenPlan.years, 5);
+assert.ok(settingsDrivenPlan.bridge < 80000 * (state.profile.preservationAge - 55));
 renderSettings();
 assert.doesNotMatch(renderedElements.settings.innerHTML, /Annual retirement spending|id="retirementSpend"/);
 openScenarioEditor('current');
@@ -210,8 +230,8 @@ const initialAssets = calc().assets;
 assert.equal(removeAsset('cash'), true);
 assert.equal(calc().assets, initialAssets - defaultState.assets.find(asset => asset.id === 'cash').balance);
 const initialDebt = calc().debt;
-assert.equal(removeLiability('loc'), true);
-assert.equal(calc().debt, initialDebt - defaultState.debts.find(debt => debt.id === 'loc').balance);
+assert.equal(removeLiability('family'), true);
+assert.equal(calc().debt, initialDebt - defaultState.debts.find(debt => debt.id === 'family').balance);
 while(deleteHistoricalCheckin(0)){}
 assert.doesNotThrow(() => renderDashboard());
 
