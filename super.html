@@ -88,7 +88,8 @@
     .section-card { padding: clamp(18px, 3vw, 30px); }
     .summary-card { padding: 24px; display: grid; gap: 14px; align-content: center; }
     .summary-item { display: flex; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); padding-bottom: 12px; }
-    .summary-item:last-child { border-bottom: 0; padding-bottom: 0; }
+    .summary-item:last-of-type { border-bottom: 0; padding-bottom: 0; }
+    .summary-note { margin: 0; color: var(--muted); font-size: 0.78rem; line-height: 1.45; }
     .label, .note, .source-list, .tag { color: var(--muted); }
     .value { font-weight: 700; color: var(--text); text-align: right; }
     .tag-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
@@ -152,11 +153,14 @@
       <aside class="card summary-card" aria-label="Key FY2026-27 super thresholds">
         <div class="summary-item"><span class="label">General transfer balance cap</span><span class="value">$2.1m</span></div>
         <div class="summary-item"><span class="label">NCC annual cap</span><span class="value">$130k</span></div>
+        <div class="summary-item"><span class="label">Max personal / voluntary CC age</span><span class="value">74*</span></div>
+        <div class="summary-item"><span class="label">Max NCC age</span><span class="value">74*</span></div>
         <div class="summary-item"><span class="label">Max NCC bring-forward</span><span class="value">$390k</span></div>
         <div class="summary-item"><span class="label">Low-rate lump sum cap (latest ATO-published)</span><span class="value">$260k</span></div>
         <div class="summary-item"><span class="label">Division 293 threshold</span><span class="value">$250k</span></div>
         <div class="summary-item"><span class="label">Division 296 LSBT from 2026-27</span><span class="value">$3.0m</span></div>
         <div class="summary-item"><span class="label">Division 296 VLSBT from 2026-27</span><span class="value">$10.0m</span></div>
+        <p class="summary-note">* Fund must receive personal/voluntary CCs and NCCs within 28 days after the end of the month you turn 75. Mandated employer CCs have no maximum age.</p>
       </aside>
     </div>
   </header>
