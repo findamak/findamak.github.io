@@ -300,7 +300,7 @@ function calc(source=state){
   return {assets,debt,net:assets-debt,netExPpor:(assets-ppor)-(debt-pporDebt),assetEquity,accessible,superBal,fi,fiAssets,weightedRealReturn,manualIncome,cashIncome,cashInterestLines,income,expenses,interestLines,monthlyInterest,totalExpenses,surplus:income-totalExpenses};
 }
 function scenarioCalc(key=state.activeScenario){
-  const c=calc(), p=state.profile, s=state.scenarios[key];
+  const c=calc(cashflowSource()), p=state.profile, s=state.scenarios[key];
   const spend=Math.max(0,Number(s.spend)||0), workEndAge=p.retirementAge;
   const wr=p.withdrawalRate/100, rr=c.weightedRealReturn/100;
   const netSpend=Math.max(0,spend-s.flexIncome);

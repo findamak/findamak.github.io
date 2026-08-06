@@ -162,16 +162,17 @@ const expectedWeightedRealReturn = fiAssets.reduce(
 ) / result.fi;
 assert.ok(Math.abs(result.weightedRealReturn - expectedWeightedRealReturn) < 1e-10);
 
+const planSource = calc(cashflowSource());
 const currentPlan = scenarioCalc('current');
 assert.ok(currentPlan.realReturn > 0);
-assert.equal(currentPlan.realReturn, result.weightedRealReturn / 100);
-assert.equal(currentPlan.monthlyContribution, result.manualIncome - result.totalExpenses);
-assert.notEqual(currentPlan.monthlyContribution, result.surplus);
-const accessibleFiAssets = defaultState.assets.filter(asset => asset.fi && asset.accessible);
+assert.equal(currentPlan.realReturn, planSource.weightedRealReturn / 100);
+assert.equal(currentPlan.monthlyContribution, planSource.manualIncome - planSource.totalExpenses);
+assert.notEqual(currentPlan.monthlyContribution, planSource.surplus);
+const accessibleFiAssets = planSource.fiAssets.filter(asset => asset.accessible);
 const expectedAccessibleRealReturn = accessibleFiAssets.reduce(
   (total, asset) => total + asset.balance * calculateRealReturn(asset.annualReturn, defaultState.profile.inflationRate),
   0,
-) / result.accessible / 100;
+) / planSource.accessible / 100;
 assert.ok(Math.abs(currentPlan.accessibleRealReturn - expectedAccessibleRealReturn) < 1e-10);
 const expectedBridge = currentPlan.netSpend * (1 - Math.pow(1 + expectedAccessibleRealReturn, -5)) / expectedAccessibleRealReturn;
 assert.ok(Math.abs(currentPlan.bridge - expectedBridge) < 1e-6);
