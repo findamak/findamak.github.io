@@ -184,9 +184,11 @@ function isCustomScenario(key){ return !Object.hasOwn(protectedScenarioNames,key
 function renameScenario(key,name){ const scenario=state.scenarios[key], trimmed=String(name||'').trim(); if(!scenario||!isCustomScenario(key)||!trimmed) return false; scenario.name=trimmed.slice(0,80); return true; }
 function deleteScenario(key){ if(!state.scenarios[key]||!isCustomScenario(key)) return false; delete state.scenarios[key]; if(state.activeScenario===key) state.activeScenario='current'; return true; }
 function normaliseState(candidate=state){
+  // Upgrade only the retired built-in demonstration data; preserve any genuine user-entered plan.
+  if(candidate?.profile?.age===40 && candidate?.profile?.retirementAge===52 && candidate?.assets?.some(asset=>asset.id==='cash'&&Number(asset.balance)===189000)) Object.assign(candidate,JSON.parse(JSON.stringify(defaultState)));
   candidate.profile ??={};
   candidate.profile.inflationRate ??= 2.5;
-  const legacySpend=Number(candidate.profile.retirementSpend), fallbackSpend=Number.isFinite(legacySpend)&&legacySpend>=0 ? legacySpend : 85000;
+  const legacySpend=Number(candidate.profile.retirementSpend), fallbackSpend=Number.isFinite(legacySpend)&&legacySpend>=0 ? legacySpend : defaultState.scenarios.current.spend;
   candidate.scenarios ??={};
   Object.entries(protectedScenarioNames).forEach(([key,name])=>{if(candidate.scenarios[key]) candidate.scenarios[key].name=name;});
   Object.values(candidate.scenarios).forEach(scenario=>{ if(!Number.isFinite(Number(scenario.spend))||Number(scenario.spend)<0) scenario.spend=fallbackSpend; delete scenario.workEndAge; });
@@ -304,19 +306,27 @@ function scenarioCalc(key=state.activeScenario){
   const netSpend=Math.max(0,spend-s.flexIncome);
   const full=netSpend/wr;
   const years=Math.max(0,workEndAge-p.age);
-  const coast=rr > -1 ? full/Math.pow(1+rr,years) : full;
-  const barista=Math.max(0,spend-s.flexIncome)/wr;
   const bridgeYears=Math.max(0,p.preservationAge-workEndAge);
-  const accessibleFiAssets=c.fiAssets.filter(asset=>asset.accessible), accessibleRealReturn=c.accessible ? accessibleFiAssets.reduce((total,asset)=>total+asset.balance*calculateRealReturn(asset.annualReturn,p.inflationRate),0)/c.accessible/100 : 0;
+  const accessibleFiAssets=c.fiAssets.filter(asset=>asset.accessible), restrictedFiAssets=c.fiAssets.filter(asset=>!asset.accessible);
+  const accessibleRealReturn=c.accessible ? accessibleFiAssets.reduce((total,asset)=>total+asset.balance*calculateRealReturn(asset.annualReturn,p.inflationRate),0)/c.accessible/100 : 0;
+  const restrictedRealReturn=c.superBal ? restrictedFiAssets.reduce((total,asset)=>total+asset.balance*calculateRealReturn(asset.annualReturn,p.inflationRate),0)/c.superBal/100 : 0;
   const bridge=bridgeYears===0 ? 0 : Math.abs(accessibleRealReturn)<1e-12 ? netSpend*bridgeYears : netSpend*(1-Math.pow(1+accessibleRealReturn,-bridgeYears))/accessibleRealReturn;
   const debtPayoff=Math.max(0,c.debt);
   const debtFreeCapitalRequired=full+debtPayoff;
   const target=debtFreeCapitalRequired;
-  const monthlyContribution=c.surplus;
-  let portfolio=c.fi, months=0;
-  while(portfolio<target && months<720){ portfolio=portfolio*Math.pow(1+rr,1/12)+monthlyContribution; months++; }
+  const coast=rr > -1 ? target/Math.pow(1+rr,years) : target;
+  const barista=target;
+  // Asset returns are total returns, so cash interest is not reinvested a second time as a contribution.
+  const monthlyContribution=c.manualIncome-c.totalExpenses;
+  let accessiblePortfolio=c.accessible, restrictedPortfolio=c.superBal, months=0;
+  while((accessiblePortfolio+restrictedPortfolio<target || accessiblePortfolio<bridge+debtPayoff) && months<720){
+    accessiblePortfolio=accessiblePortfolio*Math.pow(1+accessibleRealReturn,1/12)+monthlyContribution;
+    restrictedPortfolio=restrictedPortfolio*Math.pow(1+restrictedRealReturn,1/12);
+    months++;
+  }
+  const portfolio=accessiblePortfolio+restrictedPortfolio;
   const date=months<720?new Date(new Date().getFullYear(),new Date().getMonth()+months,1):null;
-  return {...s,spend,workEndAge,full,coast,barista,bridge,netSpend,debtPayoff,debtFreeCapitalRequired,target,years,monthlyContribution,realReturn:rr,accessibleRealReturn,projected:date ? date.toLocaleString('en-AU',{month:'short',year:'numeric'}) : 'Not reached', date};
+  return {...s,spend,workEndAge,full,coast,barista,bridge,netSpend,debtPayoff,debtFreeCapitalRequired,target,years,monthlyContribution,realReturn:rr,accessibleRealReturn,restrictedRealReturn,portfolio,accessiblePortfolio,restrictedPortfolio,projected:date ? date.toLocaleString('en-AU',{month:'short',year:'numeric'}) : 'Not reached', date};
 }
 function milestone(name,description,current,target,date,colour=''){ const pct=target?clamp(current/target*100,0,100):0; return `<div class="milestone"><div class="row"><div><div class="name">${name}</div><div class="description">${description}</div></div><div><div class="date">${date}</div><div class="small" style="text-align:right">${pct.toFixed(0)}% there</div></div></div><div class="progress ${colour}"><span style="width:${pct}%"></span></div><div class="row small"><span>${shortMoney(current)} today</span><span>Target ${shortMoney(target)}</span></div></div>`; }
 function dashboardSnapshotMetrics(history,current){

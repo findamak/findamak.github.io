@@ -34,6 +34,12 @@ assert.equal(defaultState.assets.find(asset => asset.id === 'ip1').fi, true);
 assert.equal(defaultState.assets.find(asset => asset.id === 'ip1').accessible, true);
 assert.equal(defaultState.assets.find(asset => asset.id === 'smsf').accessible, false);
 assert.equal(defaultState.debts.reduce((total, debt) => total + debt.balance, 0), 2189000);
+const retiredDemoState = JSON.parse(JSON.stringify(defaultState));
+retiredDemoState.profile.age = 40;
+retiredDemoState.profile.retirementAge = 52;
+retiredDemoState.assets.find(asset => asset.id === 'cash').balance = 189000;
+normaliseState(retiredDemoState);
+assert.deepEqual(JSON.parse(JSON.stringify(retiredDemoState.profile)), JSON.parse(JSON.stringify(defaultState.profile)));
 const legacyPlanState = JSON.parse(JSON.stringify(defaultState));
 legacyPlanState.profile.retirementSpend = 123000;
 delete legacyPlanState.scenarios.current.spend;
@@ -159,7 +165,8 @@ assert.ok(Math.abs(result.weightedRealReturn - expectedWeightedRealReturn) < 1e-
 const currentPlan = scenarioCalc('current');
 assert.ok(currentPlan.realReturn > 0);
 assert.equal(currentPlan.realReturn, result.weightedRealReturn / 100);
-assert.equal(currentPlan.monthlyContribution, result.surplus);
+assert.equal(currentPlan.monthlyContribution, result.manualIncome - result.totalExpenses);
+assert.notEqual(currentPlan.monthlyContribution, result.surplus);
 const accessibleFiAssets = defaultState.assets.filter(asset => asset.fi && asset.accessible);
 const expectedAccessibleRealReturn = accessibleFiAssets.reduce(
   (total, asset) => total + asset.balance * calculateRealReturn(asset.annualReturn, defaultState.profile.inflationRate),
