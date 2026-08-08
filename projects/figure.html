@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Figure Collection</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; background: #f3f4f6; color: #18212b; font-family: Arial, Helvetica, sans-serif; line-height: 1.45; }
+  .header { background: #172a3a; color: #fff; padding: 28px 18px; border-bottom: 5px solid #d99b32; }
+  .header-inner, .page { max-width: 1160px; margin: 0 auto; }
+  h1 { margin: 0 0 5px; font-size: 30px; }
+  h2 { font-size: 21px; margin: 0 0 14px; }
+  .header p { margin: 0; color: #d8e3eb; }
+  .page { padding: 22px 18px 44px; }
+  .notice { background: #fff5d8; border-left: 4px solid #d99b32; padding: 12px 14px; margin-bottom: 18px; font-size: 14px; }
+  .layout { display: flex; align-items: flex-start; gap: 20px; }
+  .panel { background: #fff; border: 1px solid #d6dbe0; border-radius: 7px; padding: 20px; box-shadow: 0 1px 2px rgba(0,0,0,.05); }
+  .editor { flex: 0 0 355px; }
+  .collection { flex: 1 1 auto; min-width: 0; }
+  label { display: block; margin: 12px 0 5px; font-weight: bold; font-size: 14px; }
+  input, select, textarea, button { font: inherit; }
+  input[type="text"], input[type="number"], select, textarea { width: 100%; padding: 9px 10px; border: 1px solid #aab5bd; border-radius: 4px; background: #fff; color: #18212b; }
+  textarea { min-height: 82px; resize: vertical; }
+  .row { display: flex; gap: 10px; }
+  .row > div { flex: 1 1 0; }
+  .button { display: inline-block; border: 0; border-radius: 4px; padding: 10px 14px; background: #196a85; color: white; cursor: pointer; font-weight: bold; margin: 14px 7px 0 0; }
+  .button:hover { background: #0f536b; }
+  .button.secondary { background: #56636c; }
+  .button.danger { background: #a7433c; }
+  .button.small { padding: 7px 9px; margin-top: 0; font-size: 13px; }
+  .button:disabled { opacity: .55; cursor: default; }
+  .tools { border-top: 1px solid #d6dbe0; margin-top: 20px; padding-top: 18px; }
+  .tools p, .muted { color: #56636c; font-size: 13px; }
+  .filter-row { display: flex; gap: 10px; margin-bottom: 16px; }
+  .filter-row input { flex: 1 1 auto; }
+  .filter-row select { flex: 0 0 180px; }
+  .summary { color: #56636c; margin: 0 0 14px; }
+  .cards { display: flex; flex-wrap: wrap; gap: 16px; }
+  .card { position: relative; display: flex; flex: 1 1 310px; max-width: 100%; min-height: 188px; border: 1px solid #d6dbe0; border-radius: 6px; overflow: hidden; background: #fff; }
+  .image { width: 116px; flex: 0 0 116px; background: #e6ecef; display: flex; align-items: center; justify-content: center; color: #56636c; font-size: 13px; text-align: center; padding: 8px; }
+  .image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+  .card-body { padding: 13px; flex: 1 1 auto; min-width: 0; }
+  .card h3 { margin: 0 66px 6px 0; font-size: 18px; overflow-wrap: break-word; }
+  .meta { margin: 4px 0; font-size: 14px; }
+  .tags { margin: 8px 0; }
+  .tag { display: inline-block; background: #e7f1f4; color: #164c61; border-radius: 12px; padding: 2px 8px; margin: 0 4px 4px 0; font-size: 12px; }
+  .rating { color: #a76900; font-weight: bold; }
+  .notes { font-size: 13px; color: #44525c; white-space: pre-wrap; overflow-wrap: break-word; }
+  .card-actions { position: absolute; right: 9px; top: 9px; }
+  .empty { padding: 34px 18px; color: #56636c; text-align: center; border: 2px dashed #c6cdd1; border-radius: 6px; }
+  .status { min-height: 20px; margin-top: 10px; color: #155f3d; font-size: 14px; }
+  .status.error { color: #9a2822; }
+  .hidden { display: none; }
+  @media (max-width: 800px) { .layout { display: block; } .editor { margin-bottom: 18px; } .filter-row { display: block; } .filter-row select { width: 100%; margin-top: 9px; } }
+</style>
+</head>
+<body>
+<header class="header"><div class="header-inner"><h1>Figure Collection</h1><p>Catalogue your figures locally, with photos, notes, ratings and spreadsheet exchange.</p></div></header>
+<main class="page">
+  <div class="notice"><strong>Your collection stays in this browser.</strong> Entries and uploaded photos are saved in browser storage on this device. Export a CSV backup regularly. CSV files work with Excel, Google Sheets and Numbers.</div>
+  <div class="layout">
+    <section class="panel editor" aria-label="Figure editor">
+      <h2 id="formTitle">Add a figure</h2>
+      <form id="figureForm">
+        <input type="hidden" id="itemId">
+        <label for="name">Item name *</label><input id="name" type="text" required maxlength="120" placeholder="e.g. Optimus Prime, G1">
+        <label for="tags">Tags</label><input id="tags" type="text" maxlength="300" placeholder="e.g. Transformers, G1, sealed">
+        <div class="row"><div><label for="price">Price paid</label><input id="price" type="number" min="0" step="0.01" placeholder="0.00"></div><div><label for="classification">Classification</label><input id="classification" type="text" list="classifications" maxlength="100" placeholder="e.g. Action figure"></div></div>
+        <datalist id="classifications"><option value="Action figure"><option value="Statue"><option value="Model kit"><option value="Plush"><option value="Trading figure"><option value="Other"></datalist>
+        <label for="rating">Rating</label><select id="rating"><option value="">Not rated</option><option value="1">1 / 5</option><option value="2">2 / 5</option><option value="3">3 / 5</option><option value="4">4 / 5</option><option value="5">5 / 5</option></select>
+        <label for="notes">Notes</label><textarea id="notes" maxlength="2500" placeholder="Condition, edition, where it came from, display notes..."></textarea>
+        <label for="photo">Photo upload</label><input id="photo" type="file" accept="image/*"><p class="muted">Photos are resized before saving. Use one photo per figure; very large collections may exceed browser storage.</p>
+        <button class="button" type="submit" id="saveButton">Save figure</button><button class="button secondary hidden" type="button" id="cancelEdit">Cancel edit</button>
+      </form>
+      <div class="tools"><h2>Spreadsheet</h2><p>Export all figures as a CSV spreadsheet, or import a CSV exported from this page. Imported rows are added; matching rows are not overwritten.</p><button class="button secondary" type="button" id="exportCsv">Export CSV</button><label for="importCsv">Import CSV</label><input id="importCsv" type="file" accept=".csv,text/csv"><div id="status" class="status" aria-live="polite"></div></div>
+    </section>
+    <section class="panel collection" aria-label="Figure collection">
+      <h2>My collection</h2><div class="filter-row"><input id="search" type="text" placeholder="Search names, tags, classifications or notes"><select id="filterClass"><option value="">All classifications</option></select></div><p id="summary" class="summary"></p><div id="cards" class="cards"></div>
+    </section>
+  </div>
+</main>
+<script>
+(function () {
+  'use strict';
+  var STORAGE_KEY = 'findamakFigureCollectionV1';
+  var items = loadItems();
+  var photoData = '';
+  var $ = function (id) { return document.getElementById(id); };
+  function loadItems() { try { var stored = window.localStorage.getItem(STORAGE_KEY); var parsed = stored ? JSON.parse(stored) : []; return Object.prototype.toString.call(parsed) === '[object Array]' ? parsed : []; } catch (e) { return []; } }
+  function saveItems() { try { window.localStorage.setItem(STORAGE_KEY, JSON.stringify(items)); return true; } catch (e) { setStatus('Could not save. Browser storage may be full; remove a photo or export your data.', true); return false; } }
+  function cleanText(value) { return String(value || '').replace(/^\s+|\s+$/g, ''); }
+  function escapeHtml(value) { return String(value || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'); }
+  function uniqueId() { return 'f' + new Date().getTime() + Math.floor(Math.random() * 100000); }
+  function normaliseItem(item) { return { id: cleanText(item.id) || uniqueId(), name: cleanText(item.name), tags: cleanText(item.tags), price: cleanText(item.price), classification: cleanText(item.classification), rating: String(item.rating || ''), notes: cleanText(item.notes), photo: cleanText(item.photo) }; }
+  function stars(rating) { var n = parseInt(rating, 10) || 0, s = '', i; for (i = 0; i < n; i++) { s += '*'; } return s || 'Not rated'; }
+  function setStatus(message, error) { var status = $('status'); status.className = error ? 'status error' : 'status'; status.innerHTML = escapeHtml(message); }
+  function formatPrice(value) { var n = parseFloat(value); return isNaN(n) ? 'No price recorded' : '$' + n.toFixed(2); }
+  function tagsHtml(value) { var list = cleanText(value).split(','), html = '', i, tag; for (i = 0; i < list.length; i++) { tag = cleanText(list[i]); if (tag) { html += '<span class="tag">' + escapeHtml(tag) + '</span>'; } } return html; }
+  function rebuildClassificationFilter() { var current = $('filterClass').value, seen = {}, names = [], i, c; for (i = 0; i < items.length; i++) { c = items[i].classification; if (c && !seen[c.toLowerCase()]) { seen[c.toLowerCase()] = true; names.push(c); } } names.sort(); $('filterClass').innerHTML = '<option value="">All classifications</option>'; for (i = 0; i < names.length; i++) { $('filterClass').innerHTML += '<option value="' + escapeHtml(names[i]) + '">' + escapeHtml(names[i]) + '</option>'; } $('filterClass').value = current; }
+  function render() { var cards = $('cards'), term = cleanText($('search').value).toLowerCase(), selected = $('filterClass').value.toLowerCase(), visible = [], i, item, text, html = ''; for (i = 0; i < items.length; i++) { item = items[i]; text = (item.name + ' ' + item.tags + ' ' + item.classification + ' ' + item.notes).toLowerCase(); if ((!term || text.indexOf(term) !== -1) && (!selected || item.classification.toLowerCase() === selected)) { visible.push(item); } } visible.sort(function(a,b) { return a.name.toLowerCase() > b.name.toLowerCase() ? 1 : -1; }); $('summary').innerHTML = visible.length + ' of ' + items.length + ' figure' + (items.length === 1 ? '' : 's') + ' shown'; if (!visible.length) { cards.innerHTML = '<div class="empty">No figures match yet. Add your first figure on the left, or import a CSV spreadsheet.</div>'; return; } for (i = 0; i < visible.length; i++) { item = visible[i]; html += '<article class="card"><div class="image">' + (item.photo ? '<img src="' + escapeHtml(item.photo) + '" alt="Photo of ' + escapeHtml(item.name) + '">' : 'No photo') + '</div><div class="card-body"><div class="card-actions"><button class="button secondary small" type="button" data-edit="' + escapeHtml(item.id) + '">Edit</button> <button class="button danger small" type="button" data-delete="' + escapeHtml(item.id) + '">Delete</button></div><h3>' + escapeHtml(item.name) + '</h3><div class="meta"><strong>' + escapeHtml(item.classification || 'Unclassified') + '</strong> | ' + formatPrice(item.price) + '</div><div class="rating" aria-label="Rating: ' + escapeHtml(stars(item.rating)) + '">Rating: ' + escapeHtml(stars(item.rating)) + '</div><div class="tags">' + tagsHtml(item.tags) + '</div>' + (item.notes ? '<div class="notes">' + escapeHtml(item.notes) + '</div>' : '') + '</div></article>'; } cards.innerHTML = html; }
+  function resetForm() { $('figureForm').reset(); $('itemId').value = ''; photoData = ''; $('formTitle').innerHTML = 'Add a figure'; $('saveButton').innerHTML = 'Save figure'; $('cancelEdit').className = 'button secondary hidden'; }
+  function editItem(id) { var i, item; for (i = 0; i < items.length; i++) { if (items[i].id === id) { item = items[i]; break; } } if (!item) { return; } $('itemId').value = item.id; $('name').value = item.name; $('tags').value = item.tags; $('price').value = item.price; $('classification').value = item.classification; $('rating').value = item.rating; $('notes').value = item.notes; photoData = item.photo; $('formTitle').innerHTML = 'Edit figure'; $('saveButton').innerHTML = 'Update figure'; $('cancelEdit').className = 'button secondary'; window.scrollTo(0, 0); }
+  function deleteItem(id) { var i; if (!window.confirm('Delete this figure from this browser collection?')) { return; } for (i = items.length - 1; i >= 0; i--) { if (items[i].id === id) { items.splice(i, 1); } } if (saveItems()) { rebuildClassificationFilter(); render(); setStatus('Figure deleted.'); } }
+  function csvCell(value) { var s = String(value === undefined || value === null ? '' : value); return '"' + s.replace(/"/g, '""') + '"'; }
+  function exportCsv() { var headers = ['Name', 'Tags', 'Price', 'Classification', 'Rating', 'Notes'], lines = [headers.map(csvCell).join(',')], i, x, blob, link; for (i = 0; i < items.length; i++) { x = items[i]; lines.push([x.name, x.tags, x.price, x.classification, x.rating, x.notes].map(csvCell).join(',')); } blob = new Blob([lines.join('\r\n')], {type: 'text/csv;charset=utf-8'}); link = document.createElement('a'); link.href = window.URL.createObjectURL(blob); link.download = 'figure-collection.csv'; document.body.appendChild(link); link.click(); document.body.removeChild(link); window.URL.revokeObjectURL(link.href); setStatus('CSV export downloaded. Photos are not included in spreadsheets.'); }
+  function parseCsv(text) { var rows = [], row = [], field = '', quoted = false, i, ch, next; for (i = 0; i < text.length; i++) { ch = text.charAt(i); next = text.charAt(i + 1); if (ch === '"' && quoted && next === '"') { field += '"'; i++; } else if (ch === '"') { quoted = !quoted; } else if (ch === ',' && !quoted) { row.push(field); field = ''; } else if ((ch === '\n' || ch === '\r') && !quoted) { if (ch === '\r' && next === '\n') { i++; } row.push(field); if (row.length > 1 || row[0] !== '') { rows.push(row); } row = []; field = ''; } else { field += ch; } } if (field !== '' || row.length) { row.push(field); rows.push(row); } return rows; }
+  function importCsv(file) { var reader = new FileReader(); reader.onload = function (event) { var rows = parseCsv(event.target.result), header, map = {}, added = 0, i, j, r, item; if (rows.length < 2) { setStatus('The CSV needs a header row and at least one data row.', true); return; } header = rows[0]; for (j = 0; j < header.length; j++) { map[cleanText(header[j]).toLowerCase()] = j; } if (map.name === undefined) { setStatus('CSV import needs a Name column.', true); return; } for (i = 1; i < rows.length; i++) { r = rows[i]; if (!cleanText(r[map.name])) { continue; } item = normaliseItem({ name: r[map.name], tags: map.tags === undefined ? '' : r[map.tags], price: map.price === undefined ? '' : r[map.price], classification: map.classification === undefined ? '' : r[map.classification], rating: map.rating === undefined ? '' : r[map.rating], notes: map.notes === undefined ? '' : r[map.notes] }); items.push(item); added++; } if (added && saveItems()) { rebuildClassificationFilter(); render(); setStatus(added + ' figure' + (added === 1 ? '' : 's') + ' imported. Photos are not imported from CSV.'); } else if (!added) { setStatus('No rows with a name were found in that CSV.', true); } $('importCsv').value = ''; }; reader.readAsText(file); }
+  $('figureForm').onsubmit = function (event) { var record, id, i, found = false; event.preventDefault(); record = normaliseItem({ id: $('itemId').value, name: $('name').value, tags: $('tags').value, price: $('price').value, classification: $('classification').value, rating: $('rating').value, notes: $('notes').value, photo: photoData }); if (!record.name) { setStatus('A figure name is required.', true); return; } id = record.id; for (i = 0; i < items.length; i++) { if (items[i].id === id) { items[i] = record; found = true; } } if (!found) { items.push(record); } if (saveItems()) { rebuildClassificationFilter(); render(); resetForm(); setStatus(found ? 'Figure updated.' : 'Figure saved.'); } };
+  $('photo').onchange = function () { var file = this.files && this.files[0], reader; if (!file) { return; } if (file.size > 4 * 1024 * 1024) { setStatus('Please choose a photo smaller than 4 MB.', true); this.value = ''; return; } reader = new FileReader(); reader.onload = function (event) { var image = new Image(); image.onload = function () { var max = 800, scale = Math.min(1, max / Math.max(image.width, image.height)), canvas = document.createElement('canvas'), ctx; canvas.width = Math.max(1, Math.round(image.width * scale)); canvas.height = Math.max(1, Math.round(image.height * scale)); ctx = canvas.getContext('2d'); ctx.drawImage(image, 0, 0, canvas.width, canvas.height); photoData = canvas.toDataURL('image/jpeg', 0.82); setStatus('Photo ready to save with this figure.'); }; image.src = event.target.result; }; reader.readAsDataURL(file); };
+  $('cancelEdit').onclick = resetForm; $('exportCsv').onclick = exportCsv; $('importCsv').onchange = function () { if (this.files && this.files[0]) { importCsv(this.files[0]); } }; $('search').oninput = render; $('filterClass').onchange = render;
+  $('cards').onclick = function (event) { var target = event.target || event.srcElement, id = target.getAttribute('data-edit') || target.getAttribute('data-delete'); if (!id) { return; } if (target.getAttribute('data-edit')) { editItem(id); } else { deleteItem(id); } };
+  items = items.map(normaliseItem); rebuildClassificationFilter(); render();
+  window.figureCollectionTestApi = { parseCsv: parseCsv, normaliseItem: normaliseItem, csvCell: csvCell };
+}());
+</script>
+</body>
+</html>
