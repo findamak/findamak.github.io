@@ -45,22 +45,22 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 199.5,
+      "price": 199.58,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.0951,
+      "price": 0.095,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 114.71,
-      "change": 0.29,
+      "price": 114.7,
+      "change": 0.28,
       "type": "stock"
     },
     {
@@ -73,15 +73,15 @@
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 73.19,
-      "change": 0.11,
+      "price": 73.17,
+      "change": 0.08,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.22,
-      "change": -0.15,
+      "price": 61.21,
+      "change": -0.16,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4477.8999,
-      "change": 2.66,
+      "price": 4473.5,
+      "change": 2.56,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.0,
-      "change": 1.37,
+      "price": 65.935,
+      "change": 1.27,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 87.59,
-      "change": -0.15,
+      "price": 87.55,
+      "change": -0.19,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 82.08,
-      "change": -0.06,
+      "price": 82.04,
+      "change": -0.11,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4162,
+      "price": 1.4161,
       "change": 0.03,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-08-11T14:15:35.499770"
+  "lastUpdated": "2026-08-11T14:20:36.049193"
 }
