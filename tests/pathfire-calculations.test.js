@@ -20,8 +20,8 @@ const context = {
   localStorage: { getItem: () => null, setItem: () => {} },
 };
 vm.createContext(context);
-vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, normaliseState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
-const { calculateRealReturn, calc, cashflowSource, scenarioCalc, isCustomScenario, renameScenario, deleteScenario, defaultState, state, normaliseState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
+vm.runInContext(`${script}\nthis.exportsForTest = { calculateRealReturn, calc, cashflowSource, scenarioCalc, planProjectionSeries, isCustomScenario, renameScenario, deleteScenario, defaultState, state, normaliseState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor };`, context);
+const { calculateRealReturn, calc, cashflowSource, scenarioCalc, planProjectionSeries, isCustomScenario, renameScenario, deleteScenario, defaultState, state, normaliseState, assetTypeOptions, normaliseAssetType, liabilityTypeOptions, normaliseLiabilityType, linkablePropertyAssets, linkableAssets, suggestedAssetTypeForLiability, isUsualLiabilityAssetPair, incomeLines, cashIncomeLines, addIncomeSource, setIncomeSource, removeIncomeSource, addExpenseCategory, setExpenseCategory, removeExpenseCategory, removeAsset, removeLiability, makeCheckinSnapshot, checkinSnapshotForEditing, checkinCashflowMetrics, dashboardSnapshotMetrics, sortCheckins, updateHistoricalCheckin, deleteHistoricalCheckin, renderCashflow, renderDashboard, renderCheckin, renderPlans, renderSettings, shortMoney, openCheckinIncomeAndSpending, openCurrentCheckin, openScenarioEditor } = context.exportsForTest;
 
 assert.equal(calculateRealReturn(7, 2.5), (1.07 / 1.025 - 1) * 100);
 assert.equal(calculateRealReturn(0, 2.5), (1 / 1.025 - 1) * 100);
@@ -188,6 +188,14 @@ assert.match(renderedElements.plans.innerHTML, /Full FI plan[\s\S]*Capital requi
 assert.match(renderedElements.plans.innerHTML, /Debt-free capital required[\s\S]*Full FI target[\s\S]*Current debt payoff[\s\S]*\$11\.33m[\s\S]*one-off capital requirement[\s\S]*Every plan's projection and funded percentage use this combined figure/);
 assert.match(renderedElements.plans.innerHTML, /class="card debt-free-breakdown"/);
 assert.match(html, /\.debt-free-breakdown\s*\{\s*color:var\(--ink\);\s*\}/);
+const currentProjection = planProjectionSeries('current', 3);
+assert.equal(currentProjection.length, 4);
+assert.equal(currentProjection[0].year, 0);
+assert.equal(currentProjection[0].portfolio, calc(cashflowSource()).fi);
+assert.equal(currentProjection[0].target, scenarioCalc('current').target);
+assert.ok(currentProjection[1].portfolio > currentProjection[0].portfolio);
+assert.match(renderedElements.plans.innerHTML, /<div class="projection-chart"[\s\S]*<svg[^>]*aria-label="Capital projection chart"[\s\S]*Projected portfolio[\s\S]*Capital required[\s\S]*Time/);
+assert.doesNotMatch(renderedElements.plans.innerHTML, /class="progress (?:gold )?"/);
 state.scenarios.current.spend = 100000;
 state.scenarios.barista.spend = 90000;
 state.profile.retirementAge = 55;
