@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 201.44,
+      "price": 202.24,
       "change": 0,
       "type": "stock"
     },
@@ -59,29 +59,29 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 114.61,
-      "change": 0,
+      "price": 114.2,
+      "change": -0.36,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 120.65,
-      "change": 0,
+      "price": 120.48,
+      "change": -0.14,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 73.15,
-      "change": 0,
+      "price": 72.81,
+      "change": -0.46,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.21,
-      "change": 0,
+      "price": 60.81,
+      "change": -0.65,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4428.8999,
-      "change": 1.54,
+      "price": 4430.5,
+      "change": 1.58,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 64.92,
-      "change": -0.29,
+      "price": 64.925,
+      "change": -0.28,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 89.15,
-      "change": 1.63,
+      "price": 89.34,
+      "change": 1.85,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 83.52,
-      "change": 1.69,
+      "price": 83.62,
+      "change": 1.81,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4149,
-      "change": -0.17,
+      "price": 1.4147,
+      "change": -0.19,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-08-12T10:15:37.009491"
+  "lastUpdated": "2026-08-12T10:20:35.511281"
 }
