@@ -3,29 +3,29 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 45.79,
-      "change": 3.93,
+      "price": 45.6024,
+      "change": 3.5,
       "type": "stock"
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 18.585,
-      "change": 4.09,
+      "price": 18.495,
+      "change": 3.58,
       "type": "stock"
     },
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1193.1,
-      "change": 1.1,
+      "price": 1192.42,
+      "change": 1.04,
       "type": "stock"
     },
     {
       "symbol": "BTCI",
       "name": "Neos Bitcoin High Income ETF",
-      "price": 28.67,
-      "change": 2.14,
+      "price": 28.66,
+      "change": 2.1,
       "type": "stock"
     },
     {
@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 196.18,
-      "change": 0.27,
+      "price": 195.96,
+      "change": 0.16,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.0907,
-      "change": -5.56,
+      "price": 0.0904,
+      "change": -5.93,
       "type": "stock"
     },
     {
@@ -87,84 +87,84 @@
     {
       "symbol": "GPIX",
       "name": "Goldman Sachs Income ETF",
-      "price": 56.445,
-      "change": -0.29,
+      "price": 56.455,
+      "change": -0.27,
       "type": "stock"
     },
     {
       "symbol": "QQQI",
       "name": "Neos Nasdaq 100 Income ETF",
-      "price": 55.76,
-      "change": -0.05,
+      "price": 55.7766,
+      "change": -0.02,
       "type": "stock"
     },
     {
       "symbol": "STRC",
       "name": "Strategy STRC",
-      "price": 94.73,
-      "change": -0.05,
+      "price": 94.62,
+      "change": -0.17,
       "type": "stock"
     },
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 62.615,
-      "change": 1.14,
+      "price": 62.625,
+      "change": 1.15,
       "type": "stock"
     },
     {
       "symbol": "SMH",
       "name": "Semi ETF",
-      "price": 595.81,
-      "change": 1.36,
+      "price": 596.52,
+      "change": 1.48,
       "type": "stock"
     },
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 175.16,
-      "change": 5.52,
+      "price": 175.25,
+      "change": 5.58,
       "type": "stock"
     },
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 7755.6699,
-      "change": -0.39,
+      "price": 7757.3101,
+      "change": -0.37,
       "type": "index"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 30019.4766,
-      "change": -0.09,
+      "price": 30029.002,
+      "change": -0.06,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4462.5,
+      "price": 4458.6001,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.005,
+      "price": 65.915,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 90.81,
+      "price": 90.65,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 84.44,
+      "price": 84.31,
       "change": 0,
       "type": "commodity"
     },
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-08-18T04:40:39.135114"
+  "lastUpdated": "2026-08-18T04:45:44.087517"
 }
