@@ -3,22 +3,22 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 44.9128,
-      "change": 1.94,
+      "price": 44.9,
+      "change": 1.91,
       "type": "stock"
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 18.475,
-      "change": 3.47,
+      "price": 18.5,
+      "change": 3.61,
       "type": "stock"
     },
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1184.01,
-      "change": 0.33,
+      "price": 1184.91,
+      "change": 0.4,
       "type": "stock"
     },
     {
@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 196.13,
-      "change": 0.24,
+      "price": 195.96,
+      "change": 0.16,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.0905,
-      "change": -5.79,
+      "change": -5.82,
       "type": "stock"
     },
     {
@@ -87,8 +87,8 @@
     {
       "symbol": "GPIX",
       "name": "Goldman Sachs Income ETF",
-      "price": 56.41,
-      "change": -0.35,
+      "price": 56.42,
+      "change": -0.34,
       "type": "stock"
     },
     {
@@ -129,7 +129,7 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 7745.4302,
+      "price": 7745.0601,
       "change": -0.52,
       "type": "index"
     },
@@ -143,28 +143,28 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4475.2002,
+      "price": 4474.0,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.1,
+      "price": 65.995,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 90.66,
+      "price": 90.78,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 84.41,
+      "price": 84.59,
       "change": 0,
       "type": "commodity"
     },
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-08-18T06:00:40.749178"
+  "lastUpdated": "2026-08-18T06:05:39.352053"
 }
