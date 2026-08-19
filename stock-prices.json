@@ -45,22 +45,22 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 190.36,
+      "price": 190.16,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.091,
+      "price": 0.0909,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 112.57,
-      "change": 0.03,
+      "price": 112.48,
+      "change": -0.05,
       "type": "stock"
     },
     {
@@ -73,15 +73,15 @@
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 72.29,
-      "change": -0.01,
+      "price": 72.31,
+      "change": 0.01,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 60.49,
-      "change": -0.56,
+      "price": 60.5,
+      "change": -0.54,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4397.2002,
-      "change": -0.47,
+      "price": 4395.6001,
+      "change": -0.5,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 63.115,
-      "change": -4.55,
+      "price": 63.125,
+      "change": -4.53,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 91.54,
-      "change": 0.74,
+      "price": 91.67,
+      "change": 0.88,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 84.68,
-      "change": 0.21,
+      "price": 84.79,
+      "change": 0.34,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4129,
-      "change": 0.43,
+      "price": 1.4128,
+      "change": 0.42,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-08-19T11:00:41.418422"
+  "lastUpdated": "2026-08-19T11:05:38.895453"
 }
