@@ -151,11 +151,14 @@ def write_json(payload):
             os.unlink(temporary.name)
 
 
+def git_sync_before_update():
+    subprocess.run(["git", "fetch", "origin"], cwd=REPO, check=True)
+    subprocess.run(["git", "rebase", "origin/main"], cwd=REPO, check=True)
+
+
 def git_commit_and_push():
     def run(*args, check=True):
         return subprocess.run(args, cwd=REPO, check=check, text=True, capture_output=True)
-    run("git", "fetch", "origin")
-    run("git", "rebase", "origin/main")
     if run("git", "diff", "--quiet", "--", OUTPUT.name, check=False).returncode == 0:
         print("No analysis data change to publish.")
         return
@@ -167,6 +170,8 @@ def git_commit_and_push():
 
 def main():
     try:
+        if "--no-push" not in sys.argv:
+            git_sync_before_update()
         payload = build_payload()
         write_json(payload)
         print("Updated " + str(OUTPUT))
