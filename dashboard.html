@@ -291,6 +291,20 @@
     .history-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
     .history-table th, .history-table td { padding: 0.75rem; text-align: left; border-bottom: 1px solid var(--border); }
 
+    .analysis-section { padding: clamp(18px, 3vw, 30px); }
+    .analysis-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.25rem; flex-wrap: wrap; gap: 0.5rem; }
+    .analysis-updated { color: var(--muted); font-size: 0.85rem; }
+    .analysis-lead { color: var(--text); margin-bottom: 1rem; }
+    .analysis-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; margin: 1rem 0; }
+    .analysis-card { border: 1px solid var(--border); border-radius: 18px; padding: 1rem; background: rgba(255,255,255,0.035); }
+    .analysis-card h3 { font-size: 1.05rem; margin-bottom: 0.55rem; }
+    .analysis-card p, .analysis-takeaway, .analysis-disclaimer { font-size: 0.93rem; line-height: 1.6; }
+    .analysis-price { color: var(--text); font-size: 1.35rem; font-weight: 700; margin-bottom: 0.45rem; }
+    .analysis-returns { color: var(--muted); font-size: 0.85rem; }
+    .analysis-source, .analysis-sources a { color: var(--accent-2); }
+    .analysis-source { display: inline-block; margin-top: 0.65rem; font-size: 0.85rem; text-decoration: none; }
+    .analysis-sources { margin: 1rem 0 0; padding-left: 1.25rem; color: var(--muted); font-size: 0.84rem; }
+    .analysis-disclaimer { color: var(--subtle); margin-top: 0.85rem; }
     .x-feed-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap; gap: 0.5rem; }
     .x-feed-grid { display: grid; gap: 1rem; min-width: 0; }
     .x-tweet-card { min-width: 0; overflow: hidden; }
@@ -309,6 +323,7 @@
       .hero { grid-template-columns: 1fr !important; }
       #chart { height: 420px; }
       .section-heading { align-items: flex-start; flex-direction: column; }
+      .analysis-grid { grid-template-columns: 1fr; }
       .etf-flows { grid-template-columns: 1fr; }
     }
   </style>
@@ -437,6 +452,15 @@
                 </table>
             </div>
         </div>
+
+        <!-- Daily IREN vs HUT Analysis -->
+        <section class="section-card analysis-section" aria-labelledby="iren-hut-heading">
+            <div class="analysis-header">
+                <h2 id="iren-hut-heading">IREN vs HUT: daily research</h2>
+                <span class="analysis-updated">Updated: <span id="irenHutUpdated">--</span></span>
+            </div>
+            <div id="iren-hut-container" class="loading">Loading daily comparison...</div>
+        </section>
 
         <!-- X Feed Section -->
         <div class="x-feed-section">
@@ -568,6 +592,53 @@
 
         // Refresh Fear & Greed data periodically (file updates hourly via cron)
         setInterval(fetchFearGreedData, 300000);
+
+        // Daily IREN versus HUT analysis, generated locally each morning.
+        function analysisReturn(value) {
+            if (typeof value !== 'number') return 'n/a';
+            return `${value >= 0 ? '+' : ''}${value.toFixed(1)}%`;
+        }
+
+        async function fetchIrenHutAnalysis() {
+            const container = document.getElementById('iren-hut-container');
+            const updatedEl = document.getElementById('irenHutUpdated');
+            try {
+                const response = await fetch('iren-hut-analysis.json?t=' + Date.now());
+                if (!response.ok) throw new Error('Failed to load IREN/HUT analysis');
+                const data = await response.json();
+                if (data.lastUpdated) {
+                    updatedEl.textContent = new Date(data.lastUpdated).toLocaleString('en-AU', {
+                        dateStyle: 'medium', timeStyle: 'short'
+                    });
+                }
+                const priceCards = ['IREN', 'HUT'].map(symbol => {
+                    const item = data.prices[symbol];
+                    const filing = data.filings[symbol];
+                    return `<article class="analysis-card">
+                        <h3>${symbol}</h3>
+                        <div class="analysis-price">US$${item.price.toFixed(2)}</div>
+                        <div class="analysis-returns">30d ${analysisReturn(item.returns['30d'])} · 90d ${analysisReturn(item.returns['90d'])} · 1y ${analysisReturn(item.returns['1y'])}</div>
+                        <p>Latest material filing: <a class="analysis-source" href="${filing.url}" target="_blank" rel="noopener">${filing.form}, ${filing.date}</a> <span class="analysis-returns">(${filing.status === 'live' ? 'live SEC check' : 'last verified SEC'})</span></p>
+                    </article>`;
+                }).join('');
+                const comparison = data.comparison.map(item => `<article class="analysis-card">
+                    <h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.text)}</p>
+                    <a class="analysis-source" href="${item.source}" target="_blank" rel="noopener">Primary source ↗</a>
+                </article>`).join('');
+                const sources = data.sources.map(source => `<li><a href="${source.url}" target="_blank" rel="noopener">${escapeHtml(source.label)}</a></li>`).join('');
+                container.innerHTML = `<p class="analysis-lead">${escapeHtml(data.dailyRead)}</p>
+                    <div class="analysis-grid">${priceCards}</div>
+                    <div class="analysis-grid">${comparison}</div>
+                    <p class="analysis-takeaway"><strong>Practical view:</strong> ${escapeHtml(data.takeaway)}</p>
+                    <ul class="analysis-sources">${sources}</ul>
+                    <p class="analysis-disclaimer">${escapeHtml(data.disclaimer)}</p>`;
+            } catch (error) {
+                console.error('Error loading IREN/HUT analysis:', error);
+                container.innerHTML = '<div class="x-feed-error">Daily IREN/HUT analysis is temporarily unavailable.</div>';
+            }
+        }
+
+        fetchIrenHutAnalysis();
 
         // X Feed
         const X_FEED_URL = 'x-feed.json';

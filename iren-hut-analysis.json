@@ -1,0 +1,82 @@
+{
+  "lastUpdated": "2026-08-20T00:11:49+00:00",
+  "disclaimer": "Research only \u2014 not financial advice. Figures are in US dollars unless stated otherwise.",
+  "prices": {
+    "IREN": {
+      "price": 42.84,
+      "date": "2026-08-19",
+      "returns": {
+        "30d": 3.8,
+        "90d": -10.3,
+        "1y": 116.8
+      },
+      "source": "https://finance.yahoo.com/quote/IREN"
+    },
+    "HUT": {
+      "price": 82.08,
+      "date": "2026-08-19",
+      "returns": {
+        "30d": -24.7,
+        "90d": -12.0,
+        "1y": 267.9
+      },
+      "source": "https://finance.yahoo.com/quote/HUT"
+    }
+  },
+  "filings": {
+    "IREN": {
+      "form": "8-K",
+      "date": "2026-08-13",
+      "accession": "0001140361-26-032638",
+      "url": "https://www.sec.gov/Archives/edgar/data/1878848/000114036126032638/ef20080141_8k.htm",
+      "status": "last verified"
+    },
+    "HUT": {
+      "form": "8-K",
+      "date": "2026-08-04",
+      "accession": "0001104659-26-090041",
+      "url": "https://www.sec.gov/Archives/edgar/data/1964789/000110465926090041/tm2621890d1_8k.htm",
+      "status": "last verified"
+    }
+  },
+  "dailyRead": "IREN has held up better over the last 30 trading days (IREN +3.8%, HUT -24.7%). This is price performance, not total return or investment advice.",
+  "comparison": [
+    {
+      "title": "IREN \u2014 nearer-term AI-cloud execution",
+      "text": "The core question is whether IREN keeps converting its Microsoft AI-cloud program into delivered capacity. Its 13 August 2026 announcement said Horizon 1, the first 50MW IT-load deployment in its four-deployment Microsoft program, had been delivered and accepted. The company described the agreement as a five-year US$9.7bn cloud-services contract and targeted 480MW gross AI-cloud capacity in 2026 and 1.2GW in 2027.",
+      "source": "https://www.sec.gov/Archives/edgar/data/1878848/000114036126032638/ef20080141_ex99-1.htm"
+    },
+    {
+      "title": "HUT \u2014 larger, later-stage AI-data-centre buildout",
+      "text": "Hut 8 reported 949MW of contracted AI IT capacity, about US$26.6bn aggregate base-term contract value, more than US$1.75bn expected average annual NOI and US$7.5bn of investment-grade project financing. Its stated initial River Bend and Beacon Point data-hall deliveries were targeted for 2027, making construction, energisation and financing execution central risks.",
+      "source": "https://www.sec.gov/Archives/edgar/data/1964789/000110465926090041/tm2621890d1_ex99-1.htm"
+    }
+  ],
+  "takeaway": "IREN is the cleaner choice for investors prioritising demonstrated AI-cloud delivery. HUT is the higher-beta choice for investors willing to underwrite a larger contracted pipeline and a longer construction/financing timetable. The balance sheets are not directly comparable: HUT's project financing and restricted cash make headline cash a poor stand-alone leverage measure.",
+  "sources": [
+    {
+      "label": "IREN price history",
+      "url": "https://finance.yahoo.com/quote/IREN"
+    },
+    {
+      "label": "HUT price history",
+      "url": "https://finance.yahoo.com/quote/HUT"
+    },
+    {
+      "label": "IREN latest EDGAR filing",
+      "url": "https://www.sec.gov/Archives/edgar/data/1878848/000114036126032638/ef20080141_8k.htm"
+    },
+    {
+      "label": "HUT latest EDGAR filing",
+      "url": "https://www.sec.gov/Archives/edgar/data/1964789/000110465926090041/tm2621890d1_8k.htm"
+    },
+    {
+      "label": "IREN Horizon 1 announcement",
+      "url": "https://www.sec.gov/Archives/edgar/data/1878848/000114036126032638/ef20080141_ex99-1.htm"
+    },
+    {
+      "label": "Hut 8 AI capacity announcement",
+      "url": "https://www.sec.gov/Archives/edgar/data/1964789/000110465926090041/tm2621890d1_ex99-1.htm"
+    }
+  ]
+}
