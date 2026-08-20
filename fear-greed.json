@@ -1,19 +1,19 @@
 {
-  "lastUpdated": "2026-08-01T09:00:01.093687+00:00",
+  "lastUpdated": "2026-08-20T03:00:00.663771+00:00",
   "indices": {
     "btc": {
-      "value": 20,
-      "classification": "Extreme Fear Current price",
+      "value": 62,
+      "classification": "Greed",
       "source": "https://nitter.net/BitcoinFear/rss",
-      "sourcePost": "https://nitter.net/BitcoinFear/status/2074712613431234567#m",
-      "sourcePublishedAt": "Wed, 08 Jul 2026 04:30:07 GMT"
+      "sourcePost": "https://nitter.net/BitcoinFear/status/2090242445640421753#m",
+      "sourcePublishedAt": "Thu, 20 Aug 2026 01:00:08 GMT"
     },
     "eth": {
-      "value": 38,
-      "classification": "Fear",
+      "value": 73,
+      "classification": "Greed",
       "source": "https://nitter.net/EthereumFear/rss",
-      "sourcePost": "https://nitter.net/EthereumFear/status/2083342000837845247#m",
-      "sourcePublishedAt": "Sat, 01 Aug 2026 00:00:14 GMT"
+      "sourcePost": "https://nitter.net/EthereumFear/status/2090242445585826228#m",
+      "sourcePublishedAt": "Thu, 20 Aug 2026 01:00:08 GMT"
     }
   }
 }
