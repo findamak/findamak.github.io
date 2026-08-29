@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 234.85,
+      "price": 234.76,
       "change": 0,
       "type": "stock"
     },
@@ -129,21 +129,21 @@
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 7711.7598,
+      "price": 7711.76,
       "change": -0.25,
       "type": "index"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 29433.4277,
+      "price": 29433.428,
       "change": -0.7,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4504.1001,
+      "price": 4504.1,
       "change": -2.29,
       "type": "commodity"
     },
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-08-29T13:55:35.812503"
+  "lastUpdated": "2026-08-29T14:00:35.027081"
 }
