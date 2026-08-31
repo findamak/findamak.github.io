@@ -38,8 +38,8 @@
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 21.87,
-      "change": -2.19,
+      "price": 21.86,
+      "change": -2.24,
       "type": "stock"
     },
     {
@@ -52,22 +52,22 @@
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1186,
+      "price": 0.1185,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 113.22,
-      "change": -0.03,
+      "price": 113.19,
+      "change": -0.05,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 119.145,
-      "change": -0.4,
+      "price": 119.15,
+      "change": -0.39,
       "type": "stock"
     },
     {
@@ -143,15 +143,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4471.1001,
-      "change": -0.16,
+      "price": 4473.1001,
+      "change": -0.11,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.785,
-      "change": -0.31,
+      "price": 66.82,
+      "change": -0.26,
       "type": "commodity"
     },
     {
@@ -164,17 +164,17 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 85.09,
-      "change": 2.03,
+      "price": 85.06,
+      "change": 1.99,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.3949,
+      "price": 1.3948,
       "change": 0.36,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-08-31T13:50:34.383768"
+  "lastUpdated": "2026-08-31T13:55:36.466523"
 }
