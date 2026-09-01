@@ -38,14 +38,14 @@
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 22.18,
-      "change": 1.0,
+      "price": 22.17,
+      "change": 0.96,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 230.39,
+      "price": 230.31,
       "change": 0,
       "type": "stock"
     },
@@ -59,15 +59,15 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 112.57,
-      "change": -0.32,
+      "price": 112.53,
+      "change": -0.35,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 119.64,
-      "change": 0.06,
+      "price": 119.65,
+      "change": 0.07,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 59.66,
-      "change": -0.07,
+      "price": 59.68,
+      "change": -0.03,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4491.5,
+      "price": 4490.1,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 67.51,
+      "price": 67.48,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 88.93,
+      "price": 88.94,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 86.68,
+      "price": 86.74,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.3947,
-      "change": -0.1,
+      "price": 1.3948,
+      "change": -0.09,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-09-01T14:00:36.658992"
+  "lastUpdated": "2026-09-01T14:05:34.955453"
 }
