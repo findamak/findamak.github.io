@@ -17,15 +17,15 @@
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1160.0601,
+      "price": 1160.08,
       "change": 0.01,
       "type": "stock"
     },
     {
       "symbol": "BTCI",
       "name": "Neos Bitcoin High Income ETF",
-      "price": 31.96,
-      "change": -0.13,
+      "price": 31.93,
+      "change": -0.22,
       "type": "stock"
     },
     {
@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 217.29,
-      "change": -1.25,
+      "price": 216.82,
+      "change": -1.46,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1106,
-      "change": -2.56,
+      "price": 0.1102,
+      "change": -2.86,
       "type": "stock"
     },
     {
@@ -108,8 +108,8 @@
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": 65.1,
-      "change": 0.51,
+      "price": 65.079,
+      "change": 0.48,
       "type": "stock"
     },
     {
@@ -122,8 +122,8 @@
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 144.16,
-      "change": -0.96,
+      "price": 144.13,
+      "change": -0.98,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4437.0,
-      "change": 2.05,
+      "price": 4434.6001,
+      "change": 1.99,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 65.935,
-      "change": 2.04,
+      "price": 65.93,
+      "change": 2.03,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 95.14,
-      "change": 0.52,
+      "price": 94.96,
+      "change": 0.33,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 90.47,
-      "change": 0.28,
+      "price": 90.4,
+      "change": 0.2,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.394,
-      "change": -0.01,
+      "price": 1.3941,
+      "change": -0.0,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-09-03T06:15:34.871839"
+  "lastUpdated": "2026-09-03T06:20:32.963489"
 }
