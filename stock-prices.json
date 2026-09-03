@@ -31,7 +31,7 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 10.66,
+      "price": 10.7,
       "change": 0,
       "type": "stock"
     },
@@ -45,14 +45,14 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 216.12,
+      "price": 216.79,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1092,
+      "price": 0.1091,
       "change": 0,
       "type": "stock"
     },
@@ -66,8 +66,8 @@
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 118.96,
-      "change": 0.6,
+      "price": 118.89,
+      "change": 0.54,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 59.09,
-      "change": 0.1,
+      "price": 59.07,
+      "change": 0.07,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4454.9,
-      "change": NaN,
+      "price": 4455.7998,
+      "change": 2.48,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.265,
-      "change": NaN,
+      "price": 66.27,
+      "change": 2.56,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 95.89,
-      "change": NaN,
+      "price": 95.75,
+      "change": 1.16,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 91.44,
-      "change": NaN,
+      "price": 91.35,
+      "change": 1.25,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.3953,
-      "change": -0.28,
+      "price": 1.3955,
+      "change": -0.26,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-09-03T12:10:37.125885"
+  "lastUpdated": "2026-09-03T12:15:36.646131"
 }
