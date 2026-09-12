@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Australian CGT calculator comparing discount CGT with CPI-indexed CGT rules">
-  <title>CGT Rule Comparison Calculator</title>
+  <meta name="description" content="Illustrative Australian CGT reform scenarios, not ATO-approved or for lodgement">
+  <title>Illustrative CGT Scenario Comparison</title>
   <link rel="icon" href="favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -149,14 +149,14 @@
   <header class="hero-wrap">
     <div class="hero">
       <div>
-        <h1>CGT rule comparison</h1>
-        <p class="subtitle">Compare tax under the old full-period 50% discount CGT model versus the new transitional model: pre-1 July 2027 gains keep the discount, while post-1 July 2027 gains are CPI-indexed and taxed at a minimum 30%.</p>
+        <h1>CGT scenario comparison</h1>
+        <p class="subtitle"><strong>Not ATO-approved — not for lodgement.</strong> Illustrative announced reform scenarios compared with a hypothetical full-period 50% discount baseline. This is a flat-rate tax sensitivity estimate, not your actual tax assessment or tax advice.</p>
       </div>
 
       <aside class="card summary-card" aria-label="CGT calculator summary">
-        <div class="summary-item"><span class="label">Old model</span><span class="value">50% discount</span></div>
-        <div class="summary-item"><span class="label">New model</span><span class="value">Split + CPI</span></div>
-        <div class="summary-item"><span class="label">Transition date</span><span class="value">1 Jul 2027</span></div>
+        <div class="summary-item"><span class="label">Hypothetical baseline</span><span class="value">50% discount</span></div>
+        <div class="summary-item"><span class="label">Announced reform illustration</span><span class="value">Split + CPI</span></div>
+        <div class="summary-item"><span class="label">Assumed transition</span><span class="value">1 Jul 2027</span></div>
         <div class="summary-item"><span class="label">Purpose</span><span class="value">Scenario comparison</span></div>
       </aside>
     </div>
@@ -167,42 +167,43 @@
       <div class="section-heading">
         <div>
           <h2>Calculator</h2>
-          <p>This calculator applies the same sale to each model. The CPI model can split gains by time apportionment, or by a 1 July 2027 market valuation if you enter one. The marginal tax rate input is applied as a flat rate to the taxable capital gain; it does not progressively apply ATO tax brackets or calculate where the gain sits on top of your other taxable income.</p>
+          <p>For an Australian resident individual with one wholly taxable asset, a positive gain, no capital losses or exemptions, and an unchanged cost base. The reform illustration estimates a transition value using constant compound growth, or uses your optional valuation. We have not verified the final prescribed reform formula or your eligibility. Neither result is a tax election or recommendation.</p>
         </div>
       </div>
 
       <div class="calculator-grid">
         <form class="form-grid" id="cgtForm">
           <div class="field">
-            <label for="buyDate">Buy date</label>
+            <label for="buyDate">Acquisition contract date</label>
             <input id="buyDate" name="buyDate" type="date" required>
           </div>
           <div class="field">
-            <label for="costBasis">Cost basis</label>
-            <input id="costBasis" name="costBasis" type="number" min="0" step="100" required>
-            <div class="hint">Include purchase price and any costs you want modelled as part of the cost base.</div>
+            <label for="costBasis">Cost base (AUD)</label>
+            <input id="costBasis" name="costBasis" type="number" min="0" step="0.01" required>
+            <div class="hint">Use the correct tax cost base: purchase price plus eligible acquisition and disposal costs. Do not include deductible costs or double-count disposal costs by also subtracting them from gross proceeds. Later improvements, adjustments and differently timed cost elements are outside this unchanged-cost-base model.</div>
           </div>
           <div class="field">
-            <label for="sellDate">Sell date</label>
+            <label for="sellDate">Disposal contract date</label>
             <input id="sellDate" name="sellDate" type="date" required>
+            <div class="hint">Generally use contract dates, not settlement dates. The 12-month test excludes acquisition and CGT event days: the sale must be after the first calendar anniversary. Other CGT events are outside scope.</div>
           </div>
           <div class="field">
-            <label for="saleAmount">Total sale amount</label>
-            <input id="saleAmount" name="saleAmount" type="number" min="0" step="100" required>
+            <label for="saleAmount">Gross sale proceeds (AUD)</label>
+            <input id="saleAmount" name="saleAmount" type="number" min="0" step="0.01" required>
           </div>
           <div class="field">
             <label for="transitionMarketValue">Asset value on 1 July 2027 (optional)</label>
-            <input id="transitionMarketValue" name="transitionMarketValue" type="number" min="0" step="100" placeholder="Leave blank to only use time apportionment">
-            <div class="hint">If entered, the calculator adds a market valuation model result: pre-2027 gain uses this value less cost base; post-2027 gain uses sale amount less this value.</div>
+            <input id="transitionMarketValue" name="transitionMarketValue" type="number" min="0" step="any" placeholder="Leave blank for compound-growth estimate">
+            <div class="hint">Only for a holding straddling 1 July 2027. Enter a value between cost base and proceeds; loss portions are unsupported. This alternative illustration does not establish an approved valuation or available legal election.</div>
           </div>
           <div class="field">
-            <label for="marginalTaxRate">Marginal tax rate</label>
+            <label for="marginalTaxRate">Flat tax sensitivity rate (%)</label>
             <input id="marginalTaxRate" name="marginalTaxRate" type="number" min="0" max="100" step="0.1" required>
-            <div class="hint">Enter the effective marginal rate you want to test, including Medicare levy if desired.</div>
+            <div class="hint">Not a progressive assessment: no tax brackets, other income, offsets or Medicare levy are calculated. You may include a levy allowance in the entered rate for sensitivity only; the assumed 30% minimum is not a final assessment.</div>
           </div>
           <div class="field">
             <label for="averageCpi">Average annual CPI</label>
-            <input id="averageCpi" name="averageCpi" type="number" min="-10" max="20" step="0.1" required>
+            <input id="averageCpi" name="averageCpi" type="number" min="0" max="20" step="0.1" required>
             <div class="hint">Enter an annual percentage, not a decimal. For example, enter 2.5 for 2.5% CPI. Try a few scenarios because this is an assumption, not a forecast.</div>
           </div>
           <div class="button-row">
@@ -215,14 +216,15 @@
             <div class="result-card">
               <h3>Headline result</h3>
               <div class="metric-grid">
-                <div class="metric"><span>Lower tax method</span><strong id="lowerMethod">--</strong></div>
+                <div class="metric"><span>Interpretation</span><strong id="lowerMethod">--</strong></div>
                 <div class="metric"><span>Tax differences</span><strong id="taxDifference">--</strong></div>
                 <div class="metric"><span>Nominal gain</span><strong id="nominalGain">--</strong></div>
               </div>
             </div>
 
             <div class="result-card">
-            <h3>Tax comparison</h3>
+            <h3>Flat-rate tax sensitivity comparison</h3>
+            <p class="hint">The discount baseline is hypothetical for a post-transition disposal, not an option to select the lowest legal tax. Positive differences mean a higher modelled amount. Effective rate means modelled tax divided by nominal gain.</p>
             <div class="table-wrap">
               <table>
                 <thead>
@@ -230,27 +232,27 @@
                     <th>Method</th>
                     <th>Treatment</th>
                     <th>Taxable gain</th>
-                    <th>Estimated tax</th>
+                    <th>Tax sensitivity estimate</th>
                     <th>Effective tax rate</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Discount model</td>
+                    <td>Hypothetical discount baseline</td>
                     <td id="oldCostBase">--</td>
                     <td id="oldTaxableGain">--</td>
                     <td id="oldTax">--</td>
                     <td id="oldEffectiveRate">--</td>
                   </tr>
                   <tr>
-                    <td>Time-apportionment CPI model</td>
+                    <td>Illustrative compound-growth + CPI</td>
                     <td id="newCostBase">--</td>
                     <td id="newTaxableGain">--</td>
                     <td id="newTax">--</td>
                     <td id="newEffectiveRate">--</td>
                   </tr>
                   <tr>
-                    <td>Market valuation CPI model</td>
+                    <td>Illustrative valuation + CPI</td>
                     <td id="marketTreatment">Enter 1 July 2027 value to calculate</td>
                     <td id="marketTaxableGain">--</td>
                     <td id="marketTax">--</td>
@@ -259,6 +261,9 @@
                 </tbody>
               </table>
             </div>
+            <h3>Illustrative calculation components (AUD)</h3>
+            <p id="newComponents" style="white-space: pre-line">--</p>
+            <p id="marketComponents" style="white-space: pre-line">--</p>
             </div>
           </div>
         </form>
@@ -269,20 +274,30 @@
       <div class="section-heading">
         <div>
           <h2>What this is modelling</h2>
-          <p>The comparison is intentionally simple: the old rules apply the 50% CGT discount to the whole nominal gain. The new rules keep the discount for the pre-1 July 2027 portion and apply CPI indexation to the post-1 July 2027 portion, with a 30% minimum tax rate on that post-transition real gain. For assets owned before 1 July 2027, investors can compare time apportionment against an optional market valuation split.</p>
+          <p>The 2026–27 Budget announcement describes retaining the discount for pre-transition gains, indexing post-transition cost bases and a minimum tax. This page illustrates that announcement only. The ATO notice, updated 29 June 2026, says the announced changes do not apply to Tax Time 2026 and further resources will be provided.</p>
         </div>
       </div>
       <div class="callout">
-        <p><strong>Old / discount model:</strong> taxable gain equals the nominal capital gain after a 50% discount if the asset was held for more than 12 months; otherwise the full nominal gain is taxed.</p>
-        <p><strong>New / time-apportionment CPI model:</strong> the nominal gain is apportioned by holding days before and after 1 July 2027. The pre-transition portion receives the old 50% discount. The post-transition portion is reduced by CPI for the post-transition holding period and then taxed at the higher of your marginal rate and 30%.</p>
-        <p><strong>New / market valuation CPI model:</strong> if you enter a 1 July 2027 asset value, the pre-transition gain is calculated from cost base to that market value, and the post-transition gain is calculated from that market value to sale proceeds.</p>
-        <p class="note">This is a simplified planning calculator, not tax advice. It ignores capital losses, partial disposals, third-element costs, main-residence rules, company/trust/super-specific rules, foreign-resident rules, and exact ATO CPI quarter calculations, compounding details, cost-base adjustments, or edge-case transitional rules.</p>
+        <p><strong>Hypothetical discount baseline:</strong> 50% of the whole nominal gain multiplied by the entered flat rate. The calculator only accepts holdings meeting its calendar 12-month test.</p>
+        <p><strong>Compound-growth assumption:</strong> for a straddling holding, estimated transition value V = C × (S / C)^(pre-years / total-years), where C is cost base and S is proceeds. This assumes constant compound growth, not linear gain apportionment or an observed valuation. It reproduces the Budget Jane example within whole-dollar rounding, but is not a verified prescribed ATO formula.</p>
+        <p><strong>Calendar-year convention:</strong> count whole acquisition anniversaries plus remaining days divided by days to the next anniversary; clamp 29 February to 28 February in non-leap years. Pre-years run from acquisition to transition; post-years run from transition (or later acquisition) to sale. Anniversary-aligned periods are exact whole years. This illustrative, non-prescribed convention is separate from the eligibility test.</p>
+        <p><strong>Compounded CPI assumption:</strong> indexed post-period base B = V × (1 + annual CPI)^post-years. Pre-taxable gain = (V − C) × 50%; post-taxable gain = max(0, S − B). The optional valuation replaces V. For purchases on or after transition V = C; for sales on or before transition all gain remains in the discount portion. CPI is an assumed constant annual rate, not official quarterly index factors.</p>
+        <p><strong>Minimum-rate assumption:</strong> pre-taxable gain × entered rate, plus post-taxable gain × max(entered rate, 30%). Assumes the minimum applies. Means-tested income support exceptions (including eligible pension or JobSeeker payments during the financial year), offsets and interactions are not modelled; no Medicare levy is calculated.</p>
+        <p class="note"><strong>Unsupported:</strong> companies, trusts, superannuation, foreign or changing residency, main-residence or other exemptions, new-build and affordable housing concessions, capital losses or loss portions, zero/negative nominal gains, zero cost base, partial disposals, cost-base changes and separately timed cost elements. Acquisitions on or before 21 September 1999 are conservatively excluded, including historical indexation and pre-CGT assets. Short holdings and negative CPI are unsupported. Indexation is floored at zero taxable post-gain here, not used to create a capital loss. Obtain tailored advice for these cases.</p>
       </div>
+      <h3>Sources and verification status</h3>
+      <p>Last checked: 13 September 2026. We have not verified the final prescribed reform calculation or all legislative details; do not use this page to lodge a return or determine your legal entitlement.</p>
+      <ul>
+        <li><a href="https://www.ato.gov.au/calculators-and-tools/capital-gains-tax-record-keeping-tool">ATO — official CGT record keeping tool</a> — use official tools and guidance, rather than this illustration, when preparing your return.</li>
+        <li><a href="https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/calculating-your-cgt/how-to-calculate-your-cgt">ATO — How to calculate your CGT (including announcement notice)</a></li>
+        <li><a href="https://www.ato.gov.au/individuals-and-families/investments-and-assets/capital-gains-tax/cgt-discount">ATO — CGT discount and 12-month holding test</a></li>
+        <li><a href="https://budget.gov.au/content/factsheets/download/tax-explainers-negative-gearing-capital-gains-tax.pdf">Australian Government Budget 2026–27 — Negative Gearing and Capital Gains Tax Reform (PDF; Michael p6, Jane p7)</a></li>
+      </ul>
     </section>
   </main>
 
   <footer>
-    <p>CGT comparison calculator for broad Australian tax modelling. Verify against ATO guidance before using for decisions.</p>
+    <p>Independent illustrative calculator. Not ATO-approved, not tax advice and not for lodgement.</p>
   </footer>
 
   <script>
@@ -311,11 +326,19 @@
 
       function byId(id) { return document.getElementById(id); }
       function numberValue(id) { return parseFloat(byId(id).value); }
-      function dateValue(id) { return new Date(byId(id).value + 'T00:00:00'); }
+      function dateValue(id) {
+        var parts = /^(\d{4})-(\d{2})-(\d{2})$/.exec(byId(id).value);
+        if (!parts) return new Date(NaN);
+        var date = new Date(Date.UTC(Number(parts[1]), Number(parts[2]) - 1, Number(parts[3])));
+        if (date.getUTCFullYear() !== Number(parts[1]) || date.getUTCMonth() !== Number(parts[2]) - 1 || date.getUTCDate() !== Number(parts[3])) return new Date(NaN);
+        return date;
+      }
       function money(value) {
+        if (typeof Intl === 'undefined' || !Intl.NumberFormat) return (value < 0 ? '-$' : '$') + Math.abs(value).toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
         return new Intl.NumberFormat('en-AU', { style: 'currency', currency: 'AUD', maximumFractionDigits: 0 }).format(value || 0);
       }
       function percent(value) {
+        if (typeof Intl === 'undefined' || !Intl.NumberFormat) return String(Number(value.toFixed(2))) + '%';
         return new Intl.NumberFormat('en-AU', { maximumFractionDigits: 2 }).format(value) + '%';
       }
       function effectiveRate(tax, gain) {
@@ -328,16 +351,32 @@
         errorBox.style.display = message ? 'block' : 'none';
       }
       function resetResults() {
-        ['lowerMethod', 'taxDifference', 'nominalGain', 'oldCostBase', 'oldTaxableGain', 'oldTax', 'oldEffectiveRate', 'newCostBase', 'newTaxableGain', 'newTax', 'newEffectiveRate', 'marketTaxableGain', 'marketTax', 'marketEffectiveRate'].forEach(function (id) { setText(id, '--'); });
+        ['lowerMethod', 'taxDifference', 'nominalGain', 'oldCostBase', 'oldTaxableGain', 'oldTax', 'oldEffectiveRate', 'newCostBase', 'newTaxableGain', 'newTax', 'newEffectiveRate', 'marketTaxableGain', 'marketTax', 'marketEffectiveRate', 'newComponents', 'marketComponents'].forEach(function (id) { setText(id, '--'); });
         setText('marketTreatment', 'Enter 1 July 2027 value to calculate');
       }
       function daysBetween(start, end) {
         return Math.round((end.getTime() - start.getTime()) / 86400000);
       }
+      function anniversary(date, year) {
+        var month = date.getUTCMonth();
+        var day = Math.min(date.getUTCDate(), new Date(Date.UTC(year, month + 1, 0)).getUTCDate());
+        return new Date(Date.UTC(year, month, day));
+      }
+      function calendarYears(start, end) {
+        var years = end.getUTCFullYear() - start.getUTCFullYear();
+        var anchor = anniversary(start, start.getUTCFullYear() + years);
+        if (anchor > end) {
+          years -= 1;
+          anchor = anniversary(start, start.getUTCFullYear() + years);
+        }
+        var next = anniversary(start, start.getUTCFullYear() + years + 1);
+        return years + daysBetween(anchor, end) / daysBetween(anchor, next);
+      }
 
       function calculate(event) {
         if (event && event.preventDefault) event.preventDefault();
         setError('');
+        resetResults();
 
         var buyDate = dateValue('buyDate');
         var sellDate = dateValue('sellDate');
@@ -350,34 +389,38 @@
 
         if (isNaN(buyDate.getTime()) || isNaN(sellDate.getTime())) return setError('Enter valid buy and sell dates.');
         if (sellDate <= buyDate) return setError('Sell date must be after buy date.');
-        if (!isFinite(costBasis) || costBasis < 0) return setError('Enter a valid cost basis.');
+        if (!isFinite(costBasis) || costBasis <= 0) return setError('This model requires a positive cost base. Zero cost base cases are unsupported.');
         if (!isFinite(saleAmount) || saleAmount < 0) return setError('Enter a valid sale amount.');
         if (transitionMarketValue !== null && (!isFinite(transitionMarketValue) || transitionMarketValue < 0)) return setError('Enter a valid 1 July 2027 market value, or leave it blank.');
         if (!isFinite(marginalTaxRate) || marginalTaxRate < 0 || marginalTaxRate > 1) return setError('Enter a marginal tax rate between 0% and 100%.');
-        if (!isFinite(averageCpi) || averageCpi < -0.10 || averageCpi > 0.20) return setError('Enter an average annual CPI between -10% and 20%.');
+        if (!isFinite(averageCpi) || averageCpi < 0 || averageCpi > 0.20) return setError('Enter an average annual CPI between 0% and 20%. Negative CPI is unsupported.');
 
-        var daysHeld = daysBetween(buyDate, sellDate);
-        var yearsHeld = daysHeld / 365.25;
-        var eligibleForDiscount = daysHeld > 365;
-        var transitionDate = new Date('2027-07-01T00:00:00');
+        var yearsHeld = calendarYears(buyDate, sellDate);
+        var eligibleForDiscount = sellDate > anniversary(buyDate, buyDate.getUTCFullYear() + 1);
+        var transitionDate = new Date('2027-07-01T00:00:00Z');
         var nominalGain = saleAmount - costBasis;
+        if (buyDate < new Date('1999-09-22T00:00:00Z')) return setError('Assets acquired on or before 21 September 1999 are outside this model (historical indexation and pre-CGT rules).');
+        if (!eligibleForDiscount) return setError('This model requires at least 12 months excluding acquisition and disposal days: sell after the first calendar anniversary. Short holdings are unsupported.');
+        if (nominalGain <= 0) return setError('Zero or negative gains are unsupported: reduced cost base and capital loss rules need a separate calculation.');
+        if (transitionMarketValue !== null && !(buyDate < transitionDate && sellDate > transitionDate)) return setError('A transition valuation is only supported for holdings straddling 1 July 2027. Leave it blank otherwise.');
+        if (transitionMarketValue !== null && (transitionMarketValue < costBasis || transitionMarketValue > saleAmount)) return setError('Transition valuation must be between cost base and sale proceeds. Loss portions are unsupported.');
         var positiveGain = Math.max(0, nominalGain);
 
         var postStart = buyDate > transitionDate ? buyDate : transitionDate;
-        var postDays = sellDate > transitionDate ? Math.max(0, daysBetween(postStart, sellDate)) : 0;
-        var preDays = Math.max(0, daysHeld - postDays);
-        var preRatio = daysHeld > 0 ? preDays / daysHeld : 0;
-        var postRatio = daysHeld > 0 ? postDays / daysHeld : 0;
-        var postYears = postDays / 365.25;
+        var preYears = buyDate >= transitionDate ? 0 : calendarYears(buyDate, sellDate < transitionDate ? sellDate : transitionDate);
+        var preRatio = preYears / yearsHeld;
+        var postYears = sellDate > postStart ? calendarYears(postStart, sellDate) : 0;
 
         var oldTaxableGain = positiveGain * (eligibleForDiscount ? 0.5 : 1);
         var oldTax = oldTaxableGain * marginalTaxRate;
 
-        var preTransitionGain = positiveGain * preRatio;
-        var postTransitionGain = positiveGain * postRatio;
+        var estimatedTransitionValue = costBasis * Math.pow(saleAmount / costBasis, preRatio);
+        if (!isFinite(estimatedTransitionValue)) return setError('Inputs exceed the supported numeric range.');
+        var preTransitionGain = estimatedTransitionValue - costBasis;
+        var postTransitionGain = saleAmount - estimatedTransitionValue;
         var newPreTaxableGain = preTransitionGain * (eligibleForDiscount ? 0.5 : 1);
         var notionalPostTransitionCostBase = costBasis + preTransitionGain;
-        var cpiExemptAmount = Math.max(0, notionalPostTransitionCostBase * averageCpi * postYears);
+        var cpiExemptAmount = notionalPostTransitionCostBase * (Math.pow(1 + averageCpi, postYears) - 1);
         var newPostTaxableGain = Math.max(0, postTransitionGain - cpiExemptAmount);
         var postTransitionTaxRate = Math.max(marginalTaxRate, 0.30);
         var newTaxableGain = newPreTaxableGain + newPostTaxableGain;
@@ -389,40 +432,58 @@
           var marketPreGain = Math.max(0, transitionMarketValue - costBasis);
           var marketPostGain = Math.max(0, saleAmount - transitionMarketValue);
           var marketPreTaxableGain = marketPreGain * (eligibleForDiscount ? 0.5 : 1);
-          var marketCpiExemptAmount = Math.max(0, transitionMarketValue * averageCpi * postYears);
+          var marketCpiExemptAmount = transitionMarketValue * (Math.pow(1 + averageCpi, postYears) - 1);
           var marketPostTaxableGain = Math.max(0, marketPostGain - marketCpiExemptAmount);
           marketTaxableGain = marketPreTaxableGain + marketPostTaxableGain;
           marketTax = (marketPreTaxableGain * marginalTaxRate) + (marketPostTaxableGain * postTransitionTaxRate);
         }
 
-        var methods = [
-          { name: 'Discount model', tax: oldTax },
-          { name: 'Time-apportionment CPI', tax: newTax }
-        ];
-        if (marketTax !== null) methods.push({ name: 'Market valuation CPI', tax: marketTax });
-        methods.sort(function (a, b) { return a.tax - b.tax; });
-        var lowerMethod = methods.length > 1 && methods[0].tax === methods[1].tax ? 'Tie' : methods[0].name;
         var timeVsDiscountDifference = newTax - oldTax;
         var marketVsTimeDifference = marketTax !== null ? marketTax - newTax : null;
-        var taxDifferenceText = 'Time vs discount: ' + money(timeVsDiscountDifference);
-        taxDifferenceText += '\nMarket vs time: ' + (marketVsTimeDifference === null ? '--' : money(marketVsTimeDifference));
+        // Check indexed bases as well as totals: clamping can hide CPI overflow as zero gain.
+        var calculationValues = [nominalGain, positiveGain, yearsHeld, preYears, preRatio, postYears,
+          oldTaxableGain, oldTax, estimatedTransitionValue, preTransitionGain, postTransitionGain,
+          newPreTaxableGain, notionalPostTransitionCostBase, cpiExemptAmount,
+          notionalPostTransitionCostBase + cpiExemptAmount, newPostTaxableGain, newTaxableGain,
+          newTax, timeVsDiscountDifference];
+        if (transitionMarketValue !== null) {
+          calculationValues = calculationValues.concat([marketPreGain, marketPostGain,
+            marketPreTaxableGain, marketCpiExemptAmount, transitionMarketValue + marketCpiExemptAmount,
+            marketPostTaxableGain, marketTaxableGain, marketTax, marketVsTimeDifference]);
+        }
+        if (!calculationValues.every(function (value) { return isFinite(value); })) {
+          return setError('Inputs exceed the supported numeric range.');
+        }
+        var taxDifferenceText = 'Compound vs hypothetical discount: ' + money(timeVsDiscountDifference);
+        taxDifferenceText += '\nValuation vs compound: ' + (marketVsTimeDifference === null ? '--' : money(marketVsTimeDifference));
 
-        setText('lowerMethod', lowerMethod);
+        setText('lowerMethod', 'Comparison only — not a tax election');
         setText('taxDifference', taxDifferenceText);
         setText('nominalGain', money(nominalGain));
         setText('oldCostBase', eligibleForDiscount ? '50% discount on whole gain' : 'No discount');
         setText('oldTaxableGain', money(oldTaxableGain));
         setText('oldTax', money(oldTax));
         setText('oldEffectiveRate', effectiveRate(oldTax, positiveGain));
-        setText('newCostBase', 'Pre ' + percent(preRatio * 100) + ' discount; post ' + percent(postRatio * 100) + ' CPI');
+        setText('newCostBase', 'Compound estimate; pre holding fraction ' + percent(preRatio * 100) + '; post CPI ' + postYears.toFixed(4) + ' years');
         setText('newTaxableGain', money(newTaxableGain));
         setText('newTax', money(newTax));
         setText('newEffectiveRate', effectiveRate(newTax, positiveGain));
+        setText('newComponents', 'Compound-growth illustration\nEstimated transition / split value: ' + money(estimatedTransitionValue) +
+          '\nPre-transition nominal gain: ' + money(preTransitionGain) + '; taxable after 50% discount: ' + money(newPreTaxableGain) +
+          '\nPost-transition nominal gain: ' + money(postTransitionGain) + '\nCPI-adjusted post-period base: ' + money(notionalPostTransitionCostBase + cpiExemptAmount) +
+          '\nPost-transition taxable gain: ' + money(newPostTaxableGain) + '; assumed post rate: ' + percent(postTransitionTaxRate * 100) +
+          '\nTax sensitivity components: pre ' + money(newPreTaxableGain * marginalTaxRate) + ' + post ' + money(newPostTaxableGain * postTransitionTaxRate) +
+          '\nRounded to whole dollars for display only; components may differ from the rounded total by $1.');
         if (marketTax !== null) {
           setText('marketTreatment', 'Market value ' + money(transitionMarketValue) + ' indexed for post-2027 CPI');
           setText('marketTaxableGain', money(marketTaxableGain));
           setText('marketTax', money(marketTax));
           setText('marketEffectiveRate', effectiveRate(marketTax, positiveGain));
+          setText('marketComponents', 'Valuation illustration\nEntered transition value: ' + money(transitionMarketValue) +
+            '\nPre-transition nominal gain: ' + money(marketPreGain) + '; taxable after 50% discount: ' + money(marketPreTaxableGain) +
+            '\nPost-transition nominal gain: ' + money(marketPostGain) + '\nCPI-adjusted post-period base: ' + money(transitionMarketValue + marketCpiExemptAmount) +
+            '\nPost-transition taxable gain: ' + money(marketPostTaxableGain) +
+            '\nTax sensitivity components: pre ' + money(marketPreTaxableGain * marginalTaxRate) + ' + post ' + money(marketPostTaxableGain * postTransitionTaxRate));
         } else {
           setText('marketTreatment', 'Enter 1 July 2027 value to calculate');
           setText('marketTaxableGain', '--');
@@ -432,6 +493,11 @@
       }
 
       form.addEventListener('submit', calculate);
+      Object.keys(blankValues).forEach(function (key) {
+        function clearEditedResults() { resetResults(); setError(''); }
+        byId(key).addEventListener('input', clearEditedResults);
+        byId(key).addEventListener('change', clearEditedResults);
+      });
       resetButton.addEventListener('click', function () {
         Object.keys(exampleValues).forEach(function (key) { byId(key).value = exampleValues[key]; });
         calculate();
