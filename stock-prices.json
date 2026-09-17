@@ -45,36 +45,36 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 224.85,
+      "price": 225.0,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.0993,
+      "price": 0.099,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.47,
-      "change": 0.46,
+      "price": 109.56,
+      "change": 0.54,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 118.3,
-      "change": 0.38,
+      "price": 118.27,
+      "change": 0.36,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 71.27,
-      "change": 0.41,
+      "price": 71.32,
+      "change": 0.48,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4326.2998,
-      "change": -0.15,
+      "price": 4327.0,
+      "change": -0.13,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 63.86,
-      "change": 0.99,
+      "price": 63.89,
+      "change": 1.03,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 104.85,
-      "change": -3.59,
+      "price": 104.72,
+      "change": -3.71,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 101.37,
-      "change": -4.21,
+      "price": 101.31,
+      "change": -4.27,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4097,
-      "change": 0.45,
+      "price": 1.41,
+      "change": 0.47,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-09-17T10:50:33.952385"
+  "lastUpdated": "2026-09-17T10:55:33.884128"
 }
