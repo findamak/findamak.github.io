@@ -45,29 +45,29 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 236.69,
+      "price": 236.15,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1057,
+      "price": 0.1059,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.64,
-      "change": 0.33,
+      "price": 109.67,
+      "change": 0.36,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 118.16,
-      "change": 0.13,
+      "price": 118.21,
+      "change": 0.17,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 60.02,
-      "change": 0.92,
+      "price": 60.03,
+      "change": 0.94,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4388.2002,
-      "change": 0.02,
+      "price": 4385.9,
+      "change": NaN,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.24,
-      "change": 3.04,
+      "price": 66.235,
+      "change": NaN,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 103.93,
-      "change": -1.8,
+      "price": 104.15,
+      "change": NaN,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 101.24,
-      "change": -1.16,
+      "price": 101.34,
+      "change": NaN,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4045,
-      "change": -0.45,
+      "price": 1.4044,
+      "change": -0.46,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-09-18T12:05:35.139174"
+  "lastUpdated": "2026-09-18T12:10:37.332213"
 }
