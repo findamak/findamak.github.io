@@ -17,7 +17,7 @@
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1152.4399,
+      "price": 1152.44,
       "change": 1.28,
       "type": "stock"
     },
@@ -39,49 +39,49 @@
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
       "price": 21.64,
-      "change": 0.98,
+      "change": 0,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 232.39,
-      "change": 4.7,
+      "price": 231.93,
+      "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1017,
-      "change": 1.44,
+      "price": 0.1016,
+      "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
       "price": 109.28,
-      "change": 0.28,
+      "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
       "price": 118.01,
-      "change": 0.14,
+      "change": 0,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
       "price": 71.13,
-      "change": 0.21,
+      "change": 0,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
       "price": 59.47,
-      "change": 0.41,
+      "change": 0,
       "type": "stock"
     },
     {
@@ -143,15 +143,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4382.5,
-      "change": -0.11,
+      "price": 4383.6001,
+      "change": -0.09,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 65.88,
-      "change": 2.48,
+      "price": 65.915,
+      "change": 2.53,
       "type": "commodity"
     },
     {
@@ -164,8 +164,8 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 101.15,
-      "change": -1.25,
+      "price": 101.16,
+      "change": -1.24,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-09-18T09:55:36.432998"
+  "lastUpdated": "2026-09-18T10:00:36.669288"
 }
