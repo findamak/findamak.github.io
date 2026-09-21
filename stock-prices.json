@@ -31,43 +31,43 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 11.3,
+      "price": 11.32,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 22.9,
-      "change": 0,
+      "price": 23.02,
+      "change": 5.02,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 265.38,
+      "price": 265.93,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1099,
+      "price": 0.1104,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.98,
-      "change": -0.36,
+      "price": 108.89,
+      "change": -0.44,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 118.04,
-      "change": -0.19,
+      "price": 118.1,
+      "change": -0.14,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 60.71,
-      "change": 0.63,
+      "price": 60.73,
+      "change": 0.66,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4406.0,
-      "change": -0.43,
+      "price": 4401.7998,
+      "change": -0.52,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 66.89,
-      "change": 0.5,
+      "price": 66.76,
+      "change": 0.31,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 99.13,
-      "change": -4.56,
+      "price": 99.19,
+      "change": -4.51,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 95.74,
-      "change": -4.55,
+      "price": 95.79,
+      "change": -4.5,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4031,
-      "change": -0.16,
+      "price": 1.4028,
+      "change": -0.18,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-09-21T10:20:36.249750"
+  "lastUpdated": "2026-09-21T10:25:33.420123"
 }
