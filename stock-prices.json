@@ -38,36 +38,36 @@
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 23.92,
-      "change": -0.04,
+      "price": 23.94,
+      "change": 0.04,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 301.98,
+      "price": 299.46,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1347,
+      "price": 0.1341,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.68,
-      "change": -0.16,
+      "price": 108.6,
+      "change": -0.23,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 118.67,
-      "change": -0.69,
+      "price": 118.68,
+      "change": -0.68,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 62.45,
-      "change": -0.78,
+      "price": 62.46,
+      "change": -0.76,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4160.7998,
-      "change": -0.18,
+      "price": 4163.0,
+      "change": -0.13,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 60.95,
-      "change": -0.44,
+      "price": 60.995,
+      "change": -0.37,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 99.91,
-      "change": -5.1,
+      "price": 99.86,
+      "change": -5.15,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 94.31,
-      "change": 1.85,
+      "price": 94.27,
+      "change": 1.8,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-09-29T15:30:36.058452"
+  "lastUpdated": "2026-09-29T15:35:33.742150"
 }
