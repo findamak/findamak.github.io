@@ -31,7 +31,7 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 12.39,
+      "price": 12.41,
       "change": 0,
       "type": "stock"
     },
@@ -45,43 +45,43 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 313.17,
+      "price": 312.38,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1216,
+      "price": 0.1219,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 107.36,
-      "change": 0.62,
+      "price": 107.38,
+      "change": 0.64,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 119.26,
-      "change": -0.43,
+      "price": 119.28,
+      "change": -0.42,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 73.7,
-      "change": 0.05,
+      "price": 73.68,
+      "change": 0.03,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 64.24,
-      "change": -0.4,
+      "price": 64.23,
+      "change": -0.42,
       "type": "stock"
     },
     {
@@ -150,22 +150,22 @@
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 61.5,
-      "change": 1.28,
+      "price": 61.52,
+      "change": 1.31,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 102.39,
-      "change": 0.08,
+      "price": 102.28,
+      "change": -0.03,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 92.69,
-      "change": -0.19,
+      "price": 92.61,
+      "change": -0.28,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-10-02T14:50:35.155836"
+  "lastUpdated": "2026-10-02T14:55:35.705787"
 }
