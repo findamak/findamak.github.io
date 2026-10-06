@@ -17,8 +17,8 @@
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1157.64,
-      "change": 1.27,
+      "price": 1157.49,
+      "change": 1.26,
       "type": "stock"
     },
     {
@@ -45,15 +45,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 303.76,
-      "change": -0.5,
+      "price": 304.49,
+      "change": -0.26,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
       "price": 0.1279,
-      "change": 1.0,
+      "change": 0.99,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4196.2998,
-      "change": 0.95,
+      "price": 4197.3999,
+      "change": 0.98,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 61.77,
-      "change": 1.48,
+      "price": 61.785,
+      "change": 1.5,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 101.12,
-      "change": 0.8,
+      "price": 101.09,
+      "change": 0.77,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 89.98,
-      "change": 0.62,
+      "price": 89.92,
+      "change": 0.55,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-10-07T07:15:34.206868"
+  "lastUpdated": "2026-10-07T07:20:34.748225"
 }
