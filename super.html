@@ -157,11 +157,11 @@
         <div class="summary-item"><span class="label">Max personal / voluntary CC age</span><span class="value">74*</span></div>
         <div class="summary-item"><span class="label">Max NCC age</span><span class="value">74*</span></div>
         <div class="summary-item"><span class="label">Max NCC bring-forward</span><span class="value">$390k</span></div>
-        <div class="summary-item"><span class="label">Low-rate lump sum cap (latest ATO-published)</span><span class="value">$260k</span></div>
+        <div class="summary-item"><span class="label">Low-rate lump sum cap (from July 2026)</span><span class="value">$260k</span></div>
         <div class="summary-item"><span class="label">Division 293 threshold</span><span class="value">$250k</span></div>
         <div class="summary-item"><span class="label">Division 296 LSBT from 2026-27</span><span class="value">$3.0m</span></div>
         <div class="summary-item"><span class="label">Division 296 VLSBT from 2026-27</span><span class="value">$10.0m</span></div>
-        <p class="summary-note">* Fund must receive personal/voluntary CCs and NCCs within 28 days after the end of the month you turn 75. Mandated employer CCs have no maximum age.</p>
+        <p class="summary-note">* Fund must receive personal/voluntary CCs and NCCs within 28 days after the end of the month you turn 75. Mandated employer CCs have no maximum age. Deductible personal contributions at ages 67–74 require the work test or exemption; acceptance of a contribution does not itself establish deductibility.</p>
       </aside>
     </div>
   </header>
@@ -171,7 +171,7 @@
       <div class="section-heading">
         <div>
           <h2>Fast summary</h2>
-          <p>The big distinction is phase: ordinary income and capital gains in accumulation are concessionally taxed, while retirement-phase assets supporting an account-based pension are generally tax-free up to the transfer balance cap.</p>
+          <p>The big distinction is phase: ordinary income and capital gains in accumulation are concessionally taxed, while earnings on assets supporting a qualifying retirement-phase pension are generally exempt from ordinary fund tax. The personal transfer balance cap limits transfers into retirement phase, not subsequent investment growth. The FY2026-27 general cap is $2.1m, but an existing pension holder’s personal cap may be lower. Division 296 is a separate member-level tax.</p>
         </div>
       </div>
       <div class="grid">
@@ -188,7 +188,7 @@
         <div class="mini-card">
           <span class="small">Pension ordinary income</span>
           <span class="big">0%</span>
-          <p class="small">For assets supporting retirement phase up to the cap.</p>
+          <p class="small">Ordinary fund tax on assets supporting a qualifying retirement-phase pension; Division 296 is separate.</p>
         </div>
       </div>
       <p class="note">Division 296 adds extra tax for high total super balances from 2026-27: 15% on earnings attributable to TSB above $3m, plus an additional 10% on earnings attributable to TSB above $10m.</p>
@@ -197,8 +197,8 @@
     <section class="card section-card">
       <div class="section-heading">
         <div>
-          <h2>Tax on super balance</h2>
-          <p>These brackets show the tax rate that applies to each tax base, not the cumulative tax across lower bands. Ordinary fund tax applies to the accumulation balance, effectively TSB minus the pension-phase amount. Division 296 uses total super balance thresholds and proportions of earnings above those thresholds. Ordinary income includes interest, dividends, distributions, and rent. Realised capital gains on assets held for less than 12 months are taxed at the ordinary income rates below; realised capital gains on assets held for 12 months or more use the long-term CGT column.</p>
+          <h2>Tax on super earnings</h2>
+          <p>These are taxes on earnings, not a tax on the balance itself. Ordinary fund tax applies to taxable accumulation earnings, not the accumulation capital balance. Ordinary income includes interest, dividends, distributions and rent; deductions, losses and tax offsets can affect the result. Eligible realised gains on assets held for at least 12 months receive the fund’s one-third CGT discount; shorter-held gains do not. Division 296 applies separately to a calculated proportion of the member’s total super earnings across funds, including pension interests.</p>
         </div>
       </div>
       <div class="table-wrap">
@@ -212,102 +212,90 @@
           </thead>
           <tbody>
             <tr>
-              <td>Pension phase balance: up to personal TBC ($2.1m general cap)</td>
+              <td>Qualifying retirement-phase pension earnings (personal TBC limits transfers, not growth)</td>
               <td><span class="positive">0%</span> fund tax</td>
               <td><span class="positive">0%</span> fund tax</td>
             </tr>
             <tr>
-              <td>Accumulation balance: TSB minus pension-phase balance</td>
+              <td>Taxable accumulation earnings</td>
               <td><span class="warning">15%</span> accumulation</td>
               <td><span class="warning">10%</span> accumulation</td>
             </tr>
             <tr>
-              <td>Division 296: TSB above $3.0m, up to $10.0m</td>
-              <td><span class="warning">15%</span> Div 296 accumulation / <span class="warning">15%</span> Div 296 pension</td>
-              <td><span class="warning">15%</span> Div 296 accumulation / <span class="warning">15%</span> Div 296 pension</td>
+              <td>Division 296: proportion above $3.0m (including balances over $10m)</td>
+              <td><span class="warning">15%</span> on the above-$3m proportion of Division 296 earnings, including pension earnings</td>
+              <td><span class="warning">15%</span> on the above-$3m proportion of Division 296 earnings, including pension earnings</td>
             </tr>
             <tr>
               <td>Division 296: TSB above $10.0m</td>
-              <td><span class="danger">10%</span> additional Div 296 accumulation / <span class="danger">10%</span> additional Div 296 pension</td>
-              <td><span class="danger">10%</span> additional Div 296 accumulation / <span class="danger">10%</span> additional Div 296 pension</td>
+              <td><span class="danger">10%</span> additionally on the above-$10m proportion of Division 296 earnings, including pension earnings</td>
+              <td><span class="danger">10%</span> additionally on the above-$10m proportion of Division 296 earnings, including pension earnings</td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
 
-    <section class="card section-card">
+    <section class="card section-card" id="division-296-modelling">
       <div class="section-heading">
         <div>
-          <h2>Modelling</h2>
-          <p>Illustrative tax on selling assets held for more than 12 months, assuming the whole TSB is a realised capital gain, the $2.1m transfer balance cap is fully used in pension phase first, and the balance remains in accumulation. Division 296 starts above the $3m large super balance threshold and is calculated by applying the relevant proportion of earnings, not by simply taxing each dollar in a marginal balance band.</p>
+          <h2>Modelling: Division 296 worked examples</h2>
+          <p>These examples isolate the additional member-level Division 296 tax. They assume <strong>$100,000 of total super earnings for Division 296 purposes</strong> in each case, already calculated and attributed across the member’s funds and interests after statutory adjustments. This is an illustrative input, not an assumed investment return, sale price or capital gain, and it does not exclude pension earnings.</p>
         </div>
       </div>
-      <div class="table-wrap">
+      <div class="mini-card">
+        <h3>Balance thresholds and earnings are separate inputs</h3>
+        <p><strong>B</strong> is the Division 296 reference total super balance; <strong>E</strong> is the member’s total super earnings for Division 296 purposes, before the threshold proportions are applied. For these positive-earnings examples:</p>
+        <ul class="source-list">
+          <li>Above-$3m percentage = max(0, (B − $3m) / B × 100), rounded to two decimal places.</li>
+          <li>Above-$10m percentage = max(0, (B − $10m) / B × 100), rounded to two decimal places.</li>
+          <li>Additional tax = E × above-$3m percentage × 15% + E × above-$10m percentage × 10% (use percentages as fractions in multiplication).</li>
+        </ul>
+        <p class="note">For FY2026-27, B is the TSB at <strong>30 June 2027</strong>. From FY2027-28, B is generally the <strong>greater of opening and closing TSB</strong>. Division 296 excludes LRBA amounts from this balance calculation. The $3m and $10m thresholds are indexed in $150,000 and $500,000 increments respectively in line with CPI; use the applicable year’s thresholds. Specific exclusions and death-year rules can alter liability.</p>
+      </div>
+      <div class="table-wrap" style="margin-top:18px">
         <table>
+          <caption style="text-align:left;padding:14px 16px">FY2026-27 examples: additional Division 296 tax only, not combined fund and member tax</caption>
           <thead>
-            <tr>
-              <th>Total super balance</th>
-              <th>Pension phase used</th>
-              <th>Tax calculation</th>
-              <th>Total tax paid</th>
-              <th>Effective tax on TSB</th>
-            </tr>
+            <tr><th>Reference TSB (B)</th><th>Division 296 earnings (E)</th><th>Above-threshold proportions</th><th>Additional tax calculation</th><th>Division 296 tax</th></tr>
           </thead>
           <tbody>
-            <tr>
-              <td>$3.0m</td>
-              <td>$2.1m at <span class="positive">0%</span></td>
-              <td>$0.9m accumulation gain x <span class="warning">10%</span> long-term CGT; no Division 296 at exactly $3.0m TSB</td>
-              <td><span class="warning">$90k</span></td>
-              <td>3.0%</td>
+            <tr data-reference-tsb="3000000" data-earnings="100000" data-tax="0">
+              <td>$3.0m</td><td>$100,000</td><td>Above $3m: 0.00%<br>Above $10m: 0.00%</td>
+              <td>No Division 296 at exactly $3m reference TSB.</td><td><span class="positive">$0</span></td>
             </tr>
-            <tr>
-              <td>$10.0m</td>
-              <td>$2.1m at <span class="positive">0%</span></td>
-              <td>
-                <ul>
-                  <li>Pension phase: $2.1m at <span class="positive">0%</span></li>
-                  <li>Accumulation gain: $7.9m</li>
-                  <li>Long-term CGT: $7.9m × <span class="warning">10%</span> = $790k</li>
-                  <li>Discounted taxable gain / earnings base: $7.9m × 2/3 = $5.27m</li>
-                  <li>Above-$3m proportion: ($10m − $3m) / $10m = 70%</li>
-                  <li>Division 296: $5.27m × 70% × 15% = $553k</li>
-                  <li>Total: $790k + $553k = $1.343m</li>
-                </ul>
-              </td>
-              <td><span class="warning">$1.343m</span></td>
-              <td>13.4%</td>
+            <tr data-reference-tsb="10000000" data-earnings="100000" data-tax="10500">
+              <td>$10.0m</td><td>$100,000</td><td>Above $3m: 70.00%<br>Above $10m: 0.00%</td>
+              <td>$100,000 × 70% × 15%</td><td><span class="warning">$10,500</span></td>
             </tr>
-            <tr>
-              <td>$20.0m</td>
-              <td>$2.1m at <span class="positive">0%</span></td>
-              <td>
-                <ul>
-                  <li>Pension phase: $2.1m at <span class="positive">0%</span></li>
-                  <li>Accumulation gain: $17.9m</li>
-                  <li>Long-term CGT: $17.9m × <span class="warning">10%</span> = $1.79m</li>
-                  <li>Discounted taxable gain / earnings base: $17.9m × 2/3 = $11.93m</li>
-                  <li>Above-$3m proportion: ($20m − $3m) / $20m = 85%</li>
-                  <li>Above-$10m proportion: ($20m − $10m) / $20m = 50%</li>
-                  <li>Division 296: ($11.93m × 85% × 15%) + ($11.93m × 50% × 10%) = $2.12m</li>
-                  <li>Total: $1.79m + $2.12m = $3.91m</li>
-                </ul>
-              </td>
-              <td><span class="danger">$3.91m</span></td>
-              <td>19.5%</td>
+            <tr data-reference-tsb="20000000" data-earnings="100000" data-tax="17750">
+              <td>$20.0m</td><td>$100,000</td><td>Above $3m: 85.00%<br>Above $10m: 50.00%</td>
+              <td>($100,000 × 85% × 15%) + ($100,000 × 50% × 10%)</td><td><span class="danger">$17,750</span></td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="note">This deliberately simplifies real life and treats the discounted taxable capital gain as the Division 296 earnings base. Actual tax depends on cost base, realised gain amount, personal transfer balance cap, timing, losses, fund expenses, and how Division 296 earnings are assessed.</p>
+      <p class="note">These are not estimates of total tax on selling a portfolio. Ordinary fund tax is separate. Actual realised gains depend on sale proceeds and cost base, not TSB; the pension/accumulation allocation, losses, expenses and applicable CGT adjustments must also be established. A $2.1m general transfer cap does not imply that the current pension balance is $2.1m. No pension balance or ordinary fund-tax amount is inferred in these examples.</p>
+      <div class="mini-card" style="margin-top:18px">
+        <h3>Why pension earnings are not simply excluded</h3>
+        <p>Division 296 fund earnings are an adjusted tax measure, not merely the fund’s taxable accumulation income. Section 296-60 adds <strong>net exempt current pension income</strong> and adjusts the treatment of pension-asset capital gains. Funds calculate and attribute relevant earnings to members; the ATO combines those amounts before applying the balance proportions. The 15% and 10% additional rates in the table above apply to that statutory earnings base, not directly to undiscounted sale proceeds or gross capital gains.</p>
+      </div>
+      <div class="mini-card" style="margin-top:18px">
+        <h3>Transitional CGT adjustments: fund type matters</h3>
+        <ul class="source-list">
+          <li><strong>SMSFs and small APRA funds:</strong> an election can use <strong>30 June 2026 market value</strong> for the first element of eligible assets’ cost bases/reduced cost bases for Division 296 purposes, with other pre-existing elements reset to nil. The election applies to all eligible CGT assets held at that date, must be made by the due date of the fund’s FY2026-27 annual return, and cannot be revoked. Direct ownership and limited look-through rules apply.</li>
+          <li><strong>Large APRA funds:</strong> net capital gains are multiplied by <strong>0.2, 0.4, 0.6 and 0.8</strong> for FY2026-27, FY2027-28, FY2028-29 and FY2029-30 respectively when working out Division 296 earnings. No further phase-in adjustment applies after FY2029-30.</li>
+          <li>These adjustments are for <strong>Division 296 only</strong>, not a reset of ordinary fund CGT. The $100,000 earnings input above is assumed to be the final attributed amount <strong>after</strong> any applicable adjustment; do not apply the CGT discount or phase-in multiplier to it again.</li>
+        </ul>
+        <p class="note">See the current ATO calculation guide, SMSF/APRA guidance and legislation linked below. An actual sale model needs fund-specific inputs and, where required, actuarial attribution; the examples deliberately do not substitute a guessed earnings base.</p>
+      </div>
     </section>
 
     <section class="card section-card">
       <div class="section-heading">
         <div>
           <h2>Contribution caps</h2>
-          <p>For FY2026-27, concessional contributions are capped at $32,500 and are generally taxed at 15% in the fund. Non-concessional contributions are capped at $130,000 annually, with bring-forward access based on total super balance immediately before the financial year.</p>
+          <p>For FY2026-27, concessional contributions are capped at $32,500 and are generally taxed at 15% in the fund. Non-concessional contributions are capped at $130,000 annually, with bring-forward access based on total super balance immediately before the financial year (30 June 2026 for FY2026-27). These bring-forward bands assume you are eligible to start a new arrangement; an existing bring-forward arrangement does not automatically reset to the new caps.</p>
         </div>
       </div>
       <div class="table-wrap">
@@ -358,6 +346,7 @@
           </tbody>
         </table>
       </div>
+      <p class="note"><strong>Contributing is not the same as claiming a deduction.</strong> At ages 67–74, a deduction for personal super contributions requires the work test or exemption. Non-concessional personal contributions and salary-sacrifice contributions do not have that same work-test requirement. To claim a personal deduction, provide a valid notice of intent and receive the fund’s acknowledgement within the applicable deadlines, before commencing a pension or making a rollover/withdrawal that invalidates the notice. Age and receipt-window restrictions still apply.</p>
     </section>
 
     <section class="card section-card">
@@ -383,19 +372,19 @@
               <td>Taxed element is generally <span class="positive">tax-free</span> / non-assessable non-exempt.</td>
             </tr>
             <tr>
-              <td>Preservation age to 59</td>
-              <td>Tax-free component is tax-free. Taxable component, taxed element: <span class="positive">0%</span> up to the $260k lifetime low-rate cap; <span class="warning">15%</span> above cap, plus Medicare levy. The $260k cap is the latest ATO-published amount and is shown as the 2025-26 figure pending any later indexed update.</td>
+              <td>Historical treatment: preservation age to 59</td>
+              <td>Tax-free component is tax-free. Taxable component, taxed element: <span class="positive">0%</span> up to the applicable remaining lifetime low-rate cap; <span class="warning">up to 15%</span> above the applicable cap, plus Medicare levy where applicable. The ATO confirms a $260k low-rate cap from 1 July 2026; for historical payments, use the cap applicable in that year.</td>
               <td>Tax-free component is tax-free. Taxable component, taxed element: marginal rates with a <span class="positive">15%</span> tax offset.</td>
             </tr>
             <tr>
               <td>Under preservation age</td>
-              <td>Tax-free component is tax-free. Taxable component, taxed element: <span class="danger">20%</span> plus Medicare levy.</td>
+              <td>Tax-free component is tax-free. Taxable component, taxed element: <span class="danger">up to 20%</span> plus Medicare levy where applicable.</td>
               <td>Tax-free component is tax-free. Taxable component, taxed element: marginal rates with no tax offset. A narrow exception allows a 15% tax offset if the income stream is a disability super benefit.</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <p class="note">Untaxed schemes, defined benefit pensions, death benefits, temporary residents, disability super benefits, and excess contribution releases can have different tax treatment. The low-rate cap is listed at $260k because that is the latest ATO-published amount; revisit when the 2026-27 indexed amount is published.</p>
+      <p class="note">Untaxed schemes, defined benefit pensions, death benefits, temporary residents, disability super benefits, and excess contribution releases can have different tax treatment. The rates above are maximum rates for the specified taxable elements, not necessarily flat rates. The preservation-age-to-59 row is historical for ordinary member benefits: everyone born from 1 July 1964 has preservation age 60, so it is not a current FY2026-27 age band.</p>
     </section>
 
     <section class="card section-card">
@@ -454,12 +443,12 @@
         <div class="mini-card">
           <span class="small">Taxable component — taxed element</span>
           <span class="big warning">Up to 17%</span>
-          <p>This commonly includes employer and salary-sacrifice contributions, deductible personal contributions and fund earnings. A lump sum to an independent adult child is generally taxed at 15% plus Medicare levy.</p>
+          <p>This commonly includes employer and salary-sacrifice contributions, deductible personal contributions and fund earnings. A lump sum to an independent adult child is taxed at up to 15% plus Medicare levy where applicable.</p>
         </div>
         <div class="mini-card">
           <span class="small">Taxable component — untaxed element</span>
           <span class="big danger">Up to 32%</span>
-          <p>This can arise in particular from insurance proceeds or untaxed funds. A lump sum to an independent adult child can generally be taxed at 30% plus Medicare levy.</p>
+          <p>This can arise in particular from insurance proceeds or untaxed funds. A lump sum to an independent adult child can be taxed at up to 30% plus Medicare levy where applicable.</p>
         </div>
       </div>
 
@@ -476,11 +465,11 @@
             <tr>
               <td>Tax dependant</td>
               <td><span class="positive">Generally tax-free</span>, including both tax-free and taxable components.</td>
-              <td>A spouse or de facto spouse, child under 18, financially dependent person, or a person in an interdependency relationship can be a tax dependant. An adult child can also qualify if financially dependent or interdependent at death.</td>
+              <td>A spouse or de facto spouse, a former spouse or former de facto spouse, child under 18, financially dependent person, or a person in an interdependency relationship can be a tax dependant. An adult child can also qualify if financially dependent or interdependent at death.</td>
             </tr>
             <tr>
               <td>Independent adult child</td>
-              <td>Tax-free component: <span class="positive">0%</span>. Taxed element: generally <span class="warning">15% + Medicare levy</span>. Untaxed element: generally <span class="danger">30% + Medicare levy</span>.</td>
+              <td>Tax-free component: <span class="positive">0%</span>. Taxed element: <span class="warning">up to 15% + Medicare levy</span>. Untaxed element: <span class="danger">up to 30% + Medicare levy</span>. Medicare levy applies where applicable.</td>
               <td>A financially independent adult child is usually not a tax dependant. Ask the fund for the component breakdown; it is not normally prominent on regular statements.</td>
             </tr>
             <tr>
@@ -504,7 +493,7 @@
         </div>
         <div class="mini-card">
           <span class="small">3. Withdraw before death</span>
-          <p>Once lawfully withdrawn, money is outside the super death-benefit system and forms part of the estate under the will. This may avoid super death-benefit tax for an independent adult child, but only if the member can access the money while alive.</p>
+          <p>Once lawfully withdrawn, money is outside the super death-benefit system and may form part of the estate, depending on ownership and subsequent arrangements; it does not automatically pass under the will. This may avoid super death-benefit tax for an independent adult child, but only if the member can access the money while alive.</p>
           <p class="note">Cashing out early can forfeit super's concessional tax treatment and may affect Centrelink, asset protection, investment structure and estate outcomes. It is not a simple last-minute strategy.</p>
         </div>
       </div>
@@ -516,23 +505,29 @@
       <div class="section-heading">
         <div>
           <h2>Sources and caveats</h2>
-          <p>This page is a compact reference, not personal tax or financial advice. Check the current ATO guidance and your own personal transfer balance cap before acting. Division 296 applies from the 2026-27 financial year onwards.</p>
+          <p>Reviewed <strong>16 October 2026</strong> against the official sources below. This page is a compact reference, not personal tax or financial advice. Check current ATO guidance and your own personal transfer balance cap before acting. Division 296 applies from FY2026-27. The worked examples illustrate the additional member-level tax only; they are not sale-tax estimates. The current guidance below replaces the earlier newsroom link and historical 2023 consultation as the basis for these examples.</p>
         </div>
       </div>
       <ul class="source-list">
-        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/transfer-balance-cap" rel="noopener" target="_blank">ATO transfer balance cap</a></li>
-        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/contributions-caps" rel="noopener" target="_blank">ATO contribution caps</a></li>
-        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/payments-from-super" rel="noopener" target="_blank">ATO payments from super, including death-benefit lump-sum rates</a></li>
-        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-income-stream-tax-tables" rel="noopener" target="_blank">ATO super income stream tax tables</a></li>
-        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/division-293-tax" rel="noopener" target="_blank">ATO Division 293 tax</a></li>
-        <li><a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf/smsf-newsroom/better-targeted-super-concessions-is-law" rel="noopener" target="_blank">ATO Better Targeted Super Concessions is law</a></li>
-        <li><a href="https://treasury.gov.au/consultation/c2023-443986" rel="noopener" target="_blank">Treasury Better Targeted Superannuation Concessions / Division 296 consultation history</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/transfer-balance-cap" rel="noopener" target="_blank">ATO: transfer balance cap</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/contributions-caps" rel="noopener" target="_blank">ATO: contribution caps</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/payments-from-super" rel="noopener" target="_blank">ATO: payments from super, maximum tax rates and pension minimums</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/super-income-stream-tax-tables" rel="noopener" target="_blank">ATO: income-stream tax tables</a></li>
+        <li><a href="https://www.ato.gov.au/tax-rates-and-codes/key-superannuation-rates-and-thresholds/division-293-tax" rel="noopener" target="_blank">ATO: Division 293</a></li>
+        <li><a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/growing-and-keeping-track-of-your-super/caps-limits-and-tax-on-super-contributions/division-296-tax/division-296-tax-on-large-super-balances" rel="noopener" target="_blank">ATO: Division 296 scope, thresholds and indexation</a></li>
+        <li><a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/growing-and-keeping-track-of-your-super/caps-limits-and-tax-on-super-contributions/division-296-tax/how-division-296-tax-is-calculated" rel="noopener" target="_blank">ATO: Division 296 calculations and reference dates</a></li>
+        <li><a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/self-managed-super-funds-smsf/smsf-administration-and-reporting/about-division-296-tax-for-smsfs" rel="noopener" target="_blank">ATO: SMSF earnings attribution and transitional CGT election</a></li>
+        <li><a href="https://www.ato.gov.au/tax-and-super-professionals/for-superannuation-professionals/apra-regulated-funds/managing-member-benefits/taxation-of-member-super-benefits/about-division-296-tax-for-apra-funds" rel="noopener" target="_blank">ATO: APRA funds and transitional CGT treatment</a></li>
+        <li><a href="https://www.legislation.gov.au/C2026A00008/asmade/2026-03-13/text/original/epub/OEBPS/document_1/document_1.html" rel="noopener" target="_blank">Legislation: 2026 amending Act — section 296-60 fund earnings</a></li>
+        <li><a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/growing-and-keeping-track-of-your-super/how-to-save-more-in-your-super/personal-super-contributions" rel="noopener" target="_blank">ATO: personal contributions, work test and deduction notices</a></li>
+        <li><a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/withdrawing-and-using-your-super/retirement-withdrawal-lump-sum-or-income-stream" rel="noopener" target="_blank">ATO: pension commencement, transfers and withdrawal rules</a></li>
+        <li><a href="https://www.ato.gov.au/individuals-and-families/super-for-individuals-and-families/super/withdrawing-and-using-your-super/superannuation-death-benefits" rel="noopener" target="_blank">ATO: death benefits and tax dependants</a></li>
       </ul>
     </section>
   </main>
 
   <footer>
-    <p>Australian superannuation tax reference for FY2026-27. Verify against ATO guidance before using for decisions.</p>
+    <p>Australian superannuation tax reference for FY2026-27. Reviewed 16 October 2026. Verify against current ATO guidance before using for decisions.</p>
   </footer>
 </body>
 </html>
