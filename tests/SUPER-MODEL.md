@@ -15,6 +15,12 @@ The displayed figures are additional member tax only. They do not infer cost bas
 
 For a future full sale-tax calculator, specify actual gains, fund type, pension/accumulation allocation, SMSF transitional election or APRA phase-in, expenses/losses, member attribution and reference TSB separately. Avoid reinstating a combined tax total based only on total balance.
 
+## Separate pension sale example
+
+`#pension-sale-example` retains the threshold examples and separately derives earnings for a hypothetical single-member SMSF wholly supporting a compliant retirement-phase pension. Sale proceeds $1,200,000 less original cost base $600,000 gives a $600,000 gain fully covered by the ordinary pension exemption: $0 ordinary fund CGT. A valid transitional election supplies a $900,000 Division 296 cost base; the resulting $300,000 gain is discounted by one-third to $200,000. With no other adjustments and all earnings attributed to this member, reference TSB $10m gives 70% × 15% × $200,000 = $21,000 additional tax. No above-$10m charge applies at exactly $10m. The closing reference TSB is a separately specified input after transactions, not derived from the sale.
+
+Assumptions explicitly cover ownership/holding period, election, pension compliance, actuarial requirements, absence of other earnings/losses/contributions/expenses, and absence of individual exclusions. This is not the large-APRA phase-in or a universal sale-tax calculator. The test independently computes each step and checks the corresponding displayed row.
+
 ## Sources and maintenance
 
 The page links directly to current ATO guidance on reference balances, SMSF/APRA adjustments, personal contributions, pension rules and withdrawal/death-benefit rates, plus the 2026 amending Act (section 296-60). Review date: 16 October 2026. Check official guidance before updating annual thresholds or extending the model to another year; thresholds are not permanently fixed.

@@ -77,6 +77,24 @@ class SuperReferenceTests(unittest.TestCase):
         self.assertNotIn('<th>Long-term', additional)
         self.assertIn('30 June 2027', additional)
 
+    def test_pension_sale_example(self):
+        self.assertTrue('id="pension-sale-example"' in self.html, 'Missing pension sale example')
+        section = self.html.split('id="pension-sale-example"')[1].split('</section>')[0]
+        sale, original, reset = map(Decimal, ['1200000', '600000', '900000'])
+        ordinary_gain = sale - original
+        adjusted_gain = sale - reset
+        earnings = adjusted_gain * Decimal(2) / Decimal(3)
+        tax = earnings * Decimal('.70') * Decimal('.15')
+        self.assertEqual(ordinary_gain, Decimal('600000'))
+        self.assertEqual(adjusted_gain, Decimal('300000'))
+        self.assertEqual(earnings, Decimal('200000'))
+        self.assertEqual(tax, Decimal('21000'))
+        for label, amount in [('ordinary-gain', ordinary_gain), ('div296-gain', adjusted_gain), ('div296-earnings', earnings), ('ordinary-tax', Decimal(0)), ('div296-tax', tax), ('combined-tax', tax)]:
+            row = section.split('data-sale-step="' + label + '"')[1].split('</tr>')[0]
+            self.assertTrue('$' + format(int(amount), ',') in row, label)
+        for text in ['single-member SMSF', '30 June 2027', 'valid transitional CGT election', 'no other earnings', 'at least 12 months', 'not an extra tax on the $10m balance', 'not the large-APRA-fund phase-in']:
+            self.assertTrue(text in section, text)
+
     def test_current_sources(self):
         for suffix in ['how-division-296-tax-is-calculated', 'about-division-296-tax-for-smsfs', 'about-division-296-tax-for-apra-funds', 'personal-super-contributions', 'superannuation-death-benefits']:
             self.assertTrue(any(h.endswith(suffix) for h in self.page.links), suffix)
