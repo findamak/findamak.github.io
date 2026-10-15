@@ -63,6 +63,20 @@ class SuperReferenceTests(unittest.TestCase):
         for wording in ['not subsequent investment growth', 'net exempt current pension income', '30 June 2027', 'greater of opening and closing', '30 June 2026 market value', '0.2, 0.4, 0.6 and 0.8', 'work test or exemption', 'Historical treatment', 'former spouse', 'may form part of the estate', '16 October 2026', 'existing bring-forward arrangement', 'not a tax on the balance itself']:
             self.assertIn(wording, self.html)
 
+    def test_separate_tax_tables(self):
+        self.assertIn('<h2>Tax on super</h2>', self.html)
+        self.assertIn('Ordinary fund tax: depends on the account phase', self.html)
+        self.assertIn('Additional Division 296 tax: depends on total super balance', self.html)
+        self.assertIn('Accumulation tax does not start at $2.1m or stop at $3m.', self.html)
+        self.assertIn('not a tax-free balance band', self.html)
+        self.assertIn('href="#division-296-modelling"', self.html)
+        section = self.html.split('<h2>Tax on super</h2>')[1].split('</section>')[0]
+        self.assertEqual(section.count('<table>'), 2)
+        ordinary, additional = section.split('<table>')[1:]
+        self.assertNotIn('proportion above $3.0m', ordinary)
+        self.assertNotIn('<th>Long-term', additional)
+        self.assertIn('30 June 2027', additional)
+
     def test_current_sources(self):
         for suffix in ['how-division-296-tax-is-calculated', 'about-division-296-tax-for-smsfs', 'about-division-296-tax-for-apra-funds', 'personal-super-contributions', 'superannuation-death-benefits']:
             self.assertTrue(any(h.endswith(suffix) for h in self.page.links), suffix)
