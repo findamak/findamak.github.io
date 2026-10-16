@@ -60,7 +60,7 @@ class SuperReferenceTests(unittest.TestCase):
             self.assertNotIn(obsolete, self.html)
 
     def test_essential_qualifications(self):
-        for wording in ['not subsequent investment growth', 'net exempt current pension income', '30 June 2027', 'greater of opening and closing', '30 June 2026 market value', '0.2, 0.4, 0.6 and 0.8', 'work test or exemption', 'Historical treatment', 'former spouse', 'may form part of the estate', '16 October 2026', 'existing bring-forward arrangement', 'not a tax on the balance itself']:
+        for wording in ['not subsequent investment growth', 'net exempt current pension income', '30 June 2027', 'greater of opening and closing', '30 June 2026 market value', '0.2, 0.4, 0.6 and 0.8', 'work test or exemption', 'Historical treatment', 'former spouse', 'may form part of the estate', '16 October 2026', 'existing bring-forward arrangement', 'These taxes apply to income and realised capital gains, subject to the relevant exemptions and adjustments—not to the super balance itself.', 'For Division 296, total super balance determines what proportion of the statutory earnings base is subject to additional tax.']:
             self.assertIn(wording, self.html)
 
     def test_separate_tax_tables(self):
