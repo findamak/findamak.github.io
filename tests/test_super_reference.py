@@ -84,14 +84,28 @@ class SuperReferenceTests(unittest.TestCase):
         ordinary_gain = sale - original
         adjusted_gain = sale - reset
         earnings = adjusted_gain * Decimal(2) / Decimal(3)
-        tax = earnings * Decimal('.70') * Decimal('.15')
+        balance, pension = Decimal('10000000'), Decimal('2100000')
+        accumulation_share = (balance - pension) / balance
+        above3 = max(Decimal(0), (balance - Decimal('3000000')) / balance)
+        above10 = max(Decimal(0), (balance - Decimal('10000000')) / balance)
+        tax = earnings * (above3 * Decimal('.15') + above10 * Decimal('.10'))
+        ordinary_tax = ordinary_gain * accumulation_share * Decimal('.10')
+        combined = ordinary_tax + tax
+        self.assertEqual(above10, 0)
+        self.assertEqual(ordinary_tax, Decimal('47400'))
+        self.assertEqual(combined, Decimal('68400'))
+        self.assertEqual(combined / ordinary_gain * 100, Decimal('11.4'))
         self.assertEqual(ordinary_gain, Decimal('600000'))
         self.assertEqual(adjusted_gain, Decimal('300000'))
         self.assertEqual(earnings, Decimal('200000'))
         self.assertEqual(tax, Decimal('21000'))
-        for label, amount in [('ordinary-gain', ordinary_gain), ('div296-gain', adjusted_gain), ('div296-earnings', earnings), ('ordinary-tax', Decimal(0)), ('div296-tax', tax), ('combined-tax', tax)]:
+        for label, amount in [('ordinary-gain', ordinary_gain), ('div296-gain', adjusted_gain), ('div296-earnings', earnings), ('ordinary-tax', ordinary_tax), ('div296-tax', tax), ('combined-tax', combined)]:
             row = section.split('data-sale-step="' + label + '"')[1].split('</tr>')[0]
             self.assertTrue('$' + format(int(amount), ',') in row, label)
+        rate_row = section.split('data-sale-step="effective-rate"')[1].split('</tr>')[0]
+        self.assertIn('11.4%', rate_row)
+        for text in ['$2,100,000', '$7,900,000', '21% pension-exempt', '79% taxable', 'not automatically', '10% effective rate', '7.9%', '3.5%']:
+            self.assertIn(text, section)
         for text in ['single-member SMSF', '30 June 2027', 'valid transitional CGT election', 'no other earnings', 'at least 12 months', 'not an extra tax on the $10m balance', 'not the large-APRA-fund phase-in']:
             self.assertTrue(text in section, text)
 

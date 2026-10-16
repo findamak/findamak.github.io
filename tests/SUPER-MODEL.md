@@ -17,9 +17,13 @@ For a future full sale-tax calculator, specify actual gains, fund type, pension/
 
 ## Separate pension sale example
 
-`#pension-sale-example` retains the threshold examples and separately derives earnings for a hypothetical single-member SMSF wholly supporting a compliant retirement-phase pension. Sale proceeds $1,200,000 less original cost base $600,000 gives a $600,000 gain fully covered by the ordinary pension exemption: $0 ordinary fund CGT. A valid transitional election supplies a $900,000 Division 296 cost base; the resulting $300,000 gain is discounted by one-third to $200,000. With no other adjustments and all earnings attributed to this member, reference TSB $10m gives 70% × 15% × $200,000 = $21,000 additional tax. No above-$10m charge applies at exactly $10m. The closing reference TSB is a separately specified input after transactions, not derived from the sale.
+`#pension-sale-example` derives earnings for a hypothetical single-member mixed SMSF: closing reference TSB $10m consists of $2.1m pension and $7.9m accumulation. Separately assume the properly calculated annual exemption is 21%, with 79% taxable; do not infer the annual actuarial exemption from closing balances alone. The pooled asset supports both interests.
 
-Assumptions explicitly cover ownership/holding period, election, pension compliance, actuarial requirements, absence of other earnings/losses/contributions/expenses, and absence of individual exclusions. This is not the large-APRA phase-in or a universal sale-tax calculator. The test independently computes each step and checks the corresponding displayed row.
+Sale proceeds $1,200,000 less original cost base $600,000 gives a $600,000 gain. Ordinary fund CGT is $600,000 × 79% × 10% = $47,400. The 10% effective rate includes the one-third discount (equivalently, gain × 2/3 × 79% × 15%); never discount again before applying 10%.
+
+A valid transitional election supplies a $900,000 Division 296 cost base; the resulting $300,000 gain is discounted by one-third to $200,000. With no other adjustments and all earnings attributed to this member, reference TSB $10m gives 70% × 15% × $200,000 = $21,000 additional tax. The earnings base includes both pension and accumulation, so it is not multiplied by 79%. No above-$10m charge applies at exactly $10m. Combined tax is $68,400, or 11.4% of the original $600,000 gain (7.9% ordinary tax plus 3.5% Division 296). This is not a universal rate or tax on sale proceeds.
+
+The closing reference TSB is independently specified after transactions, not derived from the sale. Assumptions cover ownership/holding period, election, pension compliance, actuarial requirements, absence of other earnings/losses/contributions/expenses, and absence of individual exclusions. This is not the large-APRA phase-in. Tests independently derive tax proportions and outputs and check the displayed rows.
 
 ## Sources and maintenance
 
