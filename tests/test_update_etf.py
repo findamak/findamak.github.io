@@ -14,6 +14,24 @@ def module():
 
 
 class ETFTests(unittest.TestCase):
+    def test_ndq_full_september_date_is_not_corrupted(self):
+        m = module()
+        # Excerpts fetched from the NDQ issuer page on 16 October 2026.
+        text = ('Since inception p.a. 19.87% 20.28% Inception date 26-May-15 '
+                '* As at 30 September 2026. '
+                '12 mth distribution yield* 1.4% *As at 30 September 2026.')
+        performance, yield_metric = m.parse_ndq(text, 'https://www.betashares.com.au/fund/nasdaq-100-etf/')
+        self.assertEqual(performance['value'], 19.87)
+        self.assertEqual(yield_metric['value'], 1.4)
+        self.assertEqual(performance['as_of'], '2026-09-30')
+        self.assertEqual(yield_metric['as_of'], '2026-09-30')
+
+    def test_september_abbreviations_remain_supported(self):
+        m = module()
+        for value in ('30-Sept-2026', '30-Sep-2026', '30 September 2026'):
+            with self.subTest(value=value):
+                self.assertEqual(m.source_date(value), '2026-09-30')
+
     def test_issuer_parsers_select_nav_and_p_a(self):
         m = module()
         self.assertTrue(hasattr(m, 'parse_gs'), 'additional issuer parsers missing')

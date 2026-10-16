@@ -276,7 +276,8 @@ def match(pattern, text):
 
 
 def source_date(value):
-    value = value.replace('Sept', 'Sep').strip()
+    # Normalize only the abbreviated month, never the prefix of September.
+    value = re.sub(r'\bSept\b', 'Sep', value).strip()
     for fmt in ('%Y-%m-%d', '%m/%d/%Y', '%d-%b-%Y', '%d %B %Y'):
         try:
             return datetime.strptime(value[:10] if fmt == '%Y-%m-%d' else value, fmt).date().isoformat()

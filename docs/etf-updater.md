@@ -85,6 +85,25 @@ performance numbers differ in currency and period and are not directly comparabl
 - If the scheduler never runs or Git push itself fails, a static page cannot
   display the new failure; check the cron log and last successful refresh age.
 
+## September date parsing regression (16 October 2026)
+
+The NDQ issuer supplied the valid date `30 September 2026`. Our date parser's
+unbounded `replace('Sept', 'Sep')` corrupted it to `30 Sepember 2026`, causing
+NDQ validation to fail and correctly retaining all prior figures. This was a
+local parsing bug, not an issuer typo or a cron scheduling failure.
+
+Normalization now matches only the standalone `Sept` abbreviation; full
+`September` is preserved. Regression tests use live NDQ performance/yield
+excerpts and cover full September plus the existing hyphenated `Sept`/`Sep`
+formats. Both new tests reproduced the error before the fix. The wrapper's
+`--check` passed all 13 tests afterward, including atomic failure retention.
+A direct `/usr/bin/python3 scripts/update_etf.py` then fetched all 12 issuers
+successfully (23 numeric metrics plus the verified IBTC policy), updating only
+local `etf.html`. NDQ returned 19.87% inception annualized performance and 1.40%
+12-month distribution yield, both dated 30 September 2026. Publication remains
+a separate commit/push step; no source substitutions or freshness exceptions
+were introduced.
+
 ## First real execution
 
 On 18 September 2026 the live refresh verified 12/12, including both Monochrome
