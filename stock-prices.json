@@ -38,36 +38,36 @@
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 23.83,
-      "change": 0.08,
+      "price": 23.88,
+      "change": 0.29,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 271.27,
+      "price": 271.54,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.1018,
+      "price": 0.102,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 108.73,
-      "change": -0.12,
+      "price": 108.8,
+      "change": -0.06,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 117.69,
-      "change": -0.73,
+      "price": 117.72,
+      "change": -0.71,
       "type": "stock"
     },
     {
@@ -80,8 +80,8 @@
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.5,
-      "change": -2.05,
+      "price": 61.56,
+      "change": -1.96,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4191.7002,
-      "change": 0.25,
+      "price": 4194.6001,
+      "change": 0.32,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 57.49,
-      "change": 0.87,
+      "price": 57.56,
+      "change": 0.99,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 108.01,
-      "change": -1.68,
+      "price": 107.93,
+      "change": -1.76,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 97.62,
-      "change": -3.74,
+      "price": 97.64,
+      "change": -3.72,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-10-19T12:50:34.960107"
+  "lastUpdated": "2026-10-19T12:55:34.177179"
 }
