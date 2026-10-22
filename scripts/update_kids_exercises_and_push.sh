@@ -1,58 +1,74 @@
 #!/usr/bin/env bash
-# Cron-safe daily refresh for Chiara and Cooper's learning exercises.
-# Chiara's rotations prioritise numeracy, spelling, grammar, and punctuation.
-
+# Existing OS cron schedule is unchanged: Tue/Thu 01:00 Australia/Sydney.
 set -euo pipefail
+export HOME=/home/amak
+export HERMES_HOME=/home/amak/.hermes
+export PATH=/home/amak/.local/bin:/usr/local/bin:/usr/bin:/bin
+export GIT_TERMINAL_PROMPT=0
+export GIT_SSH_COMMAND='ssh -o BatchMode=yes -o ConnectTimeout=20'
 
-REPO_DIR="/home/amak/findamak.github.io"
-PYTHON="/usr/bin/python3"
-LOCK_FILE="/tmp/findamak-kids-exercises-update.lock"
-
-export HOME="/home/amak"
-export PATH="/usr/local/bin:/usr/bin:/bin:/home/amak/.local/bin"
-
-exec 9>"${LOCK_FILE}"
+# Bound the entire fetch/generate/publish job, not just the model request.
+if [[ "${1:-}" != --bounded ]]; then
+  exec timeout --kill-after=10s 600 bash "$0" --bounded
+fi
+REPO_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$REPO_DIR"
+LOCK_FILE="$(git rev-parse --absolute-git-dir)/kids-exercises-update.lock"
+exec 9>"$LOCK_FILE"
 if ! flock -n 9; then
-  echo "$(date -Is) another kids exercise update is already running; exiting"
+  echo "$(date -Is) another kids exercise update is running; exiting"
   exit 0
 fi
-
-cd "${REPO_DIR}"
-echo "$(date -Is) starting kids exercise update"
-
-git pull --ff-only
-"${PYTHON}" scripts/update_kids_exercises.py
-
-# Guard the legacy iPad compatibility contract before publishing.
-"${PYTHON}" - <<'PY'
-from pathlib import Path
-import json, re
-for page in ('chiara.html', 'cooper.html'):
-    html = Path(page).read_text(encoding='utf-8')
-    scripts = '\n'.join(re.findall(r'<script>(.*?)</script>', html, flags=re.S))
-    match = re.search(r'var exercises = (\[.*?\]);', scripts, flags=re.S)
-    if not match:
-        raise SystemExit(page + ': missing exercises array')
-    if len(json.loads(match.group(1))) != 10:
-        raise SystemExit(page + ': expected 10 exercises')
-    forbidden = ('const ', 'let ', '=>', '`', 'classList', 'forEach(', 'append(')
-    found = [token for token in forbidden if token in scripts]
-    if found:
-        raise SystemExit(page + ': unsupported modern JS: ' + ', '.join(found))
-    if any(ord(ch) > 127 for ch in scripts):
-        raise SystemExit(page + ': non-ASCII script content')
-PY
-
+work=''
+cleanup() {
+  if [[ -n "$work" ]]; then
+    git -C "$REPO_DIR" worktree remove --force "$work/tree" || true
+    rm -rf -- "$work"
+  fi
+}
+trap cleanup EXIT
+trap 'echo "$(date -Is) kids update failed at line $LINENO (status $?)" >&2' ERR
+trap 'exit 143' TERM INT
+check_source() {
+  if [[ "$(git -C "$REPO_DIR" branch --show-current)" != main ]]; then
+    echo 'Refusing kids update: source must be on main' >&2
+    return 1
+  fi
+  if [[ -n "$(git -C "$REPO_DIR" status --porcelain --untracked-files=all)" ]]; then
+    echo 'Refusing kids update: source is dirty (including staged/untracked files)' >&2
+    return 1
+  fi
+}
+check_source
+source_head="$(git rev-parse HEAD)"
+echo "$(date -Is) starting fresh AI kids exercise update"
+git fetch origin main
+git merge-base --is-ancestor "$source_head" origin/main || {
+  echo 'Refusing to publish: local main has unpublished/divergent commits' >&2
+  exit 1
+}
+base="$(git rev-parse origin/main)"
+work="$(mktemp -d /tmp/findamak-kids-publish.XXXXXX)"
+# Other cron scripts share the source index: never stage or commit in it.
+git worktree add --detach "$work/tree" "$base"
+cd "$work/tree"
+/usr/bin/python3 scripts/update_kids_exercises.py
 git diff --check
-git add chiara.html cooper.html
-if git diff --cached --quiet; then
-  echo "$(date -Is) no kids exercise changes to commit"
-else
-  git config user.name "kids-learning-bot"
-  git config user.email "kids-learning-bot@users.noreply.github.com"
-  git commit -m "Update kids learning exercises"
-  git push
-  echo "$(date -Is) pushed kids exercise update"
+# The deterministic generator must only change the two exercise pages.
+changed="$(git diff --name-only | sort)"
+if [[ "$changed" != $'chiara.html\ncooper.html' ]]; then
+  echo "Unexpected generated paths: $changed" >&2
+  exit 1
 fi
-
-echo "$(date -Is) finished kids exercise update"
+git -c user.name=kids-learning-bot -c user.email=kids-learning-bot@users.noreply.github.com \
+  commit --only -m 'Generate fresh kids learning exercises' -- chiara.html cooper.html
+commit="$(git rev-parse HEAD)"
+check_source
+if [[ "$(git -C "$REPO_DIR" rev-parse HEAD)" != "$source_head" ]]; then
+  echo 'Source HEAD changed during generation; refusing publish' >&2
+  exit 1
+fi
+# Push this exact isolated commit; never force/rebase over another cron writer.
+# If remote main advanced, normal non-fast-forward rejection leaves it untouched.
+git push origin "$commit:refs/heads/main"
+echo "$(date -Is) pushed $commit; source checkout/index left untouched"
