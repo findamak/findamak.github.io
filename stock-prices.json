@@ -3,9 +3,10 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 24.905,
-      "change": -2.37,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "CIFR",
@@ -45,7 +46,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 254.4,
+      "price": 254.55,
       "change": 0,
       "type": "stock"
     },
@@ -176,5 +177,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-10-24T14:30:34.097968"
+  "lastUpdated": "2026-10-24T14:35:57.176110"
 }
