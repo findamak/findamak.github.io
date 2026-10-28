@@ -45,43 +45,43 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 258.01,
+      "price": 257.68,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.0994,
+      "price": 0.0993,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.51,
-      "change": 0.23,
+      "price": 109.5,
+      "change": 0.22,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 115.99,
+      "price": 115.985,
       "change": 0.45,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 73.04,
-      "change": 0.36,
+      "price": 73.05,
+      "change": 0.37,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 61.5,
-      "change": 1.55,
+      "price": 61.54,
+      "change": 1.62,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4057.2,
-      "change": 0,
+      "price": 4056.8,
+      "change": -0.44,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 54.125,
-      "change": 0,
+      "price": 54.095,
+      "change": -0.36,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 110.92,
+      "price": 110.84,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 101.37,
-      "change": 0,
+      "price": 101.32,
+      "change": 1.42,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-10-28T15:05:38.626163"
+  "lastUpdated": "2026-10-28T15:10:35.894865"
 }
