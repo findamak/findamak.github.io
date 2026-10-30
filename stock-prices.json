@@ -31,57 +31,57 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 11.0,
+      "price": 10.99,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 22.37,
-      "change": -2.23,
+      "price": 22.35,
+      "change": -2.32,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 238.75,
+      "price": 238.29,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.0951,
+      "price": 0.0948,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 110.16,
-      "change": 0.25,
+      "price": 110.06,
+      "change": 0.16,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 115.46,
-      "change": -0.03,
+      "price": 115.38,
+      "change": -0.1,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 72.27,
-      "change": -0.82,
+      "price": 72.25,
+      "change": -0.85,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 59.59,
-      "change": -2.05,
+      "price": 59.55,
+      "change": -2.12,
       "type": "stock"
     },
     {
@@ -143,15 +143,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4000.8999,
-      "change": -0.76,
+      "price": 4001.5,
+      "change": -0.74,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 51.315,
-      "change": -1.68,
+      "price": 51.33,
+      "change": -1.65,
       "type": "commodity"
     },
     {
@@ -164,8 +164,8 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 103.15,
-      "change": 1.13,
+      "price": 103.22,
+      "change": 1.2,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-10-30T15:50:36.191086"
+  "lastUpdated": "2026-10-30T15:55:33.463695"
 }
