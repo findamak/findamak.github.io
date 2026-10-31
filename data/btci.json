@@ -17,22 +17,22 @@
     "btcusd": "Bitstamp"
   },
   "comparison_symbol": "BTC/USD",
-  "updated_at": "2026-10-30T01:30:06+00:00",
+  "updated_at": "2026-10-31T01:30:07+00:00",
   "base_date": "2024-10-17",
   "latest": {
-    "date": "2026-10-28",
-    "btci_close": 32.35,
-    "bito_close": 10.88,
-    "btcusd_close": 81250.12,
-    "btci_return_pct": 16.38,
-    "bito_return_pct": 10.37,
-    "btcusd_return_pct": 20.56,
-    "relative_return_pct": -4.19,
-    "btci_relative_return_pct": -4.19,
-    "bito_relative_return_pct": -10.19,
-    "btci_vs_bito_return_pct": 6.01,
+    "date": "2026-10-30",
+    "btci_close": 30.46,
+    "bito_close": 10.23,
+    "btcusd_close": 77187.27,
+    "btci_return_pct": 9.58,
+    "bito_return_pct": 3.78,
+    "btcusd_return_pct": 14.53,
+    "relative_return_pct": -4.96,
+    "btci_relative_return_pct": -4.96,
+    "bito_relative_return_pct": -10.76,
+    "btci_vs_bito_return_pct": 5.8,
     "leader": "BTC/USD",
-    "leader_margin_pct": 4.19
+    "leader_margin_pct": 4.96
   },
   "distributions": [
     {
@@ -479,7 +479,7 @@
     },
     {
       "date": "2024-10-29",
-      "btci_close": 30.0093,
+      "btci_close": 30.0092,
       "bito_close": 10.7028,
       "btcusd_close": 72729.0,
       "btci_return_pct": 7.96,
@@ -535,7 +535,7 @@
       "bito_close": 9.8906,
       "btcusd_close": 67818.0,
       "btci_return_pct": -0.54,
-      "bito_return_pct": 0.34,
+      "bito_return_pct": 0.33,
       "btcusd_return_pct": 0.63,
       "relative_return_pct": -1.17,
       "btci_relative_return_pct": -1.17,
@@ -791,7 +791,7 @@
     },
     {
       "date": "2024-12-03",
-      "btci_close": 36.4217,
+      "btci_close": 36.4218,
       "bito_close": 13.9992,
       "btcusd_close": 95926.0,
       "btci_return_pct": 31.03,
@@ -817,7 +817,7 @@
     },
     {
       "date": "2024-12-05",
-      "btci_close": 37.5751,
+      "btci_close": 37.5752,
       "bito_close": 14.4645,
       "btcusd_close": 97057.0,
       "btci_return_pct": 35.18,
@@ -947,7 +947,7 @@
     },
     {
       "date": "2024-12-19",
-      "btci_close": 36.5684,
+      "btci_close": 36.5683,
       "bito_close": 14.0276,
       "btcusd_close": 97375.0,
       "btci_return_pct": 31.55,
@@ -987,7 +987,7 @@
     {
       "date": "2024-12-24",
       "btci_close": 37.4066,
-      "bito_close": 14.4096,
+      "bito_close": 14.4097,
       "btcusd_close": 98596.0,
       "btci_return_pct": 34.57,
       "bito_return_pct": 46.18,
@@ -1345,7 +1345,7 @@
       "btcusd_return_pct": 43.36,
       "relative_return_pct": -7.77,
       "btci_relative_return_pct": -7.77,
-      "bito_relative_return_pct": -1.1,
+      "bito_relative_return_pct": -1.11,
       "btci_vs_bito_return_pct": -6.66
     },
     {
@@ -1376,7 +1376,7 @@
     },
     {
       "date": "2025-02-10",
-      "btci_close": 37.7373,
+      "btci_close": 37.7374,
       "bito_close": 13.9983,
       "btcusd_close": 97469.0,
       "btci_return_pct": 35.76,
@@ -1428,7 +1428,7 @@
     },
     {
       "date": "2025-02-14",
-      "btci_close": 37.7065,
+      "btci_close": 37.7064,
       "bito_close": 13.9735,
       "btcusd_close": 97520.0,
       "btci_return_pct": 35.65,
@@ -1636,7 +1636,7 @@
     },
     {
       "date": "2025-03-11",
-      "btci_close": 32.4117,
+      "btci_close": 32.4116,
       "bito_close": 11.8592,
       "btcusd_close": 82869.0,
       "btci_return_pct": 16.6,
@@ -1662,7 +1662,7 @@
     },
     {
       "date": "2025-03-13",
-      "btci_close": 31.4029,
+      "btci_close": 31.403,
       "bito_close": 11.4487,
       "btcusd_close": 81079.0,
       "btci_return_pct": 12.97,
@@ -1675,7 +1675,7 @@
     },
     {
       "date": "2025-03-14",
-      "btci_close": 32.9889,
+      "btci_close": 32.989,
       "bito_close": 12.1029,
       "btcusd_close": 83975.0,
       "btci_return_pct": 18.68,
@@ -1870,7 +1870,7 @@
     },
     {
       "date": "2025-04-04",
-      "btci_close": 32.7968,
+      "btci_close": 32.7967,
       "bito_close": 11.9798,
       "btcusd_close": 83851.0,
       "btci_return_pct": 17.99,
@@ -1909,7 +1909,7 @@
     },
     {
       "date": "2025-04-09",
-      "btci_close": 32.218,
+      "btci_close": 32.2179,
       "bito_close": 11.7377,
       "btcusd_close": 82595.0,
       "btci_return_pct": 15.9,
@@ -2026,7 +2026,7 @@
     },
     {
       "date": "2025-04-23",
-      "btci_close": 36.1255,
+      "btci_close": 36.1256,
       "bito_close": 13.308,
       "btcusd_close": 93730.0,
       "btci_return_pct": 29.96,
@@ -2208,7 +2208,7 @@
     },
     {
       "date": "2025-05-13",
-      "btci_close": 40.0396,
+      "btci_close": 40.0397,
       "bito_close": 14.876,
       "btcusd_close": 104135.0,
       "btci_return_pct": 44.04,
@@ -2303,7 +2303,7 @@
       "bito_close": 15.7499,
       "btcusd_close": 111743.0,
       "btci_return_pct": 50.24,
-      "bito_return_pct": 59.78,
+      "bito_return_pct": 59.77,
       "btcusd_return_pct": 65.81,
       "relative_return_pct": -15.57,
       "btci_relative_return_pct": -15.57,
@@ -2546,7 +2546,7 @@
     },
     {
       "date": "2025-06-20",
-      "btci_close": 40.1528,
+      "btci_close": 40.1529,
       "bito_close": 14.5538,
       "btcusd_close": 103316.0,
       "btci_return_pct": 44.45,
@@ -2572,7 +2572,7 @@
     },
     {
       "date": "2025-06-24",
-      "btci_close": 41.0197,
+      "btci_close": 41.0196,
       "bito_close": 14.8918,
       "btcusd_close": 106131.0,
       "btci_return_pct": 47.57,
@@ -3040,7 +3040,7 @@
     },
     {
       "date": "2025-08-14",
-      "btci_close": 45.4924,
+      "btci_close": 45.4923,
       "bito_close": 16.509,
       "btcusd_close": 118394.0,
       "btci_return_pct": 63.66,
@@ -3495,7 +3495,7 @@
     },
     {
       "date": "2025-10-03",
-      "btci_close": 47.0474,
+      "btci_close": 47.0475,
       "bito_close": 17.0442,
       "btcusd_close": 122308.0,
       "btci_return_pct": 69.25,
@@ -3703,7 +3703,7 @@
     },
     {
       "date": "2025-10-27",
-      "btci_close": 44.8426,
+      "btci_close": 44.8427,
       "bito_close": 15.9018,
       "btcusd_close": 114101.0,
       "btci_return_pct": 61.32,
@@ -3898,7 +3898,7 @@
     },
     {
       "date": "2025-11-17",
-      "btci_close": 36.5802,
+      "btci_close": 36.5801,
       "bito_close": 12.6579,
       "btcusd_close": 92102.0,
       "btci_return_pct": 31.6,
@@ -4798,7 +4798,7 @@
       "btci_close": 27.062,
       "bito_close": 8.9647,
       "btcusd_close": 65868.0,
-      "btci_return_pct": -2.65,
+      "btci_return_pct": -2.64,
       "bito_return_pct": -9.06,
       "btcusd_return_pct": -2.26,
       "relative_return_pct": -0.38,
@@ -5432,7 +5432,7 @@
     },
     {
       "date": "2026-05-08",
-      "btci_close": 32.685,
+      "btci_close": 32.6849,
       "bito_close": 10.8852,
       "btcusd_close": 80199.0,
       "btci_return_pct": 17.58,
@@ -6989,6 +6989,32 @@
       "btci_relative_return_pct": -4.19,
       "bito_relative_return_pct": -10.19,
       "btci_vs_bito_return_pct": 6.01
+    },
+    {
+      "date": "2026-10-29",
+      "btci_close": 32.04,
+      "bito_close": 10.77,
+      "btcusd_close": 77792.67,
+      "btci_return_pct": 15.26,
+      "bito_return_pct": 9.26,
+      "btcusd_return_pct": 15.43,
+      "relative_return_pct": -0.17,
+      "btci_relative_return_pct": -0.17,
+      "bito_relative_return_pct": -6.18,
+      "btci_vs_bito_return_pct": 6.01
+    },
+    {
+      "date": "2026-10-30",
+      "btci_close": 30.46,
+      "bito_close": 10.23,
+      "btcusd_close": 77187.27,
+      "btci_return_pct": 9.58,
+      "bito_return_pct": 3.78,
+      "btcusd_return_pct": 14.53,
+      "relative_return_pct": -4.96,
+      "btci_relative_return_pct": -4.96,
+      "bito_relative_return_pct": -10.76,
+      "btci_vs_bito_return_pct": 5.8
     }
   ]
 }
