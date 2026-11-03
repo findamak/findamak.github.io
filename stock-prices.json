@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 222.67,
+      "price": 222.61,
       "change": 0,
       "type": "stock"
     },
@@ -108,10 +108,9 @@
     {
       "symbol": "XLE",
       "name": "Energy ETF",
-      "price": null,
-      "change": null,
-      "type": "stock",
-      "error": "'Response' object is not subscriptable"
+      "price": 67.25,
+      "change": -3.96,
+      "type": "stock"
     },
     {
       "symbol": "SMH",
@@ -144,30 +143,31 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3937.1001,
-      "change": -0.82,
+      "price": 3938.3999,
+      "change": -0.79,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 49.66,
-      "change": -2.09,
+      "price": 49.63,
+      "change": -2.15,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 105.12,
-      "change": 0.33,
+      "price": 105.25,
+      "change": 0.46,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 96.95,
-      "change": 0.51,
-      "type": "commodity"
+      "price": null,
+      "change": null,
+      "type": "commodity",
+      "error": "'Response' object is not subscriptable"
     },
     {
       "symbol": "USDAUD",
@@ -177,5 +177,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-03T16:20:41.314895"
+  "lastUpdated": "2026-11-03T16:25:40.019669"
 }
