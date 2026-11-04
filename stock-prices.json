@@ -3,16 +3,18 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 24.46,
-      "change": 11.08,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "CIFR",
       "name": "Cipher Mining",
-      "price": 8.12,
-      "change": 18.37,
-      "type": "stock"
+      "price": null,
+      "change": null,
+      "type": "stock",
+      "error": "'NoneType' object is not subscriptable"
     },
     {
       "symbol": "LLY",
@@ -45,15 +47,15 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 228.73,
-      "change": 1.11,
+      "price": 228.06,
+      "change": 0.82,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.0975,
-      "change": 0.88,
+      "price": 0.0972,
+      "change": 0.59,
       "type": "stock"
     },
     {
@@ -143,38 +145,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4051.8999,
-      "change": 2.83,
+      "price": 4056.2,
+      "change": 2.94,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 52.12,
-      "change": 5.11,
+      "price": 52.21,
+      "change": 5.29,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 100.81,
-      "change": -2.69,
+      "price": 100.9,
+      "change": -2.61,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 93.62,
-      "change": -2.57,
+      "price": 93.5,
+      "change": -2.7,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4245,
-      "change": -0.29,
+      "price": 1.4252,
+      "change": -0.24,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-05T01:00:15.197557"
+  "lastUpdated": "2026-11-05T01:06:25.953529"
 }
