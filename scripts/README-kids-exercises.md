@@ -61,11 +61,17 @@ It refuses a non-main, dirty, staged or untracked source checkout and refuses lo
 unpublished/divergent commits. It fetches `origin/main`, creates a temporary
 detached worktree, generates and validates there, checks that only the two pages
 changed, and commits only those page paths with per-command author settings.
-It rechecks the source branch, cleanliness and HEAD before pushing the exact
-isolated commit to `origin/main`. It never uses the shared source index to stage
-or commit, never changes persistent git identity, and never force-pushes or
-rebases over a competing cron writer. A remote race fails visibly rather than
-publishing stale content. Temporary worktrees are removed on success/failure.
+Before publication it fetches the latest `origin/main`, checks that remote history
+still descends from the generation base, and refuses if either kids page changed.
+Unrelated commits (such as the five-minute stock updater) are retained: only the
+new two-page commit is cherry-picked onto the latest remote tip in the disposable
+detached worktree. The source must still be clean, on main, and have no unpublished
+commits, but an already-published unrelated source HEAD advance is allowed.
+Normal, non-force pushes are attempted up to three times, refreshing and repeating
+the safety checks after a rejection. Concurrent kids-page edits require a new run;
+they are never merged or overwritten. The wrapper never stages, commits, resets,
+or rebases the shared source checkout and never changes persistent git identity.
+Temporary worktrees are removed on success/failure.
 
 **The source checkout/index is deliberately left untouched after a scheduled
 push**, so its local main may be behind origin/main until the next normal

@@ -62,13 +62,36 @@ if [[ "$changed" != $'chiara.html\ncooper.html' ]]; then
 fi
 git -c user.name=kids-learning-bot -c user.email=kids-learning-bot@users.noreply.github.com \
   commit --only -m 'Generate fresh kids learning exercises' -- chiara.html cooper.html
-commit="$(git rev-parse HEAD)"
-check_source
-if [[ "$(git -C "$REPO_DIR" rev-parse HEAD)" != "$source_head" ]]; then
-  echo 'Source HEAD changed during generation; refusing publish' >&2
-  exit 1
-fi
-# Push this exact isolated commit; never force/rebase over another cron writer.
-# If remote main advanced, normal non-fast-forward rejection leaves it untouched.
-git push origin "$commit:refs/heads/main"
-echo "$(date -Is) pushed $commit; source checkout/index left untouched"
+generated_commit="$(git rev-parse HEAD)"
+# Only replay our two-page commit, never rewrite another writer's history.
+# A competing update to either page requires fresh generation, not a merge.
+for attempt in 1 2 3; do
+  git fetch origin main
+  latest="$(git rev-parse origin/main)"
+  git merge-base --is-ancestor "$base" "$latest" || {
+    echo 'Remote history diverged; refusing publish' >&2
+    exit 1
+  }
+  if ! git diff --quiet "$base" "$latest" -- chiara.html cooper.html; then
+    echo 'Kids pages changed during generation; refusing publish' >&2
+    exit 1
+  fi
+  check_source
+  git merge-base --is-ancestor "$(git -C "$REPO_DIR" rev-parse HEAD)" "$latest" || {
+    echo 'Source has unpublished/divergent commits; refusing publish' >&2
+    exit 1
+  }
+  # Reset only this disposable detached worktree, never the shared checkout.
+  git reset --hard "$latest"
+  git -c user.name=kids-learning-bot -c user.email=kids-learning-bot@users.noreply.github.com \
+    cherry-pick "$generated_commit"
+  commit="$(git rev-parse HEAD)"
+  git diff --check "$latest" "$commit"
+  if git push origin "$commit:refs/heads/main"; then
+    echo "$(date -Is) pushed $commit; source checkout/index left untouched"
+    exit 0
+  fi
+  echo "$(date -Is) push failed on attempt $attempt; refreshing remote before retry" >&2
+done
+echo 'Kids publication failed after 3 attempts' >&2
+exit 1

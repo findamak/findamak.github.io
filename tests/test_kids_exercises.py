@@ -150,7 +150,13 @@ class CommandTests(unittest.TestCase):
 
 
 class WrapperTests(unittest.TestCase):
-    def test_publisher_isolates_git_and_refuses_dirty_or_wrong_branch(self):
+    def test_publisher_tolerates_concurrent_stock_commit(self):
+        self.test_publisher_isolates_git_and_refuses_dirty_or_wrong_branch(race=True)
+
+    def test_publisher_refuses_concurrent_kids_page_edit(self):
+        self.test_publisher_isolates_git_and_refuses_dirty_or_wrong_branch(race="kids")
+
+    def test_publisher_isolates_git_and_refuses_dirty_or_wrong_branch(self, race: bool | str = False):
         import subprocess
         wrapper = (ROOT / 'scripts/update_kids_exercises_and_push.sh').read_text()
         self.assertIn('git worktree add --detach', wrapper, 'isolated publisher is missing')
@@ -168,6 +174,16 @@ class WrapperTests(unittest.TestCase):
             # Git integration fixture: generator is separately tested with real AI.
             (root / 'scripts/update_kids_exercises.py').write_text(
                 'from pathlib import Path\nfor c in ("chiara", "cooper"):\n Path(c+".html").write_text("new content")\n')
+            if race:
+                race_file = "chiara.html" if race == "kids" else "stocks.json"
+                generator = root / 'scripts/update_kids_exercises.py'
+                generator.write_text(generator.read_text() +
+                    '\nimport subprocess\nroot = ' + repr(str(root)) + '\n' +
+                    'Path(root, ' + repr(race_file) + ').write_text("fresh stocks")\n' +
+                    'def git(*args):\n subprocess.run(["git", "-C", root, *args], check=True)\n' +
+                    'git("add", ' + repr(race_file) + ')\n' +
+                    'git("-c", "user.name=Test", "-c", "user.email=test@example.org", "commit", "-m", "stock race")\n' +
+                    'git("push", "origin", "main")\n')
             for c in ('chiara', 'cooper'):
                 (root / (c + '.html')).write_text('old content')
             run('git', 'add', '.', cwd=root).check_returncode()
@@ -176,8 +192,18 @@ class WrapperTests(unittest.TestCase):
             run('git', 'push', 'origin', 'main', cwd=root).check_returncode()
             original = run('git', 'rev-parse', 'HEAD', cwd=root).stdout.strip()
             result = run('bash', str(entry), cwd=root)
+            if race == "kids":
+                self.assertNotEqual(result.returncode, 0)
+                self.assertIn('Kids pages changed', result.stderr)
+                self.assertEqual(run('git', '--git-dir=' + str(remote), 'show', 'main:chiara.html', cwd=root).stdout, 'fresh stocks')
+                self.assertEqual(run('git', '--git-dir=' + str(remote), 'show', 'main:cooper.html', cwd=root).stdout, 'old content')
+                return
             self.assertEqual(result.returncode, 0, result.stdout + result.stderr)
-            self.assertEqual(run('git', 'rev-parse', 'HEAD', cwd=root).stdout.strip(), original)
+            if race:
+                self.assertEqual(run('git', 'log', '-1', '--format=%s', cwd=root).stdout.strip(), 'stock race')
+                self.assertEqual(run('git', '--git-dir=' + str(remote), 'show', 'main:stocks.json', cwd=root).stdout, 'fresh stocks')
+            else:
+                self.assertEqual(run('git', 'rev-parse', 'HEAD', cwd=root).stdout.strip(), original)
             self.assertEqual(run('git', 'status', '--porcelain', cwd=root).stdout, '')
             published = run('git', '--git-dir=' + str(remote), 'show', 'main:chiara.html', cwd=root)
             self.assertEqual(published.stdout, 'new content')
