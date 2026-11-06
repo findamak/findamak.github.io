@@ -31,7 +31,7 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 10.82,
+      "price": 10.83,
       "change": 0,
       "type": "stock"
     },
@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 218.85,
+      "price": 219.25,
       "change": 0,
       "type": "stock"
     },
@@ -59,29 +59,29 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 111.29,
-      "change": -0.73,
+      "price": 111.13,
+      "change": -0.87,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 113.54,
-      "change": -2.54,
+      "price": 113.665,
+      "change": -2.43,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 70.65,
-      "change": -2.9,
+      "price": 70.68,
+      "change": -2.86,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 56.11,
-      "change": -3.76,
+      "price": 56.21,
+      "change": -3.58,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4103.3999,
-      "change": 0.75,
+      "price": 4097.3999,
+      "change": 0.6,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 51.97,
-      "change": -0.29,
+      "price": 51.885,
+      "change": -0.45,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 99.21,
-      "change": 4.85,
+      "price": 99.19,
+      "change": 4.83,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 91.29,
-      "change": 3.6,
+      "price": 91.23,
+      "change": 3.53,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.443,
-      "change": 1.06,
+      "price": 1.4429,
+      "change": 1.05,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-06T12:25:16.269700"
+  "lastUpdated": "2026-11-06T12:30:16.405058"
 }
