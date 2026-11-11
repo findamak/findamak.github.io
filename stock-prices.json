@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 219.14,
+      "price": 220.08,
       "change": 0,
       "type": "stock"
     },
@@ -73,15 +73,15 @@
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 73.17,
-      "change": 0.7,
+      "price": 73.16,
+      "change": 0.69,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 59.4,
-      "change": 1.49,
+      "price": 59.38,
+      "change": 1.45,
       "type": "stock"
     },
     {
@@ -143,22 +143,22 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4051.6001,
-      "change": -1.53,
+      "price": 4050.5,
+      "change": -1.56,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 52.34,
-      "change": -0.43,
+      "price": 52.315,
+      "change": -0.47,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 92.5,
-      "change": -0.08,
+      "price": 92.52,
+      "change": -0.05,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-11T15:25:16.253877"
+  "lastUpdated": "2026-11-11T15:30:16.309712"
 }
