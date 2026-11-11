@@ -45,7 +45,7 @@
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 220.73,
+      "price": 220.34,
       "change": 0,
       "type": "stock"
     },
@@ -59,29 +59,29 @@
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 113.22,
-      "change": 0.09,
+      "price": 113.28,
+      "change": 0.14,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 118.72,
-      "change": 0.83,
+      "price": 118.73,
+      "change": 0.84,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 73.14,
-      "change": 0.66,
+      "price": 73.15,
+      "change": 0.67,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 59.31,
-      "change": 1.33,
+      "price": 59.33,
+      "change": 1.37,
       "type": "stock"
     },
     {
@@ -143,38 +143,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 4053.3,
-      "change": -1.49,
+      "price": 4030.2,
+      "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 52.36,
-      "change": -0.39,
+      "price": 52.42,
+      "change": -0.27,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 92.44,
-      "change": -0.14,
+      "price": 92.45,
+      "change": -0.13,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 86.65,
-      "change": -0.23,
+      "price": 86.04,
+      "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.4532,
+      "price": 1.4533,
       "change": 0.58,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-11T15:05:16.928702"
+  "lastUpdated": "2026-11-11T15:10:17.679952"
 }
