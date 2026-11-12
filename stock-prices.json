@@ -31,57 +31,57 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 10.71,
+      "price": 10.69,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 21.77,
-      "change": 0.88,
+      "price": 21.81,
+      "change": 1.07,
       "type": "stock"
     },
     {
       "symbol": "TAO22974-USD",
       "name": "Bittensor USD",
-      "price": 215.6,
+      "price": 215.47,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "CC37263-USD",
       "name": "Canton Network USD",
-      "price": 0.0909,
+      "price": 0.0907,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 113.11,
-      "change": -0.25,
+      "price": 113.0,
+      "change": -0.34,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 119.1,
-      "change": 0.09,
+      "price": 119.11,
+      "change": 0.1,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 73.69,
-      "change": 0.68,
+      "price": 73.71,
+      "change": 0.71,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 59.73,
-      "change": 0.54,
+      "price": 59.7,
+      "change": 0.49,
       "type": "stock"
     },
     {
@@ -143,29 +143,29 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3982.8,
-      "change": -1.18,
+      "price": 3978.5,
+      "change": -1.28,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 51.285,
-      "change": 0.36,
+      "price": 51.25,
+      "change": 0.29,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 92.37,
-      "change": 0.96,
+      "price": 92.51,
+      "change": 1.11,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 86.25,
-      "change": 0.24,
+      "price": 86.24,
+      "change": 0.23,
       "type": "commodity"
     },
     {
@@ -176,5 +176,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-12T11:10:15.380252"
+  "lastUpdated": "2026-11-12T11:15:15.892038"
 }
