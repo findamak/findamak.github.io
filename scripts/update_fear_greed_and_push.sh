@@ -22,7 +22,12 @@ sync_remote() {
     else
         # Never stash, reset, or incorporate somebody else's uncommitted edits.
         [[ -z "$(git status --porcelain)" ]] || return 1
-        git rebase FETCH_HEAD
+        if ! git rebase FETCH_HEAD; then
+            # Restore main and its original commits; never strand other publishers.
+            git rebase --abort
+            printf 'Remote synchronization conflicted; original checkout restored\n' >&2
+            return 1
+        fi
     fi
 }
 sync_remote

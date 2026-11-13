@@ -40,6 +40,37 @@ class CronTests(unittest.TestCase):
             self.assertEqual(json.loads(git('show', 'main:fear-greed.json', cwd=remote)), {'test': True})
             self.assertEqual(git('diff-tree', '--no-commit-id', '--name-only', '-r', 'main', cwd=remote).strip(), 'fear-greed.json')
 
+    def test_conflicting_rebase_restores_original_branch(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            remote, local, peer = root / 'remote.git', root / 'local', root / 'peer'
+            def git(*args, cwd=None):
+                return subprocess.check_output(['git', *args], cwd=cwd, stderr=subprocess.STDOUT, text=True).strip()
+            git('init', '--bare', '--initial-branch=main', str(remote))
+            git('clone', str(remote), str(local))
+            for repo in [local]:
+                git('config', 'user.name', 'Test', cwd=repo)
+                git('config', 'user.email', 'test@example.invalid', cwd=repo)
+            (local / 'fear-greed.json').write_text('{"value": 1}\n')
+            git('add', '.', cwd=local)
+            git('commit', '-m', 'base', cwd=local)
+            git('push', 'origin', 'main', cwd=local)
+            git('clone', str(remote), str(peer))
+            git('config', 'user.name', 'Test', cwd=peer)
+            git('config', 'user.email', 'test@example.invalid', cwd=peer)
+            for repo, value in [(local, 2), (peer, 3)]:
+                (repo / 'fear-greed.json').write_text(json.dumps({'value': value}) + '\n')
+                git('commit', '-am', 'conflicting update', cwd=repo)
+            git('push', 'origin', 'main', cwd=peer)
+            original = git('rev-parse', 'HEAD', cwd=local)
+            env = dict(os.environ, FGI_REPO_DIR=str(local), FGI_STATE_DIR=str(root / 'state'))
+            result = subprocess.run(['bash', str(WRAPPER)], cwd=local, env=env, capture_output=True, text=True)
+            self.assertNotEqual(result.returncode, 0)
+            self.assertEqual(git('branch', '--show-current', cwd=local), 'main')
+            self.assertEqual(git('rev-parse', 'HEAD', cwd=local), original)
+            self.assertEqual(git('status', '--porcelain', cwd=local), '')
+            self.assertFalse((local / '.git/rebase-merge').exists())
+
 
 if __name__ == '__main__':
     unittest.main()
