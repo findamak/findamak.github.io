@@ -365,7 +365,8 @@
                             <span class="fg-dial-value" id="btc-fg-value">--</span>
                         </div>
                         <div class="fg-dial-label" id="btc-fg-label">--</div>
-                        <div class="fg-dial-updated" id="btc-fg-updated">Updated: --</div>
+                        <div class="fg-dial-updated" id="btc-fg-updated">Source: --</div>
+                        <a class="fg-dial-updated" id="btc-fg-source" href="https://cfgi.io/bitcoin-fear-greed-index/" target="_blank" rel="noopener">CFGI · 1D reading</a>
                     </div>
                 </div>
                 <div class="price-change" id="btc-change">
@@ -393,7 +394,8 @@
                             <span class="fg-dial-value" id="eth-fg-value">--</span>
                         </div>
                         <div class="fg-dial-label" id="eth-fg-label">--</div>
-                        <div class="fg-dial-updated" id="eth-fg-updated">Updated: --</div>
+                        <div class="fg-dial-updated" id="eth-fg-updated">Source: --</div>
+                        <a class="fg-dial-updated" id="eth-fg-source" href="https://cfgi.io/ethereum-fear-greed-index/" target="_blank" rel="noopener">CFGI · 1D reading</a>
                     </div>
                 </div>
                 <div class="price-change" id="eth-change">
@@ -529,42 +531,39 @@
 
         const FEAR_GREED_URL = 'fear-greed.json';
 
-        function getFearGreedColor(value) {
-            if (value <= 24) return '#f85149';
-            if (value <= 44) return '#ff7b72';
-            if (value <= 55) return '#d29922';
-            if (value <= 74) return '#3fb950';
-            return '#2ea043';
+        function getFearGreedColor(classification) {
+            return {'Extreme Fear': '#f85149', 'Fear': '#ff7b72', 'Neutral': '#d29922',
+                'Greed': '#3fb950', 'Extreme Greed': '#2ea043'}[classification] || '#8b949e';
         }
 
-        function updateFearGreedDial(symbol, entry, lastUpdated) {
+        function updateFearGreedDial(symbol, entry) {
             const dial = document.getElementById(`${symbol}-fg-dial`);
             const valueEl = document.getElementById(`${symbol}-fg-value`);
             const labelEl = document.getElementById(`${symbol}-fg-label`);
             const updatedEl = document.getElementById(`${symbol}-fg-updated`);
+            const sourceEl = document.getElementById(`${symbol}-fg-source`);
+            if (!dial || !valueEl || !labelEl || !updatedEl) return;
 
-            if (!dial || !valueEl || !labelEl || !updatedEl || !entry || typeof entry.value !== 'number') {
-                return;
-            }
-
-            const value = Math.max(0, Math.min(100, entry.value));
-            const color = getFearGreedColor(value);
-
-            dial.style.setProperty('--dial-value', value);
-            dial.style.setProperty('--dial-color', color);
-            valueEl.textContent = value;
-            labelEl.textContent = `${entry.classification || 'Fear & Greed'}`;
-
-            if (lastUpdated) {
-                const updated = new Date(lastUpdated);
-                updatedEl.textContent = `Updated: ${updated.toLocaleDateString('en-AU', {
-                    day: 'numeric',
-                    month: 'short'
-                })} ${updated.toLocaleTimeString('en-AU', {
-                    hour: '2-digit',
-                    minute: '2-digit',
-                    second: '2-digit'
-                })}`;
+            const valid = Number.isFinite(entry?.value) && entry.value >= 0 && entry.value <= 100;
+            const published = new Date(entry?.sourcePublishedAt || '');
+            const age = Date.now() - published.getTime();
+            // Recompute in the browser: even a stopped cron must become visibly stale.
+            const stale = !Number.isFinite(age) || age > 3 * 3600000 || age < -300000 || entry?.status === 'stale';
+            const unavailable = !valid || entry?.status === 'error';
+            dial.style.setProperty('--dial-value', valid ? entry.value : 0);
+            dial.style.setProperty('--dial-color', stale || unavailable ? '#8b949e' : getFearGreedColor(entry.classification));
+            valueEl.textContent = valid ? entry.value : '--';
+            labelEl.textContent = unavailable ? 'Source unavailable' : `${stale ? 'Stale · ' : ''}${entry.classification || 'Fear & Greed'}`;
+            updatedEl.textContent = Number.isFinite(published.getTime())
+                ? `Source: ${published.toLocaleString('en-AU', {day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit'})}${unavailable || stale ? ' (last known)' : ''}`
+                : 'Source date unavailable';
+            if (sourceEl) {
+                sourceEl.textContent = entry?.sourceName === 'CFGI' ? 'CFGI · 1D reading' : 'Source';
+                if (/^https:\/\/cfgi\.io\/(bitcoin|ethereum)-fear-greed-index\/$/.test(entry?.source || '')) {
+                    sourceEl.href = entry.source;
+                } else {
+                    sourceEl.removeAttribute('href');
+                }
             }
         }
 
@@ -574,12 +573,12 @@
                 if (!response.ok) throw new Error('Failed to load fear & greed data');
                 const data = await response.json();
 
-                if (data.indices) {
-                    updateFearGreedDial('btc', data.indices.btc, data.lastUpdated);
-                    updateFearGreedDial('eth', data.indices.eth, data.lastUpdated);
-                }
+                updateFearGreedDial('btc', data.indices?.btc);
+                updateFearGreedDial('eth', data.indices?.eth);
             } catch (error) {
                 console.error('Error fetching fear & greed data:', error);
+                updateFearGreedDial('btc', null);
+                updateFearGreedDial('eth', null);
             }
         }
 
