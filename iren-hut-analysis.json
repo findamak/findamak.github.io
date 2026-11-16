@@ -1,24 +1,24 @@
 {
-  "lastUpdated": "2026-11-15T21:00:03+00:00",
+  "lastUpdated": "2026-11-16T21:00:03+00:00",
   "disclaimer": "Research only \u2014 not financial advice. Figures are in US dollars unless stated otherwise.",
   "prices": {
     "IREN": {
-      "price": 18.17,
-      "date": "2026-11-13",
+      "price": 16.36,
+      "date": "2026-11-16",
       "returns": {
-        "30d": -40.2,
-        "90d": -59.5,
-        "1y": -60.8
+        "30d": -39.4,
+        "90d": -61.0,
+        "1y": -65.5
       },
       "source": "https://finance.yahoo.com/quote/IREN"
     },
     "HUT": {
-      "price": 57.57,
-      "date": "2026-11-13",
+      "price": 53.19,
+      "date": "2026-11-16",
       "returns": {
-        "30d": -24.3,
-        "90d": -34.6,
-        "1y": 55.8
+        "30d": -21.5,
+        "90d": -34.2,
+        "1y": 41.1
       },
       "source": "https://finance.yahoo.com/quote/HUT"
     }
@@ -39,7 +39,7 @@
       "status": "last verified"
     }
   },
-  "dailyRead": "HUT has held up better over the last 30 trading days (IREN -40.2%, HUT -24.3%). This is price performance, not total return or investment advice.",
+  "dailyRead": "HUT has held up better over the last 30 trading days (IREN -39.4%, HUT -21.5%). This is price performance, not total return or investment advice.",
   "comparison": [
     {
       "title": "IREN \u2014 nearer-term AI-cloud execution",
