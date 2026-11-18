@@ -429,6 +429,12 @@
       minimumFractionDigits: 2,
       maximumFractionDigits: 2
     });
+    const distributionUsd = new Intl.NumberFormat('en-US', {
+      style: 'currency',
+      currency: 'USD',
+      minimumFractionDigits: 4,
+      maximumFractionDigits: 4
+    });
     const btcusd = new Intl.NumberFormat('en-US', {
       style: 'currency',
       currency: 'USD',
@@ -558,7 +564,7 @@
         <tr>
           <td>${formatDate(row.date)}</td>
           <td>${row.etf}</td>
-          <td>${usd.format(row.distribution)}</td>
+          <td>${distributionUsd.format(row.distribution)}</td>
           <td>${usd.format(row.close)}</td>
           <td class="${row.annualized_distribution_pct >= 0 ? 'positive' : 'negative'}">${formatPct(row.annualized_distribution_pct)}</td>
         </tr>
