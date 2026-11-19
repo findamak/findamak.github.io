@@ -10,6 +10,10 @@ for GitHub Pages.
 from __future__ import annotations
 
 import json
+import re
+import html
+import sys
+import subprocess
 from datetime import date, datetime, timezone
 from pathlib import Path
 from typing import Any
@@ -291,6 +295,43 @@ def compute_payload(
     }
 
 
+AUM_SOURCES = {
+    'btci': 'https://neosfunds.com/btci/',
+    'bito': 'https://www.proshares.com/our-etfs/strategic/bito',
+}
+
+
+def parse_net_assets(page: str) -> int:
+    """Read issuer-reported net assets (USD), never market cap or flows."""
+    text = html.unescape(re.sub(r'<[^>]+>', ' ', page))
+    match = re.search(r'Net\s+Assets\s+\$\s*([\d,]+(?:\.\d+)?)', text, re.I)
+    if not match:
+        raise ValueError('Issuer Net Assets field missing')
+    value = int(float(match.group(1).replace(',', '')))
+    if value <= 0:
+        raise ValueError('Invalid issuer net assets')
+    return value
+
+
+def download_aum() -> dict[str, Any]:
+    """Failures remain unavailable without preventing price-data updates."""
+    result = {}
+    for prefix, url in AUM_SOURCES.items():
+        try:
+            # Issuer WAF rejects urllib's TLS client; curl is also used by site jobs.
+            page = subprocess.run(
+                ['curl', '-fsSL', '--max-time', '30', url],
+                check=True, capture_output=True, text=True, timeout=35,
+            ).stdout
+            value = parse_net_assets(page)
+            result[prefix] = {'usd': value, 'source': url,
+                              'retrieved_at': datetime.now(timezone.utc).isoformat()}
+        except Exception as exc:
+            print(f'Warning: {prefix} AUM unavailable: {exc}', file=sys.stderr)
+            result[prefix] = {'usd': None, 'source': url, 'retrieved_at': None}
+    return result
+
+
 def main() -> None:
     etf_data = {
         prefix: download_yahoo_history(config["symbol"], prefix)
@@ -298,6 +339,7 @@ def main() -> None:
     }
     btcusd_df = download_btcusd_history()
     payload = compute_payload(etf_data, btcusd_df)
+    payload['aum'] = download_aum()
 
     OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
     OUTPUT_PATH.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")

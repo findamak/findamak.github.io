@@ -338,6 +338,8 @@
         <div class="summary-item"><span class="label">BITO return</span><span class="value" id="bitoReturn">--</span></div>
         <div class="summary-item"><span class="label">BTC/USD return</span><span class="value" id="btcusdReturn">--</span></div>
         <div class="summary-item"><span class="label">Leader</span><span class="value" id="leader">--</span></div>
+        <div class="summary-item"><span class="label"><a href="https://neosfunds.com/btci/" title="Assets under management: issuer-reported net assets">BTCI AUM (USD)</a></span><span class="value" id="btciAum">--</span></div>
+        <div class="summary-item"><span class="label"><a href="https://www.proshares.com/our-etfs/strategic/bito" title="Assets under management: issuer-reported net assets">BITO AUM (USD)</a></span><span class="value" id="bitoAum">--</span></div>
         <div class="summary-item"><span class="label">Last updated</span><span class="value" id="lastUpdated">--</span></div>
       </aside>
     </div>
@@ -484,6 +486,15 @@
       btcusdReturn.textContent = formatPct(latest.btcusd_return_pct);
       btcusdReturn.classList.add(latest.btcusd_return_pct >= 0 ? 'positive' : 'negative');
       document.getElementById('leader').textContent = `${latest.leader} by ${formatPct(Math.abs(latest.leader_margin_pct))}`;
+      ['btci', 'bito'].forEach(function (key) {
+        const record = (data.aum || {})[key];
+        const element = document.getElementById(key + 'Aum');
+        element.textContent = record && Number.isFinite(record.usd) && record.usd > 0
+          ? btcusd.format(record.usd) : 'Unavailable';
+        element.title = record && record.retrieved_at
+          ? 'Issuer-reported net assets; checked ' + formatUpdated(record.retrieved_at) + '. Issuer reporting may lag.'
+          : 'Issuer net assets unavailable';
+      });
       document.getElementById('lastUpdated').textContent = formatUpdated(data.updated_at);
     }
 
