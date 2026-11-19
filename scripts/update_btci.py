@@ -58,6 +58,41 @@ def _get_json(url: str) -> dict[str, Any]:
         return json.load(response)
 
 
+def repair_bito_split(result: dict[str, Any]) -> None:
+    """Bridge Yahoo's delayed 2026-11-19 1:2 reverse-split adjustment.
+
+    Confirmed by https://www.proshares.com/press-releases/proshares-announces-share-splits
+    Inspect each price series independently; never double-adjust repaired history.
+    Ambiguous boundary moves fail closed rather than publishing a fabricated gain.
+    """
+    boundary = date(2026, 11, 19)
+    dates = [datetime.fromtimestamp(int(t), timezone.utc).date() for t in result['timestamp']]
+    if boundary not in dates or date(2026, 11, 18) not in dates:
+        return
+    before = dates.index(date(2026, 11, 18))
+    after = dates.index(boundary)
+    indicators = result['indicators']
+    series = [('close', indicators['quote'][0].get('close', []))]
+    if indicators.get('adjclose'):
+        series.append(('adjclose', indicators['adjclose'][0].get('adjclose', [])))
+    for name, values in series:
+        if len(values) <= after or not values[before] or not values[after]:
+            raise RuntimeError('Missing BITO split-boundary prices')
+        ratio = values[after] / values[before]
+        if 0.8 <= ratio <= 1.2:
+            continue  # Vendor already adjusted this series.
+        if not 1.6 <= ratio <= 2.4:
+            raise RuntimeError(f'Ambiguous BITO split adjustment: {name} ratio {ratio}')
+        for i, day in enumerate(dates):
+            if day < boundary and values[i] is not None:
+                values[i] *= 2
+        if name == 'close':
+            # Match dividend and raw-close share bases for distribution yields.
+            for event in result.get('events', {}).get('dividends', {}).values():
+                if datetime.fromtimestamp(int(event['date']), timezone.utc).date() < boundary:
+                    event['amount'] *= 2
+
+
 def download_yahoo_history(symbol: str, prefix: str) -> tuple[pd.DataFrame, dict[str, Any]]:
     """Download all available daily closes and dividend events for a Yahoo Finance symbol."""
     end_ts = int(datetime.now(timezone.utc).timestamp())
@@ -79,6 +114,8 @@ def download_yahoo_history(symbol: str, prefix: str) -> tuple[pd.DataFrame, dict
         raise RuntimeError(f"No Yahoo Finance chart data returned for {symbol}")
 
     result = results[0]
+    if symbol == 'BITO':
+        repair_bito_split(result)
     timestamps = result.get("timestamp") or []
     quote = (result.get("indicators", {}).get("quote") or [{}])[0]
     adjclose = (result.get("indicators", {}).get("adjclose") or [{}])[0].get("adjclose") or []
