@@ -11,7 +11,6 @@ from datetime import datetime
 # Define tickers and their display info
 TICKERS = {
     'IREN': {'name': 'Iris Energy', 'type': 'stock'},
-    'CIFR': {'name': 'Cipher Mining', 'type': 'stock'},
     'LLY': {'name': 'Eli Lilly', 'type': 'stock'},
     'BTCI': {'name': 'Neos Bitcoin High Income ETF', 'type': 'stock'},
     'IBTC.XA': {'name': 'Monochrome Bitcoin ETF', 'type': 'stock'},
