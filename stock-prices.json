@@ -3,22 +3,22 @@
     {
       "symbol": "IREN",
       "name": "Iris Energy",
-      "price": 12.31,
-      "change": -14.57,
+      "price": 12.225,
+      "change": -15.16,
       "type": "stock"
     },
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1351.6,
-      "change": 0.04,
+      "price": 1351.96,
+      "change": 0.06,
       "type": "stock"
     },
     {
       "symbol": "BTCI",
       "name": "Neos Bitcoin High Income ETF",
-      "price": 22.8096,
-      "change": -6.29,
+      "price": 22.755,
+      "change": -6.51,
       "type": "stock"
     },
     {
@@ -66,71 +66,71 @@
     {
       "symbol": "GPIX",
       "name": "Goldman Sachs Income ETF",
-      "price": 50.9258,
-      "change": -2.18,
+      "price": 50.75,
+      "change": -2.52,
       "type": "stock"
     },
     {
       "symbol": "QQQI",
       "name": "Neos Nasdaq 100 Income ETF",
-      "price": 46.27,
-      "change": -3.88,
+      "price": 46.13,
+      "change": -4.18,
       "type": "stock"
     },
     {
       "symbol": "MRVL",
       "name": "Marvell Technology",
-      "price": 124.835,
-      "change": -9.85,
+      "price": 124.15,
+      "change": -10.34,
       "type": "stock"
     },
     {
       "symbol": "GLW",
       "name": "Corning Inc",
-      "price": 95.9415,
-      "change": -9.46,
+      "price": 95.345,
+      "change": -10.03,
       "type": "stock"
     },
     {
       "symbol": "SPX",
       "name": "S&P 500",
-      "price": 7010.7402,
-      "change": -2.3,
+      "price": 6992.1499,
+      "change": -2.56,
       "type": "index"
     },
     {
       "symbol": "NDX",
       "name": "NASDAQ 100",
-      "price": 25449.6719,
-      "change": -4.03,
+      "price": 25367.8281,
+      "change": -4.33,
       "type": "index"
     },
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3535.3999,
-      "change": -4.07,
+      "price": 3526.3,
+      "change": -4.32,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 41.355,
-      "change": -6.69,
+      "price": 41.245,
+      "change": -6.93,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 89.46,
-      "change": -2.74,
+      "price": 89.51,
+      "change": -2.69,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 82.99,
-      "change": -0.26,
+      "price": 83.07,
+      "change": -0.17,
       "type": "commodity"
     },
     {
@@ -141,5 +141,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-21T06:10:12.851939"
+  "lastUpdated": "2026-11-21T06:15:13.361215"
 }
