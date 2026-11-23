@@ -1,25 +1,25 @@
 {
-  "lastUpdated": "2026-11-23T07:07:01.290804+00:00",
+  "lastUpdated": "2026-11-23T08:07:01.726502+00:00",
   "indices": {
     "btc": {
-      "value": 38,
-      "classification": "Fear",
+      "value": 44,
+      "classification": "Neutral",
       "source": "https://cfgi.io/bitcoin-fear-greed-index/",
       "sourceName": "CFGI",
       "timeframe": "1d",
-      "sourcePublishedAt": "2026-11-23T06:51:22+00:00",
+      "sourcePublishedAt": "2026-11-23T07:51:20+00:00",
       "status": "ok",
-      "lastCheckedAt": "2026-11-23T07:07:01.290804+00:00"
+      "lastCheckedAt": "2026-11-23T08:07:01.726502+00:00"
     },
     "eth": {
-      "value": 34,
+      "value": 38,
       "classification": "Fear",
       "source": "https://cfgi.io/ethereum-fear-greed-index/",
       "sourceName": "CFGI",
       "timeframe": "1d",
-      "sourcePublishedAt": "2026-11-23T06:51:22+00:00",
+      "sourcePublishedAt": "2026-11-23T07:51:20+00:00",
       "status": "ok",
-      "lastCheckedAt": "2026-11-23T07:07:01.290804+00:00"
+      "lastCheckedAt": "2026-11-23T08:07:01.726502+00:00"
     }
   }
 }
