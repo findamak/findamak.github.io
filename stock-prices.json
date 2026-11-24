@@ -24,43 +24,43 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 9.21,
+      "price": 9.24,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 18.64,
-      "change": 0.05,
+      "price": 18.625,
+      "change": -0.03,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 107.95,
-      "change": 1.66,
+      "price": 108.0,
+      "change": 1.7,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 116.2,
-      "change": 2.45,
+      "price": 116.34,
+      "change": 2.57,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 72.82,
-      "change": 2.72,
+      "price": 72.87,
+      "change": 2.79,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 58.75,
-      "change": 4.0,
+      "price": 58.83,
+      "change": 4.14,
       "type": "stock"
     },
     {
@@ -108,38 +108,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3654.3999,
+      "price": 3660.6001,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 43.285,
+      "price": 43.34,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 86.82,
+      "price": 86.55,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 80.34,
+      "price": 80.11,
       "change": 0,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.5075,
-      "change": 0.11,
+      "price": 1.5069,
+      "change": 0.07,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-24T12:20:13.628628"
+  "lastUpdated": "2026-11-24T12:25:13.310607"
 }
