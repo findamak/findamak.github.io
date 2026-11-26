@@ -24,15 +24,15 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 9.11,
+      "price": 9.15,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 18.5,
-      "change": 2.55,
+      "price": 18.47,
+      "change": 2.38,
       "type": "stock"
     },
     {
@@ -45,22 +45,22 @@
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 115.74,
-      "change": 0.43,
+      "price": 115.68,
+      "change": 0.38,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 72.47,
-      "change": 0.33,
+      "price": 72.41,
+      "change": 0.25,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 57.43,
-      "change": 0.54,
+      "price": 57.37,
+      "change": 0.44,
       "type": "stock"
     },
     {
@@ -108,38 +108,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3605.7,
-      "change": 1.23,
+      "price": 3610.0,
+      "change": 1.35,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 41.725,
-      "change": 2.37,
+      "price": 41.85,
+      "change": 2.67,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 90.78,
-      "change": -0.68,
+      "price": 90.86,
+      "change": -0.59,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 84.0,
-      "change": 2.38,
+      "price": 84.09,
+      "change": 2.49,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.5057,
-      "change": -0.11,
+      "price": 1.5053,
+      "change": -0.14,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-26T13:20:12.622453"
+  "lastUpdated": "2026-11-26T13:25:13.186335"
 }
