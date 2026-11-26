@@ -1,0 +1,3 @@
+# Generated Python bytecode must not block scheduled clean-tree publishers.
+__pycache__/
+*.py[cod]

@@ -73,6 +73,11 @@ they are never merged or overwritten. The wrapper never stages, commits, resets,
 or rebases the shared source checkout and never changes persistent git identity.
 Temporary worktrees are removed on success/failure.
 
+Generated Python `__pycache__/` directories and `*.py[cod]` files are ignored by
+Git so imports or test runs cannot block the clean-source guard. Real untracked,
+staged, or modified source files still stop publication. Regression tests create
+cache files before exercising the publisher and also verify real dirty-file refusal.
+
 **The source checkout/index is deliberately left untouched after a scheduled
 push**, so its local main may be behind origin/main until the next normal
 `git pull --ff-only`. This avoids racing other cron scripts sharing that checkout.

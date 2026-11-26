@@ -191,6 +191,18 @@ class WrapperTests(unittest.TestCase):
             run('git', 'remote', 'add', 'origin', str(remote), cwd=root).check_returncode()
             run('git', 'push', 'origin', 'main', cwd=root).check_returncode()
             original = run('git', 'rev-parse', 'HEAD', cwd=root).stdout.strip()
+            # Python imports/tests must not block the next scheduled publication.
+            if (ROOT / '.gitignore').exists():
+                (root / '.gitignore').write_bytes((ROOT / '.gitignore').read_bytes())
+                run('git', 'add', '.gitignore', cwd=root).check_returncode()
+                run('git', '-c', 'user.name=Test', '-c', 'user.email=test@example.org',
+                    'commit', '-m', 'ignore generated caches', cwd=root).check_returncode()
+                run('git', 'push', 'origin', 'main', cwd=root).check_returncode()
+                original = run('git', 'rev-parse', 'HEAD', cwd=root).stdout.strip()
+            for directory in ('scripts', 'tests'):
+                cache = root / directory / '__pycache__'
+                cache.mkdir(parents=True)
+                (cache / 'module.cpython-311.pyc').write_bytes(b'test cache')
             result = run('bash', str(entry), cwd=root)
             if race == "kids":
                 self.assertNotEqual(result.returncode, 0)
