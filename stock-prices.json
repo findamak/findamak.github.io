@@ -24,7 +24,7 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 9.1,
+      "price": 9.12,
       "change": 0,
       "type": "stock"
     },
@@ -52,15 +52,15 @@
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 72.64,
-      "change": 0.17,
+      "price": 72.61,
+      "change": 0.12,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 57.49,
-      "change": -0.24,
+      "price": 57.46,
+      "change": -0.29,
       "type": "stock"
     },
     {
@@ -108,15 +108,15 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3598.2,
-      "change": 1.76,
+      "price": 3594.8,
+      "change": 1.67,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 41.825,
-      "change": 4.43,
+      "price": 41.795,
+      "change": 4.35,
       "type": "commodity"
     },
     {
@@ -129,17 +129,17 @@
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 85.09,
-      "change": 1.68,
+      "price": 85.11,
+      "change": 1.71,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.5078,
-      "change": -0.06,
+      "price": 1.5075,
+      "change": -0.08,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-27T11:30:13.613231"
+  "lastUpdated": "2026-11-27T11:35:12.842144"
 }
