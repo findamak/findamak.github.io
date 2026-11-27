@@ -10,8 +10,8 @@
     {
       "symbol": "LLY",
       "name": "Eli Lilly",
-      "price": 1392.49,
-      "change": 0.02,
+      "price": 1392.38,
+      "change": 0.01,
       "type": "stock"
     },
     {
@@ -122,15 +122,15 @@
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 90.47,
-      "change": -4.38,
+      "price": 90.33,
+      "change": -4.52,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 83.09,
-      "change": -0.71,
+      "price": 83.03,
+      "change": -0.78,
       "type": "commodity"
     },
     {
@@ -141,5 +141,5 @@
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-28T05:45:12.995753"
+  "lastUpdated": "2026-11-28T05:50:13.091454"
 }
