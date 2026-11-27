@@ -24,43 +24,43 @@
     {
       "symbol": "IBTC.XA",
       "name": "Monochrome Bitcoin ETF",
-      "price": 9.11,
+      "price": 9.1,
       "change": 0,
       "type": "stock"
     },
     {
       "symbol": "VBTC.AX",
       "name": "Vaneck Bitcoin ETF",
-      "price": 18.35,
-      "change": -0.7,
+      "price": 18.33,
+      "change": -0.81,
       "type": "stock"
     },
     {
       "symbol": "VAS.AX",
       "name": "Vanguard Australian Shares Index ETF",
-      "price": 109.09,
-      "change": 0.44,
+      "price": 109.04,
+      "change": 0.4,
       "type": "stock"
     },
     {
       "symbol": "VEU.AX",
       "name": "Vanguard FTSE All-world ex-US ETF",
-      "price": 115.88,
-      "change": 0.17,
+      "price": 115.68,
+      "change": 0,
       "type": "stock"
     },
     {
       "symbol": "IVV.AX",
       "name": "iShares S&P 500 ETF",
-      "price": 72.58,
-      "change": 0.08,
+      "price": 72.55,
+      "change": 0.04,
       "type": "stock"
     },
     {
       "symbol": "NDQ.AX",
       "name": "BetaShares NASDAQ 100 ETF",
-      "price": 57.42,
-      "change": -0.36,
+      "price": 57.37,
+      "change": -0.45,
       "type": "stock"
     },
     {
@@ -108,38 +108,38 @@
     {
       "symbol": "GOLD",
       "name": "Gold/oz",
-      "price": 3594.7,
-      "change": 1.67,
+      "price": 3594.5,
+      "change": 1.66,
       "type": "commodity"
     },
     {
       "symbol": "SILVER",
       "name": "Silver/oz",
-      "price": 41.75,
-      "change": 4.24,
+      "price": 41.745,
+      "change": 4.23,
       "type": "commodity"
     },
     {
       "symbol": "BZ",
       "name": "Brent Crude",
-      "price": 91.67,
-      "change": -3.11,
+      "price": 91.62,
+      "change": -3.16,
       "type": "commodity"
     },
     {
       "symbol": "CL",
       "name": "WTI Crude",
-      "price": 84.98,
-      "change": 1.55,
+      "price": 84.93,
+      "change": 1.49,
       "type": "commodity"
     },
     {
       "symbol": "USDAUD",
       "name": "USD/AUD",
-      "price": 1.5063,
-      "change": -0.16,
+      "price": 1.5074,
+      "change": -0.09,
       "type": "forex"
     }
   ],
-  "lastUpdated": "2026-11-27T11:05:13.678019"
+  "lastUpdated": "2026-11-27T11:10:13.481436"
 }
